@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Gaztelu Bira</string>
+
+    <string name="back_center">Back center</string>
+    <string name="back_center_left">Back center left</string>
+    <string name="back_center_right">Back center right</string>
+    <string name="description_insert_player_image">Insert player image</string>
+    <string name="description_camera_icon">Camera icon</string>
+    <string name="goalkeeper">Goalkeeper</string>
+    <string name="good_news">Good news</string>
+    <string name="left_striker">Left striker</string>
+    <string name="loading_resources">Loading resources</string>
+    <string name="mid_attacking_center">Mid attacking center</string>
+    <string name="mid_attacking_left">Mid attacking left</string>
+    <string name="mid_attacking_right">Mid attacking right</string>
+    <string name="mid_defensive_center">Mid defensive center</string>
+    <string name="mid_defensive_left">Mid defensive left</string>
+    <string name="mid_defensive_right">Mid defensive right</string>
+    <string name="mid_center">Mid center</string>
+    <string name="mid_center_left">Mid center left</string>
+    <string name="mid_center_right">Mid center right</string>
+    <string name="right_striker">Right striker</string>
+    <string name="second_striker">Second striker</string>
+    <string name="striker">Striker</string>
+    <string name="update_available">There is an update available</string>
+    <string name="update">Update</string>
+    <string name="wing_back_left">Wing back left</string>
+    <string name="wing_back_right">Wing back right</string>
+    <string name="winger_left">Winger left</string>
+    <string name="winger_right">Winger right</string>
+</resources>
