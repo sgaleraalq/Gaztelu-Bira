@@ -18,12 +18,15 @@ package com.sgale.gaztelubira.core.designsystem.style
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight.Companion.Normal
+import com.sgale.gaztelubira.core.designsystem.R
 
 @Composable
 fun gBTextFontFamily() = FontFamily(
-//    Font(Res.font.roboto_medium, weight = Normal),
-//    Font(Res.font.test_font, weight = Normal)
+    Font(R.font.roboto_medium, weight = Normal),
+    Font(R.font.test_font, weight = Normal)
 )
 
 @Composable

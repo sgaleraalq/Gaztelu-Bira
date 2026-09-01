@@ -16,6 +16,9 @@
 
 package com.sgale.gaztelubira.core.designsystem.icons
 
+import com.sgale.gaztelubira.core.designsystem.R
+
+
 val GBIcons.GBMatchesBottomTab by lazy {
-//    Res.drawable.ic_matches
+    R.drawable.ic_matches
 }

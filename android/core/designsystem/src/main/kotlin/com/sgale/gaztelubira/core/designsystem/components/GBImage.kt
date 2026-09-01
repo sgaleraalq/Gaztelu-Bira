@@ -46,6 +46,8 @@ import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.ManagerPla
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Undefined
 import com.sgale.gaztelubira.core.designsystem.utils.shimmerEffect
+import com.sgale.gaztelubira.core.domain.model.player.Position
+import com.sgale.gaztelubira.core.domain.model.player.Position.GoalKeeper
 
 enum class SaverStatus {
     FacePlayer, BodyPlayer, ManagerPlayer, Team, Undefined
@@ -195,11 +197,13 @@ fun GBAsyncImage(
     )
 }
 
-//fun getSaverImage(
-//    position: Position?
-//): Int {
-//    return when (position) {
-//        GoalKeeper -> R.drawable.img_body_player // todo
-//        else -> R.drawable.img_body_player
-//    }
-//}
+@DrawableRes
+fun getSaverImage(
+    position: Position?
+): Int {
+    return when (position) {
+        GoalKeeper -> R.drawable.img_body_player // todo
+        null -> R.drawable.img_body_player
+        else -> R.drawable.img_body_player
+    }
+}

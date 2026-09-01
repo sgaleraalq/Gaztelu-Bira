@@ -44,14 +44,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.sgale.gaztelubira.core.designsystem.style.gray_box_in_black_bg
-import com.gbmultiplatform.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.designsystem.R
-import gbmultiplatform.core.design_system.generated.resources.Res
-import gbmultiplatform.core.design_system.generated.resources.ic_camera
-import gbmultiplatform.core.design_system.generated.resources.ic_close
-import gbmultiplatform.core.design_system.generated.resources.ic_garbage
-import org.jetbrains.compose.resources.painterResource
+import com.sgale.gaztelubira.core.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.core.domain.utils.CommonImage
 
 @Composable
 fun GBInsertImage(

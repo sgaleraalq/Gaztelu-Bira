@@ -1,5 +1,6 @@
 import extensions.getComponentVersionName
 import extensions.getCustomVersionCode
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.convention.application)
@@ -12,6 +13,14 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
 }
 
+val localProperties = Properties().apply {
+    rootProject.file("local.properties")
+        .takeIf { it.exists() }
+        ?.inputStream()
+        ?.use { load(it) }
+}
+val googleClientId: String = localProperties.getProperty("googleClientId").orEmpty()
+
 android {
     namespace = "com.sgale.gaztelubira"
 
@@ -19,6 +28,8 @@ android {
         applicationId = "com.sgale.gaztelubira"
         versionCode = getCustomVersionCode()
         versionName = getComponentVersionName()
+
+        buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$googleClientId\"")
     }
 
     buildTypes {
@@ -29,12 +40,13 @@ android {
 }
 
 dependencies {
-    implementation(libs.nav3.runtime)
-    implementation(libs.nav3.ui)
     implementation(libs.androidx.lifecycle.runtime)
 
     /**
      * Project
      */
+    implementation(project(":core:common"))
+    implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:screens"))
 }

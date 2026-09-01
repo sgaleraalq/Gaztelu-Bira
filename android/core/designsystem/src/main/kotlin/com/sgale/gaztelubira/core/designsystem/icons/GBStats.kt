@@ -16,6 +16,9 @@
 
 package com.sgale.gaztelubira.core.designsystem.icons
 
+import com.sgale.gaztelubira.core.designsystem.R
+
+
 val GBIcons.GBStatsBottomTab by lazy {
-//    Res.drawable.ic_social_leaderboard
+    R.drawable.ic_social_leaderboard
 }

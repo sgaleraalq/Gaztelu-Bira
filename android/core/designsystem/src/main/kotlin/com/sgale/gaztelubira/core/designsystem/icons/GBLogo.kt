@@ -16,6 +16,9 @@
 
 package com.sgale.gaztelubira.core.designsystem.icons
 
+import com.sgale.gaztelubira.core.designsystem.R
+
+
 val GBIcons.GBLogo by lazy {
-//    Res.drawable.ic_gaztelu_bira
+    R.drawable.ic_gaztelu_bira
 }

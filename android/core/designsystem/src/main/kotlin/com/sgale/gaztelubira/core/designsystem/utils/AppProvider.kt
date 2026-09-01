@@ -16,11 +16,14 @@
 
 package com.sgale.gaztelubira.core.designsystem.utils
 
-import gbmultiplatform.core.design_system.generated.resources.Res
-import gbmultiplatform.core.design_system.generated.resources.app_name
-import gbmultiplatform.core.design_system.generated.resources.img_gaztelu_bira
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import com.sgale.gaztelubira.core.designsystem.R
 
 object AppProvider {
-    val APP_LOGO = Res.drawable.img_gaztelu_bira
-    val APP_NAME = Res.string.app_name
+    @DrawableRes
+    val APP_LOGO = R.drawable.img_gaztelu_bira
+
+    @StringRes
+    val APP_NAME = R.string.app_name
 }

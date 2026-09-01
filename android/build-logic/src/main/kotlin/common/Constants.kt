@@ -40,6 +40,9 @@ internal object Constants {
     internal const val KOTLIN_SERIALIZATION = "kotlinx-serialization"
     internal const val NAV3_RUNTIME = "nav3-runtime"
     internal const val NAV3_UI = "nav3-ui"
+    internal const val ROOM_COMPILER = "room-compiler"
+    internal const val ROOM_KTX = "room-ktx"
+    internal const val ROOM_RUNTIME = "room-runtime"
 
     /**
      * Firebase

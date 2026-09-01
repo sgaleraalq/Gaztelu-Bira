@@ -17,6 +17,20 @@
 package com.sgale.gaztelubira.core.designsystem.model
 
 import androidx.compose.runtime.Stable
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.BackCenter
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.BackCenterLeft
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.BackCenterRight
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.Goalkeeper
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.LeftStriker
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.MidAttackingLeft
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.MidAttackingRight
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.MidDefensiveCenter
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.MidDefensiveLeft
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.MidDefensiveRight
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.RightStriker
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.WingBackLeft
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.WingBackRight
+import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.WingerLeft
 
 private const val FOUR_THREE_THREE = "4-3-3"
 private const val FOUR_FOUR_TWO = "4-4-2"
@@ -48,17 +62,17 @@ sealed class LineUpFormation(
     data object FourThreeThree : LineUpFormation(
         FOUR_THREE_THREE,
         listOf(
-//            PlayerPosition(1, Goalkeeper, 0.5f, 0.9f),
-//            PlayerPosition(2, WingBackLeft, 0.15f, 0.75f),
-//            PlayerPosition(3, BackCenterLeft, 0.4f, 0.75f),
-//            PlayerPosition(4, BackCenterRight, 0.6f, 0.75f),
-//            PlayerPosition(5, WingBackRight, 0.85f, 0.75f),
-//            PlayerPosition(8, MidDefensiveLeft, 0.2f, 0.45f),
-//            PlayerPosition(6, MidDefensiveCenter, 0.5f, 0.55f),
-//            PlayerPosition(7, MidAttackingRight, 0.8f, 0.45f),
-//            PlayerPosition(9, WingerLeft, 0.2f, 0.2f),
-//            PlayerPosition(10, RightStriker, 0.5f, 0.15f),
-//            PlayerPosition(11, LeftStriker, 0.8f, 0.2f)
+            PlayerPosition(1, Goalkeeper, 0.5f, 0.9f),
+            PlayerPosition(2, WingBackLeft, 0.15f, 0.75f),
+            PlayerPosition(3, BackCenterLeft, 0.4f, 0.75f),
+            PlayerPosition(4, BackCenterRight, 0.6f, 0.75f),
+            PlayerPosition(5, WingBackRight, 0.85f, 0.75f),
+            PlayerPosition(8, MidDefensiveLeft, 0.2f, 0.45f),
+            PlayerPosition(6, MidDefensiveCenter, 0.5f, 0.55f),
+            PlayerPosition(7, MidAttackingRight, 0.8f, 0.45f),
+            PlayerPosition(9, WingerLeft, 0.2f, 0.2f),
+            PlayerPosition(10, RightStriker, 0.5f, 0.15f),
+            PlayerPosition(11, LeftStriker, 0.8f, 0.2f)
         )
     )
 
@@ -68,17 +82,17 @@ sealed class LineUpFormation(
     data object FourFourTwo : LineUpFormation(
         FOUR_FOUR_TWO,
         listOf(
-//            PlayerPosition(1, Goalkeeper, 0.5f, 0.9f),
-//            PlayerPosition(2, WingBackLeft, 0.15f, 0.75f),
-//            PlayerPosition(3, BackCenterLeft, 0.4f, 0.75f),
-//            PlayerPosition(4, BackCenterRight, 0.6f, 0.75f),
-//            PlayerPosition(5, WingBackRight, 0.85f, 0.75f),
-//            PlayerPosition(8, MidAttackingLeft, 0.15f, 0.4f),
-//            PlayerPosition(6, MidDefensiveLeft, 0.35f, 0.5f),
-//            PlayerPosition(7, MidDefensiveRight, 0.65f, 0.5f),
-//            PlayerPosition(9, MidAttackingRight, 0.85f, 0.4f),
-//            PlayerPosition(10, LeftStriker, 0.3f, 0.15f),
-//            PlayerPosition(11, RightStriker, 0.7f, 0.15f)
+            PlayerPosition(1, Goalkeeper, 0.5f, 0.9f),
+            PlayerPosition(2, WingBackLeft, 0.15f, 0.75f),
+            PlayerPosition(3, BackCenterLeft, 0.4f, 0.75f),
+            PlayerPosition(4, BackCenterRight, 0.6f, 0.75f),
+            PlayerPosition(5, WingBackRight, 0.85f, 0.75f),
+            PlayerPosition(8, MidAttackingLeft, 0.15f, 0.4f),
+            PlayerPosition(6, MidDefensiveLeft, 0.35f, 0.5f),
+            PlayerPosition(7, MidDefensiveRight, 0.65f, 0.5f),
+            PlayerPosition(9, MidAttackingRight, 0.85f, 0.4f),
+            PlayerPosition(10, LeftStriker, 0.3f, 0.15f),
+            PlayerPosition(11, RightStriker, 0.7f, 0.15f)
         )
     )
 
@@ -88,17 +102,17 @@ sealed class LineUpFormation(
     data object FiveThreeTwo : LineUpFormation(
         FIVE_THREE_TWO,
         listOf(
-//            PlayerPosition(1, Goalkeeper, 0.5f, 0.9f),
-//            PlayerPosition(2, WingBackLeft, 0.12f, 0.60f),
-//            PlayerPosition(3, BackCenterLeft, 0.25f, 0.75f),
-//            PlayerPosition(4, BackCenter, 0.5f, 0.75f),
-//            PlayerPosition(5, BackCenterRight, 0.75f, 0.75f),
-//            PlayerPosition(6, WingBackRight, 0.88f, 0.60f),
-//            PlayerPosition(7, MidDefensiveLeft, 0.25f, 0.40f),
-//            PlayerPosition(8, MidDefensiveCenter, 0.5f, 0.50f),
-//            PlayerPosition(9, MidDefensiveRight, 0.75f, 0.40f),
-//            PlayerPosition(10, LeftStriker, 0.35f, 0.20f),
-//            PlayerPosition(11, RightStriker, 0.65f, 0.20f)
+            PlayerPosition(1, Goalkeeper, 0.5f, 0.9f),
+            PlayerPosition(2, WingBackLeft, 0.12f, 0.60f),
+            PlayerPosition(3, BackCenterLeft, 0.25f, 0.75f),
+            PlayerPosition(4, BackCenter, 0.5f, 0.75f),
+            PlayerPosition(5, BackCenterRight, 0.75f, 0.75f),
+            PlayerPosition(6, WingBackRight, 0.88f, 0.60f),
+            PlayerPosition(7, MidDefensiveLeft, 0.25f, 0.40f),
+            PlayerPosition(8, MidDefensiveCenter, 0.5f, 0.50f),
+            PlayerPosition(9, MidDefensiveRight, 0.75f, 0.40f),
+            PlayerPosition(10, LeftStriker, 0.35f, 0.20f),
+            PlayerPosition(11, RightStriker, 0.65f, 0.20f)
         )
     )
 }

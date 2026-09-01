@@ -1,14 +1,5 @@
 import org.gradle.api.initialization.resolve.RepositoriesMode.FAIL_ON_PROJECT_REPOS
 
-include(":core:domain")
-
-
-include(":core:designsystem")
-
-
-include(":core:screens")
-
-
 pluginManagement {
     includeBuild("build-logic")
 
@@ -28,4 +19,13 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Gaztelu Bira"
+
 include(":gaztelu_bira")
+
+include(":core:common")
+include(":core:data")
+include(":core:designsystem")
+include(":core:domain")
+include(":core:navigation")
+include(":core:preview")
+include(":core:screens")

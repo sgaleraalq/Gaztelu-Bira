@@ -19,12 +19,22 @@ package com.sgale.gaztelubira.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
+import com.sgale.gaztelubira.core.data.auth.ActivityBridge
 import com.sgale.gaztelubira.core.designsystem.style.GBTheme
+import com.sgale.gaztelubira.core.screens.MainScreen
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class GazteluBiraActivity: ComponentActivity() {
+@AndroidEntryPoint
+class GazteluBiraActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var activityBridge: ActivityBridge
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activityBridge.setActivity(this)
+
         setContent {
             GBTheme {
                 MainScreen()
@@ -32,20 +42,8 @@ class GazteluBiraActivity: ComponentActivity() {
         }
     }
 
-    @Composable
-    private fun MainScreen(
-//        mainViewModel: MainViewModel = koinViewModel<MainViewModel>()
-    ) {
-//        val navigationState = rememberNavigationState()
-//
-//        LaunchedEffect(true) {
-//            mainViewModel.init(navigationState)
-//        }
-//
-//        CompositionLocalProvider(LocalMainViewModel provides mainViewModel) {
-//            Scaffold { _ ->
-//                MainNavigation(navigationState)
-//            }
-//        }
+    override fun onDestroy() {
+        activityBridge.clear()
+        super.onDestroy()
     }
 }
