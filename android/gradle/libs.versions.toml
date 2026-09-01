@@ -23,7 +23,6 @@ serialization = "2.4.10"
 serializationKotlinx = "1.11.0"
 coroutines = "1.11.0"
 okhttp = "5.5.0"
-pdfbox = "2.0.27.0"
 room = "2.8.4"
 firebaseBom = "34.18.0"
 firebaseCrashlyticsPlugin = "3.0.8"
@@ -52,9 +51,6 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 firebase-config = { group = "com.google.firebase", name = "firebase-config" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 firebase-ai = { group = "com.google.firebase", name = "firebase-ai" }
-
-## PDF
-pdfbox-android = { group = "com.tom-roush", name = "pdfbox-android", version.ref = "pdfbox" }
 
 ## Room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

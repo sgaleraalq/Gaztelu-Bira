@@ -1,5 +1,11 @@
 import org.gradle.api.initialization.resolve.RepositoriesMode.FAIL_ON_PROJECT_REPOS
 
+include(":core:designsystem")
+
+
+include(":core:screens")
+
+
 pluginManagement {
     includeBuild("build-logic")
 
