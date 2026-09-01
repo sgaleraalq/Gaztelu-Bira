@@ -19,12 +19,33 @@ package com.sgale.gaztelubira.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.Composable
+import com.sgale.gaztelubira.core.designsystem.style.GBTheme
 
 class GazteluBiraActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
+            GBTheme {
+                MainScreen()
+            }
         }
+    }
+
+    @Composable
+    private fun MainScreen(
+//        mainViewModel: MainViewModel = koinViewModel<MainViewModel>()
+    ) {
+//        val navigationState = rememberNavigationState()
+//
+//        LaunchedEffect(true) {
+//            mainViewModel.init(navigationState)
+//        }
+//
+//        CompositionLocalProvider(LocalMainViewModel provides mainViewModel) {
+//            Scaffold { _ ->
+//                MainNavigation(navigationState)
+//            }
+//        }
     }
 }
