@@ -18,38 +18,7 @@ package com.sgale.gaztelubira.core.domain.model.player
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import gbmultiplatform.domain.generated.resources.Res
-import gbmultiplatform.domain.generated.resources.assists
-import gbmultiplatform.domain.generated.resources.clean_sheets
-import gbmultiplatform.domain.generated.resources.fails
-import gbmultiplatform.domain.generated.resources.games_played
-import gbmultiplatform.domain.generated.resources.goals
-import gbmultiplatform.domain.generated.resources.goals_provoked
-import gbmultiplatform.domain.generated.resources.ic_assists
-import gbmultiplatform.domain.generated.resources.ic_clean_sheets
-import gbmultiplatform.domain.generated.resources.ic_fail
-import gbmultiplatform.domain.generated.resources.ic_games_played
-import gbmultiplatform.domain.generated.resources.ic_goal
-import gbmultiplatform.domain.generated.resources.ic_goal_provoked
-import gbmultiplatform.domain.generated.resources.ic_penalties
-import gbmultiplatform.domain.generated.resources.ic_percentage
-import gbmultiplatform.domain.generated.resources.ic_red_card
-import gbmultiplatform.domain.generated.resources.ic_saves
-import gbmultiplatform.domain.generated.resources.ic_yellow_card
-import gbmultiplatform.domain.generated.resources.insert_assists_players
-import gbmultiplatform.domain.generated.resources.insert_clean_sheet_players
-import gbmultiplatform.domain.generated.resources.insert_fails_players
-import gbmultiplatform.domain.generated.resources.insert_goal_players
-import gbmultiplatform.domain.generated.resources.insert_goal_provoked_players
-import gbmultiplatform.domain.generated.resources.insert_penalties_provoked_players
-import gbmultiplatform.domain.generated.resources.insert_red_card_players
-import gbmultiplatform.domain.generated.resources.insert_saves_players
-import gbmultiplatform.domain.generated.resources.insert_yellow_card_players
-import gbmultiplatform.domain.generated.resources.penalties_provoked
-import gbmultiplatform.domain.generated.resources.percentage
-import gbmultiplatform.domain.generated.resources.red_cards
-import gbmultiplatform.domain.generated.resources.saves
-import gbmultiplatform.domain.generated.resources.yellow_cards
+import com.sgale.gaztelubira.core.domain.R
 
 enum class Stat(
     @StringRes val statName: Int,
@@ -58,60 +27,60 @@ enum class Stat(
     val isInsertable: Boolean = true
 ) {
     Percentage(
-        statName = Res.string.percentage,
+        statName = R.string.percentage,
         statTitle = null,
-        icon = Res.drawable.ic_percentage,
+        icon = R.drawable.ic_percentage,
         isInsertable = false
     ),
     Goals(
-        statName = Res.string.goals,
-        statTitle = Res.string.insert_goal_players,
-        icon = Res.drawable.ic_goal
+        statName = R.string.goals,
+        statTitle = R.string.insert_goal_players,
+        icon = R.drawable.ic_goal
     ),
     GoalsProvoked(
-        statName = Res.string.goals_provoked,
-        statTitle = Res.string.insert_goal_provoked_players,
-        icon = Res.drawable.ic_goal_provoked
+        statName = R.string.goals_provoked,
+        statTitle = R.string.insert_goal_provoked_players,
+        icon = R.drawable.ic_goal_provoked
     ),
     Assists(
-        statName = Res.string.assists,
-        statTitle = Res.string.insert_assists_players,
-        icon = Res.drawable.ic_assists
+        statName = R.string.assists,
+        statTitle = R.string.insert_assists_players,
+        icon = R.drawable.ic_assists
     ),
     CleanSheets(
-        statName = Res.string.clean_sheets,
-        statTitle = Res.string.insert_clean_sheet_players,
-        icon = Res.drawable.ic_clean_sheets
+        statName = R.string.clean_sheets,
+        statTitle = R.string.insert_clean_sheet_players,
+        icon = R.drawable.ic_clean_sheets
     ),
     PenaltiesProvoked(
-        statName = Res.string.penalties_provoked,
-        statTitle = Res.string.insert_penalties_provoked_players,
-        icon = Res.drawable.ic_penalties
+        statName = R.string.penalties_provoked,
+        statTitle = R.string.insert_penalties_provoked_players,
+        icon = R.drawable.ic_penalties
     ),
     Saves(
-        statName = Res.string.saves,
-        statTitle = Res.string.insert_saves_players,
-        icon = Res.drawable.ic_saves
+        statName = R.string.saves,
+        statTitle = R.string.insert_saves_players,
+        icon = R.drawable.ic_saves
     ),
     Fails(
-        statName = Res.string.fails,
-        statTitle = Res.string.insert_fails_players,
-        icon = Res.drawable.ic_fail
+        statName = R.string.fails,
+        statTitle = R.string.insert_fails_players,
+        icon = R.drawable.ic_fail
     ),
     YellowCards(
-        statName = Res.string.yellow_cards,
-        statTitle = Res.string.insert_yellow_card_players,
-        icon = Res.drawable.ic_yellow_card
+        statName = R.string.yellow_cards,
+        statTitle = R.string.insert_yellow_card_players,
+        icon = R.drawable.ic_yellow_card
     ),
     RedCards(
-        statName = Res.string.red_cards,
-        statTitle = Res.string.insert_red_card_players,
-        icon = Res.drawable.ic_red_card
+        statName = R.string.red_cards,
+        statTitle = R.string.insert_red_card_players,
+        icon = R.drawable.ic_red_card
     ),
     GamesPlayed(
-        statName = Res.string.games_played,
+        statName = R.string.games_played,
         statTitle = null,
-        icon = Res.drawable.ic_games_played,
+        icon = R.drawable.ic_games_played,
         isInsertable = false
     )
 }

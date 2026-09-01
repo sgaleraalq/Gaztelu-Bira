@@ -18,20 +18,16 @@ package com.sgale.gaztelubira.core.domain.model.match
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import com.sgale.gaztelubira.core.domain.R
 import com.sgale.gaztelubira.core.domain.model.utils.GBConstants.CUP
 import com.sgale.gaztelubira.core.domain.model.utils.GBConstants.LEAGUE
-import gbmultiplatform.domain.generated.resources.Res
-import gbmultiplatform.domain.generated.resources.cup
-import gbmultiplatform.domain.generated.resources.ic_cup
-import gbmultiplatform.domain.generated.resources.ic_league
-import gbmultiplatform.domain.generated.resources.league
 
 enum class MatchType(
     @StringRes val type: Int,
     @DrawableRes val icon: Int
 ) {
-    League(Res.string.league, Res.drawable.ic_league),
-    Cup(Res.string.cup, Res.drawable.ic_cup);
+    League(R.string.league, R.drawable.ic_league),
+    Cup(R.string.cup, R.drawable.ic_cup);
 
     fun asString(): String {
         return when(this){

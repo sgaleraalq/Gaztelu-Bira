@@ -17,34 +17,28 @@
 package com.sgale.gaztelubira.core.domain.model.player
 
 import androidx.annotation.StringRes
-import gbmultiplatform.domain.generated.resources.Res
-import gbmultiplatform.domain.generated.resources.bench
-import gbmultiplatform.domain.generated.resources.defender
-import gbmultiplatform.domain.generated.resources.forward
-import gbmultiplatform.domain.generated.resources.goalkeeper
-import gbmultiplatform.domain.generated.resources.manager
-import gbmultiplatform.domain.generated.resources.midfielder
+import com.sgale.gaztelubira.core.domain.R
 
 enum class Position(
     @StringRes val positionName: Int
 ) {
     Manager(
-        Res.string.manager
+        R.string.manager
     ),
     Bench(
-        Res.string.bench
+        R.string.bench
     ),
     GoalKeeper(
-        Res.string.goalkeeper
+        R.string.goalkeeper
     ),
     Defender(
-        Res.string.defender
+        R.string.defender
     ),
     MidFielder(
-        Res.string.midfielder
+        R.string.midfielder
     ),
     Forward(
-        Res.string.forward
+        R.string.forward
     );
 
     companion object {

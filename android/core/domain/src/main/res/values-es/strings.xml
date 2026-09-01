@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="assists">Asistencias</string>
+    <string name="bench">Banquillo</string>
+    <string name="clean_sheets">Porterías a cero</string>
+    <string name="cup">Copa</string>
+    <string name="defender">Defensa</string>
+    <string name="displayed_stat">Estadística mostrada: </string>
+    <string name="fails">Errores</string>
+    <string name="forward">Delantero</string>
+    <string name="games_played">Partidos jugados</string>
+    <string name="goalkeeper">Portero</string>
+    <string name="goals">Goles</string>
+    <string name="goals_provoked">Goles provocados</string>
+    <string name="insert_assists_players">Insertar asistencias</string>
+    <string name="insert_clean_sheet_players">Insertar porterías a cero</string>
+    <string name="insert_fails_players">Insertar errores</string>
+    <string name="insert_goal_players">Insertar goles</string>
+    <string name="insert_goal_provoked_players">Insertar goles provocados</string>
+    <string name="insert_penalties_provoked_players">Insertar penalties</string>
+    <string name="insert_red_card_players">Insertar tarjetas rojas</string>
+    <string name="insert_saves_players">Insertar salvadas</string>
+    <string name="insert_yellow_card_players">Insertar tarjetas amarillas</string>
+    <string name="league">Liga</string>
+    <string name="manager">Entrenador</string>
+    <string name="midfielder">Centrocampista</string>
+    <string name="penalties_provoked">Penalties provocados</string>
+    <string name="percentage">Porcentaje</string>
+    <string name="red_cards">Tarjetas rojas</string>
+    <string name="saves">Salvadas</string>
+    <string name="undefined">Indefinido</string>
+    <string name="yellow_cards">Tarjetas amarillas</string>
+</resources>

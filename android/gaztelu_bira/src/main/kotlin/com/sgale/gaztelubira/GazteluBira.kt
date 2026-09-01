@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.model.team
+package com.sgale.gaztelubira
 
-enum class TeamSide {
-    Local, Visitor
-}
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class GazteluBira: Application()

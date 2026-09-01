@@ -12,4 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+kotlin-compiler*
 local.properties
+
+gaztelu_bira/build/
+gaztelu_bira/google-services.json
