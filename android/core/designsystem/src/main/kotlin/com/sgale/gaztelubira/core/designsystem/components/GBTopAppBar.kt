@@ -38,9 +38,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.designsystem.R
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Team
+import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 
 @Composable
 fun GBTopAppBar(

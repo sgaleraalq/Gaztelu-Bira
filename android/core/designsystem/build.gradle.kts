@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "com.sgale.gaztelubira.core.designsystem"
 }
+
+dependencies {
+    implementation(project(":core:domain"))
+}

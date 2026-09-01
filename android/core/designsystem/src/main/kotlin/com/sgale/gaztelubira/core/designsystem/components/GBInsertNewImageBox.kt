@@ -27,10 +27,10 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.FacePlayer
 import com.sgale.gaztelubira.core.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.core.domain.utils.CommonImage
 
 @Composable
 fun GBImageBoxRequester(

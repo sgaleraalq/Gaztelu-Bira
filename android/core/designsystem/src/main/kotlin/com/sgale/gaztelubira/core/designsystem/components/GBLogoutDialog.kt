@@ -30,10 +30,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.core.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.designsystem.style.white_in_gray_box
+import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 
 @Composable
 fun GBLogoutDialog(

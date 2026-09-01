@@ -48,8 +48,6 @@ import com.sgale.gaztelubira.core.designsystem.R
 import com.sgale.gaztelubira.core.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.designsystem.style.primaryRed
 import com.sgale.gaztelubira.core.designsystem.style.white_in_gray_box
-import gbmultiplatform.core.design_system.generated.resources.Res
-import gbmultiplatform.core.design_system.generated.resources.loading_resources
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds

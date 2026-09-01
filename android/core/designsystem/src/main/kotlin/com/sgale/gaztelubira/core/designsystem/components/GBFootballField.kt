@@ -44,14 +44,14 @@ import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.core.designsystem.R
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.FacePlayer
 import com.sgale.gaztelubira.core.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.gbmultiplatform.domain.model.player.PlayerModel
-import gbmultiplatform.core.design_system.generated.resources.Res
-import gbmultiplatform.core.design_system.generated.resources.img_football_field
+import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * This component will define the football field layout.
@@ -74,7 +74,7 @@ fun GBFootballField(
         if (showAnimation) {
             formation.positions.forEachIndexed { index, _ ->
                 visiblePlayers.add(index)
-                delay(100L)
+                delay(1.milliseconds)
             }
             onAnimationFinished()
         } else {
@@ -91,7 +91,7 @@ fun GBFootballField(
     ) {
         GBLocalImage(
             modifier = Modifier.fillMaxSize(),
-            image = Res.drawable.img_football_field,
+            image = R.drawable.img_football_field,
             scale = FillWidth
         )
 

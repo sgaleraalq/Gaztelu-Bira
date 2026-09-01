@@ -39,8 +39,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.gbmultiplatform.domain.model.player.Position
-import com.gbmultiplatform.domain.model.player.Position.GoalKeeper
 import com.sgale.gaztelubira.core.designsystem.R
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.BodyPlayer
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.FacePlayer
@@ -48,17 +46,6 @@ import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.ManagerPla
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Undefined
 import com.sgale.gaztelubira.core.designsystem.utils.shimmerEffect
-import gbmultiplatform.core.design_system.generated.resources.Res
-import gbmultiplatform.core.design_system.generated.resources.description_insert_player_image
-import gbmultiplatform.core.design_system.generated.resources.img_body_player
-import gbmultiplatform.core.design_system.generated.resources.img_face_player
-import gbmultiplatform.core.design_system.generated.resources.img_gaztelu_bira
-import gbmultiplatform.core.design_system.generated.resources.img_manager
-import gbmultiplatform.core.design_system.generated.resources.img_no_football_logo
-import gbmultiplatform.core.design_system.generated.resources.img_placeholder
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 
 enum class SaverStatus {
     FacePlayer, BodyPlayer, ManagerPlayer, Team, Undefined
@@ -169,7 +156,7 @@ fun GBImage(
         modifier = modifier,
         model = image,
         contentScale = contentScale,
-        contentDescription = stringResource(Res.string.description_insert_player_image)
+        contentDescription = stringResource(R.string.description_insert_player_image)
     )
 }
 

@@ -57,7 +57,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.gbmultiplatform.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.designsystem.R
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.FacePlayer
 import com.sgale.gaztelubira.core.designsystem.style.gBTypography
@@ -68,6 +67,7 @@ import com.sgale.gaztelubira.core.designsystem.style.player_card_background_bott
 import com.sgale.gaztelubira.core.designsystem.style.player_card_background_top_gradient
 import com.sgale.gaztelubira.core.designsystem.style.player_card_name_text_color
 import com.sgale.gaztelubira.core.designsystem.style.player_card_stat_text_color
+import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import kotlin.Float.Companion.POSITIVE_INFINITY
 
 @Composable
