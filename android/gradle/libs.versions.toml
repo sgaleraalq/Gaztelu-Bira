@@ -7,7 +7,7 @@ minSdk = "24"
 targetSdk = "37"
 
 # General dependencies
-agp = "9.3.2"
+agp = "9.4.0"
 kotlin = "2.4.10"
 
 composeActivity = "1.13.0"
@@ -15,16 +15,17 @@ composeBom = "2026.08.00"
 composeMultiplatform = "1.12.0"
 composeNavigation = "2.10.0"
 coreKtx = "1.19.0"
-coil = "3.3.0"
-camerax = "1.5.2"
-credentials = "1.5.0"
+coil = "3.6.1"
+camerax = "1.6.2"
+credentials = "1.6.0"
 lottie = "6.7.1"
 exifinterface = "1.4.2"
-googleid = "1.1.1"
+googleid = "1.2.0"
 lifecycle = "2.11.0"
 hilt = "2.60.1"
 hiltNavigationCompose = "1.4.0"
 ksp = "2.3.9"
+multiplatformLibrary="9.4.0"
 nav3 = "1.1.7"
 serialization = "2.4.10"
 serializationKotlinx = "1.11.0"
@@ -129,13 +130,14 @@ material = { group = "com.google.android.material", name = "material", version.r
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization"}
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "multiplatformLibrary" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
 convention-application = { id = "com.sgale.gaztelubira.convention.application" }
