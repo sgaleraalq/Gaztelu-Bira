@@ -30,6 +30,8 @@
             <option value="$PROJECT_DIR$/core/preview" />
             <option value="$PROJECT_DIR$/core/screens" />
             <option value="$PROJECT_DIR$/gaztelu_bira" />
+            <option value="$PROJECT_DIR$/../common" />
+            <option value="$PROJECT_DIR$/../common/ui" />
           </set>
         </option>
       </GradleProjectSettings>
