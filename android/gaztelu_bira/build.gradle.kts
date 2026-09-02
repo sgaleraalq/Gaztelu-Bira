@@ -50,3 +50,56 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:screens"))
 }
+
+/**
+ * Compose Multiplatform wires its resources into an Android module's assets only for the classic
+ * `com.android.library` plugin. `:common:ui` uses AGP's KMP library plugin, where CMP leaves its
+ * `copyAndroidMainComposeResourcesToAndroidAssets` task without an output directory — so the
+ * shared module's `composeResources` never reach the APK and every `Res.drawable.*` fails at
+ * runtime with MissingResourceException.
+ *
+ * Until that gap closes, the app packages them itself, under the exact path the resource reader
+ * looks in: `assets/composeResources/<packageOfResClass>/`.
+ */
+abstract class CopySharedComposeResources : DefaultTask() {
+
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val source: ConfigurableFileCollection
+
+    @get:Input
+    abstract val resourcesPackage: Property<String>
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @get:Inject
+    abstract val fs: FileSystemOperations
+
+    @TaskAction
+    fun copy() {
+        fs.sync {
+            from(source)
+            into(outputDir.get().dir("composeResources/${resourcesPackage.get()}"))
+        }
+    }
+}
+
+val copySharedUiComposeResources by tasks.registering(CopySharedComposeResources::class) {
+    dependsOn(":common:ui:prepareComposeResourcesTaskForCommonMain")
+    source.from(
+        project(":common:ui").layout.buildDirectory
+            .dir("generated/compose/resourceGenerator/preparedResources/commonMain/composeResources")
+    )
+    resourcesPackage.set("com.sgale.gaztelubira.multiplatform.ui.resources")
+    outputDir.set(layout.buildDirectory.dir("sharedUiComposeResources"))
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.sources.assets?.addGeneratedSourceDirectory(
+            copySharedUiComposeResources,
+            CopySharedComposeResources::outputDir
+        )
+    }
+}
