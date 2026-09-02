@@ -20,9 +20,9 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
-import `gaztelu bira`.common.ui.generated.resources.Res
-import `gaztelu bira`.common.ui.generated.resources.roboto_medium
-import `gaztelu bira`.common.ui.generated.resources.test_font
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.roboto_medium
+import com.sgale.gaztelubira.multiplatform.ui.resources.test_font
 import org.jetbrains.compose.resources.Font
 
 @Composable

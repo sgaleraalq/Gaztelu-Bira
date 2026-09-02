@@ -39,7 +39,6 @@
     <string name="fails">Errores</string>
     <string name="forward">Delantero</string>
     <string name="games_played">Partidos jugados</string>
-    <string name="goalkeeper">Portero</string>
     <string name="goals">Goles</string>
     <string name="goals_provoked">Goles provocados</string>
     <string name="insert_assists_players">Insertar asistencias</string>
@@ -60,4 +59,7 @@
     <string name="saves">Salvadas</string>
     <string name="undefined">Indefinido</string>
     <string name="yellow_cards">Tarjetas amarillas</string>
+    <string name="welcome_to">Bienvenido a</string>
+    <string name="gaztelu_bira_welcome_text">Todas tus estadísticas y registros de partidos de Gaztelu Bira — listos para revisar y revivir</string>
+    <string name="join_gaztelu_bira">Únete a Gaztelu Bira</string>
 </resources>

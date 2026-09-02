@@ -25,8 +25,8 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
-import `gaztelu bira`.common.ui.generated.resources.Res
-import `gaztelu bira`.common.ui.generated.resources.img_background
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_background
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

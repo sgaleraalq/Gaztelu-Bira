@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     /**
      * The Kotlin Gradle plugin and AGP already sit on the build classpath through `build-logic`,
@@ -19,6 +21,18 @@ kotlin {
         namespace = "com.sgale.gaztelubira.multiplatform.ui"
         compileSdk = libs.versions.compileSdk.get().toInt()
         minSdk = libs.versions.minSdk.get().toInt()
+
+        /**
+         * Without this the Android compilation emits bytecode for whichever JDK runs Gradle,
+         * and D8 fails to dex it against the rest of the project ("Error while dexing").
+         */
+        compilations.configureEach {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.fromTarget(libs.versions.jdkLevel.get()))
+                }
+            }
+        }
     }
 
     listOf(
@@ -38,8 +52,30 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
+
+            /**
+             * Images from network. Coil's okhttp fetcher is JVM only, so the multiplatform
+             * build goes through the Ktor one and each platform contributes its own engine.
+             */
             implementation(libs.coil.compose)
-            implementation(libs.coil.network.okhttp)
+            implementation(libs.coil.network.ktor)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
+}
+
+/**
+ * The generated `Res` class takes its package from the Gradle project name, and this one is
+ * "Gaztelu Bira" — with a space. Kotlin swallows it behind backticks, but D8 refuses to dex a
+ * class name containing a space, so the package is pinned here instead.
+ */
+compose.resources {
+    packageOfResClass = "com.sgale.gaztelubira.multiplatform.ui.resources"
 }

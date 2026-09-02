@@ -16,8 +16,13 @@
 
 package com.sgale.gaztelubira.multiplatform.model;
 
-import `gaztelu bira`.common.ui.generated.resources.Res
-import `gaztelu bira`.common.ui.generated.resources.goalkeeper
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.bench
+import com.sgale.gaztelubira.multiplatform.ui.resources.defender
+import com.sgale.gaztelubira.multiplatform.ui.resources.forward
+import com.sgale.gaztelubira.multiplatform.ui.resources.goalkeeper
+import com.sgale.gaztelubira.multiplatform.ui.resources.manager
+import com.sgale.gaztelubira.multiplatform.ui.resources.midfielder
 import org.jetbrains.compose.resources.StringResource
 
 enum class Position(

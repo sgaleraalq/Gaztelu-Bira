@@ -17,12 +17,19 @@
 package com.sgale.gaztelubira.multiplatform.ui
 
 import androidx.compose.ui.window.ComposeUIViewController
+import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.WelcomeScreen
 import platform.UIKit.UIViewController
 
 /**
- * Entry point for the iOS app: a `@Composable` cannot cross into Objective-C, so every screen
- * shared with iOS is handed over wrapped in a `UIViewController` that SwiftUI can host through
+ * Entry point for the iOS app: a `@Composable` cannot cross into Objective-C, so the screen is
+ * handed over wrapped in a `UIViewController` that SwiftUI hosts through
  * `UIViewControllerRepresentable`.
+ *
+ * Navigation stays with the caller — the same contract the Android side uses — so Swift decides
+ * what "go to login" means.
  */
-fun welcomeViewController(): UIViewController =
-    ComposeUIViewController { WelcomeScreen() }
+fun welcomeViewController(
+    navigateToLogin: () -> Unit
+): UIViewController = ComposeUIViewController {
+    WelcomeScreen(navigateToLogin = navigateToLogin)
+}

@@ -28,4 +28,9 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:domain"))
     implementation(project(":core:preview"))
+
+    /**
+     * Multiplatform
+     */
+    implementation(project(":common:ui"))
 }

@@ -36,20 +36,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.sgale.gaztelubira.core.domain.model.player.Position
-import com.sgale.gaztelubira.core.domain.model.player.Position.GoalKeeper
 import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.*
 import com.sgale.gaztelubira.multiplatform.designsystem.utils.shimmerEffect
 import com.sgale.gaztelubira.multiplatform.model.Position
 import com.sgale.gaztelubira.multiplatform.model.Position.GoalKeeper
-import `gaztelu bira`.common.ui.generated.resources.Res
-import `gaztelu bira`.common.ui.generated.resources.description_insert_player_image
-import `gaztelu bira`.common.ui.generated.resources.img_body_player
-import `gaztelu bira`.common.ui.generated.resources.img_face_player
-import `gaztelu bira`.common.ui.generated.resources.img_gaztelu_bira
-import `gaztelu bira`.common.ui.generated.resources.img_manager
-import `gaztelu bira`.common.ui.generated.resources.img_no_football_logo
-import `gaztelu bira`.common.ui.generated.resources.img_placeholder
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.description_insert_player_image
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_body_player
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_face_player
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_manager
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_no_football_logo
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_placeholder
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -204,7 +202,7 @@ fun GBAsyncImage(
 
 fun getSaverImage(
     position: Position?
-): Int {
+): DrawableResource {
     return when (position) {
         GoalKeeper -> Res.drawable.img_body_player // todo
         else -> Res.drawable.img_body_player

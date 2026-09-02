@@ -32,8 +32,12 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedBut
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTitle
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import `gaztelu bira`.common.ui.generated.resources.Res
-import gaztelu.app_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.gaztelu_bira_welcome_text
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_welcome_image
+import com.sgale.gaztelubira.multiplatform.ui.resources.join_gaztelu_bira
+import com.sgale.gaztelubira.multiplatform.ui.resources.welcome_to
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

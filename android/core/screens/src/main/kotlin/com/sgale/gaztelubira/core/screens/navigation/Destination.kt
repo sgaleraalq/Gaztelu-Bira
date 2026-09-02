@@ -24,7 +24,7 @@ import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromFrontCamera
 import com.sgale.gaztelubira.core.screens.auth.login.LoginScreen
 import com.sgale.gaztelubira.core.screens.auth.signup.SignUpScreen
-import com.sgale.gaztelubira.core.screens.auth.welcome.WelcomeScreen
+import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.WelcomeScreen
 import com.sgale.gaztelubira.core.screens.home.HomeScreen
 import com.sgale.gaztelubira.core.screens.insert_match.InsertMatchScreen
 import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerScreen
@@ -73,7 +73,9 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            WelcomeScreen(state)
+            WelcomeScreen(
+                navigateToLogin = { state.navigateTo(Login) }
+            )
         }
     }
 
