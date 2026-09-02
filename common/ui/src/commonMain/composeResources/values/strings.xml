@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Gaztelu Bira</string>
+
+    <string name="back_center">Back center</string>
+    <string name="back_center_left">Back center left</string>
+    <string name="back_center_right">Back center right</string>
+    <string name="description_insert_player_image">Insert player image</string>
+    <string name="description_camera_icon">Camera icon</string>
+    <string name="goalkeeper">Goalkeeper</string>
+    <string name="good_news">Good news</string>
+    <string name="left_striker">Left striker</string>
+    <string name="loading_resources">Loading resources</string>
+    <string name="mid_attacking_center">Mid attacking center</string>
+    <string name="mid_attacking_left">Mid attacking left</string>
+    <string name="mid_attacking_right">Mid attacking right</string>
+    <string name="mid_defensive_center">Mid defensive center</string>
+    <string name="mid_defensive_left">Mid defensive left</string>
+    <string name="mid_defensive_right">Mid defensive right</string>
+    <string name="mid_center">Mid center</string>
+    <string name="mid_center_left">Mid center left</string>
+    <string name="mid_center_right">Mid center right</string>
+    <string name="right_striker">Right striker</string>
+    <string name="second_striker">Second striker</string>
+    <string name="striker">Striker</string>
+    <string name="update_available">There is an update available</string>
+    <string name="update">Update</string>
+    <string name="wing_back_left">Wing back left</string>
+    <string name="wing_back_right">Wing back right</string>
+    <string name="winger_left">Winger left</string>
+    <string name="winger_right">Winger right</string>
+
+
+    <string name="assists">Assists</string>
+    <string name="bench">Bench</string>
+    <string name="clean_sheets">Clean sheets</string>
+    <string name="cup">Cup</string>
+    <string name="defender">Defender</string>
+    <string name="displayed_stat">Displayed stat: </string>
+    <string name="fails">Fails</string>
+    <string name="forward">Forward</string>
+    <string name="games_played">Games played</string>
+    <string name="goalkeeper">Goalkeeper</string>
+    <string name="goals">Goals</string>
+    <string name="goals_provoked">Goals provoked</string>
+    <string name="insert_assists_players">Insert players who assisted</string>
+    <string name="insert_clean_sheet_players">Insert players who got a clean sheet</string>
+    <string name="insert_fails_players">Insert players who made a mistake</string>
+    <string name="insert_goal_players">Insert players who scored</string>
+    <string name="insert_goal_provoked_players">Insert players who provoked a goal</string>
+    <string name="insert_penalties_provoked_players">Insert players who provoked a penalty</string>
+    <string name="insert_red_card_players">Insert players who got a red card</string>
+    <string name="insert_saves_players">Insert players who saved a goal occasion</string>
+    <string name="insert_yellow_card_players">Insert players who got a yellow card</string>
+    <string name="league">League</string>
+    <string name="manager">Manager</string>
+    <string name="midfielder">Midfielder</string>
+    <string name="penalties_provoked">Penalties provoked</string>
+    <string name="percentage">Percentage</string>
+    <string name="red_cards">Red cards</string>
+    <string name="saves">Saves</string>
+    <string name="undefined">Undefined</string>
+    <string name="yellow_cards">Yellow cards</string>
+</resources>

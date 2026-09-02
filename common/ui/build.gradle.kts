@@ -38,6 +38,8 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.okhttp)
         }
     }
 }

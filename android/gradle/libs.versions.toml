@@ -25,7 +25,6 @@ lifecycle = "2.11.0"
 hilt = "2.60.1"
 hiltNavigationCompose = "1.4.0"
 ksp = "2.3.9"
-multiplatformLibrary="9.4.0"
 nav3 = "1.1.7"
 serialization = "2.4.10"
 serializationKotlinx = "1.11.0"
@@ -133,11 +132,9 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization"}
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "multiplatformLibrary" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
 convention-application = { id = "com.sgale.gaztelubira.convention.application" }
@@ -148,3 +145,4 @@ convention-feature-impl = { id = "com.sgale.gaztelubira.convention.feature.impl"
 convention-hilt = { id = "com.sgale.gaztelubira.convention.hilt" }
 convention-library = { id = "com.sgale.gaztelubira.convention.library" }
 convention-room = { id = "com.sgale.gaztelubira.convention.room" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

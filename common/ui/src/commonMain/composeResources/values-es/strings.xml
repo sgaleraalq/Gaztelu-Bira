@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Gaztelu Bira</string>
+
+    <string name="back_center">Central</string>
+    <string name="back_center_left">Central izquierdo</string>
+    <string name="back_center_right">Central derecho</string>
+    <string name="description_insert_player_image">Insertar imagen del jugador</string>
+    <string name="description_camera_icon">Icono de cámara</string>
+    <string name="goalkeeper">Portero</string>
+    <string name="good_news">Buenas noticias</string>
+    <string name="left_striker">Delantero izquierdo</string>
+    <string name="loading_resources">Cargando recursos</string>
+    <string name="mid_attacking_center">Mediapunta</string>
+    <string name="mid_attacking_left">Mediapunta izquierdo</string>
+    <string name="mid_attacking_right">Mediapunta derecho</string>
+    <string name="mid_defensive_center">Mediocentro defensivo</string>
+    <string name="mid_defensive_left">Mediocentro defensivo izquierdo</string>
+    <string name="mid_defensive_right">Mediocentro defensivo derecho</string>
+    <string name="mid_center">Mediocentro</string>
+    <string name="mid_center_left">Mediocentro izquierdo</string>
+    <string name="mid_center_right">Mediocentro derecho</string>
+    <string name="right_striker">Delantero derecho</string>
+    <string name="second_striker">Segundo delantero</string>
+    <string name="striker">Delantero</string>
+    <string name="update_available">Hay una actualización disponible</string>
+    <string name="update">Actualizar</string>
+    <string name="wing_back_left">Carrilero izquierdo</string>
+    <string name="wing_back_right">Carrilero derecho</string>
+    <string name="winger_left">Extremo izquierdo</string>
+    <string name="winger_right">Extremo derecho</string>
+
+
+    <string name="assists">Asistencias</string>
+    <string name="bench">Banquillo</string>
+    <string name="clean_sheets">Porterías a cero</string>
+    <string name="cup">Copa</string>
+    <string name="defender">Defensa</string>
+    <string name="displayed_stat">Estadística mostrada: </string>
+    <string name="fails">Errores</string>
+    <string name="forward">Delantero</string>
+    <string name="games_played">Partidos jugados</string>
+    <string name="goalkeeper">Portero</string>
+    <string name="goals">Goles</string>
+    <string name="goals_provoked">Goles provocados</string>
+    <string name="insert_assists_players">Insertar asistencias</string>
+    <string name="insert_clean_sheet_players">Insertar porterías a cero</string>
+    <string name="insert_fails_players">Insertar errores</string>
+    <string name="insert_goal_players">Insertar goles</string>
+    <string name="insert_goal_provoked_players">Insertar goles provocados</string>
+    <string name="insert_penalties_provoked_players">Insertar penalties</string>
+    <string name="insert_red_card_players">Insertar tarjetas rojas</string>
+    <string name="insert_saves_players">Insertar salvadas</string>
+    <string name="insert_yellow_card_players">Insertar tarjetas amarillas</string>
+    <string name="league">Liga</string>
+    <string name="manager">Entrenador</string>
+    <string name="midfielder">Centrocampista</string>
+    <string name="penalties_provoked">Penalties provocados</string>
+    <string name="percentage">Porcentaje</string>
+    <string name="red_cards">Tarjetas rojas</string>
+    <string name="saves">Salvadas</string>
+    <string name="undefined">Indefinido</string>
+    <string name="yellow_cards">Tarjetas amarillas</string>
+</resources>

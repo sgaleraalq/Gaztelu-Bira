@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2026 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2025 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui
+package com.sgale.gaztelubira.multiplatform.ui.auth.welcome
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Modifier
 
 @Composable
 fun WelcomeScreen(
-    modifier: Modifier = Modifier
+    navigateToLogin: () -> Unit
 ) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Center
-    ) {
-        Text(text = "Gaztelu Bira")
-    }
+    WelcomeScreenUI(
+        navigateToLogin = navigateToLogin
+    )
 }
