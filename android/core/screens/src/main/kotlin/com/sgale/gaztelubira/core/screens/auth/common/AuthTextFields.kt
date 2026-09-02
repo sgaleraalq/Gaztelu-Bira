@@ -26,12 +26,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBTextField
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import androidx.compose.ui.res.painterResource
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTextField
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 
 @Composable
 fun AuthTextField(

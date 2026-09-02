@@ -41,6 +41,8 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.intl.Locale
@@ -49,15 +51,12 @@ import androidx.compose.ui.text.style.TextAlign.Companion.End
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBTeam
-import com.sgale.gaztelubira.core.designsystem.components.GBText
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult
 import com.sgale.gaztelubira.core.domain.model.match.MatchType
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.utils.toDate
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 
 @Composable
 fun MatchesList(

@@ -22,8 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 
 @Composable
 fun AuthTitle(title: String){

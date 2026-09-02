@@ -35,14 +35,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBElevatedButton
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.gray_box_in_black_bg
-import com.sgale.gaztelubira.core.designsystem.style.player_card_name_text_color
-import com.sgale.gaztelubira.core.designsystem.style.softRed
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.Punctuation
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.Punctuation.PunctuationField.Assists
@@ -54,7 +49,12 @@ import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.Punctuation.Punct
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.Punctuation.PunctuationField.PenaltiesProvoked
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.Punctuation.PunctuationField.Saves
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.dialogs.SettingsDialogState.ChangePunctuation
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_name_text_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import kotlin.math.roundToInt
 
 private val STANDARD_VALUES = listOf(0,1,2,3,4,5)

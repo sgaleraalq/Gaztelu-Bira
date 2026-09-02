@@ -31,6 +31,7 @@ import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.ui.GBHomeInformationBox
 import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.ui.GBHomeTeams
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAddButton
 
 @Composable
 fun GazteluBiraHomeUI(

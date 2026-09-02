@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.designsystem.components.GBIcon
 import com.sgale.gaztelubira.core.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R

@@ -22,11 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.sgale.gaztelubira.core.designsystem.components.GBLogoutDialog
-import com.sgale.gaztelubira.core.designsystem.components.GBScaffold
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBLogoutDialog
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 @Composable
 fun HomeScreenUI(
@@ -42,6 +42,7 @@ fun HomeScreenUI(
     val user by mainViewModel.userSession.collectAsState()
 
     GBScaffold(
+        topBarTitle = "",
         bottomBar = {
             GBBottomNavigation(bottomTabs, selectedTab) { navigate(it) }
         }

@@ -24,20 +24,19 @@ import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.usecase.users.GetUser
 import com.sgale.gaztelubira.core.domain.utils.IToastManager
+import com.sgale.gaztelubira.core.screens.home.HomeTab
+import com.sgale.gaztelubira.core.screens.home.HomeTab.Stats
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.home.HomeTab
-import com.sgale.gaztelubira.core.screens.home.HomeTab.Stats
 import com.sgale.gaztelubira.core.screens.splash.SplashContractor
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(

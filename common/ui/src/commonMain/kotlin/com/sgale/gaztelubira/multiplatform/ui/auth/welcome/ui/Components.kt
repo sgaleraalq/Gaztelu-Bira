@@ -56,12 +56,17 @@ fun WelcomeScreenTitle() {
 
 @Composable
 fun WelcomeScreenSubtitle() {
+    val bodyMedium = gBTypography().bodyMedium
+    val welcomeText = stringResource(Res.string.gaztelu_bira_welcome_text)
+
     GBText(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
-        text = stringResource(Res.string.gaztelu_bira_welcome_text),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
         alignment = Center,
         textColor = White,
-        style = gBTypography().bodyMedium,
+        text = welcomeText,
+        style = bodyMedium,
         maxLines = 4
     )
 }
@@ -70,13 +75,16 @@ fun WelcomeScreenSubtitle() {
 fun WelcomeScreenImage(
     modifier: Modifier
 ) {
+    val welcomeImg = painterResource(Res.drawable.img_welcome_image)
+    val descriptionAppName = stringResource(Res.string.app_name)
+
     Box(
         modifier = modifier.fillMaxWidth()
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(Res.drawable.img_welcome_image),
-            contentDescription = stringResource(Res.string.app_name),
+            painter = welcomeImg,
+            contentDescription = descriptionAppName,
         )
     }
     Spacer(modifier = Modifier.height(16.dp))
@@ -86,9 +94,13 @@ fun WelcomeScreenImage(
 fun WelcomeScreenButton(
     navigate: () -> Unit,
 ) {
+    val joinGbText = stringResource(Res.string.join_gaztelu_bira)
+
     GBElevatedButton(
-        modifier = Modifier.padding(horizontal = 18.dp, vertical = 16.dp).fillMaxWidth(),
-        text = stringResource(Res.string.join_gaztelu_bira),
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
+        text = joinGbText,
         onClick = { navigate() },
         roundness = 32
     )

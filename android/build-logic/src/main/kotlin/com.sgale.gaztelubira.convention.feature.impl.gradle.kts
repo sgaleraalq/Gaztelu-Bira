@@ -1,7 +1,6 @@
 import com.android.build.api.dsl.LibraryExtension
 import common.Constants.NAV3_RUNTIME
 import common.ProjectConstants.PROJECT_COMMON
-import common.ProjectConstants.PROJECT_DESIGN_SYSTEM
 import common.ProjectConstants.PROJECT_DOMAIN
 import common.ProjectConstants.PROJECT_NAVIGATION
 import common.ProjectConstants.PROJECT_PREVIEW
@@ -27,7 +26,6 @@ extensions.configure<LibraryExtension> {
 
 val featureProjectDependencies = listOf(
     PROJECT_COMMON,
-    PROJECT_DESIGN_SYSTEM,
     PROJECT_DOMAIN,
     PROJECT_NAVIGATION,
     PROJECT_PREVIEW

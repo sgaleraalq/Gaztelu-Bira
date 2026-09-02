@@ -17,10 +17,10 @@
 package com.sgale.gaztelubira.core.screens.insert_match.data
 
 import androidx.compose.runtime.Stable
-import com.sgale.gaztelubira.core.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.core.designsystem.model.LineUpFormation.FourThreeThree
-import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition
-import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.Goalkeeper
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.FourThreeThree
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Goalkeeper
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation.ManagerPosition.First
 import com.sgale.gaztelubira.core.screens.insert_match.data.PlayerState.LineUp

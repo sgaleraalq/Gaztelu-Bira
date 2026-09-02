@@ -27,7 +27,6 @@ include(":gaztelu_bira")
  */
 include(":core:common")
 include(":core:data")
-include(":core:designsystem")
 include(":core:domain")
 include(":core:navigation")
 include(":core:preview")

@@ -39,7 +39,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion.End
 import androidx.compose.ui.text.style.TextAlign.Companion.Justify
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.utils.toDate
 import com.sgale.gaztelubira.core.screens.R

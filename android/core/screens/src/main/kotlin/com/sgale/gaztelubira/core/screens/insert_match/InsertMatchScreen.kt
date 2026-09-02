@@ -24,7 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.designsystem.components.GBScaffold
-import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.Manager
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState

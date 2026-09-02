@@ -27,7 +27,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.style.login_container_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.login_container_color
 
 @Composable
 fun AuthCard(

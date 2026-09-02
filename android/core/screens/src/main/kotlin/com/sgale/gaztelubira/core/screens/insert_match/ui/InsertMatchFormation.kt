@@ -40,11 +40,11 @@ import com.sgale.gaztelubira.core.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.core.designsystem.components.GBFootballField
 import com.sgale.gaztelubira.core.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.core.designsystem.model.LineUpFormation.Companion.ALL_FORMATIONS
-import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition
-import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition.Manager
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Companion.ALL_FORMATIONS
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation

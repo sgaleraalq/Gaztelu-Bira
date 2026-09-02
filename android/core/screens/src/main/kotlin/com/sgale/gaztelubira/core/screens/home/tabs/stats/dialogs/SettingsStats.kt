@@ -36,8 +36,8 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.designsystem.components.GBIcon
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.dialogs.SettingsDialogState.ChangeStat
 import androidx.compose.ui.res.stringResource

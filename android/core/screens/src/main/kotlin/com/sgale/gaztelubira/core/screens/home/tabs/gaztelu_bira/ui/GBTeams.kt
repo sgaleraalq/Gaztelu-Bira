@@ -38,16 +38,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.Fit
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBImage
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Team
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 
 @Composable
 fun GBHomeTeams(

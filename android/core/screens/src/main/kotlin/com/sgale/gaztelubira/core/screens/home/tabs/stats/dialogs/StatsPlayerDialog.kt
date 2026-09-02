@@ -40,8 +40,8 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.designsystem.components.GBDialog
 import com.sgale.gaztelubira.core.designsystem.components.GBPlayerImage
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.lightGray
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.domain.model.player.Stat.Assists

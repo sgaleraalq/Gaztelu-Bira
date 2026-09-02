@@ -17,7 +17,6 @@
 package com.sgale.gaztelubira.core.domain.utils
 
 import android.os.Build.VERSION_CODES.O
-import android.util.Patterns.EMAIL_ADDRESS
 import androidx.annotation.RequiresApi
 import java.text.DecimalFormat
 import java.time.Instant
@@ -49,13 +48,3 @@ fun getDateFromLong(format: String, date: Long): String {
 
 @RequiresApi(O)
 fun Long.toDate() = getDateFromLong(DATE_FORMAT, this)
-
-fun validEmail(email: String): Boolean =
-    EMAIL_ADDRESS.matcher(email).matches()
-
-fun Email.valid() = isNotBlank() && validEmail(this)
-
-fun Password.blank() = isBlank()
-fun Password.short() = length < 8
-fun Password.noDigits() = !this.any { it.isDigit() }
-fun Password.mismatch(repeatPassword: String) = this != repeatPassword

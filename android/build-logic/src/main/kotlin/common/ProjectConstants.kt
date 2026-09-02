@@ -18,7 +18,6 @@ package common
 
 internal object ProjectConstants {
     internal const val PROJECT_COMMON = ":core:common"
-    internal const val PROJECT_DESIGN_SYSTEM = ":core:designsystem"
     internal const val PROJECT_DOMAIN = ":core:domain"
     internal const val PROJECT_NAVIGATION = ":core:navigation"
     internal const val PROJECT_PREVIEW = ":core:preview"

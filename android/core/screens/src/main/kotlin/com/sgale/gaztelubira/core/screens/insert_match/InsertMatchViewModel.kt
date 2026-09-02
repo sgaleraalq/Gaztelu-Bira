@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.screens.insert_match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Stat
@@ -60,7 +60,6 @@ import com.sgale.gaztelubira.core.screens.insert_match.data.isValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first

@@ -22,11 +22,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import com.sgale.gaztelubira.core.designsystem.components.GBProgressBar
-import com.sgale.gaztelubira.core.designsystem.components.GBScaffold
-import com.sgale.gaztelubira.core.designsystem.utils.AppProvider.APP_LOGO
-import com.sgale.gaztelubira.core.designsystem.utils.AppProvider.APP_NAME
 import com.sgale.gaztelubira.core.screens.splash.ui.LottieAnimation
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressBar
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 @Composable
 fun SplashScreenUI(
@@ -34,17 +32,19 @@ fun SplashScreenUI(
     avoid: Boolean,
     navigate: () -> Unit
 ) {
-    GBScaffold(APP_LOGO, APP_NAME, true) { modifier ->
-        Box(
-            modifier = modifier.fillMaxSize()
-        ) {
-            LottieAnimation(Modifier.align(Center))
-            GBProgressBar(
-                modifier = Modifier.align(BottomCenter),
-                completed = completed,
-                avoid = avoid,
-                onFinish = { navigate() }
-            )
-        }
-    }
+    GBScaffold(
+        showTopAppBar = true,
+        content = { modifier ->
+            Box(
+                modifier = modifier.fillMaxSize()
+            ) {
+                LottieAnimation(Modifier.align(Center))
+                GBProgressBar(
+                    modifier = Modifier.align(BottomCenter),
+                    completed = completed,
+                    avoid = avoid,
+                    onFinish = { navigate() }
+                )
+            }
+    )
 }

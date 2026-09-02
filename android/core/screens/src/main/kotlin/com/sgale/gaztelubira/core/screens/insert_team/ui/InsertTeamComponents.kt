@@ -28,7 +28,7 @@ import com.sgale.gaztelubira.core.designsystem.components.GBInsertButton
 import com.sgale.gaztelubira.core.designsystem.components.GBInsertImage
 import com.sgale.gaztelubira.core.designsystem.components.GBTextField
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Team
-import com.sgale.gaztelubira.core.designsystem.style.lightGray
+import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
 import androidx.compose.ui.res.stringResource

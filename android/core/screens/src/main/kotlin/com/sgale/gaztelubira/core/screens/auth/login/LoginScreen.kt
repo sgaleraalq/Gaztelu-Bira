@@ -23,15 +23,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sgale.gaztelubira.core.designsystem.components.GBProgressDialog
-import com.sgale.gaztelubira.core.designsystem.components.GBScaffold
-import com.sgale.gaztelubira.core.designsystem.style.primaryRed
+import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.auth.AuthState.GoogleLoading
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Loading
 import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDialog
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 @Composable
 fun LoginScreen(
@@ -50,7 +50,7 @@ fun LoginScreen(
         focusManager.clearFocus()
     }
 
-    GBScaffold { modifier ->
+    GBScaffold(topBarTitle = "") { modifier ->
         LoginScreenUI(
             modifier = modifier,
             user = loginUser,

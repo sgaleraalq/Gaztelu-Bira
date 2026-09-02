@@ -32,7 +32,7 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.ui.WelcomeScreenTitle
 fun WelcomeScreenUI(
     navigateToLogin: () -> Unit
 ) {
-    GBScaffold { modifier ->
+    GBScaffold(topBarTitle = "") { modifier ->
         Column(modifier) {
             WelcomeScreenTitle()
             Spacer(Modifier.height(16.dp))

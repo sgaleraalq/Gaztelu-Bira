@@ -18,18 +18,8 @@ package com.sgale.gaztelubira.core.screens.auth.signup
 
 import com.sgale.gaztelubira.core.domain.utils.Email
 import com.sgale.gaztelubira.core.domain.utils.Password
-import com.sgale.gaztelubira.core.domain.utils.blank
-import com.sgale.gaztelubira.core.domain.utils.mismatch
-import com.sgale.gaztelubira.core.domain.utils.noDigits
-import com.sgale.gaztelubira.core.domain.utils.short
-import com.sgale.gaztelubira.core.domain.utils.valid
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpUser.ValidationError.EmptyPassword
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpUser.ValidationError.InvalidEmail
 import com.sgale.gaztelubira.core.screens.auth.signup.SignUpUser.ValidationError.InvalidName
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpUser.ValidationError.PasswordMismatch
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpUser.ValidationError.PasswordNoNumber
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpUser.ValidationError.PasswordTooShort
 
 data class SignUpUser(
     val name: String = "",
@@ -42,11 +32,12 @@ data class SignUpUser(
     fun isNotValid(): ValidationError? {
         return when {
             name.isBlank() -> InvalidName
-            !email.valid() -> InvalidEmail
-            password.blank() -> EmptyPassword
-            password.mismatch(repeatPassword) -> PasswordMismatch
-            password.short() -> PasswordTooShort
-            password.noDigits() -> PasswordNoNumber
+//            TODO
+//            !email.valid() -> InvalidEmail
+//            password.blank() -> EmptyPassword
+//            password.mismatch(repeatPassword) -> PasswordMismatch
+//            password.short() -> PasswordTooShort
+//            password.noDigits() -> PasswordNoNumber
             else -> null
         }
     }

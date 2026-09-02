@@ -1,0 +1,58 @@
+/*
+ * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sgale.gaztelubira.multiplatform.ui.auth.signup
+
+import androidx.compose.runtime.Composable
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_sign_up
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+fun SignUpScreen(
+//    state: NavigationState,
+//    viewModel: SignUpViewModel = hiltViewModel<SignUpViewModel>()
+) {
+//    val mainViewModel = LocalMainViewModel.current
+
+//    val error by viewModel.error.collectAsState()
+//    val signUpState by viewModel.state.collectAsState()
+//    val signUpUser by viewModel.signUpUser.collectAsState()
+    val signUpError = stringResource(Res.string.error_sign_up)
+
+//    val errorMsg = stringResource(error?.messageRes ?: Res.string.error_generic)
+
+//    LaunchedEffect(signUpState) {
+//        if (signUpState is Error) {
+//            viewModel.showToast(errorMsg)
+//            viewModel.changeUiState(Default)
+//        }
+//    }
+
+
+    GBScaffold(
+        topBarTitle = ""
+    ) { modifier ->
+//        SignUpScreenUI(
+//            modifier = modifier,
+//            user = signUpUser,
+//            changeUserValue = { field, value -> viewModel.updateField(field, value) },
+//            signUpState = signUpState,
+//            signUp = { viewModel.signUp(state, signUpError, mainViewModel) }
+//        )
+    }
+}

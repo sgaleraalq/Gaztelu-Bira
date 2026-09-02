@@ -47,10 +47,10 @@ import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.core.designsystem.components.GBAsyncImage
 import com.sgale.gaztelubira.core.designsystem.components.GBIcon
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.softGreen
-import com.sgale.gaztelubira.core.designsystem.style.softRed
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.softGreen
+import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId

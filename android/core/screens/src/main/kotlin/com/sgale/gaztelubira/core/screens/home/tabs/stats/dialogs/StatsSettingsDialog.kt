@@ -46,11 +46,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.designsystem.components.GBDialog
 import com.sgale.gaztelubira.core.designsystem.components.GBIcon
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.lightGray
-import com.sgale.gaztelubira.core.designsystem.style.login_container_color
-import com.sgale.gaztelubira.core.designsystem.style.softRed
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
+import com.sgale.gaztelubira.multiplatform.designsystem.style.login_container_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.domain.model.player.Stat.Percentage
 import com.sgale.gaztelubira.core.screens.R

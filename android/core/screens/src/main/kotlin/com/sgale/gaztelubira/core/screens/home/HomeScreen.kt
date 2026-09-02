@@ -24,11 +24,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sgale.gaztelubira.core.designsystem.components.GBUpdateDialog
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
+import com.sgale.gaztelubira.core.screens.home.HomeTab.About
 import com.sgale.gaztelubira.core.screens.navigation.MultiplatformBackHandler
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.home.HomeTab.About
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBUpdateDialog
 
 @Composable
 fun HomeScreen(

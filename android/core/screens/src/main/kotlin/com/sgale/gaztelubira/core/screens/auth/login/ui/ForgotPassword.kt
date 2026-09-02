@@ -20,11 +20,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.sign_up_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.sign_up_color
 import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 
 @Composable
 fun ForgotPassword(

@@ -48,23 +48,23 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBAnimatedMessage
-import com.sgale.gaztelubira.core.designsystem.components.GBElevatedButton
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.primaryBlue
-import com.sgale.gaztelubira.core.designsystem.style.primaryRed
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.player_detail.LOGO_SIZE
 import com.sgale.gaztelubira.core.screens.player_detail.PlayerDetailState
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAnimatedMessage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
+import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 
 @Composable
 internal fun PlayerDetailInformationBox(

@@ -46,8 +46,8 @@ import com.sgale.gaztelubira.core.designsystem.components.GBFootballField
 import com.sgale.gaztelubira.core.designsystem.components.GBImage
 import com.sgale.gaztelubira.core.designsystem.components.GBText
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Team
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState

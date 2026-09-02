@@ -29,11 +29,10 @@ import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBBottomNavItem
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBottomNavItem
 
 @Composable
 fun GBBottomNavigation(

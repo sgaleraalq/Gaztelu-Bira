@@ -20,11 +20,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
-import com.sgale.gaztelubira.core.designsystem.components.GBElevatedButton
-import com.sgale.gaztelubira.core.designsystem.components.GBProgressDialog
-import com.sgale.gaztelubira.core.designsystem.style.login_button_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.login_button_color
 import com.sgale.gaztelubira.core.screens.auth.AuthState
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Loading
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDialog
 
 @Composable
 fun AuthButton(

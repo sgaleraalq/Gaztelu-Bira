@@ -33,8 +33,8 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.designsystem.components.GBText
 import com.sgale.gaztelubira.core.designsystem.components.GBTextField
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.core.domain.model.player.Position
 import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R

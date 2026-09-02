@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.screens.match_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.designsystem.model.LineUpFormation.Companion.getLineUpFromString
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Companion.getLineUpFromString
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchMatchStats
@@ -31,7 +31,6 @@ import com.sgale.gaztelubira.core.screens.match_detail.states.stats.MatchDetailS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

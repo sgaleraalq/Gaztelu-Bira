@@ -52,6 +52,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
+            api(compose.materialIconsExtended)
 
             /**
              * Images from network. Coil's okhttp fetcher is JVM only, so the multiplatform

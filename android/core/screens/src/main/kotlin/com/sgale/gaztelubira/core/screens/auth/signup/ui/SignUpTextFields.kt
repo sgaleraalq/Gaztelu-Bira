@@ -23,7 +23,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.auth.common.AuthTextField
 import com.sgale.gaztelubira.core.screens.auth.signup.SignUpUser

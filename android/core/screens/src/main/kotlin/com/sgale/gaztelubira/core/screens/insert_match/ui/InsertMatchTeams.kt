@@ -51,10 +51,10 @@ import com.sgale.gaztelubira.core.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.core.designsystem.components.GBTeam
 import com.sgale.gaztelubira.core.designsystem.components.GBTeamName
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_bg
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_text_color
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.core.domain.model.match.MatchType.League
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamSide.Local

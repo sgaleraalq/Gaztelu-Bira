@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_LOGO
+import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_NAME
 import com.sgale.gaztelubira.multiplatform.model.TeamModel
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -55,8 +57,8 @@ fun GBScaffold(
 
 @Composable
 fun GBScaffold(
-    appLogo: DrawableResource,
-    appName: StringResource,
+    appLogo: DrawableResource = APP_LOGO,
+    appName: StringResource = APP_NAME,
     showTopAppBar: Boolean = false,
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (Modifier) -> Unit

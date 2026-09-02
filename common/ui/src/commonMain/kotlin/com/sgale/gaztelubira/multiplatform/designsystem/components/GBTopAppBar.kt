@@ -35,6 +35,8 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
+import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_LOGO
+import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_NAME
 import com.sgale.gaztelubira.multiplatform.model.TeamModel
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_button_add
@@ -87,8 +89,8 @@ fun GBTopAppBar(
 
 @Composable
 fun GBTopAppBar(
-    appLogo: DrawableResource,
-    appName: StringResource,
+    appLogo: DrawableResource = APP_LOGO,
+    appName: StringResource = APP_NAME,
     modifier: Modifier = Modifier,
     showAdminButton: Boolean? = false,
     onButtonClicked: () -> Unit = {}

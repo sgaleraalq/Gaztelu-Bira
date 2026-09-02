@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.screens.match_detail.states.line_up
 
-import com.sgale.gaztelubira.core.designsystem.model.LineUpFormation
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 
 data class MatchDetailLineUp(

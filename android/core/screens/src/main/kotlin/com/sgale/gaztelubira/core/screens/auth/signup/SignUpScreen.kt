@@ -20,14 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sgale.gaztelubira.core.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Default
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Error
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 @Composable
 fun SignUpScreen(
@@ -51,7 +51,7 @@ fun SignUpScreen(
     }
 
 
-    GBScaffold { modifier ->
+    GBScaffold(topBarTitle = "") { modifier ->
         SignUpScreenUI(
             modifier = modifier,
             user = signUpUser,

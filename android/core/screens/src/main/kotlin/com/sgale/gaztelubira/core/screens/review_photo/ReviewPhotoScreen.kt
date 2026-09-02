@@ -33,15 +33,15 @@ import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale.Companion.Fit
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sgale.gaztelubira.core.designsystem.components.GBImage
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 
 @Composable
 fun ReviewImageScreen(

@@ -18,19 +18,13 @@ package com.sgale.gaztelubira.core.screens.home
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import com.sgale.gaztelubira.core.designsystem.icons.GBAboutBottomTab
-import com.sgale.gaztelubira.core.designsystem.icons.GBIcons
-import com.sgale.gaztelubira.core.designsystem.icons.GBLogo
-import com.sgale.gaztelubira.core.designsystem.icons.GBMatchesBottomTab
-import com.sgale.gaztelubira.core.designsystem.icons.GBStatsBottomTab
-import com.sgale.gaztelubira.core.designsystem.icons.GBTeamBottomTab
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import androidx.compose.ui.res.painterResource
 import com.sgale.gaztelubira.core.screens.home.tabs.about.AboutScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.GazteluBiraHomeScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.matches.MatchesScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.StatsScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.team.TeamScreen
-import androidx.compose.ui.res.painterResource
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 
 internal const val GAZTELU_BIRA = "gaztelu_bira"
 internal const val MATCHES = "matches"

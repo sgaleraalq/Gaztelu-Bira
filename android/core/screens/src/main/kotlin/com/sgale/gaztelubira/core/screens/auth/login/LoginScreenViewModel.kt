@@ -23,21 +23,19 @@ import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
 import com.sgale.gaztelubira.core.domain.utils.IToastManager
-import com.sgale.gaztelubira.core.domain.utils.valid
 import com.sgale.gaztelubira.core.screens.MainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.auth.AuthState
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Default
 import com.sgale.gaztelubira.core.screens.auth.AuthState.GoogleLoading
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Loading
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
 @HiltViewModel
@@ -77,10 +75,11 @@ class LoginScreenViewModel @Inject constructor(
         val email = _loginUser.value.email
         val password = _loginUser.value.password
 
-        if (!email.valid()) {
-            showToast(invalidEmailMsg)
-            return
-        }
+//        TODO
+//        if (!email.valid()) {
+//            showToast(invalidEmailMsg)
+//            return
+//        }
 
         viewModelScope.launch {
             _state.value = Loading

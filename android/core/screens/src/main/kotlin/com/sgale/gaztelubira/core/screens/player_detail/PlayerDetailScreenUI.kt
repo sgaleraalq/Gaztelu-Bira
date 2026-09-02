@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.core.designsystem.components.GBBackButton
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.BodyPlayer
 import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.ManagerPlayer
-import com.sgale.gaztelubira.core.designsystem.style.gb_text_field_label_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gb_text_field_label_color
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel

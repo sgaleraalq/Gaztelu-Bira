@@ -24,17 +24,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.sgale.gaztelubira.core.designsystem.components.GBAnimatedMessage
-import com.sgale.gaztelubira.core.designsystem.components.GBTopAppBar
+import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.screens.BuildConfig
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.core.screens.home.tabs.matches.ui.MatchesList
 import com.sgale.gaztelubira.core.screens.navigation.Destination
 import com.sgale.gaztelubira.core.screens.navigation.Destination.InsertMatch
 import com.sgale.gaztelubira.core.screens.navigation.Destination.MatchDetail
-import com.sgale.gaztelubira.core.screens.home.tabs.matches.ui.MatchesList
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAnimatedMessage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
 
 @Composable
 fun MatchesScreenUI(

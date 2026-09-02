@@ -31,10 +31,10 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.core.designsystem.components.GBIcon
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_bg
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.core.designsystem.style.elevated_button_text_color
-import com.sgale.gaztelubira.core.designsystem.style.gb_dialog_background
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gb_dialog_background
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Formation

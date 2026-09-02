@@ -36,8 +36,8 @@ import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.core.designsystem.components.GBDialog
 import com.sgale.gaztelubira.core.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.model.LineUpPosition
-import com.sgale.gaztelubira.core.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
 import com.sgale.gaztelubira.core.domain.model.player.Stat.CleanSheets

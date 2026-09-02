@@ -24,10 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.style.white_in_gray_box
+import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 
 @Composable
 fun OrSpacer() {
