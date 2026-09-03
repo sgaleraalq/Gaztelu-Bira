@@ -29,106 +29,63 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Bottom
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
-import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_LOGO
-import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_NAME
-import com.sgale.gaztelubira.multiplatform.model.TeamModel
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_button_add
 import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun GBTopAppBar(
     modifier: Modifier = Modifier,
-    appTeam: TeamModel?,
-    showAdminButton: Boolean? = false,
-    topBarTitle: String?,
+    title: String? = null,
+    logoUrl: String? = null,
+    logo: Painter? = null,
+    showAdminButton: Boolean = false,
     onButtonClicked: () -> Unit = {}
 ) {
+    val logoModifier = Modifier
+        .size(36.dp)
+        .clip(RoundedCornerShape(50))
+        .border(width = 1.dp, color = White, shape = RoundedCornerShape(50))
+
     Row(
         modifier = modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 24.dp),
         verticalAlignment = Bottom,
         horizontalArrangement = spacedBy(24.dp)
     ) {
         /**
-         * App or Team logo
+         * `logo` is the already-resolved image: it stands alone when there is no URL to load,
+         * and doubles as the placeholder while a remote one is on its way.
          */
-        GBImage(
-            modifier = Modifier
-                .size(36.dp)
-                .clip(RoundedCornerShape(50))
-                .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
-            image = appTeam?.logo,
-            saverStatus = Team
-        )
-
-        /**
-         * Team name
-         */
-        GBText(
-            modifier = Modifier.weight(1f).padding(bottom = 4.dp),
-            text = topBarTitle ?: appTeam?.name,
-            alignment = Start,
-            textColor = White,
-            style = MaterialTheme.typography.titleLarge
-        )
-
-        if (showAdminButton == true) {
-            GBAddButton { onButtonClicked() }
-        }
-    }
-}
-
-@Composable
-fun GBTopAppBar(
-    appLogo: DrawableResource = APP_LOGO,
-    appName: StringResource = APP_NAME,
-    modifier: Modifier = Modifier,
-    showAdminButton: Boolean? = false,
-    onButtonClicked: () -> Unit = {}
-) {
-    Row(
-        modifier = modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 24.dp),
-        verticalAlignment = Bottom,
-        horizontalArrangement = spacedBy(24.dp)
-    ) {
-        /**
-         * App or Team logo
-         */
-        GBImage(
-            modifier = Modifier
-                .size(36.dp)
-                .clip(RoundedCornerShape(50))
-                .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
-            image = appLogo
-        )
-
-        /**
-         * Team name
-         */
-        GBText(
-            modifier = Modifier.weight(1f).padding(bottom = 4.dp),
-            text = stringResource(appName),
-            alignment = Start,
-            textColor = White,
-            style = MaterialTheme.typography.titleLarge
-        )
-
-        if (showAdminButton == true) {
-            Icon(
-                modifier = Modifier.size(36.dp).clickable { onButtonClicked() },
-                painter = painterResource(Res.drawable.ic_button_add),
-                contentDescription = null,
-                tint = Unspecified
+        if (logoUrl == null && logo != null) {
+            GBImage(
+                modifier = logoModifier,
+                painter = logo
             )
+        } else {
+            GBImage(
+                modifier = logoModifier,
+                image = logoUrl,
+                placeholder = logo
+            )
+        }
+
+        GBText(
+            modifier = Modifier.weight(1f).padding(bottom = 4.dp),
+            text = title,
+            alignment = Start,
+            textColor = White,
+            style = MaterialTheme.typography.titleLarge
+        )
+
+        if (showAdminButton) {
+            GBAddButton { onButtonClicked() }
         }
     }
 }

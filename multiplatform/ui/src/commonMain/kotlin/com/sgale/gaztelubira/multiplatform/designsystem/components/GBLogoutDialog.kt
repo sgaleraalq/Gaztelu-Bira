@@ -26,18 +26,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
-import com.sgale.gaztelubira.multiplatform.model.TeamModel
 
 @Composable
 fun GBLogoutDialog(
-    appTeam: TeamModel?,
+    appLogo: String?,
+    placeholder: Painter? = null,
     onConfirm: () -> Unit,
     onCancel: () -> Unit,
     logout: String,
@@ -52,8 +52,7 @@ fun GBLogoutDialog(
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(12.dp)
-                .padding(12.dp)
+                .padding(24.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth().padding(12.dp),
@@ -64,8 +63,8 @@ fun GBLogoutDialog(
                         .size(36.dp)
                         .clip(RoundedCornerShape(50))
                         .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
-                    image = appTeam?.logo,
-                    saverStatus = Team
+                    image = appLogo,
+                    placeholder = placeholder
                 )
                 GBText(
                     modifier = Modifier.weight(1f),

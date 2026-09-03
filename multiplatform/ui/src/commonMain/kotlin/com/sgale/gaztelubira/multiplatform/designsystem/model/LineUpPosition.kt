@@ -16,12 +16,9 @@
 
 package com.sgale.gaztelubira.multiplatform.designsystem.model
 
-import com.sgale.gaztelubira.multiplatform.model.Position
-import com.sgale.gaztelubira.multiplatform.model.Position.Defender
-import com.sgale.gaztelubira.multiplatform.model.Position.Forward
-import com.sgale.gaztelubira.multiplatform.model.Position.GoalKeeper
-import com.sgale.gaztelubira.multiplatform.model.Position.MidFielder
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.manager
+import com.sgale.gaztelubira.multiplatform.ui.resources.bench
 import com.sgale.gaztelubira.multiplatform.ui.resources.back_center
 import com.sgale.gaztelubira.multiplatform.ui.resources.back_center_left
 import com.sgale.gaztelubira.multiplatform.ui.resources.back_center_right
@@ -46,100 +43,76 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.winger_right
 import org.jetbrains.compose.resources.StringResource
 
 enum class LineUpPosition(
-    val position: Position,
     val positionName: StringResource
 ) {
     Goalkeeper(
-        position = GoalKeeper,
         positionName = Res.string.goalkeeper
     ),
     BackCenter(
-        position = Defender,
         positionName = Res.string.back_center
     ),
     BackCenterLeft(
-        position = Defender,
         positionName = Res.string.back_center_left
     ),
     BackCenterRight(
-        position = Defender,
         positionName = Res.string.back_center_right
     ),
     WingBackLeft(
-        position = Defender,
         positionName = Res.string.wing_back_left
     ),
     WingBackRight(
-        position = Defender,
         positionName = Res.string.wing_back_right
     ),
 
     MidDefensiveLeft(
-        position = MidFielder,
         positionName = Res.string.mid_defensive_left
     ),
     MidDefensiveRight(
-        position = MidFielder,
         positionName = Res.string.mid_defensive_right
     ),
     MidDefensiveCenter(
-        position = MidFielder,
         positionName = Res.string.mid_defensive_center
     ),
     MidCenterLeft(
-        position = MidFielder,
         positionName = Res.string.mid_center_left
     ),
     MidCenterRight(
-        position = MidFielder,
         positionName = Res.string.mid_center_right
     ),
     MidCenter(
-        position = MidFielder,
         positionName = Res.string.mid_center
     ),
     MidAttackingLeft(
-        position = MidFielder,
         positionName = Res.string.mid_attacking_left
     ),
     MidAttackingRight(
-        position = MidFielder,
         positionName = Res.string.mid_attacking_right
     ),
     MidAttackingCenter(
-        position = MidFielder,
         positionName = Res.string.mid_attacking_center
     ),
     WingerLeft(
-        position = Forward,
         positionName = Res.string.winger_left
     ),
     WingerRight(
-        position = Forward,
         positionName = Res.string.winger_right
     ),
     Striker(
-        position = Forward,
         positionName = Res.string.striker
     ),
     SecondStriker(
-        position = Forward,
         positionName = Res.string.second_striker
     ),
     RightStriker(
-        position = Forward,
         positionName = Res.string.right_striker
     ),
     LeftStriker(
-        position = Forward,
         positionName = Res.string.left_striker
     ),
     Bench(
-        position = Position.Bench,
-        positionName = Position.Bench.positionName
+        positionName = Res.string.bench
     ),
     Manager(
-        position = Position.Manager,
-        positionName = Position.Manager.positionName
+        positionName = Res.string.manager
     )
 }

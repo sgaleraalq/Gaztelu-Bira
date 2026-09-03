@@ -40,17 +40,15 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.FacePlayer
+import com.sgale.gaztelubira.multiplatform.designsystem.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.model.PlayerModel
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.img_football_field
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -62,7 +60,9 @@ import kotlin.time.Duration.Companion.milliseconds
 fun GBFootballField(
     modifier: Modifier = Modifier,
     showAnimation: Boolean,
-    players: Map<Int, PlayerModel?>,
+    players: Map<Int, GBPlayer?>,
+    fieldImage: Painter,
+    playerPlaceholder: Painter? = null,
     formation: LineUpFormation,
     onAnimationFinished: () -> Unit = {},
     onPlayerSelected: (LineUpPosition, Int) -> Unit= { _, _ -> }
@@ -92,14 +92,15 @@ fun GBFootballField(
     ) {
         GBLocalImage(
             modifier = Modifier.fillMaxSize(),
-            image = Res.drawable.img_football_field,
-            scale = FillWidth
+            painter = fieldImage,
+            contentScale = FillWidth
         )
 
         formation.positions.forEachIndexed { index, position ->
             if (boxWidthPx > 0 && boxHeightPx > 0) {
                 GBPlayerPosition(
                     player = players[index],
+                    placeholder = playerPlaceholder,
                     percentX = position.x,
                     percentY = position.y,
                     fieldWidthPx = boxWidthPx,
@@ -116,7 +117,8 @@ fun GBFootballField(
 
 @Composable
 fun GBPlayerPosition(
-    player: PlayerModel?,
+    player: GBPlayer?,
+    placeholder: Painter? = null,
     percentX: Float,
     percentY: Float,
     fieldWidthPx: Float,
@@ -155,8 +157,8 @@ fun GBPlayerPosition(
                     modifier = Modifier
                         .size(34.dp)
                         .clip(RoundedCornerShape(50)),
-                    image = player?.faceImage,
-                    saverStatus = FacePlayer
+                    image = player?.image,
+                    placeholder = placeholder
                 )
                 GBText(
                     text = player?.name,

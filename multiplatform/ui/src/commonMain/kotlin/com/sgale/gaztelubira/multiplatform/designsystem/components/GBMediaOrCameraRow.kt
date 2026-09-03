@@ -37,6 +37,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_camera
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_media
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GBMediaOrCamera(
@@ -70,7 +71,7 @@ fun GBMediaOrCamera(
                         .padding(12.dp),
                     contentAlignment = Center
                 ) {
-                    GBIcon(icon = Res.drawable.ic_media)
+                    GBIcon(icon = painterResource(Res.drawable.ic_media))
                 }
                 VerticalDivider(Modifier.height(24.dp))
                 Box(
@@ -80,7 +81,7 @@ fun GBMediaOrCamera(
                         .padding(12.dp),
                     contentAlignment = Center
                 ) {
-                    GBIcon(icon = Res.drawable.ic_camera)
+                    GBIcon(icon = painterResource(Res.drawable.ic_camera))
                 }
             }
         }

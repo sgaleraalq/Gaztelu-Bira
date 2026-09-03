@@ -41,7 +41,7 @@ fun LoginScreen(
 //    }
 
     GBScaffold(
-        topBarTitle = "",
+        title = "",
         content = { modifier ->
             //        LoginScreenUI(
 //            modifier = modifier,

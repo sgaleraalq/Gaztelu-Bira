@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
@@ -61,7 +62,7 @@ fun GBInsertImage(
     onClick: () -> Unit,
     removeImage: () -> Unit,
     isClickable: Boolean,
-    saverStatus: SaverStatus,
+    placeholder: Painter? = null,
     enableExpansion: Boolean = true
 ) {
     var expandPicture by remember { mutableStateOf(false) }
@@ -96,7 +97,7 @@ fun GBInsertImage(
                 imageModifier = Modifier.fillMaxSize(),
                 image = image.uri,
                 contentScale = Crop,
-                saverStatus = saverStatus
+                placeholder = placeholder
             )
         } else {
             GBInsertImageIcon(
@@ -109,7 +110,7 @@ fun GBInsertImage(
     if (expandPicture) {
         GBExpandedImage(
             uri = image?.uri ?: "",
-            saverStatus = saverStatus,
+            placeholder = placeholder,
             removeImage = { removeImage() },
             dismiss = { expandPicture = false }
         )
@@ -137,7 +138,7 @@ fun GBInsertImageIcon(
 @Composable
 fun GBExpandedImage(
     uri: String,
-    saverStatus: SaverStatus,
+    placeholder: Painter? = null,
     removeImage: () -> Unit,
     dismiss: () -> Unit
 ) {
@@ -158,7 +159,7 @@ fun GBExpandedImage(
             GBImage(
                 image = uri,
                 contentScale = Fit,
-                saverStatus = saverStatus
+                placeholder = placeholder
             )
         }
     }
@@ -176,7 +177,7 @@ fun ExpandedImageButtons(
                 .padding(8.dp)
                 .size(32.dp)
                 .clickable { dismiss(); removeImage() },
-            icon = Res.drawable.ic_garbage,
+            icon = painterResource(Res.drawable.ic_garbage),
             size = 32.dp
         )
 
@@ -185,7 +186,7 @@ fun ExpandedImageButtons(
                 .padding(8.dp)
                 .size(32.dp)
                 .clickable { dismiss() },
-            icon = Res.drawable.ic_close,
+            icon = painterResource(Res.drawable.ic_close),
             size = 32.dp
         )
     }

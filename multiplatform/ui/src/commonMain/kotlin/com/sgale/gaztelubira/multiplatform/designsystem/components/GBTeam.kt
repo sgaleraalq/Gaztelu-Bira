@@ -20,25 +20,26 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 
 @Composable
 fun GBTeam(
     modifier: Modifier = Modifier,
-    image: String?
+    image: String?,
+    placeholder: Painter? = null
 ) {
     GBImage(
         modifier = modifier
             .clip(RoundedCornerShape(50))
             .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
         image = image,
-        saverStatus = Team
+        placeholder = placeholder
     )
 }
 

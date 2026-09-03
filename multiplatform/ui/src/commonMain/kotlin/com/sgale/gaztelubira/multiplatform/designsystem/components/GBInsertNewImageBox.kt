@@ -25,9 +25,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.FacePlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.model.CommonImage
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
@@ -38,6 +38,7 @@ fun GBImageBoxRequester(
     text: String,
     iconSize: Dp = 32.dp,
     commonImage: CommonImage?,
+    placeholder: Painter? = null,
     onClick: () -> Unit = {},
     removeImage: () -> Unit
 ) {
@@ -64,7 +65,7 @@ fun GBImageBoxRequester(
             onClick = {},
             removeImage = { removeImage() },
             isClickable = true,
-            saverStatus = FacePlayer,
+            placeholder = placeholder,
             enableExpansion = true
         )
     }

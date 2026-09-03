@@ -20,24 +20,23 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GBIcon(
     modifier: Modifier = Modifier,
-    icon: DrawableResource,
+    icon: Painter,
     size: Dp = 24.dp,
     tint: Color = Unspecified,
     contentDescription: String? = null
 ) {
     Icon(
         modifier = modifier.size(size),
-        painter = painterResource(icon),
+        painter = icon,
         contentDescription = contentDescription,
         tint = tint
     )

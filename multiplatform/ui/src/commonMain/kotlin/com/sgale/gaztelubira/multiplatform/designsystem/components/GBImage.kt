@@ -32,92 +32,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.*
 import com.sgale.gaztelubira.multiplatform.designsystem.utils.shimmerEffect
-import com.sgale.gaztelubira.multiplatform.model.Position
-import com.sgale.gaztelubira.multiplatform.model.Position.GoalKeeper
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.description_insert_player_image
-import com.sgale.gaztelubira.multiplatform.ui.resources.img_body_player
-import com.sgale.gaztelubira.multiplatform.ui.resources.img_face_player
-import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
-import com.sgale.gaztelubira.multiplatform.ui.resources.img_manager
-import com.sgale.gaztelubira.multiplatform.ui.resources.img_no_football_logo
-import com.sgale.gaztelubira.multiplatform.ui.resources.img_placeholder
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 
-enum class SaverStatus {
-    FacePlayer, BodyPlayer, ManagerPlayer, Team, Undefined
-}
-
-@Composable
-fun GBPlayerImage(
-    modifier: Modifier = Modifier,
-    image: String?,
-    borderColor: Color = White,
-    saverStatus: SaverStatus = FacePlayer
-) {
-    GBImage(
-        modifier = modifier
-            .size(24.dp)
-            .clip(RoundedCornerShape(50))
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(50)
-            ),
-        imageModifier = Modifier.fillMaxSize(),
-        image = image,
-        saverStatus = saverStatus
-    )
-}
-
-@Composable
-fun GBPlayerImage(
-    modifier: Modifier = Modifier,
-    image: DrawableResource
-) {
-    GBImage(
-        modifier = modifier
-            .size(24.dp)
-            .clip(RoundedCornerShape(50))
-            .border(
-                width = 1.dp,
-                color = White,
-                shape = RoundedCornerShape(50)
-            ),
-        image = image
-    )
-}
+/**
+ * Images are handed to the design system, never chosen by it: a `String` for something loaded
+ * over the network and a `Painter` for anything already resolved. That keeps these components
+ * free of both the app's data model and of any particular resource system — an Android caller
+ * resolves `R.drawable.x` and a multiplatform one resolves `Res.drawable.x`, and neither shows
+ * up in these signatures.
+ */
 
 @Composable
 fun GBImage(
     modifier: Modifier = Modifier,
     imageModifier: Modifier = Modifier,
     image: String?,
-    contentScale: ContentScale = Crop,
-    saverStatus: SaverStatus
+    placeholder: Painter? = null,
+    contentScale: ContentScale = Crop
 ) {
-    val saverImage = when (saverStatus) {
-        FacePlayer -> Res.drawable.img_face_player
-        BodyPlayer -> Res.drawable.img_body_player
-        Team -> Res.drawable.img_no_football_logo
-        Undefined -> Res.drawable.img_placeholder
-        ManagerPlayer -> Res.drawable.img_manager
-    }
-
     var isLoading by remember { mutableStateOf(false) }
-    val customModifier = if (isLoading) {
-        modifier.shimmerEffect()
-    } else {
-        modifier
-    }
+    val customModifier = if (isLoading) modifier.shimmerEffect() else modifier
 
     Box(
         modifier = customModifier,
@@ -131,8 +70,8 @@ fun GBImage(
             onLoading = { isLoading = true },
             onError = { isLoading = false },
             onSuccess = { isLoading = false },
-            error = painterResource(saverImage),
-            fallback = painterResource(saverImage)
+            error = placeholder,
+            fallback = placeholder
         )
     }
 }
@@ -140,14 +79,15 @@ fun GBImage(
 @Composable
 fun GBImage(
     modifier: Modifier = Modifier,
-    image: DrawableResource,
-    scale: ContentScale = Crop
+    painter: Painter,
+    contentDescription: String? = null,
+    contentScale: ContentScale = Crop
 ) {
     Image(
         modifier = modifier,
-        painter = painterResource(image),
-        contentScale = scale,
-        contentDescription = null
+        painter = painter,
+        contentScale = contentScale,
+        contentDescription = contentDescription
     )
 }
 
@@ -155,56 +95,70 @@ fun GBImage(
 fun GBImage(
     modifier: Modifier = Modifier,
     image: ByteArray,
+    contentDescription: String? = null,
     contentScale: ContentScale = Crop
 ) {
     AsyncImage(
         modifier = modifier,
         model = image,
         contentScale = contentScale,
-        contentDescription = stringResource(Res.string.description_insert_player_image)
+        contentDescription = contentDescription
     )
 }
 
 @Composable
 fun GBLocalImage(
-    modifier: Modifier,
-    image: DrawableResource = Res.drawable.img_gaztelu_bira,
-    scale: ContentScale = Crop
+    modifier: Modifier = Modifier,
+    painter: Painter,
+    contentScale: ContentScale = Crop
 ) {
     Image(
         modifier = modifier,
-        painter = painterResource(image),
-        contentScale = scale,
-        contentDescription = null,
+        painter = painter,
+        contentScale = contentScale,
+        contentDescription = null
     )
 }
 
 @Composable
 fun GBAsyncImage(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     image: String?,
-    contentScale: ContentScale,
-    isLoading: Boolean,
-    finishLoading: () -> Unit,
-    saverImage: DrawableResource = Res.drawable.img_face_player
+    placeholder: Painter? = null,
+    contentScale: ContentScale = Crop,
+    isLoading: Boolean = false,
+    finishLoading: () -> Unit = {}
 ) {
     AsyncImage(
-        modifier = if (isLoading) modifier.shimmerEffect() else modifier ,
+        modifier = if (isLoading) modifier.shimmerEffect() else modifier,
         model = image,
         contentScale = contentScale,
         contentDescription = null,
         onError = { finishLoading() },
         onSuccess = { finishLoading() },
-        error = painterResource(saverImage),
-        fallback = painterResource(saverImage)
+        error = placeholder,
+        fallback = placeholder
     )
 }
 
-fun getSaverImage(
-    position: Position?
-): DrawableResource {
-    return when (position) {
-        GoalKeeper -> Res.drawable.img_body_player // todo
-        else -> Res.drawable.img_body_player
-    }
+@Composable
+fun GBPlayerImage(
+    modifier: Modifier = Modifier,
+    image: String?,
+    placeholder: Painter? = null,
+    borderColor: Color = White
+) {
+    GBImage(
+        modifier = modifier
+            .size(24.dp)
+            .clip(RoundedCornerShape(50))
+            .border(
+                width = 1.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(50)
+            ),
+        imageModifier = Modifier.fillMaxSize(),
+        image = image,
+        placeholder = placeholder
+    )
 }

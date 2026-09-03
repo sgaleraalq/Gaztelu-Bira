@@ -32,6 +32,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
@@ -41,8 +42,6 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GBElevatedButton(
@@ -82,7 +81,7 @@ fun GBElevatedButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,
-    icon: DrawableResource,
+    icon: Painter,
     backgroundColor: Color = White,
     textColor: Color = Black,
     roundness: Int = 8
@@ -104,7 +103,7 @@ fun GBElevatedButton(
         ) {
             Icon(
                 modifier = Modifier.size(24.dp),
-                painter = painterResource(icon),
+                painter = icon,
                 contentDescription = null,
                 tint = Unspecified
             )

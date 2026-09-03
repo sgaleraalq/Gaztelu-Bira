@@ -24,6 +24,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.continue_as_guest
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_google
 import com.sgale.gaztelubira.multiplatform.ui.resources.login_with_google
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GoogleLogin(
@@ -32,7 +33,7 @@ fun GoogleLogin(
     GBElevatedButton(
         text = stringResource(Res.string.login_with_google),
         onClick = { loginGoogle() },
-        icon = Res.drawable.ic_google
+        icon = painterResource(Res.drawable.ic_google)
     )
 }
 

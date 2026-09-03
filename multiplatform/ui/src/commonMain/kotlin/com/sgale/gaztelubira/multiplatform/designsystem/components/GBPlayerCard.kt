@@ -44,6 +44,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.TopEnd
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -57,7 +58,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.FacePlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
@@ -66,16 +66,18 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_backgr
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_background_top_gradient
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_name_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_stat_text_color
-import com.sgale.gaztelubira.multiplatform.model.PlayerModel
+import com.sgale.gaztelubira.multiplatform.designsystem.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_delete
 import kotlin.Float.Companion.POSITIVE_INFINITY
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GBPlayerCard(
     image: String?,
     name: String,
     stat: String,
+    placeholder: Painter? = null,
     onClick: () -> Unit = { }
 ) {
     val cardBackgroundColor = Brush.linearGradient(
@@ -107,7 +109,7 @@ fun GBPlayerCard(
                     .clip(RoundedCornerShape(50))
                     .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
                 image = image,
-                saverStatus = FacePlayer
+                placeholder = placeholder
             )
             GBText(
                 modifier = Modifier.weight(1f),
@@ -129,7 +131,8 @@ fun GBPlayerCard(
 @Composable
 fun GBPlayerCard(
     modifier: Modifier,
-    player: PlayerModel,
+    player: GBPlayer,
+    placeholder: Painter? = null,
     onPlayerClicked: () -> Unit = {},
     onPlayerRemoved: () -> Unit = {},
     dorsal: String? = null,
@@ -168,8 +171,8 @@ fun GBPlayerCard(
             GBImage(
                 modifier = Modifier.fillMaxSize(),
                 imageModifier = Modifier.fillMaxSize(),
-                image = player.faceImage,
-                saverStatus = FacePlayer
+                image = player.image,
+                placeholder = placeholder
             )
 
             /**
@@ -236,7 +239,7 @@ fun GBPlayerCard(
                         .align(TopEnd)
                         .size(18.dp)
                         .clickable { onPlayerRemoved() },
-                    icon = Res.drawable.ic_delete
+                    icon = painterResource(Res.drawable.ic_delete)
                 )
             }
         }

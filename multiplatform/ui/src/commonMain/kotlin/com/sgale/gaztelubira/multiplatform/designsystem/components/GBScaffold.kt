@@ -24,53 +24,27 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_LOGO
-import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_NAME
-import com.sgale.gaztelubira.multiplatform.model.TeamModel
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.StringResource
+import androidx.compose.ui.graphics.painter.Painter
 
 @Composable
 fun GBScaffold(
-    appTeam: TeamModel? = null,
+    modifier: Modifier = Modifier,
     showTopAppBar: Boolean = false,
-    topBarTitle: String? = null,
+    title: String? = null,
+    logoUrl: String? = null,
+    logo: Painter? = null,
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (Modifier) -> Unit
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             if (showTopAppBar) {
                 GBTopAppBar(
-                    appTeam = appTeam,
-                    topBarTitle = topBarTitle,
-                    modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars)
-                )
-            }
-        },
-        bottomBar = { bottomBar() }
-    ) {
-        GBBackground()
-        content(Modifier.padding(it).fillMaxSize())
-    }
-}
-
-@Composable
-fun GBScaffold(
-    appLogo: DrawableResource = APP_LOGO,
-    appName: StringResource = APP_NAME,
-    showTopAppBar: Boolean = false,
-    bottomBar: @Composable () -> Unit = {},
-    content: @Composable (Modifier) -> Unit
-) {
-    Scaffold(
-        topBar = {
-            if (showTopAppBar) {
-                GBTopAppBar(
-                    appLogo = appLogo,
-                    appName = appName,
-                    modifier = Modifier
-                        .windowInsetsPadding(WindowInsets.statusBars)
+                    modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
+                    title = title,
+                    logoUrl = logoUrl,
+                    logo = logo
                 )
             }
         },
