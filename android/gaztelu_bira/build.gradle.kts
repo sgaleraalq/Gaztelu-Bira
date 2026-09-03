@@ -52,7 +52,7 @@ dependencies {
 
 /**
  * Compose Multiplatform wires its resources into an Android module's assets only for the classic
- * `com.android.library` plugin. `:common:ui` uses AGP's KMP library plugin, where CMP leaves its
+ * `com.android.library` plugin. `:multiplatform:ui` uses AGP's KMP library plugin, where CMP leaves its
  * `copyAndroidMainComposeResourcesToAndroidAssets` task without an output directory — so the
  * shared module's `composeResources` never reach the APK and every `Res.drawable.*` fails at
  * runtime with MissingResourceException.
@@ -85,9 +85,9 @@ abstract class CopySharedComposeResources : DefaultTask() {
 }
 
 val copySharedUiComposeResources by tasks.registering(CopySharedComposeResources::class) {
-    dependsOn(":common:ui:prepareComposeResourcesTaskForCommonMain")
+    dependsOn(":multiplatform:ui:prepareComposeResourcesTaskForCommonMain")
     source.from(
-        project(":common:ui").layout.buildDirectory
+        project(":multiplatform:ui").layout.buildDirectory
             .dir("generated/compose/resourceGenerator/preparedResources/commonMain/composeResources")
     )
     resourcesPackage.set("com.sgale.gaztelubira.multiplatform.ui.resources")

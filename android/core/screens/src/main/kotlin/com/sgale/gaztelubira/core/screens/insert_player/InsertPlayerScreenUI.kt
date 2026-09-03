@@ -23,8 +23,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBInsertButton
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField
 import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.Dorsal
@@ -38,7 +38,7 @@ import com.sgale.gaztelubira.core.screens.insert_player.ui.DorsalDialog
 import com.sgale.gaztelubira.core.screens.insert_player.ui.InsertPlayerUiComponents
 import com.sgale.gaztelubira.core.screens.insert_player.ui.MediaOrCameraDialog
 import com.sgale.gaztelubira.core.screens.insert_player.ui.PositionDialog
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
 
 @Composable
 internal fun InsertPlayerScreenUI(

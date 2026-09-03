@@ -52,10 +52,15 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sgale.gaztelubira.core.designsystem.components.GBAsyncImage
-import com.sgale.gaztelubira.core.designsystem.components.GBIcon
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.core.designsystem.components.getSaverImage
+import com.sgale.gaztelubira.core.domain.model.player.Stat
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.PlayerDisplayStats
+import com.sgale.gaztelubira.core.screens.home.tabs.stats.displayStat
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAsyncImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.components.getSaverImage
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.leaderboardFirst
@@ -63,12 +68,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.leaderboardSecond
 import com.sgale.gaztelubira.multiplatform.designsystem.style.leaderboardThird
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softGreen
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
-import com.sgale.gaztelubira.core.designsystem.utils.shimmerEffect
-import com.sgale.gaztelubira.core.domain.model.player.Stat
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.PlayerDisplayStats
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.displayStat
+import com.sgale.gaztelubira.multiplatform.designsystem.utils.shimmerEffect
 import kotlin.math.absoluteValue
 
 private val LEADER_POSITION_SIZE = 24.dp

@@ -21,7 +21,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import com.sgale.gaztelubira.core.designsystem.components.GBProgressDialog
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 
 @Composable

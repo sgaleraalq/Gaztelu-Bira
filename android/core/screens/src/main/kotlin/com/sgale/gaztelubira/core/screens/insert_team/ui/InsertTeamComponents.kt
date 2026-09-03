@@ -23,16 +23,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBInsertButton
-import com.sgale.gaztelubira.core.designsystem.components.GBInsertImage
-import com.sgale.gaztelubira.core.designsystem.components.GBTextField
-import com.sgale.gaztelubira.core.designsystem.components.SaverStatus.Team
-import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
-import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTextField
+import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
+import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 
 @Composable
 internal fun InsertTeamName(

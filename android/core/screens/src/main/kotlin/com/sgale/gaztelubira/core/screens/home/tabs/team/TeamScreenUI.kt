@@ -30,11 +30,11 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBPlayerCard
-import com.sgale.gaztelubira.core.designsystem.components.GBTopAppBar
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
 
 @Composable
 fun TeamScreenUI(
@@ -118,4 +118,3 @@ fun EmptyPlayersComponentAdmin() {
 fun EmptyPlayersComponentNonAdmin() {
     // TODO
 }
-

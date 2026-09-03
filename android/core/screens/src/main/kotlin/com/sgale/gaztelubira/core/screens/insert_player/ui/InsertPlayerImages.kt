@@ -30,8 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBImageBoxRequester
-import com.sgale.gaztelubira.core.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
@@ -39,6 +37,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.softGreen
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImageBoxRequester
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 
 @Composable
 internal fun InsertPlayerImages(

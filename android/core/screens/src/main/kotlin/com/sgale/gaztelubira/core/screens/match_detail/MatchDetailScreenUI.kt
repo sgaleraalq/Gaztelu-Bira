@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Red
-import com.sgale.gaztelubira.core.designsystem.components.GBProgressDialog
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Details
 import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Lineup
@@ -32,6 +31,7 @@ import com.sgale.gaztelubira.core.screens.match_detail.states.line_up.MatchDetai
 import com.sgale.gaztelubira.core.screens.match_detail.states.stats.MatchDetailStateStats
 import com.sgale.gaztelubira.core.screens.match_detail.ui.MatchDetailHeader
 import com.sgale.gaztelubira.core.screens.match_detail.ui.MatchDetailInformationBar
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDialog
 
 @Composable
 fun MatchDetailScreenUI(

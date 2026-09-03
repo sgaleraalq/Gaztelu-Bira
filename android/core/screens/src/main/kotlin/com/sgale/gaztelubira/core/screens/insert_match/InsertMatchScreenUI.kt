@@ -27,10 +27,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.designsystem.components.GBInsertButton
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState
@@ -38,7 +38,7 @@ import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchTeamsInfo
 import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchButtons
 import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchTeams
 import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchTeamsDialog
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
 
 @Composable
 internal fun InsertMatchScreenUI(

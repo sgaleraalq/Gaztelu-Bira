@@ -42,19 +42,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.designsystem.components.GBBasicTextField
-import com.sgale.gaztelubira.core.designsystem.components.GBElevatedButton
-import com.sgale.gaztelubira.core.designsystem.components.GBTeam
-import com.sgale.gaztelubira.core.designsystem.components.GBTeamName
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
-import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.core.domain.model.match.MatchType.League
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamSide.Local
@@ -64,7 +56,15 @@ import com.sgale.gaztelubira.core.domain.utils.getDateFromLong
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert_match.InsertMatchTeamsViewModel
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchTeamsInformation
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBasicTextField
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeamName
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 
 @Composable
 internal fun InsertMatchTeams(

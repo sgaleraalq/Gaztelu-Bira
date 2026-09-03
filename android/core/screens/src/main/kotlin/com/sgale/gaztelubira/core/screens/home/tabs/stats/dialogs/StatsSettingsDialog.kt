@@ -38,19 +38,12 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.designsystem.components.GBDialog
-import com.sgale.gaztelubira.core.designsystem.components.GBIcon
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
-import com.sgale.gaztelubira.multiplatform.designsystem.style.login_container_color
-import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.domain.model.player.Stat.Percentage
 import com.sgale.gaztelubira.core.screens.R
@@ -58,7 +51,14 @@ import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.Punctuation
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.dialogs.SettingsDialogState.ChangePunctuation
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.dialogs.SettingsDialogState.ChangeStat
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.dialogs.SettingsDialogState.Default
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
+import com.sgale.gaztelubira.multiplatform.designsystem.style.login_container_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 
 @Composable
 internal fun StatsSettingsDialog(

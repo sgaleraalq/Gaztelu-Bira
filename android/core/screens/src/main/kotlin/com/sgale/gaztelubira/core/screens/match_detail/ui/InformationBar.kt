@@ -43,7 +43,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.font.FontWeight.Companion.Thin
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_name_text_color
 import com.sgale.gaztelubira.core.screens.R
@@ -53,6 +52,7 @@ import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Lineup
 import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Loading
 import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Stats
 import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 
 @Composable
 fun MatchDetailInformationBar(

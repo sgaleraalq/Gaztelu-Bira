@@ -34,14 +34,11 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBDialog
-import com.sgale.gaztelubira.core.designsystem.components.GBPlayerImage
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.domain.model.player.Stat.Assists
@@ -56,8 +53,11 @@ import com.sgale.gaztelubira.core.domain.model.player.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.model.player.Stat.Saves
 import com.sgale.gaztelubira.core.domain.model.player.Stat.YellowCards
 import com.sgale.gaztelubira.core.domain.utils.formatDecimal
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

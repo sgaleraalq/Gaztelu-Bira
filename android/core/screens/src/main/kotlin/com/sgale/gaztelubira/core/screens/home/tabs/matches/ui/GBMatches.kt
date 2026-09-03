@@ -56,6 +56,7 @@ import com.sgale.gaztelubira.core.domain.model.match.MatchResult
 import com.sgale.gaztelubira.core.domain.model.match.MatchType
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.utils.toDate
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 
 @Composable

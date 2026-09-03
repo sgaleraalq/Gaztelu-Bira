@@ -21,13 +21,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.designsystem.components.GBScaffold
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Default
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Formation
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Information
@@ -43,7 +41,9 @@ import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchInformation
 import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchScaffold
 import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchStats
 import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchStatsButton
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
 
 @Composable
 internal fun InsertMatchScreen(

@@ -30,14 +30,10 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sgale.gaztelubira.core.designsystem.components.GBDialog
-import com.sgale.gaztelubira.core.designsystem.components.GBPlayerCard
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
 import com.sgale.gaztelubira.core.domain.model.player.Stat.CleanSheets
@@ -46,7 +42,11 @@ import com.sgale.gaztelubira.core.domain.model.player.Stat.YellowCards
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchStats
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 
 private val CARD_SIZE = 60.dp
 

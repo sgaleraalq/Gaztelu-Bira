@@ -25,11 +25,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBBackButton
-import com.sgale.gaztelubira.core.designsystem.components.GBTeam
-import com.sgale.gaztelubira.core.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBackButton
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 
 @Composable
 fun MatchDetailHeader(

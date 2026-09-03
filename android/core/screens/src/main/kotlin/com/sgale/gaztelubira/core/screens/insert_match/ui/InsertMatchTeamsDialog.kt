@@ -30,14 +30,13 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBDialog
-import com.sgale.gaztelubira.core.designsystem.components.GBTeam
-import com.sgale.gaztelubira.core.designsystem.components.GBTeamName
-import com.sgale.gaztelubira.core.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeamName
 
 @Composable
 internal fun InsertMatchTeamsDialog(

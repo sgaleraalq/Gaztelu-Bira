@@ -25,9 +25,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale.Companion.Fit
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.designsystem.components.GBImage
-import com.sgale.gaztelubira.core.designsystem.components.GBPlayerImage
-import com.sgale.gaztelubira.core.designsystem.components.SaverStatus
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus
 
 @Composable
 fun PlayerDetailImage(

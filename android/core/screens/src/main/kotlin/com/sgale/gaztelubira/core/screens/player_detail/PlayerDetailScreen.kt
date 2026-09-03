@@ -21,8 +21,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sgale.gaztelubira.core.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 internal const val LOGO_SIZE = 50
 
@@ -45,7 +45,7 @@ fun PlayerDetailScreen(
         viewModel.loadPlayerInformation(user?.team, playerId)
     }
 
-    GBScaffold { modifier ->
+    GBScaffold(topBarTitle = "") { modifier ->
         PlayerDetailScreenUI(
             modifier = modifier,
             user = user,

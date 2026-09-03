@@ -21,10 +21,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sgale.gaztelubira.core.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 @Composable
 fun MatchDetailScreen(
@@ -41,7 +41,7 @@ fun MatchDetailScreen(
         viewModel.loadMatch(state, matchId)
     }
 
-    GBScaffold { modifier ->
+    GBScaffold(topBarTitle = "") { modifier ->
         MatchDetailScreenUI(
             modifier = modifier,
             user = user,

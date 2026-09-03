@@ -31,5 +31,5 @@ dependencies {
     /**
      * Multiplatform
      */
-    implementation(project(":common:ui"))
+    implementation(project(":multiplatform:ui"))
 }
