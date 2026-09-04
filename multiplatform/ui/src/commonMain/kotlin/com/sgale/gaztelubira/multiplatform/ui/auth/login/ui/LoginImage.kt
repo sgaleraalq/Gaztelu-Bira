@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun LoginScreenImage(modifier: Modifier) {
+internal fun LoginScreenImage(modifier: Modifier) {
     Column(
         modifier.background(Color.Red),
         horizontalAlignment = CenterHorizontally,

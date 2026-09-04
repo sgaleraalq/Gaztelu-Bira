@@ -18,10 +18,10 @@ package com.sgale.gaztelubira.core.screens.auth.signup
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.auth.AuthState.Default
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpActions
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpView
@@ -32,19 +32,23 @@ internal fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel<SignUpViewModel>()
 ) {
     val mainViewModel = LocalMainViewModel.current
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    val onSignUpError: (String) -> Unit = { errorMsg ->
-        viewModel.showToast(errorMsg)
-        viewModel.changeUiState(Default)
+    val actions = remember(
+        viewModel,
+        navState,
+        mainViewModel
+    ) {
+        SignUpActions(
+            onNameChange = viewModel::onNameChange,
+            onEmailChange = viewModel::onEmailChange,
+            onPasswordChange = viewModel::onPasswordChange,
+            onRepeatPasswordChange = viewModel::onRepeatPasswordChange,
+            onTogglePasswordVisibility = viewModel::onTogglePasswordVisibility,
+            onToggleRepeatPasswordVisibility = viewModel::onToggleRepeatPasswordVisibility,
+            onSignUp = { viewModel.signUp(navState, mainViewModel) }
+        )
     }
 
-    SignUpView(
-        state = state,
-        actions = SignUpActions(
-            onSignUp = { msg -> viewModel.signUp(navState, msg, mainViewModel) },
-            onSignUpError = onSignUpError,
-            onUpdateField = viewModel::updateField
-        )
-    )
+    SignUpView(state, actions)
 }

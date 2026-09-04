@@ -21,10 +21,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login.Email
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login.Google
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthButton
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthCard
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthScaffold
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions.LoginDestination.SignUp
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions.LoginDestination.Splash
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.ContinueAsGuest
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.DontHaveAccount
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.ForgotPassword
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.GoogleLogin
@@ -35,59 +39,38 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.login
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun LoginScreenUI(
+internal fun LoginViewUI(
     modifier: Modifier,
-    user: LoginUser,
-    loginState: AuthState,
-    changeEmail: (String) -> Unit,
-    changePassword: (String) -> Unit,
-    changePasswordVisibility: () -> Unit,
-    login: () -> Unit,
-    loginGoogle: () -> Unit,
-//    navigateTo: (Destination) -> Unit
+    state: LoginUiState,
+    actions: LoginActions
 ) {
-    val loginText = stringResource(Res.string.login)
-    AuthScaffold(modifier, loginText) {
-        LoginCard(
-            user = user,
-            loginState = loginState,
-            changeEmail = changeEmail,
-            changePassword = changePassword,
-            changePasswordVisibility = changePasswordVisibility,
-            login = login,
-            loginGoogle = { loginGoogle() },
-//            navigateTo = { navigateTo(it) }
-        )
+    AuthScaffold(
+        modifier = modifier,
+        title = stringResource(Res.string.login)
+    ) {
+        LoginCard(state, actions)
     }
 }
 
 @Composable
-fun LoginCard(
-    user: LoginUser,
-    loginState: AuthState,
-    changeEmail: (String) -> Unit,
-    changePassword: (String) -> Unit,
-    changePasswordVisibility: () -> Unit,
-    login: () -> Unit,
-    loginGoogle: () -> Unit,
-//    navigateTo: (Destination) -> Unit
+private fun LoginCard(
+    state: LoginUiState,
+    actions: LoginActions
 ) {
-    val loginTxt = stringResource(Res.string.login)
     AuthCard {
-        LoginTextFields(
-            user = user,
-            changeEmail = changeEmail,
-            changePassword = changePassword,
-            changePasswordVisibility = changePasswordVisibility
+        LoginTextFields(state.user, actions)
+        Spacer(Modifier.height(16.dp))
+        AuthButton(
+            text = stringResource(Res.string.login),
+            authState = state.auth,
+            onClick = { actions.onLogin(Email) }
         )
-        Spacer(Modifier.height(16.dp))
-        AuthButton(loginTxt, loginState) { login() }
         OrSpacer()
-        GoogleLogin { loginGoogle() }
-//            ContinueAsGuest { navigateTo(Home) }
+        GoogleLogin { actions.onLogin(Google) }
+        ContinueAsGuest { actions.navigateTo(Splash) }
         Spacer(Modifier.height(16.dp))
-        DontHaveAccount { /* navigateTo(SignUp) */ }
+        DontHaveAccount { actions.navigateTo(SignUp) }
         Spacer(Modifier.height(8.dp))
-        ForgotPassword { /* TODO */ }
+        ForgotPassword { /* TODO: needs a LoginDestination of its own */ }
     }
 }

@@ -28,7 +28,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.forgot_password
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun ForgotPassword(
+internal fun ForgotPassword(
     onPasswordForgotten: () -> Unit
 ){
     GBText(

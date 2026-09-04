@@ -25,14 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthTextField
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.EMAIL
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.NAME
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.PASSWORD
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.PASSWORD_VISIBLE
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.REPEAT_PASSWORD
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.REPEAT_PASSWORD_VISIBLE
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpActions
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.SignUpUser
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.email_id
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_at_sign
@@ -44,17 +38,19 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SignUpTextFields(
-    user: SignUpUiState.SignUpUser,
-    changeUserValue: (SignUpField, Any) -> Unit
+    user: SignUpUser,
+    actions: SignUpActions
 ) {
+    val bodyLarge = gBTypography().bodyLarge
+
     Column(
         verticalArrangement = spacedBy(4.dp)
     ) {
         AuthTextField(
             text = user.name,
             label = stringResource(Res.string.name),
-            style = gBTypography().bodyLarge,
-            onTextChanged = { changeUserValue(NAME, it) },
+            style = bodyLarge,
+            onTextChanged = actions.onNameChange,
             firstCap = true
         )
         Spacer(Modifier.height(16.dp))
@@ -62,7 +58,7 @@ fun SignUpTextFields(
             text = user.email,
             label = stringResource(Res.string.email_id),
             icon = Res.drawable.ic_at_sign,
-            onTextChanged = { changeUserValue(EMAIL, it) }
+            onTextChanged = actions.onEmailChange
         )
         AuthTextField(
             text = user.password,
@@ -70,8 +66,8 @@ fun SignUpTextFields(
             icon = Res.drawable.ic_padlock,
             isPassword = true,
             isPasswordVisible = user.passwordVisible,
-            onTextChanged = { changeUserValue(PASSWORD, it) },
-            showPassword = { changeUserValue(PASSWORD_VISIBLE, !user.passwordVisible) }
+            onTextChanged = actions.onPasswordChange,
+            showPassword = actions.onTogglePasswordVisibility
         )
         AuthTextField(
             text = user.repeatPassword,
@@ -79,8 +75,8 @@ fun SignUpTextFields(
             icon = Res.drawable.ic_padlock,
             isPassword = true,
             isPasswordVisible = user.repeatPasswordVisible,
-            onTextChanged = { changeUserValue(REPEAT_PASSWORD, it) },
-            showPassword = { changeUserValue(REPEAT_PASSWORD_VISIBLE, !user.repeatPasswordVisible) }
+            onTextChanged = actions.onRepeatPasswordChange,
+            showPassword = actions.onToggleRepeatPasswordVisibility
         )
     }
 }

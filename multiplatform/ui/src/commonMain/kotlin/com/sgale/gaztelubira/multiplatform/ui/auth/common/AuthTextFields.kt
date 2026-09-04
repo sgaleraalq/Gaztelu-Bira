@@ -37,7 +37,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun AuthTextField(
+internal fun AuthTextField(
     text: String,
     label: String,
     style: TextStyle = gBTypography().bodyMedium,

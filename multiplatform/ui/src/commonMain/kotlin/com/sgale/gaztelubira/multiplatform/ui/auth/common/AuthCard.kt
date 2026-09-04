@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.style.login_container_color
 
 @Composable
-fun AuthCard(
+internal fun AuthCard(
     content: @Composable () -> Unit
 ) {
     val scrollState = rememberScrollState()

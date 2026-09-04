@@ -21,7 +21,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthTextField
-import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginUser
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginUiState.LoginUser
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.email_id
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_at_sign
@@ -30,11 +31,9 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.password
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun LoginTextFields(
+internal fun LoginTextFields(
     user: LoginUser,
-    changeEmail: (String) -> Unit,
-    changePassword: (String) -> Unit,
-    changePasswordVisibility: () -> Unit
+    actions: LoginActions
 ) {
     Column(
         verticalArrangement = spacedBy(4.dp)
@@ -43,7 +42,7 @@ fun LoginTextFields(
             text = user.email,
             label = stringResource(Res.string.email_id),
             icon = Res.drawable.ic_at_sign,
-            onTextChanged = { changeEmail(it) }
+            onTextChanged = actions.onEmailChanged
         )
         AuthTextField(
             text = user.password,
@@ -51,8 +50,8 @@ fun LoginTextFields(
             icon = Res.drawable.ic_padlock,
             isPassword = true,
             isPasswordVisible = user.isPasswordVisible,
-            onTextChanged = { changePassword(it) },
-            showPassword = { changePasswordVisibility() }
+            onTextChanged = actions.onPasswordChanged,
+            showPassword = actions.onTogglePasswordVisibility
         )
     }
 }

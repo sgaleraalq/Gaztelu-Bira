@@ -17,7 +17,11 @@
 package com.sgale.gaztelubira.multiplatform.ui.auth.signup
 
 data class SignUpActions(
-    val onSignUp: (String) -> Unit,
-    val onSignUpError: (String) -> Unit,
-    val onUpdateField: (field: SignUpField, value: Any?) -> Unit
+    val onNameChange: (String) -> Unit,
+    val onEmailChange: (String) -> Unit,
+    val onPasswordChange: (String) -> Unit,
+    val onRepeatPasswordChange: (String) -> Unit,
+    val onTogglePasswordVisibility: () -> Unit,
+    val onToggleRepeatPasswordVisibility: () -> Unit,
+    val onSignUp: () -> Unit
 )

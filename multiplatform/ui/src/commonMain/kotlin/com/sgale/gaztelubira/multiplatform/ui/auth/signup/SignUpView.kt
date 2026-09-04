@@ -17,34 +17,18 @@
 package com.sgale.gaztelubira.multiplatform.ui.auth.signup
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_generic
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_sign_up
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SignUpView(
-    actions: SignUpActions,
-    state: SignUpUiState
+    state: SignUpUiState,
+    actions: SignUpActions
 ) {
-    val signUpError = stringResource(Res.string.error_sign_up)
-    val errorMsg = stringResource(state.error?.messageRes ?: Res.string.error_generic)
-
-    LaunchedEffect(state.auth) {
-        if (state.auth is Error) {
-            actions.onSignUpError(errorMsg)
-        }
-    }
-
     GBScaffold { modifier ->
         SignUpViewUI(
             modifier = modifier,
-            user = state.user,
-            changeUserValue = { field, value -> actions.onUpdateField(field, value) },
-            signUpState = state.auth,
-            signUp = { actions.onSignUp(signUpError) }
+            state = state,
+            actions = actions
         )
     }
 }

@@ -18,7 +18,12 @@ package com.sgale.gaztelubira.multiplatform.ui.auth
 
 sealed interface AuthState {
     data object Default: AuthState
-    data object Loading: AuthState
-    data object GoogleLoading: AuthState
-    data object Error: AuthState
+
+    sealed interface Login: AuthState {
+        data object Email: Login
+        data object Google: Login
+    }
+    data class Error(
+        val errorMsg: String
+    ): AuthState
 }

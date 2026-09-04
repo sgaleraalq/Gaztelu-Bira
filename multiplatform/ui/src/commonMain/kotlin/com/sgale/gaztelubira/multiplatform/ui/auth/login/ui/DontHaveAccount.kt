@@ -33,7 +33,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.sign_up_exclamation
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun DontHaveAccount(
+internal fun DontHaveAccount(
     navigateToSignUp: () -> Unit
 ){
     Row(Modifier.fillMaxWidth()) {

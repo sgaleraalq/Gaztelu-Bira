@@ -16,57 +16,37 @@
 
 package com.sgale.gaztelubira.core.screens.auth.login
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.auth.AuthState.GoogleLoading
-import com.sgale.gaztelubira.core.screens.auth.AuthState.Loading
-import androidx.compose.ui.res.stringResource
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDialog
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginView
 
 @Composable
-fun LoginScreen(
-    state: NavigationState,
+internal fun LoginScreen(
+    navState: NavigationState,
     viewModel: LoginScreenViewModel = hiltViewModel<LoginScreenViewModel>()
 ) {
     val mainViewModel = LocalMainViewModel.current
-    val focusManager = LocalFocusManager.current
+    val state by viewModel.state.collectAsState()
 
-    val loginUser by viewModel.loginUser.collectAsState()
-    val loginState by viewModel.state.collectAsState()
-
-    val invalidEmail = stringResource(R.string.error_invalid_email)
-
-    if (loginState is Loading) {
-        focusManager.clearFocus()
-    }
-
-    GBScaffold { modifier ->
-        LoginScreenUI(
-            modifier = modifier,
-            user = loginUser,
-            loginState = loginState,
-            changeEmail = { viewModel.changeEmail(it) },
-            changePassword = { viewModel.changePassword(it) },
-            changePasswordVisibility = { viewModel.changePasswordVisibility() },
-            login = { viewModel.signInWithEmail(state, invalidEmail, mainViewModel) },
-            loginGoogle = { viewModel.signInWithGoogle(state, mainViewModel) },
-            navigateTo = { state.navigateTo(it) }
-        )
-
-        GBProgressDialog(
-            modifier = Modifier.fillMaxSize(),
-            show = loginState == GoogleLoading,
-            color = primaryRed
+    val actions = remember(
+        viewModel,
+        navState,
+        mainViewModel
+    ) {
+        LoginActions(
+            onEmailChanged = viewModel::onEmailChanged,
+            onPasswordChanged = viewModel::onPasswordChanged,
+            onTogglePasswordVisibility = viewModel::onTogglePasswordVisibility,
+            onLogin = viewModel::onLogin,
+            navigateTo = TODO()
         )
     }
+    
+    LoginView(state, actions)
 }

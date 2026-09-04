@@ -14,37 +14,37 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.auth.login.ui
+package com.sgale.gaztelubira.multiplatform.ui.auth.common
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.designsystem.style.sign_up_color
+import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
+/**
+ * Auth errors are rendered here, from the resource the state carries. Resolving the text on this
+ * side keeps every translation in `composeResources`, so neither the Android ViewModel nor its
+ * Swift counterpart has to know about localized strings.
+ */
 @Composable
-fun DontHaveAccount(
-    navigateToSignUp: () -> Unit
-){
-    Row(Modifier.fillMaxWidth()) {
-        GBText(
-            text = stringResource(R.string.dont_have_account),
-            style = gBTypography().bodyMedium
-        )
-        Spacer(Modifier.width(8.dp))
-        GBText(
-            modifier = Modifier.clickable{ navigateToSignUp() },
-            text = stringResource(R.string.sign_up_exclamation),
-            style = gBTypography().bodyMedium,
-            textColor = sign_up_color
-        )
-    }
+internal fun AuthErrorMessage(message: StringResource?) {
+    if (message == null) return
+
+    Spacer(Modifier.height(8.dp))
+    GBText(
+        modifier = Modifier.fillMaxWidth(),
+        text = stringResource(message),
+        alignment = Center,
+        textColor = softRed,
+        style = gBTypography().bodyMedium,
+        maxLines = 2
+    )
 }

@@ -22,67 +22,73 @@ import com.sgale.gaztelubira.core.domain.auth.AuthResult
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
-import com.sgale.gaztelubira.core.domain.utils.IToastManager
 import com.sgale.gaztelubira.core.screens.MainViewModel
-import com.sgale.gaztelubira.core.screens.auth.AuthState
-import com.sgale.gaztelubira.core.screens.auth.AuthState.Default
-import com.sgale.gaztelubira.core.screens.auth.AuthState.GoogleLoading
-import com.sgale.gaztelubira.core.screens.auth.AuthState.Loading
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Default
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login.Email
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login.Google
+import com.sgale.gaztelubira.multiplatform.ui.auth.common.valid
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginUiState
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginUiState.LoginUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
 @HiltViewModel
-class LoginScreenViewModel @Inject constructor(
-    private val toastManager: IToastManager,
+internal class LoginScreenViewModel @Inject constructor(
     private val repository: IAuthRepository
 ) : ViewModel() {
-    private val _state = MutableStateFlow<AuthState>(Default)
-    val state = _state
+    private val _state = MutableStateFlow(LoginUiState())
+    internal val state: StateFlow<LoginUiState> = _state
 
-    private val _loginUser = MutableStateFlow(LoginUser())
-    val loginUser = _loginUser
-
-    fun changeEmail(email: String) {
-        _loginUser.value = _loginUser.value.copy(
-            email = email
-        )
+    private fun updateUser(block: (LoginUser) -> LoginUser) {
+        _state.update { state ->
+            state.copy(user = block(state.user))
+        }
     }
 
-    fun changePassword(password: String) {
-        _loginUser.value = _loginUser.value.copy(
-            password = password
-        )
+    private fun updateAuthState(newState: AuthState) {
+        _state.update { state ->
+            state.copy(auth = newState)
+        }
     }
 
-    fun changePasswordVisibility() {
-        _loginUser.value = _loginUser.value.copy(
-            isPasswordVisible = !_loginUser.value.isPasswordVisible
-        )
+    internal fun onEmailChanged(value: String) = updateUser { it.copy(email = value) }
+    internal fun onPasswordChanged(value: String) = updateUser { it.copy(password = value) }
+
+    internal fun onTogglePasswordVisibility() = _state.update { state ->
+        state.copy(user = state.user.copy(isPasswordVisible = !state.user.isPasswordVisible))
     }
 
-    fun signInWithEmail(
+    internal fun onLogin(type: Login) {
+        when (type) {
+            Email -> loginWithEmail()
+            Google -> loginWithGoogle()
+        }
+    }
+
+    private fun loginWithEmail(
         state: NavigationState,
-        invalidEmailMsg: String,
         mainViewModel: MainViewModel
     ) {
-        val email = _loginUser.value.email
-        val password = _loginUser.value.password
+        val email = _state.value.user.email
+        val password = _state.value.user.password
 
-//        TODO
-//        if (!email.valid()) {
+        if (!email.valid()) {
 //            showToast(invalidEmailMsg)
-//            return
-//        }
+            return
+        }
 
         viewModelScope.launch {
-            _state.value = Loading
+            updateAuthState(Email)
             val authResult = withContext(Dispatchers.IO) {
                 repository.loginWithEmail(email, password)
             }
@@ -92,14 +98,14 @@ class LoginScreenViewModel @Inject constructor(
     }
 
     /**
-     * After google pop up results
+     * After Google pop up results
      */
-    fun signInWithGoogle(
+    private fun loginWithGoogle(
         state: NavigationState,
         mainViewModel: MainViewModel
     ) {
         viewModelScope.launch {
-            _state.value = GoogleLoading
+            updateAuthState(Google)
             val authResult = withContext(Dispatchers.IO) {
                 repository.loginWithGoogle()
             }
@@ -117,12 +123,8 @@ class LoginScreenViewModel @Inject constructor(
             state.navigateTo(Splash)
         } else {
             authResult as Error
-            showToast(authResult.message)
-            _state.value = Default
+//            showToast(authResult.message)
+            updateAuthState(Default)
         }
-    }
-
-    private fun showToast(msg: String) {
-        toastManager.showToast(msg)
     }
 }

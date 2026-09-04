@@ -14,22 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.auth.common
+package com.sgale.gaztelubira.multiplatform.ui.auth.common
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale.Companion.Crop
-import androidx.compose.ui.res.painterResource
-import com.sgale.gaztelubira.core.screens.R
+import android.util.Patterns.EMAIL_ADDRESS
 
-@Composable
-fun AuthBackgroundImage() {
-    Image(
-        modifier = Modifier.fillMaxSize(),
-        painter = painterResource(R.drawable.img_login_wallpaper),
-        contentDescription = null,
-        contentScale = Crop
-    )
-}
+actual fun validEmail(email: String): Boolean =
+    EMAIL_ADDRESS.matcher(email).matches()

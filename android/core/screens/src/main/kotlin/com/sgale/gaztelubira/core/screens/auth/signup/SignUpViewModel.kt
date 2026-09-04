@@ -20,96 +20,91 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.usecase.SignUpEmail
-import com.sgale.gaztelubira.core.domain.utils.IToastManager
 import com.sgale.gaztelubira.core.screens.MainViewModel
-import com.sgale.gaztelubira.core.screens.auth.AuthState
-import com.sgale.gaztelubira.core.screens.auth.AuthState.Default
-import com.sgale.gaztelubira.core.screens.auth.AuthState.Error
-import com.sgale.gaztelubira.core.screens.auth.AuthState.Loading
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.EMAIL
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.NAME
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.PASSWORD
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.PASSWORD_VISIBLE
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.REPEAT_PASSWORD
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.REPEAT_PASSWORD_VISIBLE
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Default
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Error
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.SignUpUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(
-    private val signUpWithEmail: SignUpEmail,
-    private val toastManager: IToastManager
-): ViewModel() {
+internal class SignUpViewModel @Inject constructor(
+    private val signUpWithEmail: SignUpEmail
+) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(SignUpUiState())
-    internal val uiState: StateFlow<SignUpUiState> = _uiState
+    private val _state = MutableStateFlow(SignUpUiState())
+    internal val state: StateFlow<SignUpUiState> = _state.asStateFlow()
 
-    private val _state = MutableStateFlow<AuthState>(Default)
-    val state: StateFlow<AuthState> = _state
+    /**
+     * Editing clears the last failure — but never interrupts a sign-up already in flight.
+     */
+    private fun updateUser(block: (SignUpUser) -> SignUpUser) {
+        _state.update { state ->
+            state.copy(
+                user = block(state.user),
+                error = null,
+                auth = if (state.auth == Error) Default else state.auth
+            )
+        }
+    }
 
-    private val _error = MutableStateFlow<ValidationError?>(null)
-    val error: StateFlow<ValidationError?> = _error
+    internal fun onNameChange(value: String) = updateUser { it.copy(name = value) }
 
-    fun updateField(field: SignUpField, value: Any? = null) {
-        val current = _uiState.value.user
-        _uiState.value = _uiState.value.copy(
-            user = when(field) {
-                NAME -> current.copy(name = value as String)
-                EMAIL -> current.copy(email = value as String)
-                PASSWORD -> current.copy(password = value as String)
-                REPEAT_PASSWORD -> current.copy(repeatPassword = value as String)
-                PASSWORD_VISIBLE -> current.copy(passwordVisible = !(current.passwordVisible))
-                REPEAT_PASSWORD_VISIBLE -> current.copy(repeatPasswordVisible = !(current.repeatPasswordVisible))
-            }
+    internal fun onEmailChange(value: String) = updateUser { it.copy(email = value) }
+
+    internal fun onPasswordChange(value: String) = updateUser { it.copy(password = value) }
+
+    internal fun onRepeatPasswordChange(value: String) = updateUser { it.copy(repeatPassword = value) }
+
+    /**
+     * Revealing a password is not an edit, so it leaves any showing error alone.
+     */
+    internal fun onTogglePasswordVisibility() = _state.update { state ->
+        state.copy(user = state.user.copy(passwordVisible = !state.user.passwordVisible))
+    }
+
+    internal fun onToggleRepeatPasswordVisibility() = _state.update { state ->
+        state.copy(
+            user = state.user.copy(repeatPasswordVisible = !state.user.repeatPasswordVisible)
         )
     }
 
-    fun signUp(
-        state: NavigationState,
-        msg: String,
+    internal fun signUp(
+        navState: NavigationState,
         mainViewModel: MainViewModel
     ) {
-        val error = _uiState.value.user.isNotValid()
-        if (error != null) {
-            _error.value = error
-            _state.value = Error
+        val user = _state.value.user
+
+        user.validate()?.let { validationError ->
+            _state.update { it.copy(error = validationError, auth = Default) }
             return
         }
 
-        val name = _uiState.value.user.name
-        val email = _uiState.value.user.email
-        val password = _uiState.value.user.password
-
         viewModelScope.launch {
-            _state.value = Loading
-            val result = withContext(Dispatchers.IO){
-                signUpWithEmail(name, email, password)
+            _state.update { it.copy(auth = Loading, error = null) }
+
+            val result = withContext(Dispatchers.IO) {
+                signUpWithEmail(user.name, user.email, user.password)
             }
-            _state.value = Default
+
             if (result is Success) {
-                mainViewModel.init(state)
-                state.navigateTo(Splash)
+                _state.update { it.copy(auth = Default) }
+                mainViewModel.init(navState)
+                navState.navigateTo(Splash)
             } else {
-                showToast(msg)
+                _state.update { it.copy(auth = Error) }
             }
         }
-    }
-
-    fun showToast(msg: String) {
-        toastManager.showToast(msg)
-    }
-
-    fun changeUiState(newState: AuthState) {
-        _state.value = newState
     }
 }

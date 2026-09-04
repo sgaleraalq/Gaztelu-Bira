@@ -27,7 +27,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun GoogleLogin(
+internal fun GoogleLogin(
     loginGoogle: () -> Unit
 ) {
     GBElevatedButton(

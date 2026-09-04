@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,17 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.auth.login
 
-import com.sgale.gaztelubira.multiplatform.ui.auth.common.Email
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login
 
-data class LoginUser(
-    val email: Email = "",
-    val password: String = "",
-    val isPasswordVisible: Boolean = false
-)
+data class LoginActions(
+    val onEmailChanged: (String) -> Unit,
+    val onPasswordChanged: (String) -> Unit,
+    val onTogglePasswordVisibility: () -> Unit,
+    val onLogin: (Login) -> Unit,
+    val navigateTo: (LoginDestination) -> Unit
+) {
+    sealed interface LoginDestination {
+        data object SignUp: LoginDestination
+        data object Splash: LoginDestination
+    }
+}

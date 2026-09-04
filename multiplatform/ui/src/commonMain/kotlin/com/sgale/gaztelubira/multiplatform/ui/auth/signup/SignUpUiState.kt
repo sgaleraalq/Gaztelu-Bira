@@ -38,6 +38,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.error_invalid_name
 import com.sgale.gaztelubira.multiplatform.ui.resources.error_password_mismatch
 import com.sgale.gaztelubira.multiplatform.ui.resources.error_password_no_number
 import com.sgale.gaztelubira.multiplatform.ui.resources.error_password_too_short
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_sign_up
 import org.jetbrains.compose.resources.StringResource
 
 data class SignUpUiState(
@@ -45,6 +46,12 @@ data class SignUpUiState(
     val error: ValidationError? = null,
     val auth: AuthState = Default
 ) {
+    fun errorMessage(): StringResource? = when {
+        error != null -> error.messageRes
+        auth == AuthState.Error -> Res.string.error_sign_up
+        else -> null
+    }
+
     data class SignUpUser(
         val name: String = "",
         val email: Email = "",
@@ -53,7 +60,7 @@ data class SignUpUiState(
         val passwordVisible: Boolean = false,
         val repeatPasswordVisible: Boolean = false
     ) {
-        fun isNotValid(): ValidationError? {
+        fun validate(): ValidationError? {
             return when {
                 name.isBlank() -> InvalidName
                 !email.valid() -> InvalidEmail

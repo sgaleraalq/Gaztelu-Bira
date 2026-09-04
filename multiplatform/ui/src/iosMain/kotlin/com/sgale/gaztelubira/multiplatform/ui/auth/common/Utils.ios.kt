@@ -16,14 +16,15 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.auth.common
 
-typealias Email = String
-typealias Password = String
+/**
+ * iOS counterpart of the Android `Patterns.EMAIL_ADDRESS` check. There is no system-provided
+ * equivalent worth the Foundation interop here, so the pattern is spelled out — deliberately
+ * permissive, the same tradeoff Android's makes: it rejects obvious typos, and the only real
+ * proof that an address exists is the confirmation email.
+ */
+private val EMAIL_PATTERN = Regex(
+    "[a-zA-Z0-9+._%\\-]{1,256}@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+"
+)
 
-expect fun validEmail(email: String): Boolean
-
-fun Email.valid() = isNotBlank() && validEmail(this)
-
-fun Password.blank() = isBlank()
-fun Password.short() = length < 8
-fun Password.noDigits() = !this.any { it.isDigit() }
-fun Password.mismatch(repeatPassword: String) = this != repeatPassword
+actual fun validEmail(email: String): Boolean =
+    EMAIL_PATTERN.matches(email)

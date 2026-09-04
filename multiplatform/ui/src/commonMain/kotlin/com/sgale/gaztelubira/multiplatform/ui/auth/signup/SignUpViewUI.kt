@@ -21,11 +21,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthButton
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthCard
+import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthErrorMessage
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthScaffold
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.SignUpUser
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.ui.SignUpTextFields
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.sign_up
@@ -35,33 +34,30 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun SignUpViewUI(
     modifier: Modifier,
-    user: SignUpUser,
-    changeUserValue: (SignUpField, Any) -> Unit,
-    signUpState: AuthState,
-    signUp: () -> Unit
+    state: SignUpUiState,
+    actions: SignUpActions
 ) {
-    val signUpText = stringResource(Res.string.sign_up_exclamation)
-    AuthScaffold(modifier, signUpText) {
-        SignUpCard(
-            user = user,
-            changeUserValue = { field, value -> changeUserValue(field, value) },
-            signUpState = signUpState,
-            signUp = { signUp() }
-        )
+    AuthScaffold(
+        modifier = modifier,
+        title = stringResource(Res.string.sign_up_exclamation)
+    ) {
+        SignUpCard(state, actions)
     }
 }
 
 @Composable
 fun SignUpCard(
-    user: SignUpUser,
-    changeUserValue: (SignUpField, Any) -> Unit,
-    signUpState: AuthState,
-    signUp: () -> Unit
+    state: SignUpUiState,
+    actions: SignUpActions
 ) {
-    val signUpTxt = stringResource(Res.string.sign_up)
     AuthCard {
-        SignUpTextFields(user) { field, value -> changeUserValue(field, value) }
+        SignUpTextFields(state.user, actions)
+        AuthErrorMessage(state.errorMessage())
         Spacer(Modifier.height(16.dp))
-        AuthButton(signUpTxt, signUpState) { signUp () }
+        AuthButton(
+            text = stringResource(Res.string.sign_up),
+            authState = state.auth,
+            onClick = actions.onSignUp
+        )
     }
 }

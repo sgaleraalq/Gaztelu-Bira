@@ -31,7 +31,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.or
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun OrSpacer() {
+internal fun OrSpacer() {
     Row(
         modifier = Modifier.padding(12.dp),
         horizontalArrangement = spacedBy(18.dp),
