@@ -41,6 +41,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottiePainter
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBLocalImage
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 
 @Composable
 fun LottieAnimation(modifier: Modifier) {
@@ -71,7 +72,8 @@ fun LottieAnimation(modifier: Modifier) {
     ) {
         GBLocalImage(
             modifier = Modifier.size(100.dp).graphicsLayer { this.alpha = 1f - alpha },
-            scale = Fit
+            painter = AppImages.appLogo,
+            contentScale = Fit
         )
 
         if (composition != null) {

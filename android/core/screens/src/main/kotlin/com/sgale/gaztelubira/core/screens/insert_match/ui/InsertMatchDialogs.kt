@@ -47,6 +47,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.core.screens.toGBPlayer
+import com.sgale.gaztelubira.multiplatform.designsystem.model.label
 
 private val CARD_SIZE = 60.dp
 
@@ -81,7 +83,7 @@ internal fun InsertMatchDialogPlayers(
             item(span = { GridItemSpan(maxLineSpan) }) {
                 GBText(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    text = stringResource(R.string.select_a_player) + ": " + stringResource(playerPosition.positionName),
+                    text = stringResource(R.string.select_a_player) + ": " + playerPosition.label,
                     alignment = Center,
                     style = gBTypography().titleMedium
                 )
@@ -102,7 +104,7 @@ internal fun InsertMatchDialogPlayers(
                 ) {
                     GBPlayerCard(
                         modifier = Modifier.size(CARD_SIZE),
-                        player = it,
+                        player = it.toGBPlayer(),
                         onPlayerClicked = { dismiss(); onPlayerSelected(it) },
                         showDorsal = !isManager,
                         dorsalSize = 16.dp,
@@ -172,7 +174,7 @@ fun InsertMatchDialogStatsPlayers(
                 ) {
                     GBPlayerCard(
                         modifier = Modifier.size(CARD_SIZE),
-                        player = it,
+                        player = it.toGBPlayer(),
                         onPlayerClicked = { dismiss(); onPlayerSelected(it) },
                         dorsalSize = 16.dp,
                         dorsalInternalPadding = 0.dp,

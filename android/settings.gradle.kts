@@ -36,5 +36,7 @@ include(":core:screens")
  * Multiplatform
  */
 include(":multiplatform:ui")
+include(":multiplatform:designsystem")
 project(":multiplatform").projectDir = File(settingsDir, "../multiplatform")
 project(":multiplatform:ui").projectDir = File(settingsDir, "../multiplatform/ui")
+project(":multiplatform:designsystem").projectDir = File(settingsDir, "../multiplatform/designsystem")

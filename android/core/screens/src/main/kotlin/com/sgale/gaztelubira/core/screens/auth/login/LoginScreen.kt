@@ -50,7 +50,7 @@ fun LoginScreen(
         focusManager.clearFocus()
     }
 
-    GBScaffold(topBarTitle = "") { modifier ->
+    GBScaffold { modifier ->
         LoginScreenUI(
             modifier = modifier,
             user = loginUser,

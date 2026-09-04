@@ -27,19 +27,19 @@ import androidx.compose.ui.layout.ContentScale.Companion.Fit
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerImage
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus
+import androidx.compose.ui.graphics.painter.Painter
 
 @Composable
 fun PlayerDetailImage(
     bodyImage: String?,
-    saverStatus: SaverStatus
+    placeholder: Painter
 ) {
     GBImage(
         modifier = Modifier.fillMaxWidth().fillMaxHeight(2f / 3f),
         imageModifier = Modifier.fillMaxSize(),
         image = bodyImage,
         contentScale = Fit,
-        saverStatus = saverStatus
+        placeholder = placeholder
     )
 }
 

@@ -59,6 +59,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.multiplatform.designsystem.style.login_container_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
+import androidx.compose.ui.res.painterResource
 
 @Composable
 internal fun StatsSettingsDialog(
@@ -133,7 +134,7 @@ private fun StatsSettingsTitle(
                     .size(24.dp)
                     .clickable { changeState(Default) }
                     .padding(6.dp),
-                icon = R.drawable.ic_arrow_left
+                icon = painterResource(R.drawable.ic_arrow_left)
             )
         }
 
@@ -237,7 +238,7 @@ private fun SettingsButton(
 
         GBIcon(
             modifier = Modifier.size(12.dp),
-            icon = R.drawable.ic_arrow_right,
+            icon = painterResource(R.drawable.ic_arrow_right),
             tint = if (enabled) Black else elevated_button_bg_not_selected
         )
     }

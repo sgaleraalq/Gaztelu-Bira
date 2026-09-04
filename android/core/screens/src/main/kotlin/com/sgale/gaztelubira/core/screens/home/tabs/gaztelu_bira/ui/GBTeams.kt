@@ -45,9 +45,9 @@ import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 
 @Composable
 fun GBHomeTeams(
@@ -104,7 +104,7 @@ fun GBHomeTeam(
                 ),
             imageModifier = Modifier.fillMaxSize(),
             image = team.logo,
-            saverStatus = Team,
+            placeholder = AppImages.teamCrest,
             contentScale = Fit
         )
         Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {

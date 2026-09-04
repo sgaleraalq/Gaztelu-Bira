@@ -45,7 +45,7 @@ fun PlayerDetailScreen(
         viewModel.loadPlayerInformation(user?.team, playerId)
     }
 
-    GBScaffold(topBarTitle = "") { modifier ->
+    GBScaffold(title = "") { modifier ->
         PlayerDetailScreenUI(
             modifier = modifier,
             user = user,

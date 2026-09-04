@@ -49,11 +49,12 @@ import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Lineup
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBFootballField
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 internal val benchBgColor = gray_box_in_black_bg
 internal val benchHorizontalPadding = 12.dp
@@ -91,9 +92,10 @@ fun MatchDetailStateLineUp(
                 )
                 Spacer(Modifier.height(8.dp))
                 GBFootballField(
+            fieldImage = AppImages.footballField,
                     modifier = Modifier.fillMaxWidth().fillMaxHeight(0.95f),
                     formation = lineUp.matchFormation,
-                    players = lineUp.players,
+                    players = lineUp.players.mapValues { entry -> entry.value?.toGBPlayer() },
                     showAnimation = !animationPlayed,
                     onAnimationFinished = {
                         animationPlayed = true
@@ -125,7 +127,7 @@ fun StartingElevenHeader(
                 .clip(RoundedCornerShape(50))
                 .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
             image = team?.logo,
-            saverStatus = Team
+            placeholder = AppImages.teamCrest
         )
         GBText(
             modifier = Modifier.weight(1f),

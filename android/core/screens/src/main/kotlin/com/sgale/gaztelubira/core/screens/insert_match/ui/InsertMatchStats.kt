@@ -82,6 +82,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
+import androidx.compose.ui.res.painterResource
+import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 private val STAT_BOX_SIZE = 75.dp
 private val PLAYER_STAT_BOX_SIZE = 20.dp
@@ -180,7 +182,7 @@ internal fun StatBox(
             if (values.isEmpty()) {
                 GBIcon(
                     modifier = Modifier.fillMaxSize().padding(12.dp),
-                    icon = stat.icon,
+                    icon = painterResource(stat.icon),
                     size = 50.dp,
                     tint = Unspecified
                 )
@@ -211,7 +213,7 @@ internal fun InsertMatchStatPlayersSmallBox(
         ) { player ->
             GBPlayerCard(
                 modifier = Modifier.size(PLAYER_STAT_BOX_SIZE),
-                player = player,
+                player = player.toGBPlayer(),
                 isClickable = false,
                 showDorsal = false
             )
@@ -293,7 +295,7 @@ internal fun StatsTitle(stat: Stat){
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            GBIcon(icon = stat.icon)
+            GBIcon(icon = painterResource(stat.icon))
             Spacer(Modifier.width(16.dp))
             GBText(
                 modifier = Modifier.fillMaxWidth(),
@@ -333,7 +335,7 @@ internal fun InsertMatchPlayerStat(
         )
         GBIcon(
             modifier = Modifier.clickable{ changePlayerState(); removeStat() },
-            icon = R.drawable.ic_delete
+            icon = painterResource(R.drawable.ic_delete)
         )
     }
 }

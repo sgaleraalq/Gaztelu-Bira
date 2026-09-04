@@ -31,5 +31,6 @@ dependencies {
     /**
      * Multiplatform
      */
+    implementation(project(":multiplatform:designsystem"))
     implementation(project(":multiplatform:ui"))
 }

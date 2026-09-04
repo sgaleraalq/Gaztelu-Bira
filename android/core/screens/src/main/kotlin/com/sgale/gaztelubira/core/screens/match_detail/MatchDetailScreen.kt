@@ -41,7 +41,7 @@ fun MatchDetailScreen(
         viewModel.loadMatch(state, matchId)
     }
 
-    GBScaffold(topBarTitle = "") { modifier ->
+    GBScaffold(title = "") { modifier ->
         MatchDetailScreenUI(
             modifier = modifier,
             user = user,

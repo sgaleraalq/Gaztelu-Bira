@@ -65,10 +65,11 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
+import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 @Composable
 internal fun PlayerDetailInformationBox(
-    appTeam: TeamModel?,
+    logoUrl: String?,
     modifier: Modifier,
     player: PlayerModel?,
     playerStats: PlayerStatsModel?,
@@ -96,7 +97,7 @@ internal fun PlayerDetailInformationBox(
         )
         TeamImage(
             modifier = Modifier.align(TopCenter),
-            logo = appTeam?.logo,
+            logo = logoUrl,
             logoSize = LOGO_SIZE
         )
         PlayerInformation(

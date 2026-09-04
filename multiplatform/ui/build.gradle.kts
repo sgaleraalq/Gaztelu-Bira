@@ -60,6 +60,8 @@ kotlin {
              */
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
+
+            implementation(project(":multiplatform:designsystem"))
         }
 
         androidMain.dependencies {

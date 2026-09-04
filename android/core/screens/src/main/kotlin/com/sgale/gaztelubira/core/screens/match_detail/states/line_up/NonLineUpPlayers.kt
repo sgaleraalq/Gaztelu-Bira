@@ -41,6 +41,8 @@ import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import androidx.compose.ui.res.painterResource
+import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 private val PLAYER_SIZE = 32.dp
 
@@ -86,7 +88,7 @@ private fun BenchTitle() {
     ) {
         GBIcon(
             modifier = Modifier.size(32.dp),
-            icon = R.drawable.ic_bench
+            icon = painterResource(R.drawable.ic_bench)
         )
         GBText(
             text = stringResource(R.string.bench),
@@ -106,7 +108,7 @@ private fun SubstituteCard(
     ) {
         GBPlayerCard(
             modifier = modifier.size(24.dp),
-            player = player,
+            player = player.toGBPlayer(),
             showDorsal = false,
             showDeletion = false
         )
@@ -153,7 +155,7 @@ private fun ManagerCard(
     ) {
         GBPlayerCard(
             modifier = modifier,
-            player = player,
+            player = player.toGBPlayer(),
             showDorsal = false,
             showDeletion = false
         )

@@ -33,7 +33,7 @@ fun SplashScreenUI(
     navigate: () -> Unit
 ) {
     GBScaffold(
-        topBarTitle = "",
+        title = "",
         showTopAppBar = true,
         content = { modifier ->
             Box(
@@ -47,5 +47,6 @@ fun SplashScreenUI(
                     onFinish = { navigate() }
                 )
             }
+        }
     )
 }

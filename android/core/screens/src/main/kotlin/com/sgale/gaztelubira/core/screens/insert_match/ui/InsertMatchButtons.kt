@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.dialogs.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Formation
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Information
@@ -42,6 +42,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gb_dialog_background
+import androidx.compose.ui.res.painterResource
 
 @Composable
 internal fun InsertMatchButtons(
@@ -124,7 +125,7 @@ internal fun InsertMatchButton(
             horizontalArrangement = spacedBy(24.dp)
         ) {
             GBIcon(
-                icon = icon,
+                icon = painterResource(icon),
                 tint = Black
             )
             GBText(
@@ -133,7 +134,7 @@ internal fun InsertMatchButton(
                 textColor = gb_dialog_background
             )
             GBIcon(
-                icon = R.drawable.ic_arrow_right
+                icon = painterResource(R.drawable.ic_arrow_right)
             )
         }
     }

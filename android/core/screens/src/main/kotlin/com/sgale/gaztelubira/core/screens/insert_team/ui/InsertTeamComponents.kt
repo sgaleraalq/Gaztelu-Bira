@@ -31,8 +31,8 @@ import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTextField
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 
 @Composable
 internal fun InsertTeamName(
@@ -77,13 +77,13 @@ internal fun InsertTeamImage(
             ),
         imageModifier = Modifier.size(400.dp),
         iconModifier = Modifier.size(100.dp),
-        image = img,
+        image = img?.uri,
         iconSize = 100.dp,
         onClick = { galleryManager.launch() },
         removeImage = { removeImage() },
         isClickable = !loading,
         enableExpansion = false,
-        saverStatus = Team
+        placeholder = AppImages.teamCrest
     )
 }
 

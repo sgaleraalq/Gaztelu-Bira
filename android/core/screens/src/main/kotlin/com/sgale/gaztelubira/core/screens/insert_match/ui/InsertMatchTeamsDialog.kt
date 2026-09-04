@@ -37,6 +37,7 @@ import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeamName
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 
 @Composable
 internal fun InsertMatchTeamsDialog(

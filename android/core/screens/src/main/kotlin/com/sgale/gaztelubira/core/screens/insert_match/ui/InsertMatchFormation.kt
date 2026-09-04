@@ -55,6 +55,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Co
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 private val BENCH_PLAYER_SIZE = 70.dp
 
@@ -125,9 +127,10 @@ internal fun LineUpPlayers(
     changeSelectedPosition: (LineUpPosition) -> Unit
 ) {
     GBFootballField(
+            fieldImage = AppImages.footballField,
         modifier = modifier.fillMaxWidth(),
         showAnimation = true,
-        players = formationState.lineUp,
+        players = formationState.lineUp.mapValues { entry -> entry.value?.toGBPlayer() },
         formation = formationState.formation,
         onPlayerSelected = { position, player ->
             changeSelectedPosition(position)
@@ -233,7 +236,7 @@ private fun Bench(
             ) { player ->
                 GBPlayerCard(
                     modifier = Modifier.size(BENCH_PLAYER_SIZE),
-                    player = player,
+                    player = player.toGBPlayer(),
                     showDorsal = false,
                     showDeletion = true,
                     onPlayerRemoved = { removeBenchPlayer(player) }
@@ -342,7 +345,7 @@ private fun ManagerCard(
 ) {
     GBPlayerCard(
         modifier = Modifier.size(36.dp).clickable { removeManager() },
-        player = manager,
+        player = manager.toGBPlayer(),
         showDorsal = false,
         showDeletion = false,
         onPlayerRemoved = { removeManager() }

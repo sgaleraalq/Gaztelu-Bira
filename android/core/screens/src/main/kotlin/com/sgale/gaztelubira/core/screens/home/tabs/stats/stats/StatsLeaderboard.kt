@@ -60,7 +60,6 @@ import com.sgale.gaztelubira.core.screens.home.tabs.stats.displayStat
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAsyncImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.components.getSaverImage
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.leaderboardFirst
@@ -70,6 +69,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.softGreen
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import com.sgale.gaztelubira.multiplatform.designsystem.utils.shimmerEffect
 import kotlin.math.absoluteValue
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import androidx.compose.ui.res.painterResource
+import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 private val LEADER_POSITION_SIZE = 24.dp
 
@@ -207,7 +209,7 @@ fun LeaderCard(
                     .padding(8.dp),
                 image = player?.player?.bodyImage,
                 contentScale = Fit,
-                saverImage = getSaverImage(player?.player?.position),
+                placeholder = AppImages.facePlayer,
                 isLoading = false,
                 finishLoading = { isLoading = false }
             )
@@ -254,7 +256,7 @@ private fun LeaderArrow(
     ) {
         GBIcon(
             modifier = Modifier.size(12.dp),
-            icon = arrow,
+            icon = painterResource(arrow),
             tint = color
         )
         GBText(

@@ -34,6 +34,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import androidx.compose.ui.res.painterResource
 
 @Composable
 fun StatsTitle(
@@ -55,7 +56,7 @@ fun StatsTitle(
             modifier = Modifier.size(24.dp).clickable {
                 onSettingsClicked()
             },
-            icon = R.drawable.ic_settings,
+            icon = painterResource(R.drawable.ic_settings),
             tint = elevated_button_bg_not_selected
         )
     }
@@ -77,7 +78,7 @@ fun SelectedStatTitle(
     ) {
         GBIcon(
             modifier = Modifier.size(24.dp),
-            icon = stat.icon
+            icon = painterResource(stat.icon)
         )
         GBText(
             text = stringResource(stat.statName),

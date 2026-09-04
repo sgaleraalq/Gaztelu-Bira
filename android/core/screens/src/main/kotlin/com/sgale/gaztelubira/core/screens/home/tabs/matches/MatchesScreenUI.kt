@@ -50,9 +50,9 @@ fun MatchesScreenUI(
 
     Column(Modifier.fillMaxSize()) {
         GBTopAppBar(
-            appTeam = user?.team,
-            showAdminButton = user?.isAdmin(),
-            topBarTitle = null,
+            logoUrl = user?.team?.logo,
+            showAdminButton = user?.isAdmin() == true,
+            title = null,
             onButtonClicked = {
                 if (hasEnoughPlayers || debug) {
                     navigateTo(InsertMatch)

@@ -87,9 +87,9 @@ internal fun InsertPlayerScreen(
     }
 
     GBScaffold(
-        appTeam = user?.team,
+        logoUrl = user?.team?.logo,
         showTopAppBar = true,
-        topBarTitle = stringResource(R.string.insert_new_player)
+        title = stringResource(R.string.insert_new_player)
     ) { modifier ->
         InsertPlayerScreenUI(
             modifier = modifier,

@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_body_player
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_face_player
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_football_field
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_manager
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_no_football_logo
@@ -45,6 +46,9 @@ object AppImages {
 
     val manager: Painter
         @Composable get() = painterResource(Res.drawable.img_manager)
+
+    val footballField: Painter
+        @Composable get() = painterResource(Res.drawable.img_football_field)
 
     val teamCrest: Painter
         @Composable get() = painterResource(Res.drawable.img_no_football_logo)

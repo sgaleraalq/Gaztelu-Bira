@@ -44,9 +44,7 @@ fun SignUpScreen(
 //    }
 
 
-    GBScaffold(
-        title = ""
-    ) { modifier ->
+    GBScaffold { modifier ->
 //        SignUpScreenUI(
 //            modifier = modifier,
 //            user = signUpUser,

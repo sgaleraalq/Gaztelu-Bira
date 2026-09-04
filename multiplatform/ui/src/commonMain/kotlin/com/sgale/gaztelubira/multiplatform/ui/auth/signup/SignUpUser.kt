@@ -61,11 +61,11 @@ data class SignUpUser(
     sealed class ValidationError(
         val messageRes: StringResource
     ) {
-        object InvalidName : ValidationError(Res.string.error_invalid_name)
-        object InvalidEmail : ValidationError(Res.string.error_invalid_email)
-        object EmptyPassword : ValidationError(Res.string.error_empty_password)
-        object PasswordTooShort : ValidationError(Res.string.error_password_too_short)
-        object PasswordNoNumber : ValidationError(Res.string.error_password_no_number)
-        object PasswordMismatch : ValidationError(Res.string.error_password_mismatch)
+        data object InvalidName : ValidationError(Res.string.error_invalid_name)
+        data object InvalidEmail : ValidationError(Res.string.error_invalid_email)
+        data object EmptyPassword : ValidationError(Res.string.error_empty_password)
+        data object PasswordTooShort : ValidationError(Res.string.error_password_too_short)
+        data object PasswordNoNumber : ValidationError(Res.string.error_password_no_number)
+        data object PasswordMismatch : ValidationError(Res.string.error_password_mismatch)
     }
 }

@@ -62,9 +62,10 @@ import com.sgale.gaztelubira.core.screens.match_detail.states.line_up.benchHoriz
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.FacePlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import androidx.compose.ui.res.painterResource
 
 @Composable
 fun MatchDetailStateStats(
@@ -141,7 +142,7 @@ private fun StatHeader(
         horizontalArrangement = spacedBy(16.dp)
     ) {
         GBIcon(
-            icon = stat.icon,
+            icon = painterResource(stat.icon),
         )
         GBText(
             modifier = Modifier.weight(1f),
@@ -151,7 +152,7 @@ private fun StatHeader(
         )
         GBIcon(
             modifier = Modifier.size(12.dp),
-            icon = if (expanded) R.drawable.ic_arrow_down else R.drawable.ic_arrow_right,
+            icon = painterResource(if (expanded) R.drawable.ic_arrow_down else R.drawable.ic_arrow_right),
             tint = White
         )
     }
@@ -175,7 +176,7 @@ private fun RowPlayer(
                 .size(34.dp)
                 .clip(RoundedCornerShape(50)),
             image = player.faceImage,
-            saverStatus = FacePlayer
+            placeholder = AppImages.facePlayer
         )
         GBText(
             text = player.name,

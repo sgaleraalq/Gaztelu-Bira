@@ -35,6 +35,7 @@ import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpFiel
 import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField.RepeatPassword
 import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField.RepeatPasswordVisible
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 
 @Composable
 fun SignUpTextFields(

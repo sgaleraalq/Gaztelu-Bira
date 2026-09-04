@@ -48,6 +48,12 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:screens"))
+
+    /**
+     * Multiplatform
+     */
+    implementation(project(":multiplatform:designsystem"))
+    implementation(project(":multiplatform:ui"))
 }
 
 /**

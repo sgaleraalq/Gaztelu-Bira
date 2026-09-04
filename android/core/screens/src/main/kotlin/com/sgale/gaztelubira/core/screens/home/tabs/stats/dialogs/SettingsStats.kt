@@ -41,6 +41,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import androidx.compose.ui.res.painterResource
 
 @Composable
 internal fun SettingsStats(
@@ -86,7 +87,7 @@ private fun StatIndicator(
     ) {
         GBIcon(
             modifier = Modifier.size(24.dp),
-            icon = stat.icon
+            icon = painterResource(stat.icon)
         )
         GBText(
             modifier = Modifier.weight(1f),

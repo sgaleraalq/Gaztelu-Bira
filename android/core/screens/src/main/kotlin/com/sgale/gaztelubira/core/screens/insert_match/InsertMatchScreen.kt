@@ -67,9 +67,9 @@ internal fun InsertMatchScreen(
     val informationState by viewModel.informationState.collectAsStateWithLifecycle()
 
     GBScaffold(
-        appTeam = user?.team,
+        logoUrl = user?.team?.logo,
         showTopAppBar = true,
-        topBarTitle = stringResource(R.string.insert_match)
+        title = stringResource(R.string.insert_match)
     ) { modifier ->
         when (uiState) {
             Default, Loading -> {

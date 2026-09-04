@@ -42,7 +42,6 @@ fun HomeScreenUI(
     val user by mainViewModel.userSession.collectAsState()
 
     GBScaffold(
-        topBarTitle = "",
         bottomBar = {
             GBBottomNavigation(bottomTabs, selectedTab) { navigate(it) }
         }
@@ -55,7 +54,7 @@ fun HomeScreenUI(
 
         if (showLogoutDialog) {
             GBLogoutDialog(
-                appTeam = user?.team,
+                appLogo = user?.team?.logo,
                 onConfirm = { onLogout() },
                 onCancel = { dismissLogout() },
                 logout = stringResource(R.string.logout),

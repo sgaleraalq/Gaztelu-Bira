@@ -35,10 +35,11 @@ import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
+import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 @Composable
 fun TeamScreenUI(
-    appTeam: TeamModel?,
+    logoUrl: String?,
     players: List<PlayerModel>,
     navigateToPlayerDetail: (String, Boolean) -> Unit,
     isAdmin: Boolean? = false,
@@ -46,9 +47,9 @@ fun TeamScreenUI(
 ) {
     Column(Modifier.fillMaxSize()) {
         GBTopAppBar(
-            appTeam = appTeam,
-            showAdminButton = isAdmin,
-            topBarTitle = null,
+            logoUrl = logoUrl,
+            showAdminButton = isAdmin == true,
+            title = null,
             onButtonClicked = { navigateToInsertPlayer() },
             modifier = Modifier
         )
@@ -81,7 +82,7 @@ fun TeamPlayerList(
         items(players.filter { it.position != Manager }) { player ->
             GBPlayerCard(
                 modifier = Modifier.size(100.dp),
-                player = player,
+                player = player.toGBPlayer(),
                 onPlayerClicked = { onPlayerClicked(player.id) }
             )
         }
@@ -91,7 +92,7 @@ fun TeamPlayerList(
         items(players.filter { it.position == Manager }.sortedBy { it.name }) { player ->
             GBPlayerCard(
                 modifier = Modifier.size(100.dp),
-                player = player,
+                player = player.toGBPlayer(),
                 onPlayerClicked = { onPlayerClicked(player.id) },
                 showDorsal = false
             )

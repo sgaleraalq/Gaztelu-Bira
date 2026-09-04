@@ -51,7 +51,7 @@ fun SignUpScreen(
     }
 
 
-    GBScaffold(topBarTitle = "") { modifier ->
+    GBScaffold { modifier ->
         SignUpScreenUI(
             modifier = modifier,
             user = signUpUser,

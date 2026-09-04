@@ -48,8 +48,8 @@ import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.GBInformation
 import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.Streak
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.Team
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 
 @Composable
 fun GBHomeInformationBox(
@@ -97,7 +97,7 @@ fun GBHomeTeamLogo(logo: String?) {
                 shape = RoundedCornerShape(50)
             ),
         image = logo,
-        saverStatus = Team
+        placeholder = AppImages.teamCrest
     )
 }
 

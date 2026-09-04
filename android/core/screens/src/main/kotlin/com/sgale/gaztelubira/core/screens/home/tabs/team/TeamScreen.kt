@@ -36,7 +36,7 @@ fun TeamScreen(
     val players by viewModel.players.collectAsState()
 
     TeamScreenUI(
-        appTeam = user?.team,
+        logoUrl = user?.team?.logo,
         players = players,
         isAdmin = user?.isAdmin(),
         navigateToInsertPlayer = { state.navigateTo(InsertPlayer) },

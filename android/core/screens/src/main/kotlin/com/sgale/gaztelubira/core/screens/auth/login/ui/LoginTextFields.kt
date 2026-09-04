@@ -8,6 +8,7 @@ import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.auth.login.LoginUser
 import com.sgale.gaztelubira.core.screens.auth.common.AuthTextField
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 
 @Composable
 fun LoginTextFields(

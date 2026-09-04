@@ -28,9 +28,8 @@ import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
 import com.sgale.gaztelubira.core.screens.player_detail.ui.PlayerDetailImage
 import com.sgale.gaztelubira.core.screens.player_detail.ui.PlayerDetailInformationBox
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBackButton
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.BodyPlayer
-import com.sgale.gaztelubira.multiplatform.designsystem.components.SaverStatus.ManagerPlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gb_text_field_label_color
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 
 @Composable
 fun PlayerDetailScreenUI(
@@ -47,10 +46,10 @@ fun PlayerDetailScreenUI(
     ) {
         PlayerDetailImage(
             bodyImage = playerInformation?.bodyImage,
-            saverStatus = if (isManager) ManagerPlayer else BodyPlayer
+            placeholder = if (isManager) AppImages.manager else AppImages.bodyPlayer
         )
         PlayerDetailInformationBox(
-            appTeam = user?.team,
+            logoUrl = user?.team?.logo,
             modifier = Modifier.align(BottomCenter),
             player = playerInformation,
             playerStats = playerStats,

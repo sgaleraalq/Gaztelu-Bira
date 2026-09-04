@@ -60,7 +60,7 @@ internal fun InsertPlayerImages(
     GBImageBoxRequester(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(R.string.face_image),
-        commonImage = faceImg,
+        imageUri = faceImg?.uri,
         onClick = {
             onFaceClicked()
             showMediaOrCamera()
@@ -70,7 +70,7 @@ internal fun InsertPlayerImages(
     GBImageBoxRequester(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(R.string.body_image),
-        commonImage = bodyImg,
+        imageUri = bodyImg?.uri,
         onClick = {
             onBodyClicked()
             showMediaOrCamera()
