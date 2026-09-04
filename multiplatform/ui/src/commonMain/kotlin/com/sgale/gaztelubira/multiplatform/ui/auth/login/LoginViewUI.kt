@@ -69,7 +69,7 @@ private fun LoginCard(
         )
         OrSpacer()
         GoogleLogin { actions.onLogin(Google) }
-        ContinueAsGuest { actions.navigateTo(Splash) }
+//        ContinueAsGuest { actions.navigateTo(Splash) }
         Spacer(Modifier.height(16.dp))
         DontHaveAccount { actions.navigateTo(SignUp) }
         Spacer(Modifier.height(8.dp))
