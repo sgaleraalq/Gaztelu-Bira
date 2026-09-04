@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.auth.welcome
+package com.sgale.gaztelubira.multiplatform.designsystem.icons
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_matches
+import org.jetbrains.compose.resources.painterResource
 
-@Composable
-fun WelcomeScreen(
-    navigateToLogin: () -> Unit
-) {
-    WelcomeScreenUI(
-        navigateToLogin = navigateToLogin
-    )
-}
+val GBIcons.GBMatchesBottomTab: Painter
+    @Composable get() = painterResource(Res.drawable.ic_matches)

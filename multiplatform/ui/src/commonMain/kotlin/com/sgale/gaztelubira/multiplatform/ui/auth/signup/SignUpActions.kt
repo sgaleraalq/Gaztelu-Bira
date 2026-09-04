@@ -16,11 +16,8 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.auth.signup
 
-enum class SignUpField {
-    NAME,
-    EMAIL,
-    PASSWORD,
-    REPEAT_PASSWORD,
-    PASSWORD_VISIBLE,
-    REPEAT_PASSWORD_VISIBLE
-}
+data class SignUpActions(
+    val onSignUp: (String) -> Unit,
+    val onSignUpError: (String) -> Unit,
+    val onUpdateField: (field: SignUpField, value: Any?) -> Unit
+)

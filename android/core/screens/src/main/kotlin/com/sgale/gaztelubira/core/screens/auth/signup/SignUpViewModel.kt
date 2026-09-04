@@ -22,38 +22,37 @@ import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.usecase.SignUpEmail
 import com.sgale.gaztelubira.core.domain.utils.IToastManager
 import com.sgale.gaztelubira.core.screens.MainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.auth.AuthState
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Default
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Error
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Loading
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpUser.ValidationError
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField.Email
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField.Name
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField.Password
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField.PasswordVisible
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField.RepeatPassword
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField.RepeatPasswordVisible
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.EMAIL
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.NAME
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.PASSWORD
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.PASSWORD_VISIBLE
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.REPEAT_PASSWORD
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpField.REPEAT_PASSWORD_VISIBLE
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val signUpWithEmail: SignUpEmail,
     private val toastManager: IToastManager
 ): ViewModel() {
-    enum class SignUpField {
-        Name, Email, Password, RepeatPassword, PasswordVisible, RepeatPasswordVisible
-    }
-    private val _signUpUser = MutableStateFlow(SignUpUser())
-    val signUpUser: StateFlow<SignUpUser> = _signUpUser
+
+    private val _uiState = MutableStateFlow(SignUpUiState())
+    internal val uiState: StateFlow<SignUpUiState> = _uiState
 
     private val _state = MutableStateFlow<AuthState>(Default)
     val state: StateFlow<AuthState> = _state
@@ -62,15 +61,17 @@ class SignUpViewModel @Inject constructor(
     val error: StateFlow<ValidationError?> = _error
 
     fun updateField(field: SignUpField, value: Any? = null) {
-        val current = _signUpUser.value
-        _signUpUser.value = when(field) {
-            Name -> current.copy(name = value as String)
-            Email -> current.copy(email = value as String)
-            Password -> current.copy(password = value as String)
-            RepeatPassword -> current.copy(repeatPassword = value as String)
-            PasswordVisible -> current.copy(passwordVisible = !(current.passwordVisible))
-            RepeatPasswordVisible -> current.copy(repeatPasswordVisible = !(current.repeatPasswordVisible))
-        }
+        val current = _uiState.value.user
+        _uiState.value = _uiState.value.copy(
+            user = when(field) {
+                NAME -> current.copy(name = value as String)
+                EMAIL -> current.copy(email = value as String)
+                PASSWORD -> current.copy(password = value as String)
+                REPEAT_PASSWORD -> current.copy(repeatPassword = value as String)
+                PASSWORD_VISIBLE -> current.copy(passwordVisible = !(current.passwordVisible))
+                REPEAT_PASSWORD_VISIBLE -> current.copy(repeatPasswordVisible = !(current.repeatPasswordVisible))
+            }
+        )
     }
 
     fun signUp(
@@ -78,16 +79,16 @@ class SignUpViewModel @Inject constructor(
         msg: String,
         mainViewModel: MainViewModel
     ) {
-        val error = _signUpUser.value.isNotValid()
+        val error = _uiState.value.user.isNotValid()
         if (error != null) {
             _error.value = error
             _state.value = Error
             return
         }
 
-        val name = _signUpUser.value.name
-        val email = _signUpUser.value.email
-        val password = _signUpUser.value.password
+        val name = _uiState.value.user.name
+        val email = _uiState.value.user.email
+        val password = _uiState.value.user.password
 
         viewModelScope.launch {
             _state.value = Loading

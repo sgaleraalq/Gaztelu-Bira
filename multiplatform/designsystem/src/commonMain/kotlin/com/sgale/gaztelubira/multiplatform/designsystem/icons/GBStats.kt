@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.auth.signup
+package com.sgale.gaztelubira.multiplatform.designsystem.icons
 
-enum class SignUpField {
-    NAME,
-    EMAIL,
-    PASSWORD,
-    REPEAT_PASSWORD,
-    PASSWORD_VISIBLE,
-    REPEAT_PASSWORD_VISIBLE
-}
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_social_leaderboard
+import org.jetbrains.compose.resources.painterResource
+
+val GBIcons.GBStatsBottomTab: Painter
+    @Composable get() = painterResource(Res.drawable.ic_social_leaderboard)

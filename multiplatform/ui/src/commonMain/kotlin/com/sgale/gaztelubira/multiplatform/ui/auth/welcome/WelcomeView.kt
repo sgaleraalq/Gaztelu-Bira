@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.auth.signup
+package com.sgale.gaztelubira.multiplatform.ui.auth.welcome
 
-enum class SignUpField {
-    NAME,
-    EMAIL,
-    PASSWORD,
-    REPEAT_PASSWORD,
-    PASSWORD_VISIBLE,
-    REPEAT_PASSWORD_VISIBLE
+import androidx.compose.runtime.Composable
+
+@Composable
+fun WelcomeView(
+    navigateToLogin: () -> Unit
+) {
+    WelcomeViewUI(
+        navigateToLogin = navigateToLogin
+    )
 }

@@ -29,7 +29,7 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.ui.WelcomeScreenSubti
 import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.ui.WelcomeScreenTitle
 
 @Composable
-fun WelcomeScreenUI(
+fun WelcomeViewUI(
     navigateToLogin: () -> Unit
 ) {
     GBScaffold { modifier ->

@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.auth.signup
+package com.sgale.gaztelubira.core.screens
 
-enum class SignUpField {
-    NAME,
-    EMAIL,
-    PASSWORD,
-    REPEAT_PASSWORD,
-    PASSWORD_VISIBLE,
-    REPEAT_PASSWORD_VISIBLE
-}
+import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.multiplatform.designsystem.model.GBPlayer
+
+/**
+ * The design system draws a player from name, image and dorsal alone, so the domain model is
+ * mapped down to that before it crosses over. Keeping the mapping here is what lets the domain
+ * model live wherever it wants without the components following it.
+ */
+fun PlayerModel.toGBPlayer(): GBPlayer =
+    GBPlayer(
+        name = name,
+        image = faceImage,
+        dorsal = dorsal
+    )

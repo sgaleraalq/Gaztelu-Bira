@@ -17,47 +17,34 @@
 package com.sgale.gaztelubira.core.screens.auth.signup
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.auth.AuthState.Default
-import com.sgale.gaztelubira.core.screens.auth.AuthState.Error
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpActions
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpView
 
 @Composable
-fun SignUpScreen(
-    state: NavigationState,
+internal fun SignUpScreen(
+    navState: NavigationState,
     viewModel: SignUpViewModel = hiltViewModel<SignUpViewModel>()
 ) {
     val mainViewModel = LocalMainViewModel.current
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val error by viewModel.error.collectAsState()
-    val signUpState by viewModel.state.collectAsState()
-    val signUpUser by viewModel.signUpUser.collectAsState()
-    val signUpError = stringResource(R.string.error_sign_up)
-
-    val errorMsg = stringResource(error?.messageRes ?: R.string.error_generic)
-
-    LaunchedEffect(signUpState) {
-        if (signUpState is Error) {
-            viewModel.showToast(errorMsg)
-            viewModel.changeUiState(Default)
-        }
+    val onSignUpError: (String) -> Unit = { errorMsg ->
+        viewModel.showToast(errorMsg)
+        viewModel.changeUiState(Default)
     }
 
-
-    GBScaffold { modifier ->
-        SignUpScreenUI(
-            modifier = modifier,
-            user = signUpUser,
-            changeUserValue = { field, value -> viewModel.updateField(field, value) },
-            signUpState = signUpState,
-            signUp = { viewModel.signUp(state, signUpError, mainViewModel) }
+    SignUpView(
+        state = state,
+        actions = SignUpActions(
+            onSignUp = { msg -> viewModel.signUp(navState, msg, mainViewModel) },
+            onSignUpError = onSignUpError,
+            onUpdateField = viewModel::updateField
         )
-    }
+    )
 }

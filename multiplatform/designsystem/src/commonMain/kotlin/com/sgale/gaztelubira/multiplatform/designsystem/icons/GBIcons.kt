@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.auth.signup
+package com.sgale.gaztelubira.multiplatform.designsystem.icons
 
-enum class SignUpField {
-    NAME,
-    EMAIL,
-    PASSWORD,
-    REPEAT_PASSWORD,
-    PASSWORD_VISIBLE,
-    REPEAT_PASSWORD_VISIBLE
-}
+/**
+ * Namespace for the design system's icon set.
+ *
+ * Every icon is exposed as a `Painter` through a composable getter, so callers never learn where
+ * it came from — a bundled drawable, a Material vector or anything else. Extensions live in the
+ * file named after each icon.
+ */
+object GBIcons

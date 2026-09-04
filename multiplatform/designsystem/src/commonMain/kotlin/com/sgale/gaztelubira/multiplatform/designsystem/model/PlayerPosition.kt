@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.auth.signup
+package com.sgale.gaztelubira.multiplatform.designsystem.model
 
-enum class SignUpField {
-    NAME,
-    EMAIL,
-    PASSWORD,
-    REPEAT_PASSWORD,
-    PASSWORD_VISIBLE,
-    REPEAT_PASSWORD_VISIBLE
-}
+import androidx.compose.runtime.Immutable
+
+@Immutable
+data class PlayerPosition(
+    val showOrder: Int,
+    val position: LineUpPosition,
+    val x: Float,
+    val y: Float
+)

@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.auth.signup
+package com.sgale.gaztelubira.multiplatform.model
 
-enum class SignUpField {
-    NAME,
-    EMAIL,
-    PASSWORD,
-    REPEAT_PASSWORD,
-    PASSWORD_VISIBLE,
-    REPEAT_PASSWORD_VISIBLE
-}
+import androidx.compose.runtime.Stable
+
+@Stable
+data class PlayerModel(
+    val id: FirebaseId,
+    val faceImage: String?,
+    val bodyImage: String?,
+    val name: String,
+    val dorsal: Int?,
+    val position: Position?
+)

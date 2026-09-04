@@ -14,31 +14,33 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.auth.signup
+package com.sgale.gaztelubira.multiplatform.ui.auth.signup
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.auth.AuthState
-import com.sgale.gaztelubira.core.screens.auth.common.AuthButton
-import com.sgale.gaztelubira.core.screens.auth.common.AuthCard
-import com.sgale.gaztelubira.core.screens.auth.common.AuthScaffold
-import com.sgale.gaztelubira.core.screens.auth.signup.SignUpViewModel.SignUpField
-import com.sgale.gaztelubira.core.screens.auth.signup.ui.SignUpTextFields
-import androidx.compose.ui.res.stringResource
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState
+import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthButton
+import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthCard
+import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthScaffold
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.SignUpUser
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.ui.SignUpTextFields
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.sign_up
+import com.sgale.gaztelubira.multiplatform.ui.resources.sign_up_exclamation
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun SignUpScreenUI(
+fun SignUpViewUI(
     modifier: Modifier,
     user: SignUpUser,
     changeUserValue: (SignUpField, Any) -> Unit,
     signUpState: AuthState,
     signUp: () -> Unit
 ) {
-    val signUpText = stringResource(R.string.sign_up_exclamation)
+    val signUpText = stringResource(Res.string.sign_up_exclamation)
     AuthScaffold(modifier, signUpText) {
         SignUpCard(
             user = user,
@@ -56,7 +58,7 @@ fun SignUpCard(
     signUpState: AuthState,
     signUp: () -> Unit
 ) {
-    val signUpTxt = stringResource(R.string.sign_up)
+    val signUpTxt = stringResource(Res.string.sign_up)
     AuthCard {
         SignUpTextFields(user) { field, value -> changeUserValue(field, value) }
         Spacer(Modifier.height(16.dp))

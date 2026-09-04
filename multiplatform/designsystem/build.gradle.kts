@@ -18,7 +18,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "com.sgale.gaztelubira.multiplatform.ui"
+        namespace = "com.sgale.gaztelubira.multiplatform.designsystem"
         compileSdk = libs.versions.compileSdk.get().toInt()
         minSdk = libs.versions.minSdk.get().toInt()
 
@@ -35,25 +35,16 @@ kotlin {
         }
     }
 
-    listOf(
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "GazteluBiraUI"
-            isStatic = true
-
-            /**
-             * The design system has no framework of its own; it ships inside this one, so its
-             * types (and the generated `Res`) have to be exported to be visible from Swift.
-             */
-            export(project(":multiplatform:designsystem"))
-        }
-    }
+    /**
+     * No framework of its own: this module ships inside `GazteluBiraUI`, which exports it.
+     * Two static frameworks would each bundle its own copy of Compose and clash at link time.
+     */
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.components.resources)
+            api(compose.components.resources)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.runtime)
@@ -66,8 +57,6 @@ kotlin {
              */
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
-
-            api(project(":multiplatform:designsystem"))
         }
 
         androidMain.dependencies {
@@ -81,10 +70,18 @@ kotlin {
 }
 
 /**
- * `Res` lives in `:multiplatform:designsystem`, the only owner of `composeResources`. The Compose
- * plugin would still emit an empty `Res` here, and with no package pinned it falls back to one
- * derived from the Gradle project name — "Gaztelu Bira", with a space, which D8 refuses to dex.
+ * This is the ONLY module in the project that owns `composeResources`, and therefore the only one
+ * that generates `Res`. Two modules generating it into the same package produce duplicate
+ * `ActualResourceCollectorsKt` classes and D8 refuses to dex them.
+ *
+ * The generated `Res` class takes its package from the Gradle project name, and this one is
+ * "Gaztelu Bira" — with a space. Kotlin swallows it behind backticks, but D8 refuses to dex a
+ * class name containing a space, so the package is pinned here instead.
+ *
+ * `publicResClass` is required because `Res` is `internal` by default and `:multiplatform:ui`
+ * consumes it from outside this module.
  */
 compose.resources {
-    generateResClass = never
+    packageOfResClass = "com.sgale.gaztelubira.multiplatform.ui.resources"
+    publicResClass = true
 }

@@ -91,9 +91,9 @@ abstract class CopySharedComposeResources : DefaultTask() {
 }
 
 val copySharedUiComposeResources by tasks.registering(CopySharedComposeResources::class) {
-    dependsOn(":multiplatform:ui:prepareComposeResourcesTaskForCommonMain")
+    dependsOn(":multiplatform:designsystem:prepareComposeResourcesTaskForCommonMain")
     source.from(
-        project(":multiplatform:ui").layout.buildDirectory
+        project(":multiplatform:designsystem").layout.buildDirectory
             .dir("generated/compose/resourceGenerator/preparedResources/commonMain/composeResources")
     )
     resourcesPackage.set("com.sgale.gaztelubira.multiplatform.ui.resources")

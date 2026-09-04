@@ -16,6 +16,8 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.auth.signup
 
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Default
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.Email
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.Password
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.blank
@@ -23,12 +25,12 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.common.mismatch
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.noDigits
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.short
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.valid
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUser.ValidationError.EmptyPassword
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUser.ValidationError.InvalidEmail
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUser.ValidationError.InvalidName
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUser.ValidationError.PasswordMismatch
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUser.ValidationError.PasswordNoNumber
-import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUser.ValidationError.PasswordTooShort
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError.EmptyPassword
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError.InvalidEmail
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError.InvalidName
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError.PasswordMismatch
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError.PasswordNoNumber
+import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError.PasswordTooShort
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.error_empty_password
 import com.sgale.gaztelubira.multiplatform.ui.resources.error_invalid_email
@@ -38,23 +40,29 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.error_password_no_number
 import com.sgale.gaztelubira.multiplatform.ui.resources.error_password_too_short
 import org.jetbrains.compose.resources.StringResource
 
-data class SignUpUser(
-    val name: String = "",
-    val email: Email = "",
-    val password: Password = "",
-    val repeatPassword: Password = "",
-    val passwordVisible: Boolean = false,
-    val repeatPasswordVisible: Boolean = false
+data class SignUpUiState(
+    val user: SignUpUser = SignUpUser(),
+    val error: ValidationError? = null,
+    val auth: AuthState = Default
 ) {
-    fun isNotValid(): ValidationError? {
-        return when {
-            name.isBlank() -> InvalidName
-            !email.valid() -> InvalidEmail
-            password.blank() -> EmptyPassword
-            password.mismatch(repeatPassword) -> PasswordMismatch
-            password.short() -> PasswordTooShort
-            password.noDigits() -> PasswordNoNumber
-            else -> null
+    data class SignUpUser(
+        val name: String = "",
+        val email: Email = "",
+        val password: Password = "",
+        val repeatPassword: Password = "",
+        val passwordVisible: Boolean = false,
+        val repeatPasswordVisible: Boolean = false
+    ) {
+        fun isNotValid(): ValidationError? {
+            return when {
+                name.isBlank() -> InvalidName
+                !email.valid() -> InvalidEmail
+                password.blank() -> EmptyPassword
+                password.mismatch(repeatPassword) -> PasswordMismatch
+                password.short() -> PasswordTooShort
+                password.noDigits() -> PasswordNoNumber
+                else -> null
+            }
         }
     }
 

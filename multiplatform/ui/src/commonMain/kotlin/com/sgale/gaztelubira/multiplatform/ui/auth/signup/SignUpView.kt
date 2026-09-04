@@ -17,40 +17,34 @@
 package com.sgale.gaztelubira.multiplatform.ui.auth.signup
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_generic
 import com.sgale.gaztelubira.multiplatform.ui.resources.error_sign_up
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun SignUpScreen(
-//    state: NavigationState,
-//    viewModel: SignUpViewModel = hiltViewModel<SignUpViewModel>()
+fun SignUpView(
+    actions: SignUpActions,
+    state: SignUpUiState
 ) {
-//    val mainViewModel = LocalMainViewModel.current
-
-//    val error by viewModel.error.collectAsState()
-//    val signUpState by viewModel.state.collectAsState()
-//    val signUpUser by viewModel.signUpUser.collectAsState()
     val signUpError = stringResource(Res.string.error_sign_up)
+    val errorMsg = stringResource(state.error?.messageRes ?: Res.string.error_generic)
 
-//    val errorMsg = stringResource(error?.messageRes ?: Res.string.error_generic)
-
-//    LaunchedEffect(signUpState) {
-//        if (signUpState is Error) {
-//            viewModel.showToast(errorMsg)
-//            viewModel.changeUiState(Default)
-//        }
-//    }
-
+    LaunchedEffect(state.auth) {
+        if (state.auth is Error) {
+            actions.onSignUpError(errorMsg)
+        }
+    }
 
     GBScaffold { modifier ->
-//        SignUpScreenUI(
-//            modifier = modifier,
-//            user = signUpUser,
-//            changeUserValue = { field, value -> viewModel.updateField(field, value) },
-//            signUpState = signUpState,
-//            signUp = { viewModel.signUp(state, signUpError, mainViewModel) }
-//        )
+        SignUpViewUI(
+            modifier = modifier,
+            user = state.user,
+            changeUserValue = { field, value -> actions.onUpdateField(field, value) },
+            signUpState = state.auth,
+            signUp = { actions.onSignUp(signUpError) }
+        )
     }
 }

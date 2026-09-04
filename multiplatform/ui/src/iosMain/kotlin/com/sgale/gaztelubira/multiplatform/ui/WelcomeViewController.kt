@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.multiplatform.ui
 
 import androidx.compose.ui.window.ComposeUIViewController
-import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.WelcomeScreen
+import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.WelcomeView
 import platform.UIKit.UIViewController
 
 /**
@@ -31,5 +31,5 @@ import platform.UIKit.UIViewController
 fun welcomeViewController(
     navigateToLogin: () -> Unit
 ): UIViewController = ComposeUIViewController {
-    WelcomeScreen(navigateToLogin = navigateToLogin)
+    WelcomeView(navigateToLogin = navigateToLogin)
 }
