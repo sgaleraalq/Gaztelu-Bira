@@ -25,8 +25,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDia
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading
-import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login
-import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login.Google
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.Login.Google
 
 /**
  * Shared entry point for the login screen: state in, actions out, nothing platform-specific.
@@ -37,7 +36,7 @@ fun LoginView(
     actions: LoginActions
 ) {
     val focusManager = LocalFocusManager.current
-    val requestInFlight = state.auth is Loading || state.auth is Login
+    val requestInFlight = state.auth is Loading
 
     LaunchedEffect(requestInFlight) {
         if (requestInFlight) focusManager.clearFocus()

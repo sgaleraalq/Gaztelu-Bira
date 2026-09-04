@@ -35,4 +35,10 @@ class SplashState @Inject constructor() : SplashContractor {
         destination.value = newDestination
         avoid.value = true
     }
+
+    override fun reset() {
+        completed.value = false
+        avoid.value = false
+        destination.value = Welcome
+    }
 }

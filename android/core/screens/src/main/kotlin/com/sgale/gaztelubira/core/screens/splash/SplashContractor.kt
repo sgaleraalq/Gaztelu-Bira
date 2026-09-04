@@ -25,4 +25,5 @@ interface SplashContractor {
     val destination: MutableStateFlow<Destination>
     fun contractCompleted(newDestination: Destination)
     fun avoidSplash(newDestination: Destination)
+    fun reset()
 }

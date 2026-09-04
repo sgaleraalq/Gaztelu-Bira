@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.auth
+package com.sgale.gaztelubira.core.screens.auth.login
 
-sealed interface AuthState {
-    data object Default : AuthState
-    data object Error : AuthState
-
-    sealed interface Loading : AuthState {
-        data object SignUp : Loading
-
-        sealed interface Login : Loading {
-            data object Email : Login
-            data object Google : Login
-        }
-    }
+internal sealed interface LoginEvent {
+    data object LoggedIn : LoginEvent
 }

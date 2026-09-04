@@ -21,10 +21,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login.Email
-import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login.Google
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.Login.Email
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.Login.Google
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthButton
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthCard
+import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthErrorMessage
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthScaffold
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions.LoginDestination.SignUp
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions.LoginDestination.Splash
@@ -59,6 +60,7 @@ private fun LoginCard(
 ) {
     AuthCard {
         LoginTextFields(state.user, actions)
+        AuthErrorMessage(state.errorMessage())
         Spacer(Modifier.height(16.dp))
         AuthButton(
             text = stringResource(Res.string.login),

@@ -25,7 +25,7 @@ import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Default
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Error
-import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.SignUp
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.SignUpUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -92,7 +92,7 @@ internal class SignUpViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            _state.update { it.copy(auth = Loading, error = null) }
+            _state.update { it.copy(auth = SignUp, error = null) }
 
             val result = withContext(Dispatchers.IO) {
                 signUpWithEmail(user.name, user.email, user.password)

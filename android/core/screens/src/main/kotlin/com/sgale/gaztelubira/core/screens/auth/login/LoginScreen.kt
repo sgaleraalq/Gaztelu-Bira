@@ -17,13 +17,19 @@
 package com.sgale.gaztelubira.core.screens.auth.login
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
+import com.sgale.gaztelubira.core.screens.auth.login.LoginEvent.LoggedIn
+import com.sgale.gaztelubira.core.screens.navigation.Destination
+import com.sgale.gaztelubira.core.screens.navigation.Destination.SignUp
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions
+import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions.LoginDestination
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginView
 
 @Composable
@@ -32,21 +38,34 @@ internal fun LoginScreen(
     viewModel: LoginScreenViewModel = hiltViewModel<LoginScreenViewModel>()
 ) {
     val mainViewModel = LocalMainViewModel.current
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    val actions = remember(
-        viewModel,
-        navState,
-        mainViewModel
-    ) {
-        LoginActions(
-            onEmailChanged = viewModel::onEmailChanged,
-            onPasswordChanged = viewModel::onPasswordChanged,
-            onTogglePasswordVisibility = viewModel::onTogglePasswordVisibility,
-            onLogin = viewModel::onLogin,
-            navigateTo = TODO()
-        )
+    LaunchedEffect(viewModel, navState, mainViewModel) {
+        viewModel.events.collect { event ->
+            when (event) {
+                LoggedIn -> {
+                    mainViewModel.init(navState)
+                    navState.navigateTo(Splash)
+                }
+            }
+        }
     }
-    
-    LoginView(state, actions)
+
+    LoginView(
+        state = state,
+        actions = remember(viewModel, navState) {
+            LoginActions(
+                onEmailChanged = viewModel::onEmailChanged,
+                onPasswordChanged = viewModel::onPasswordChanged,
+                onTogglePasswordVisibility = viewModel::onTogglePasswordVisibility,
+                onLogin = viewModel::onLogin,
+                navigateTo = { destination -> navState.navigateTo(destination.toDestination()) }
+            )
+        }
+    )
+}
+
+private fun LoginDestination.toDestination(): Destination = when (this) {
+    LoginDestination.SignUp -> SignUp
+    LoginDestination.Splash -> Splash
 }

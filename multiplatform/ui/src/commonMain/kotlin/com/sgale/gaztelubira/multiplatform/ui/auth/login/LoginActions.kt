@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.auth.login
 
-import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Login
+import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.Login
 
 data class LoginActions(
     val onEmailChanged: (String) -> Unit,
@@ -26,7 +26,7 @@ data class LoginActions(
     val navigateTo: (LoginDestination) -> Unit
 ) {
     sealed interface LoginDestination {
-        data object SignUp: LoginDestination
-        data object Splash: LoginDestination
+        data object SignUp : LoginDestination
+        data object Splash : LoginDestination
     }
 }

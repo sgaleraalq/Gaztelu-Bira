@@ -73,6 +73,7 @@ class MainViewModel @Inject constructor(
 
     fun reset() {
         _userSession.value = null
+        splashContractor.reset()
     }
 
     fun updateHomeTab(tab: HomeTab) {
