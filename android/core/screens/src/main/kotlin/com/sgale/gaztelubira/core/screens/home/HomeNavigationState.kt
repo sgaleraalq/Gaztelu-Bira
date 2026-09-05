@@ -14,24 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home
+package com.sgale.gaztelubira.core.screens.home
 
-import androidx.compose.runtime.Composable
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBUpdateDialog
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.State
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 
-@Composable
-fun HomeView(
-    state: HomeUiState,
-    actions: HomeActions,
-    tabContent: @Composable () -> Unit
-) {
-    HomeViewUI(
-        state = state,
-        actions = actions,
-        tabContent = tabContent
-    )
-
-    GBUpdateDialog(
-        show = state.updateAvailable
-    )
+@Stable
+interface HomeNavigationState {
+    val selectedTab: State<HomeTab>
+    fun navigate(tab: HomeTab)
 }
+

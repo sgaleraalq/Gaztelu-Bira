@@ -33,7 +33,11 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.update_available
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun GBUpdateDialog() {
+fun GBUpdateDialog(
+    show: Boolean
+) {
+    if (!show) return
+
     GBDialog(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         show = true,

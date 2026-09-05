@@ -36,18 +36,20 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_gaztelu_bira
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
+import com.sgale.gaztelubira.multiplatform.ui.resources.logout
+import com.sgale.gaztelubira.multiplatform.ui.resources.no
+import com.sgale.gaztelubira.multiplatform.ui.resources.sure_want_to_logout
+import com.sgale.gaztelubira.multiplatform.ui.resources.yes
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun GBLogoutDialog(
+    show: Boolean,
     onConfirm: () -> Unit,
-    onCancel: () -> Unit,
-    logout: String,
-    sureLogout: String,
-    no: String,
-    yes: String
+    onCancel: () -> Unit
 ) {
+    if (!show) return
     GBDialog(
         show = true,
         dismiss = { onCancel() }
@@ -70,7 +72,7 @@ fun GBLogoutDialog(
                 )
                 GBText(
                     modifier = Modifier.weight(1f),
-                    text = logout,
+                    text = stringResource(Res.string.logout),
                     style = gBTypography().titleLarge.copy(
                         fontWeight = Bold
                     )
@@ -79,7 +81,7 @@ fun GBLogoutDialog(
 
             GBText(
                 modifier = Modifier.padding(12.dp),
-                text = sureLogout,
+                text =  stringResource(Res.string.sure_want_to_logout),
                 style = gBTypography().titleMedium,
                 textColor = white_in_gray_box
             )
@@ -89,12 +91,12 @@ fun GBLogoutDialog(
             ) {
                 GBElevatedButton(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
-                    text = no,
+                    text = stringResource(Res.string.no),
                     onClick = { onCancel() }
                 )
                 GBElevatedButton(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
-                    text = yes,
+                    text = stringResource(Res.string.yes),
                     onClick = {
                         onCancel() // dismiss dialog
                         onConfirm()

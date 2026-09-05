@@ -31,7 +31,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.yes
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun HomeViewUI(
+internal fun HomeViewUI(
     state: HomeUiState,
     actions: HomeActions,
     tabContent: @Composable () -> Unit
@@ -51,16 +51,11 @@ fun HomeViewUI(
             tabContent()
         }
 
-        if (state.showLogoutDialog) {
-            GBLogoutDialog(
-                onConfirm = actions.onLogout,
-                onCancel = actions.onDismissLogout,
-                logout = stringResource(Res.string.logout),
-                sureLogout = stringResource(Res.string.sure_want_to_logout),
-                no = stringResource(Res.string.no),
-                yes = stringResource(Res.string.yes),
-            )
-        }
+        GBLogoutDialog(
+            show = state.showLogoutDialog,
+            onConfirm = actions.onLogout,
+            onCancel = actions.onDismissLogout
+        )
     }
 
     GBScaffold(

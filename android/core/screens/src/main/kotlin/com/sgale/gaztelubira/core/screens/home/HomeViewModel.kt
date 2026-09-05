@@ -17,12 +17,10 @@
 package com.sgale.gaztelubira.core.screens.home
 
 import androidx.lifecycle.ViewModel
-import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.auth.usecase.Logout
 import com.sgale.gaztelubira.core.screens.MainViewModel
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Login
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,10 +38,6 @@ internal class HomeViewModel @Inject constructor(
 
     internal fun updateAvailableUpdate(updateAvailable: Boolean) {
         _state.update { it.copy(updateAvailable = updateAvailable) }
-    }
-
-    internal fun updateSelectedTab(newSelectedTab: HomeTab) {
-        _state.update { it.copy(selectedTab = newSelectedTab) }
     }
 
     internal fun updateLogoutDialog(show: Boolean) {
