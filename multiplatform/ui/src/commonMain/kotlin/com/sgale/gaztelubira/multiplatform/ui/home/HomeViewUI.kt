@@ -19,49 +19,52 @@ package com.sgale.gaztelubira.multiplatform.ui.home
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.stringResource
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.R
+import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBLogoutDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.ui.home.ui.GBBottomNavigation
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.logout
+import com.sgale.gaztelubira.multiplatform.ui.resources.no
+import com.sgale.gaztelubira.multiplatform.ui.resources.sure_want_to_logout
+import com.sgale.gaztelubira.multiplatform.ui.resources.yes
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HomeViewUI(
-    bottomTabs: List<HomeTab>,
-    selectedTab: State<HomeTab>,
-    navigate: (HomeTab) -> Unit,
-    showLogoutDialog: Boolean,
-    dismissLogout: () -> Unit,
-    onLogout: () -> Unit,
+    state: HomeUiState,
+    actions: HomeActions,
     tabContent: @Composable () -> Unit
 ) {
-    val mainViewModel = LocalMainViewModel.current
-    val user by mainViewModel.userSession.collectAsState()
+    val bottomBar = @Composable {
+        GBBottomNavigation(
+            tabs = HomeTab.entries,
+            selectedTab = state.selectedTab,
+            navigate = actions.onTabSelected
+        )
+    }
 
-    GBScaffold(
-        bottomBar = {
-            GBBottomNavigation(bottomTabs, selectedTab) { navigate(it) }
-        }
-    ) { modifier ->
+    val content: @Composable (Modifier) -> Unit = { modifier ->
         Box(
             modifier = modifier.fillMaxSize()
         ) {
-            tabContent.invoke()
+            tabContent()
         }
 
-        if (showLogoutDialog) {
+        if (state.showLogoutDialog) {
             GBLogoutDialog(
-                appLogo = user?.team?.logo,
-                onConfirm = { onLogout() },
-                onCancel = { dismissLogout() },
-                logout = stringResource(R.string.logout),
-                sureLogout = stringResource(R.string.sure_want_to_logout),
-                no = stringResource(R.string.no),
-                yes = stringResource(R.string.yes),
+                onConfirm = actions.onLogout,
+                onCancel = actions.onDismissLogout,
+                logout = stringResource(Res.string.logout),
+                sureLogout = stringResource(Res.string.sure_want_to_logout),
+                no = stringResource(Res.string.no),
+                yes = stringResource(Res.string.yes),
             )
         }
     }
+
+    GBScaffold(
+        bottomBar = bottomBar,
+        content = content
+    )
 }

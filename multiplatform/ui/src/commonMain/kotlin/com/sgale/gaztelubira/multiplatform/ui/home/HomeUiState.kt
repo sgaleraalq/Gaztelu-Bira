@@ -16,22 +16,10 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.home
 
-import androidx.compose.runtime.Composable
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBUpdateDialog
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.HOME
 
-@Composable
-fun HomeView(
-    state: HomeUiState,
-    actions: HomeActions,
-    tabContent: @Composable () -> Unit
-) {
-    HomeViewUI(
-        state = state,
-        actions = actions,
-        tabContent = tabContent
-    )
-
-    if (state.updateAvailable) {
-        GBUpdateDialog()
-    }
-}
+data class HomeUiState(
+    val selectedTab: HomeTab = HOME,
+    val showLogoutDialog: Boolean = false,
+    val updateAvailable: Boolean = false
+)

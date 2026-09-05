@@ -24,12 +24,12 @@ import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.usecase.users.GetUser
 import com.sgale.gaztelubira.core.domain.utils.IToastManager
-import com.sgale.gaztelubira.core.screens.home.HomeTab
-import com.sgale.gaztelubira.core.screens.home.HomeTab.Stats
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.splash.SplashContractor
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,7 +47,7 @@ class MainViewModel @Inject constructor(
     private val initAppHandler: InitAppHandler,
     private val toastManager: IToastManager
 ) : ViewModel() {
-    private var defaultHomeTab = Stats
+    private var defaultHomeTab = STATS
 
     private val _userSession = MutableStateFlow<UserSession?>(null)
     val userSession: StateFlow<UserSession?> = _userSession

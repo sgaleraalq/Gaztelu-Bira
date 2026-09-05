@@ -16,10 +16,9 @@
 
 package com.sgale.gaztelubira.core.screens.home
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 
 @Stable
 interface HomeNavigationState {

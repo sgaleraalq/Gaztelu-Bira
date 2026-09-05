@@ -33,11 +33,14 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_gaztelu_bira
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun GBLogoutDialog(
-    appLogo: String?,
-    placeholder: Painter? = null,
     onConfirm: () -> Unit,
     onCancel: () -> Unit,
     logout: String,
@@ -63,8 +66,7 @@ fun GBLogoutDialog(
                         .size(36.dp)
                         .clip(RoundedCornerShape(50))
                         .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
-                    image = appLogo,
-                    placeholder = placeholder
+                    painter = painterResource(Res.drawable.img_gaztelu_bira),
                 )
                 GBText(
                     modifier = Modifier.weight(1f),

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.home
+package com.sgale.gaztelubira.multiplatform.ui.home.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,17 +27,17 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBottomNavItem
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 
 @Composable
 fun GBBottomNavigation(
     tabs: List<HomeTab>,
-    selectedTab: State<HomeTab>,
+    selectedTab: HomeTab,
     navigate: (HomeTab) -> Unit
 ) {
     Column(Modifier.shadow(10.dp)) {
@@ -51,7 +51,7 @@ fun GBBottomNavigation(
         ) {
             tabs.forEachIndexed { index, tab ->
                 GBBottomNavItem(
-                    isSelected = tab == selectedTab.value,
+                    isSelected = tab == selectedTab,
                     content = tab.iconContent,
                     navigate = { navigate(tab) },
                     isMiddleScreen = index == tabs.size / 2

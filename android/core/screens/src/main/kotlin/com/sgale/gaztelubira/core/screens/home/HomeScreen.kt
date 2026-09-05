@@ -16,7 +16,9 @@
 
 package com.sgale.gaztelubira.core.screens.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.movableContentOf
@@ -24,50 +26,52 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.home.HomeTab.About
-import com.sgale.gaztelubira.core.screens.navigation.MultiplatformBackHandler
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBUpdateDialog
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeActions
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeView
 
 @Composable
-fun HomeScreen(
-    state: NavigationState,
+internal fun HomeScreen(
+    navState: NavigationState,
     viewModel: HomeViewModel = hiltViewModel<HomeViewModel>()
 ) {
     val mainViewModel = LocalMainViewModel.current
     val updateAvailable by mainViewModel.updateAvailable.collectAsState()
-
     val homeNavigationState = rememberHomeNavigationState(mainViewModel.getDefaultTab())
+    val selectedTab by homeNavigationState.selectedTab
+
     val tabContent = remember {
-        movableContentOf { HomeNavigationContent(homeNavigationState, state) }
-    }
-    var showLogoutDialog by remember { mutableStateOf(false) }
-
-    MultiplatformBackHandler(true) {
-        showLogoutDialog = true
+        movableContentOf { HomeNavigationContent(homeNavigationState, navState) }
     }
 
-    HomeScreenUI(
-        bottomTabs = HomeTab.entries,
-        selectedTab = homeNavigationState.selectedTab,
-        navigate = { newTab ->
-            mainViewModel.updateHomeTab(newTab)
-            if (newTab != About) {
-                homeNavigationState.navigate(newTab)
-            } else {
-                // TODO
+    val onTabSelected: (HomeTab) -> Unit = { newTab ->
+        mainViewModel.updateHomeTab(newTab)
+        homeNavigationState.navigate(newTab)
+    }
 
-            }
-        },
-        showLogoutDialog = showLogoutDialog,
-        onLogout = { viewModel.logout(state, mainViewModel) },
-        dismissLogout = { showLogoutDialog = false }
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    val actions = remember(
+        homeNavigationState,
+        mainViewModel,
+        viewModel,
+        state
     ) {
-        tabContent()
+        HomeActions(
+            onTabSelected = onTabSelected,
+            onLogout = { viewModel.logout(navState, mainViewModel) },
+            onDismissLogout = { viewModel.updateLogoutDialog(false) }
+        )
     }
 
-    if (updateAvailable) {
-        GBUpdateDialog()
-    }
+    LaunchedEffect(selectedTab) { viewModel.updateSelectedTab(selectedTab) }
+
+    LaunchedEffect(updateAvailable) { viewModel.updateAvailableUpdate(updateAvailable) }
+
+    BackHandler(true) { viewModel.updateLogoutDialog(true) }
+
+    HomeView(state, actions, tabContent)
 }

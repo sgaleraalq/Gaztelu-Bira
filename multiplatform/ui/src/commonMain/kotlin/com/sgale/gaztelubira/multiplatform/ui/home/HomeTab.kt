@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2026 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2025 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,32 +33,26 @@ internal const val TAB_TEAM = "team"
 
 enum class HomeTab(
     val id: String,
-    val iconContent: @Composable () -> Unit,
-    val content: @Composable (/* NavigationState */) -> Unit
+    val iconContent: @Composable () -> Unit
 ) {
     HOME(
         id = TAB_GAZTELU_BIRA,
-        iconContent = { Icon(GBIcons.GBLogo, null) },
-        content = { /* GazteluBiraHomeScreen(it) */ }
+        iconContent = { Icon(GBIcons.GBLogo, null) }
     ),
     TEAM(
         id = TAB_TEAM,
-        iconContent = { Icon(GBIcons.GBTeamBottomTab, null) },
-        content = { /* TeamScreen(it) */ }
+        iconContent = { Icon(GBIcons.GBTeamBottomTab, null) }
     ),
     STATS(
         id = TAB_STATS,
-        iconContent = { Icon(GBIcons.GBStatsBottomTab, null) },
-        content = { /* StatsScreen(it) */ }
+        iconContent = { Icon(GBIcons.GBStatsBottomTab, null) }
     ),
     MATCHES(
         id = TAB_MATCHES,
-        iconContent = { Icon(GBIcons.GBMatchesBottomTab, null) },
-        content = { /* MatchesScreen(it) */ }
+        iconContent = { Icon(GBIcons.GBMatchesBottomTab, null) }
     ),
     ABOUT(
         id = TAB_ABOUT,
-        iconContent = { Icon(GBIcons.GBAboutBottomTab, null) },
-        content = { /* AboutScreen() */ }
+        iconContent = { Icon(GBIcons.GBAboutBottomTab, null) }
     )
 }

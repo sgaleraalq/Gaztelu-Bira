@@ -29,6 +29,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
@@ -91,7 +92,7 @@ fun HomeNavigationContent(
         HomeTab.entries.forEach { tab ->
             composable(
                 route = tab.route,
-                content = { tab.content(mainState) }
+                content = { tab.Content(mainState) }
             )
         }
     }
