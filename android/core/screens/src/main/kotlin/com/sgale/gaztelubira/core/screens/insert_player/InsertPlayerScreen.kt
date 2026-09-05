@@ -19,21 +19,21 @@ package com.sgale.gaztelubira.core.screens.insert_player
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.core.screens.insert_player.UiState.Default
+import com.sgale.gaztelubira.core.screens.insert_player.UiState.Loading
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.MultiplatformBackHandler
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.navigation.launchCameraAndWaitForResult
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Default
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Loading
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import androidx.compose.ui.res.stringResource
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 @Composable
 internal fun InsertPlayerScreen(
@@ -87,7 +87,6 @@ internal fun InsertPlayerScreen(
     }
 
     GBScaffold(
-        logoUrl = user?.team?.logo,
         showTopAppBar = true,
         title = stringResource(R.string.insert_new_player)
     ) { modifier ->

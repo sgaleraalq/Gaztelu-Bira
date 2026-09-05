@@ -18,44 +18,60 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
-import com.sgale.gaztelubira.core.preview.PlayerProvider.providePlayerInformationList
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
+import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
+import com.sgale.gaztelubira.core.preview.PlayerProvider.providePlayerInformationList
+import com.sgale.gaztelubira.core.screens.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class TeamViewModel @Inject constructor(
+internal class TeamViewModel @Inject constructor(
     private val getPlayers: GetPlayers
 ) : ViewModel() {
-//    private val _players = MutableStateFlow<List<PlayerModel>>(emptyList())
-//    val players = _players
 
     private val _state = MutableStateFlow(TeamUiState())
-    internal val state: StateFlow<TeamUiState> = _state
+    internal val state: StateFlow<TeamUiState> = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            val testFlow = if (TESTING) flowOf(providePlayerInformationList()) else flowOf(emptyList())
+            val testFlow =
+                if (TESTING) flowOf(providePlayerInformationList()) else flowOf(emptyList())
 
             getPlayers()
                 .combine(testFlow) { real, test -> real + test }
                 .flowOn(Dispatchers.IO)
-                .collect { combined ->
-                    _players.value = combined
-                        .sortedBy { it.dorsal }
-                        .filter { it.dorsal != null }
-                }
+                .collect { squad -> _state.update { it.withSquad(squad) } }
         }
     }
+
+    internal fun onAdminChanged(isAdmin: Boolean) {
+        _state.update { it.copy(isAdmin = isAdmin) }
+    }
+}
+
+private fun TeamUiState.withSquad(squad: List<PlayerModel>): TeamUiState {
+    val (managers, players) = squad.partition { it.position == Manager }
+
+    return copy(
+        players = players
+            .filter { it.dorsal != null }
+            .sortedBy { it.dorsal }
+            .map(PlayerModel::toGBPlayer),
+        managers = managers
+            .sortedBy { it.name }
+            .map(PlayerModel::toGBPlayer)
+    )
 }

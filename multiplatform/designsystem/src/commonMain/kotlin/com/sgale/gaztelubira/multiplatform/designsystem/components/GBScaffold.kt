@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
 import org.jetbrains.compose.resources.stringResource
@@ -33,8 +32,6 @@ import org.jetbrains.compose.resources.stringResource
 fun GBScaffold(
     modifier: Modifier = Modifier,
     showTopAppBar: Boolean = false,
-    logoUrl: String? = null,
-    logo: Painter? = null,
     title: String = stringResource(Res.string.app_name),
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (Modifier) -> Unit
@@ -42,11 +39,8 @@ fun GBScaffold(
     val topAppBar = @Composable {
         if (showTopAppBar) {
             GBTopAppBar(
-                modifier = Modifier
-                    .windowInsetsPadding(WindowInsets.statusBars),
-                title = title,
-                logoUrl = logoUrl,
-                logo = logo
+                modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
+                title = title
             )
         }
     }

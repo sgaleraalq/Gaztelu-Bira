@@ -46,7 +46,6 @@ internal fun InsertTeamScreen(
     }
 
     GBScaffold(
-        logoUrl = user?.team?.logo,
         showTopAppBar = true,
         title = stringResource(R.string.insert_new_team)
     ) { modifier ->

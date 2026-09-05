@@ -44,6 +44,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun GBTopAppBar(
     modifier: Modifier = Modifier,
+    title: String = stringResource(Res.string.app_name),
     showAdminButton: Boolean = false,
     onButtonClicked: () -> Unit = {}
 ) {
@@ -66,7 +67,7 @@ fun GBTopAppBar(
             modifier = Modifier
                 .weight(1f)
                 .padding(bottom = 4.dp),
-            text = stringResource(Res.string.app_name),
+            text = title,
             alignment = Start,
             textColor = White,
             style = MaterialTheme.typography.titleLarge

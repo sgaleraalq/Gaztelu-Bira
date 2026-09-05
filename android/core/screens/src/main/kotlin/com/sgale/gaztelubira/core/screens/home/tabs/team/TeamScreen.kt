@@ -17,20 +17,24 @@
 package com.sgale.gaztelubira.core.screens.home.tabs.team
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamView
 
 @Composable
-fun TeamScreen(
+internal fun TeamScreen(
     navState: NavigationState,
     viewModel: TeamViewModel = hiltViewModel<TeamViewModel>()
 ) {
+    val mainViewModel = LocalMainViewModel.current
+    val userSession by mainViewModel.userSession.collectAsState()
     val state by viewModel.state.collectAsState()
 
     val actions = remember(
@@ -40,6 +44,10 @@ fun TeamScreen(
         TeamActions(
             navigateTo = { destination -> navState.navigateTo(destination.toDestination()) }
         )
+    }
+
+    LaunchedEffect(userSession) {
+        viewModel.onAdminChanged(userSession?.isAdmin() == true)
     }
 
     TeamView(state, actions)

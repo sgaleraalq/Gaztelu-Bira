@@ -26,6 +26,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.model.GBPlayer
  */
 fun PlayerModel.toGBPlayer(): GBPlayer =
     GBPlayer(
+        id = id,
         name = name,
         image = faceImage,
         dorsal = dorsal

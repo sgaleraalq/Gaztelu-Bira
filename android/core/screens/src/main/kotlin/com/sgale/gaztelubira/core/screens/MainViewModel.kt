@@ -29,7 +29,7 @@ import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.splash.SplashContractor
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
-import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.HOME
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-private val DEFAULT_TAB = HOME
+private val DEFAULT_TAB = STATS
 
 @HiltViewModel
 class MainViewModel @Inject constructor(

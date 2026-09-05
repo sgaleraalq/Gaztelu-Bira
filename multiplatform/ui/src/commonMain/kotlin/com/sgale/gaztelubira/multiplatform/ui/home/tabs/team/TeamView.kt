@@ -27,6 +27,6 @@ fun TeamView(
         players = state.players,
         managers = state.managers,
         isAdmin = state.isAdmin,
-        navigateTo = { actions.navigateTo(InsertPlayer) },
+        navigateTo = actions.navigateTo
     )
 }

@@ -48,11 +48,11 @@ fun MatchesScreenUI(
     var showGBMessage by remember { mutableStateOf(false) }
     val notEnoughPlayersMsg = stringResource(R.string.not_enough_players)
 
-    Column(Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
         GBTopAppBar(
-            logoUrl = user?.team?.logo,
             showAdminButton = user?.isAdmin() == true,
-            title = null,
             onButtonClicked = {
                 if (hasEnoughPlayers || debug) {
                     navigateTo(InsertMatch)

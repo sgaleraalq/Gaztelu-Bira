@@ -27,12 +27,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
-import com.sgale.gaztelubira.multiplatform.ui.AppImages
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
-import org.jetbrains.compose.resources.stringResource
-import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_LOGO
-import com.sgale.gaztelubira.multiplatform.designsystem.utils.AppProvider.APP_NAME
 
 @Composable
 fun AuthScaffold(
@@ -46,11 +40,7 @@ fun AuthScaffold(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = CenterHorizontally
     ) {
-        // No padding top app bar
-        GBTopAppBar(
-            logo = AppImages.appLogo,
-            title = stringResource(Res.string.app_name)
-        )
+        GBTopAppBar()
 
         Column(
             modifier = Modifier
