@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,10 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.about
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.White
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.about.AboutView
 
 @Composable
 fun AboutScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Center
-    ) {
-        Text(
-            text = "About Screen",
-            color = White
-        )
-    }
+    AboutView()
 }

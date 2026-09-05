@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.sgale.gaztelubira.core.domain.auth.usecase.Logout
 import com.sgale.gaztelubira.core.screens.MainViewModel
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Login
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +36,10 @@ internal class HomeViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(HomeUiState())
     internal val state: StateFlow<HomeUiState> = _state
+
+    internal fun onTabChanged(tab: HomeTab) {
+        _state.update { it.copy(selectedTab = tab) }
+    }
 
     internal fun updateAvailableUpdate(updateAvailable: Boolean) {
         _state.update { it.copy(updateAvailable = updateAvailable) }

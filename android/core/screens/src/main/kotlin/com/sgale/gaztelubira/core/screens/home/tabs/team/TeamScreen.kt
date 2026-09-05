@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.navigation.Destination.InsertPlayer
 import com.sgale.gaztelubira.core.screens.navigation.Destination.PlayerDetail
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamView
 
 @Composable
 fun TeamScreen(
@@ -35,11 +36,5 @@ fun TeamScreen(
 
     val players by viewModel.players.collectAsState()
 
-    TeamScreenUI(
-        logoUrl = user?.team?.logo,
-        players = players,
-        isAdmin = user?.isAdmin(),
-        navigateToInsertPlayer = { state.navigateTo(InsertPlayer) },
-        navigateToPlayerDetail = { id, isManager -> state.navigateTo(PlayerDetail(id, isManager)) }
-    )
+    TeamView()
 }

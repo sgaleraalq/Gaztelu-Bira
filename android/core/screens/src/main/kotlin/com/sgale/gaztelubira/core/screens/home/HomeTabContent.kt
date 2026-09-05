@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,11 +30,6 @@ import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.MATCHES
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.TEAM
 
-/**
- * What each shared tab shows on Android. The tab list and its icons are multiplatform; these
- * screens are not — they are Hilt-injected and take the Android [NavigationState] — so the mapping
- * lives on this side.
- */
 @Composable
 internal fun HomeTab.Content(state: NavigationState) {
     when (this) {

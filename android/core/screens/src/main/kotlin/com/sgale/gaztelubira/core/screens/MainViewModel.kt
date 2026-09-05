@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.splash.SplashContractor
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
-import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.HOME
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +37,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
+private val DEFAULT_TAB = HOME
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -47,7 +49,7 @@ class MainViewModel @Inject constructor(
     private val initAppHandler: InitAppHandler,
     private val toastManager: IToastManager
 ) : ViewModel() {
-    private var defaultHomeTab = STATS
+    private var defaultHomeTab = DEFAULT_TAB
 
     private val _userSession = MutableStateFlow<UserSession?>(null)
     val userSession: StateFlow<UserSession?> = _userSession
@@ -74,6 +76,7 @@ class MainViewModel @Inject constructor(
     fun reset() {
         _userSession.value = null
         splashContractor.reset()
+        defaultHomeTab = DEFAULT_TAB
     }
 
     fun updateHomeTab(tab: HomeTab) {

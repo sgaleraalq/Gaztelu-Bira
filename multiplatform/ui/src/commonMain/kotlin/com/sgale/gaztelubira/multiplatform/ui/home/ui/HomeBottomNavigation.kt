@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,9 @@ fun GBBottomNavigation(
     selectedTab: HomeTab,
     navigate: (HomeTab) -> Unit
 ) {
-    Column(Modifier.shadow(10.dp)) {
+    Column(
+        modifier = Modifier.shadow(10.dp)
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surface)

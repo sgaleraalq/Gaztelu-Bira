@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,25 +39,22 @@ internal fun HomeScreen(
 ) {
     val mainViewModel = LocalMainViewModel.current
     val updateAvailable by mainViewModel.updateAvailable.collectAsState()
-    val homeNavigationState = rememberHomeNavigationState(mainViewModel.getDefaultTab())
-    val selectedTab by homeNavigationState.selectedTab
+    val homeNavigation = rememberHomeNavigationState(mainViewModel.getDefaultTab())
+    val selectedTab by homeNavigation.selectedTab
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val tabContent = remember {
-        movableContentOf { HomeNavigationContent(homeNavigationState, navState) }
+        movableContentOf { HomeNavigationContent(homeNavigation, navState) }
     }
 
     val actions = remember(
-        homeNavigationState,
+        homeNavigation,
         mainViewModel,
         viewModel,
         navState
     ) {
         HomeActions(
-            onTabSelected = { newTab ->
-                mainViewModel.updateHomeTab(newTab)
-                homeNavigationState.navigate(newTab)
-            },
+            onTabSelected = homeNavigation::navigate,
             onLogout = { viewModel.logout(navState, mainViewModel) },
             onDismissLogout = { viewModel.updateLogoutDialog(false) }
         )
@@ -65,11 +62,12 @@ internal fun HomeScreen(
 
     LaunchedEffect(updateAvailable) { viewModel.updateAvailableUpdate(updateAvailable) }
 
+    LaunchedEffect(selectedTab) {
+        viewModel.onTabChanged(selectedTab)
+        mainViewModel.updateHomeTab(selectedTab)
+    }
+
     BackHandler(true) { viewModel.updateLogoutDialog(true) }
 
-    HomeView(
-        state = state.copy(selectedTab = selectedTab),
-        actions = actions,
-        tabContent = tabContent
-    )
+    HomeView(state, actions, tabContent)
 }
