@@ -25,35 +25,38 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
+import com.sgale.gaztelubira.multiplatform.designsystem.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab.InsertPlayer
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab.PlayerDetail
 
 @Composable
 internal fun TeamViewUI(
-    logoUrl: String?,
-    players: List<PlayerModel>,
-    navigateToPlayerDetail: (String, Boolean) -> Unit,
+    players: List<GBPlayer>,
+    managers: List<GBPlayer>,
     isAdmin: Boolean? = false,
-    navigateToInsertPlayer: () -> Unit = {}
+    navigateTo: (FromTeamTab) -> Unit
 ) {
-    Column(Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
         GBTopAppBar(
-            logoUrl = logoUrl,
             showAdminButton = isAdmin == true,
-            title = null,
-            onButtonClicked = { navigateToInsertPlayer() },
-            modifier = Modifier
+            onButtonClicked = { navigateTo(InsertPlayer) },
         )
-        TeamPlayerList(Modifier.fillMaxSize(), players) { playerId ->
-            navigateToPlayerDetail(
-                playerId,
-                players.find { it.id == playerId }?.position == Manager
-            )
-        }
+
+        TeamPlayerList(
+            players = players,
+            managers = managers,
+            onPlayerClicked = { playerId -> navigateTo(PlayerDetail(playerId)) }
+        )
 
         if (players.isEmpty()) {
             EmptyPlayersComponent(isAdmin)
@@ -63,32 +66,34 @@ internal fun TeamViewUI(
 
 @Composable
 fun TeamPlayerList(
-    modifier: Modifier,
-    players: List<PlayerModel>,
+    players: List<GBPlayer>,
+    managers: List<GBPlayer>,
     onPlayerClicked: (String) -> Unit
 ) {
     LazyVerticalGrid(
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
         columns = GridCells.Fixed(3),
         horizontalArrangement = spacedBy(8.dp),
         verticalArrangement = spacedBy(8.dp),
         contentPadding = PaddingValues(top = 0.dp, bottom = 12.dp, start = 12.dp, end = 12.dp)
     ) {
-        items(players.filter { it.position != Manager }) { player ->
+        items(players) { player ->
             GBPlayerCard(
                 modifier = Modifier.size(100.dp),
-                player = player.toGBPlayer(),
+                player = player,
                 onPlayerClicked = { onPlayerClicked(player.id) }
             )
         }
-        item(span = { GridItemSpan(3) }) {
+        item(
+            span = { GridItemSpan(3) }
+        ) {
             HorizontalDivider(Modifier.padding(vertical = 8.dp, horizontal = 16.dp))
         }
-        items(players.filter { it.position == Manager }.sortedBy { it.name }) { player ->
+        items(managers) { manager ->
             GBPlayerCard(
                 modifier = Modifier.size(100.dp),
-                player = player.toGBPlayer(),
-                onPlayerClicked = { onPlayerClicked(player.id) },
+                player = manager,
+                onPlayerClicked = { onPlayerClicked(manager.id) },
                 showDorsal = false
             )
         }

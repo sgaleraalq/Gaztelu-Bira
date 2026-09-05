@@ -22,11 +22,13 @@ import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.preview.PlayerProvider.providePlayerInformationList
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
@@ -36,8 +38,11 @@ import kotlinx.coroutines.launch
 class TeamViewModel @Inject constructor(
     private val getPlayers: GetPlayers
 ) : ViewModel() {
-    private val _players = MutableStateFlow<List<PlayerModel>>(emptyList())
-    val players = _players
+//    private val _players = MutableStateFlow<List<PlayerModel>>(emptyList())
+//    val players = _players
+
+    private val _state = MutableStateFlow(TeamUiState())
+    internal val state: StateFlow<TeamUiState> = _state
 
     init {
         viewModelScope.launch {

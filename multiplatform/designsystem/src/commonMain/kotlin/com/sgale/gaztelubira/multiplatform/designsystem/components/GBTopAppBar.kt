@@ -29,23 +29,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Bottom
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_button_add
-import org.jetbrains.compose.resources.DrawableResource
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun GBTopAppBar(
     modifier: Modifier = Modifier,
-    title: String? = null,
-    logoUrl: String? = null,
-    logo: Painter? = null,
     showAdminButton: Boolean = false,
     onButtonClicked: () -> Unit = {}
 ) {
@@ -59,26 +57,16 @@ fun GBTopAppBar(
         verticalAlignment = Bottom,
         horizontalArrangement = spacedBy(24.dp)
     ) {
-        /**
-         * `logo` is the already-resolved image: it stands alone when there is no URL to load,
-         * and doubles as the placeholder while a remote one is on its way.
-         */
-        if (logoUrl == null && logo != null) {
-            GBImage(
-                modifier = logoModifier,
-                painter = logo
-            )
-        } else {
-            GBImage(
-                modifier = logoModifier,
-                image = logoUrl,
-                placeholder = logo
-            )
-        }
+        GBImage(
+            modifier = logoModifier,
+            painter = painterResource(Res.drawable.img_gaztelu_bira)
+        )
 
         GBText(
-            modifier = Modifier.weight(1f).padding(bottom = 4.dp),
-            text = title,
+            modifier = Modifier
+                .weight(1f)
+                .padding(bottom = 4.dp),
+            text = stringResource(Res.string.app_name),
             alignment = Start,
             textColor = White,
             style = MaterialTheme.typography.titleLarge

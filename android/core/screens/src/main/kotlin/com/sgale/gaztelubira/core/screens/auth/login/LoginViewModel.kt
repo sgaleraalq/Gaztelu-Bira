@@ -43,7 +43,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-internal class LoginScreenViewModel @Inject constructor(
+internal class LoginViewModel @Inject constructor(
     private val repository: IAuthRepository
 ) : ViewModel() {
 

@@ -19,12 +19,14 @@ package com.sgale.gaztelubira.multiplatform.ui.home.tabs.team
 import androidx.compose.runtime.Composable
 
 @Composable
-fun TeamView() {
+fun TeamView(
+    state: TeamUiState,
+    actions: TeamActions
+) {
     TeamViewUI(
-        logoUrl = user?.team?.logo,
-        players = players,
-        isAdmin = user?.isAdmin(),
-        navigateToInsertPlayer = { state.navigateTo(InsertPlayer) },
-        navigateToPlayerDetail = { id, isManager -> state.navigateTo(PlayerDetail(id, isManager)) }
+        players = state.players,
+        managers = state.managers,
+        isAdmin = state.isAdmin,
+        navigateTo = { actions.navigateTo(InsertPlayer) },
     )
 }

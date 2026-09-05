@@ -24,18 +24,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.auth.login.LoginEvent.LoggedIn
-import com.sgale.gaztelubira.core.screens.navigation.Destination
-import com.sgale.gaztelubira.core.screens.navigation.Destination.SignUp
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions
-import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions.LoginDestination
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginView
 
 @Composable
 internal fun LoginScreen(
     navState: NavigationState,
-    viewModel: LoginScreenViewModel = hiltViewModel<LoginScreenViewModel>()
+    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
 ) {
     val mainViewModel = LocalMainViewModel.current
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -63,9 +61,4 @@ internal fun LoginScreen(
             )
         }
     )
-}
-
-private fun LoginDestination.toDestination(): Destination = when (this) {
-    LoginDestination.SignUp -> SignUp
-    LoginDestination.Splash -> Splash
 }

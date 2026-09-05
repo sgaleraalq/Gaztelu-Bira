@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.designsystem.model
+package com.sgale.gaztelubira.multiplatform.ui
 
-import androidx.compose.runtime.Stable
+sealed interface UiDestination {
+    sealed interface FromLogin : UiDestination {
+        data object SignUp : FromLogin
+        data object Splash : FromLogin
+    }
 
-@Stable
-data class GBPlayer(
-    val id: String,
-    val name: String,
-    val image: String? = null,
-    val dorsal: Int? = null
-)
+    sealed interface FromTeamTab : UiDestination {
+        data object InsertPlayer : FromTeamTab
+        data class PlayerDetail(
+            val id: String
+        ) : FromTeamTab
+    }
+}

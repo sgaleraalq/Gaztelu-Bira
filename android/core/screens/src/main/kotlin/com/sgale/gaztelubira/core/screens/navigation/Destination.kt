@@ -32,6 +32,9 @@ import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailScreen
 import com.sgale.gaztelubira.core.screens.player_detail.PlayerDetailScreen
 import com.sgale.gaztelubira.core.screens.review_photo.ReviewImageScreen
 import com.sgale.gaztelubira.core.screens.splash.SplashScreen
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromLogin
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab
 import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.WelcomeView
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -202,5 +205,25 @@ interface Destination {
                 }
             )
         }
+    }
+
+    companion object {
+        internal fun UiDestination.toDestination(): Destination =
+            when (this) {
+                is FromLogin -> this.toDestination()
+                is FromTeamTab -> this.toDestination()
+            }
+
+        private fun FromLogin.toDestination(): Destination =
+            when (this) {
+                FromLogin.SignUp -> SignUp
+                FromLogin.Splash -> Splash
+            }
+
+        private fun FromTeamTab.toDestination(): Destination =
+            when (this) {
+                FromTeamTab.InsertPlayer -> InsertPlayer
+                is FromTeamTab.PlayerDetail -> PlayerDetail(id, false) // TODO
+            }
     }
 }

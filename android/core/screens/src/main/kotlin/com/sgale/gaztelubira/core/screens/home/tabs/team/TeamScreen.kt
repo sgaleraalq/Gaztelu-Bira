@@ -19,22 +19,28 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.InsertPlayer
-import com.sgale.gaztelubira.core.screens.navigation.Destination.PlayerDetail
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamView
 
 @Composable
 fun TeamScreen(
-    state: NavigationState,
+    navState: NavigationState,
     viewModel: TeamViewModel = hiltViewModel<TeamViewModel>()
 ) {
-    val mainViewModel = LocalMainViewModel.current
-    val user by mainViewModel.userSession.collectAsState()
+    val state by viewModel.state.collectAsState()
 
-    val players by viewModel.players.collectAsState()
+    val actions = remember(
+        navState,
+        viewModel
+    ) {
+        TeamActions(
+            navigateTo = { destination -> navState.navigateTo(destination.toDestination()) }
+        )
+    }
 
-    TeamView()
+    TeamView(state, actions)
 }

@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.designsystem.model
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.team
 
-import androidx.compose.runtime.Stable
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination
 
-@Stable
-data class GBPlayer(
-    val id: String,
-    val name: String,
-    val image: String? = null,
-    val dorsal: Int? = null
+data class TeamActions(
+    val navigateTo: (UiDestination) -> Unit
 )

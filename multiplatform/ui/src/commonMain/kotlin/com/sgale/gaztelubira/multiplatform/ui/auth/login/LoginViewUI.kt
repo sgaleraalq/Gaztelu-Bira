@@ -21,15 +21,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromLogin.SignUp
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.Login.Email
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.Login.Google
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthButton
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthCard
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthErrorMessage
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthScaffold
-import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions.LoginDestination.SignUp
-import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions.LoginDestination.Splash
-import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.ContinueAsGuest
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.DontHaveAccount
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.ForgotPassword
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.GoogleLogin
