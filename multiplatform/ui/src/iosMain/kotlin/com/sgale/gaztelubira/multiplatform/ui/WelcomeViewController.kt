@@ -17,6 +17,7 @@
 package com.sgale.gaztelubira.multiplatform.ui
 
 import androidx.compose.ui.window.ComposeUIViewController
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.WelcomeView
 import platform.UIKit.UIViewController
 
@@ -27,9 +28,14 @@ import platform.UIKit.UIViewController
  *
  * Navigation stays with the caller — the same contract the Android side uses — so Swift decides
  * what "go to login" means.
+ *
+ * `GBTheme` is applied here for the same reason `GazteluBiraActivity` applies it on Android: it is
+ * the host's job, and the screen inherits the wrong typography and colors without it.
  */
 fun welcomeViewController(
     navigateToLogin: () -> Unit
 ): UIViewController = ComposeUIViewController {
-    WelcomeView(navigateToLogin = navigateToLogin)
+    GBTheme {
+        WelcomeView(navigateToLogin = navigateToLogin)
+    }
 }
