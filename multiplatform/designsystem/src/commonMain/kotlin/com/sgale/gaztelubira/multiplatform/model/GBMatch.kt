@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.model
+package com.sgale.gaztelubira.multiplatform.model;
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 
-typealias FirebaseId = String // TODO
-
-@Stable
-data class PlayerModel(
-    val id: FirebaseId,
-    val faceImage: String?,
-    val bodyImage: String?,
+@Immutable
+data class GBMatch(
+    val id: String,
     val name: String,
-    val dorsal: Int?,
-    val position: Position?
+    val type: GBMatchType,
+    val date: String,
+    val localTeam: GBMatchTeam,
+    val visitorTeam: GBMatchTeam,
+    val localGoals: Int,
+    val visitorGoals: Int,
+    val result: GBMatchResult
 )

@@ -16,36 +16,34 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
 
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.Defeat
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.Draw
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.Victory
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
+import com.sgale.gaztelubira.core.domain.model.match.MatchStatus
+import com.sgale.gaztelubira.core.domain.model.match.MatchStatus.LOCAL
+import com.sgale.gaztelubira.core.domain.model.match.MatchStatus.VISITOR
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.GBHomeHelper.provideGBInformation
-import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.GazteluBiraHomeHandler.MatchStatus.Local
-import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.GazteluBiraHomeHandler.MatchStatus.Undefined
-import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.GazteluBiraHomeHandler.MatchStatus.Visitor
+import com.sgale.gaztelubira.core.domain.model.team.TeamSeason
+import com.sgale.gaztelubira.core.domain.model.team.TeamStreak
 
-class GazteluBiraHomeHandler(
+internal class GazteluBiraHomeHandler(
     private val appTeam: TeamModel,
     private val matches: List<MatchModel>
 ) {
-    enum class MatchStatus { Local, Visitor, Undefined }
-
-    data class MatchResults(
+    private data class MatchResults(
         var wins: Int = 0,
         var draws: Int = 0,
         var loses: Int = 0
     )
 
-    data class MatchGoals(
+    private data class MatchGoals(
         var goalsFor: Int = 0,
         var goalsAgainst: Int = 0
     )
 
-    data class MatchStreak(
+    private data class MatchStreak(
         val games: MutableList<MatchResult> = mutableListOf()
     )
 
@@ -67,7 +65,7 @@ class GazteluBiraHomeHandler(
 
         var count = 0
         for (result in streak.games.asReversed()) {
-            if (result == Victory) {
+            if (result == VICTORY) {
                 count++
             } else {
                 break
@@ -76,38 +74,29 @@ class GazteluBiraHomeHandler(
         return count
     }
 
-    fun getGBInformation(): GBInformation {
-        return if (TESTING){
-            provideGBInformation(appTeam)
-        } else {
-            provideGBInformation()
-        }
-    }
+    internal fun getGBInformation(): TeamSeason =
+        provideGBInformation()
 
     private fun getPoints(results: MatchResults): Int =
         (results.wins * 3) + results.draws
 
-    private fun getStatus(match: MatchModel): MatchStatus {
-        return if (match.localTeam.id == appTeam.id) {
-            Local
-        } else if (match.visitorTeam.id == appTeam.id) {
-            Visitor
-        } else {
-            Undefined
+    private fun getStatus(match: MatchModel): MatchStatus =
+        when {
+            match.localTeam.id == appTeam.id -> LOCAL
+            else -> VISITOR
         }
-    }
 
-    private fun getStreak(): Streak {
-        return Streak(
+
+    private fun getStreak() =
+        TeamStreak(
             currentStreak = getCurrentStreak(),
             lastGames = streak.games.toList()
         )
-    }
 
-    private fun provideGBInformation(): GBInformation {
+    private fun provideGBInformation(): TeamSeason {
         val points = getPoints(results)
 
-        return GBInformation(
+        return TeamSeason(
             id = appTeam.id,
             team = appTeam,
             points = points,
@@ -125,16 +114,16 @@ class GazteluBiraHomeHandler(
         status: MatchStatus,
         match: MatchModel
     ) {
-        when(status) {
-            Local -> {
+        when (status) {
+            LOCAL -> {
                 goals.goalsFor += match.localGoals
                 goals.goalsAgainst += match.visitorGoals
             }
-            Visitor -> {
+
+            VISITOR -> {
                 goals.goalsFor += match.visitorGoals
                 goals.goalsAgainst += match.localGoals
             }
-            Undefined -> { }
         }
     }
 
@@ -142,33 +131,31 @@ class GazteluBiraHomeHandler(
         status: MatchStatus,
         match: MatchModel
     ) {
-        if (status == Undefined) return
-
         if (match.localGoals == match.visitorGoals) {
-            streak.games.add(Draw)
+            streak.games.add(DRAW)
             results.draws += 1
             return
         }
 
-        var streakResult = Victory
+        var streakResult = VICTORY
         when (status) {
-            Local -> {
+            LOCAL -> {
                 if (match.localGoals > match.visitorGoals) {
                     results.wins += 1
                 } else {
                     results.loses += 1
-                    streakResult = Defeat
+                    streakResult = DEFEAT
                 }
             }
-            Visitor -> {
+
+            VISITOR -> {
                 if (match.localGoals > match.visitorGoals) {
                     results.loses += 1
-                    streakResult = Defeat
+                    streakResult = DEFEAT
                 } else {
                     results.wins += 1
                 }
             }
-            else -> {}
         }
 
         streak.games.add(streakResult)

@@ -16,16 +16,14 @@
 
 package com.sgale.gaztelubira.multiplatform.model
 
-import androidx.compose.runtime.Stable
+import androidx.compose.ui.graphics.Color
 
-typealias FirebaseId = String // TODO
-
-@Stable
-data class PlayerModel(
-    val id: FirebaseId,
-    val faceImage: String?,
-    val bodyImage: String?,
-    val name: String,
-    val dorsal: Int?,
-    val position: Position?
-)
+enum class GBMatchResult(
+    val transColor: Color,
+    val solidColor: Color
+) {
+    VICTORY(Color(0x3315FF99), Color(0xFF00C853)),
+    DRAW(Color(0x33FFD60A), Color(0xFFFFD60A)),
+    DEFEAT(Color(0x33FF3B30), Color(0xFFFF3B30)),
+    UNDEFINED(Color(0xFF333333), Color(0xFF999999))
+}

@@ -34,4 +34,6 @@ dependencies {
     implementation(libs.compose.activity)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization)
+
+    implementation(project(":multiplatform:designsystem"))
 }
