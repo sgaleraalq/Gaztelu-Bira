@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.designsystem.model
+package com.sgale.gaztelubira.core.domain.model.team
 
-import androidx.compose.runtime.Stable
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult
 
-@Stable
-data class GBPlayer(
-    val id: String,
-    val name: String,
-    val image: String? = null,
-    val dorsal: Int? = null
+data class TeamStreak(
+    val currentStreak: Int,
+    val lastGames: List<MatchResult>
 )

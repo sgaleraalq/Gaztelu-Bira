@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
+package com.sgale.gaztelubira.multiplatform.model
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult
+import androidx.compose.runtime.Immutable
 
-data class Streak(
-    val currentStreak: Int,
-    val lastGames: List<MatchResult>
+@Immutable
+data class GBTeam(
+    val id: String,
+    val name: String,
+    val logo: String?
 )

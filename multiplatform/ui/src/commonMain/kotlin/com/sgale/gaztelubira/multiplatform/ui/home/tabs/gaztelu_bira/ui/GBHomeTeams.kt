@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.ui
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,29 +32,36 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.Fit
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign.Companion.Center
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.other_teams
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun GBHomeTeams(
+internal fun GBRivals(
     modifier: Modifier,
-    teams: List<TeamModel>
+    teams: List<GBTeam>
 ) {
-    OtherTeamsText()
+    GBText(
+        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+        text = stringResource(Res.string.other_teams),
+        alignment = TextAlign.Center,
+        style = gBTypography().titleLarge
+    )
+
     LazyVerticalGrid(
         modifier = modifier,
         columns = Fixed(4),
@@ -62,33 +69,27 @@ fun GBHomeTeams(
         verticalArrangement = spacedBy(8.dp),
         contentPadding = PaddingValues(12.dp)
     ) {
-        items(teams) { team ->
-            GBHomeTeam(team)
+        items(
+            items = teams,
+            key = { team -> team.id }
+        ) { team ->
+            GBRival(team)
         }
     }
 }
 
 @Composable
-fun OtherTeamsText() {
-    GBText(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp),
-        text = stringResource(R.string.other_teams),
-        alignment = Center,
-        style = gBTypography().titleLarge
-    )
-}
-
-@Composable
-fun GBHomeTeam(
-    team: TeamModel
+private fun GBRival(
+    team: GBTeam
 ) {
     Column(
-        modifier = Modifier.height(110.dp).background(
-            color = elevated_button_bg_not_selected,
-            shape = RoundedCornerShape(12.dp)
-        ).padding(8.dp),
+        modifier = Modifier
+            .height(110.dp)
+            .background(
+                color = elevated_button_bg_not_selected,
+                shape = RoundedCornerShape(12.dp)
+            )
+            .padding(8.dp),
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = spacedBy(4.dp)
     ) {
@@ -97,23 +98,22 @@ fun GBHomeTeam(
                 .size(60.dp)
                 .clip(RoundedCornerShape(50))
                 .background(White)
-                .border(
-                    width = 1.dp,
-                    color = White,
-                    shape = RoundedCornerShape(50)
-                ),
+                .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
             imageModifier = Modifier.fillMaxSize(),
             image = team.logo,
             placeholder = AppImages.teamCrest,
             contentScale = Fit
         )
-        Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Center
+        ) {
             GBText(
                 modifier = Modifier.fillMaxWidth(),
                 text = team.name,
                 style = gBTypography().bodySmall,
                 maxLines = 2,
-                alignment = Center
+                alignment = TextAlign.Center
             )
         }
     }

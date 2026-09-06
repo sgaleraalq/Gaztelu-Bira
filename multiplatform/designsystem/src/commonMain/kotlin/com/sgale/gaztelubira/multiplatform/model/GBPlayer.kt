@@ -16,13 +16,12 @@
 
 package com.sgale.gaztelubira.multiplatform.model
 
-import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 
-typealias FirebaseId = String
-
-@Immutable
-data class TeamModel(
-    val id: FirebaseId,
+@Stable
+data class GBPlayer(
+    val id: String,
     val name: String,
-    val logo: String?
+    val image: String? = null,
+    val dorsal: Int? = null
 )

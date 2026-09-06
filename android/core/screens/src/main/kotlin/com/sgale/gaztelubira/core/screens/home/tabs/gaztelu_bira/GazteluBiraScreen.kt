@@ -20,30 +20,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.InsertTeam
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraActions
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraView
 
 @Composable
-fun GazteluBiraHomeScreen(
-    state: NavigationState,
-    viewModel: GazteluBiraHomeViewModel = hiltViewModel<GazteluBiraHomeViewModel>()
+internal fun GazteluBiraScreen(
+    navState: NavigationState,
+    viewModel: GazteluBiraViewModel = hiltViewModel<GazteluBiraViewModel>()
 ) {
     val mainViewModel = LocalMainViewModel.current
     val userSession by mainViewModel.userSession.collectAsState()
+    val state by viewModel.state.collectAsState()
 
-    val teams by viewModel.teams.collectAsState()
-    val gbInformation by viewModel.gbInformation.collectAsState()
-
-    LaunchedEffect(userSession) {
-        userSession?.let { viewModel.startHandler(it.team) }
+    val actions = remember(navState, viewModel) {
+        GazteluBiraActions(
+            navigateTo = { destination -> navState.navigateTo(destination.toDestination()) }
+        )
     }
 
-    GazteluBiraHomeUI(
-        user = userSession,
-        teams = teams,
-        gbInformation = gbInformation,
-        navigateToInsertTeam = { state.navigateTo(InsertTeam) }
-    )
+    LaunchedEffect(userSession) {
+        viewModel.onSessionChanged(
+            team = userSession?.team,
+            isAdmin = userSession?.isAdmin() == true
+        )
+    }
+
+    GazteluBiraView(state, actions)
 }

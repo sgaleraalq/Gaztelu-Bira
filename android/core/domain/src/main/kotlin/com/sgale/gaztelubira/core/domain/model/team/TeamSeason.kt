@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.team
+package com.sgale.gaztelubira.core.domain.model.team
 
-import com.sgale.gaztelubira.multiplatform.model.GBPlayer
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
-data class TeamUiState(
-    val players: List<GBPlayer> = emptyList(),
-    val managers: List<GBPlayer> = emptyList(),
-    val isAdmin: Boolean = false
+data class TeamSeason(
+    val id: FirebaseId,
+    val team: TeamModel,
+    val points: Int,
+    val games: Int,
+    val wins: Int,
+    val draws: Int,
+    val loses: Int,
+    val goalsFor: Int,
+    val goalsAgainst: Int,
+    val streak: TeamStreak
 )

@@ -32,7 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
-import com.sgale.gaztelubira.multiplatform.designsystem.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab.InsertPlayer
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab.PlayerDetail

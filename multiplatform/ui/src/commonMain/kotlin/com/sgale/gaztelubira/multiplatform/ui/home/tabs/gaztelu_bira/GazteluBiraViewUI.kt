@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,28 +26,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.TopEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.ui.GBHomeInformationBox
-import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.ui.GBHomeTeams
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAddButton
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromGazteluBiraTab.InsertTeam
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.ui.GBHomeInformationBox
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.ui.GBRivals
 
 @Composable
-fun GazteluBiraHomeUI(
-    user: UserSession?,
-    teams: List<TeamModel>,
-    gbInformation: GBInformation?,
-    navigateToInsertTeam: () -> Unit
+internal fun GazteluBiraViewUI(
+    state: GazteluBiraUiState,
+    actions: GazteluBiraActions
 ) {
-    Column(Modifier.fillMaxSize()) {
-        GBHomeInformationBox(gbInformation)
-        HorizontalDivider(Modifier.fillMaxWidth().padding(top = 8.dp), thickness = 1.dp)
-        GBHomeTeams(Modifier.weight(1f), teams)
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        GBHomeInformationBox(summary = state.season)
+        HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
+        GBRivals(
+            modifier = Modifier.weight(1f),
+            teams = state.teams
+        )
     }
 
-    if (user?.isAdmin() == true) {
-        Box(Modifier.fillMaxSize().padding(top = 12.dp, end = 24.dp)) {
-            GBAddButton(Modifier.align(TopEnd)) { navigateToInsertTeam() }
-        }
+    Box(
+        modifier = Modifier.fillMaxSize().padding(top = 12.dp, end = 24.dp)
+    ) {
+        GBAddButton(
+            show = state.isAdmin,
+            modifier = Modifier.align(TopEnd),
+            onButtonClicked = { actions.navigateTo(InsertTeam) }
+        )
     }
 }

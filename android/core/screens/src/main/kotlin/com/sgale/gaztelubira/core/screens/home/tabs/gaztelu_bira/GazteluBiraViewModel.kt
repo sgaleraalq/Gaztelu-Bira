@@ -18,39 +18,38 @@ package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
-import com.sgale.gaztelubira.core.preview.MatchProvider.provideMatchesList
-import com.sgale.gaztelubira.core.preview.TeamProvider.provideRandomTeams
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeam
+import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeamSummary
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.domain.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.domain.usecase.db.GetTeams
+import com.sgale.gaztelubira.core.preview.MatchProvider.provideMatchesList
+import com.sgale.gaztelubira.core.preview.TeamProvider.provideRandomTeams
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class GazteluBiraHomeViewModel @Inject constructor(
+internal class GazteluBiraViewModel @Inject constructor(
     private val getTeams: GetTeams,
     private val getMatches: GetMatches
-): ViewModel() {
+) : ViewModel() {
+    private val _state = MutableStateFlow(GazteluBiraUiState())
+    internal val state: StateFlow<GazteluBiraUiState> = _state.asStateFlow()
 
-    private val _gbInformation = MutableStateFlow<GBInformation?>(null)
-    val gbInformation: StateFlow<GBInformation?> = _gbInformation
-
-    private val _teams = MutableStateFlow<List<TeamModel>>(emptyList())
-    val teams: StateFlow<List<TeamModel>> = _teams
-
-    private val matches = MutableStateFlow<List<MatchModel>>(emptyList())
+    private var matches: List<MatchModel> = emptyList()
     private var appTeam: TeamModel? = null
-    private var gbHomeHandler: GazteluBiraHomeHandler? = null
 
     init {
         viewModelScope.launch {
@@ -61,8 +60,8 @@ class GazteluBiraHomeViewModel @Inject constructor(
                 getTeams()
                     .combine(testTeams) { real, test -> real + test }
                     .flowOn(Dispatchers.IO)
-                    .collect { teamsList ->
-                        _teams.value = teamsList
+                    .collect { teams ->
+                        _state.update { it.copy(teams = teams.map { team -> team.toGBTeam() }) }
                     }
             }
 
@@ -70,28 +69,26 @@ class GazteluBiraHomeViewModel @Inject constructor(
                 getMatches()
                     .combine(testMatches) { real, test -> real + test }
                     .flowOn(Dispatchers.IO)
-                    .collect { matchesList ->
-                        matches.value = matchesList
-                        recomputeGBInformation()
+                    .collect { played ->
+                        matches = played
+                        renderSummary()
                     }
             }
         }
     }
 
-    fun startHandler(appTeam: TeamModel) {
-        this.appTeam = appTeam
-        recomputeGBInformation()
+    internal fun onSessionChanged(team: TeamModel?, isAdmin: Boolean) {
+        appTeam = team
+        _state.update { it.copy(isAdmin = isAdmin) }
+        renderSummary()
     }
 
-    private fun recomputeGBInformation() {
+    private fun renderSummary() {
         val team = appTeam ?: return
-        val matches = matches.value
+        val summary = GazteluBiraHomeHandler(appTeam = team, matches = matches)
+            .getGBInformation()
+            .toGBTeamSummary()
 
-        gbHomeHandler = GazteluBiraHomeHandler(
-            appTeam = team,
-            matches = matches
-        )
-
-        _gbInformation.value = gbHomeHandler!!.getGBInformation()
+        _state.update { it.copy(season = summary) }
     }
 }

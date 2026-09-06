@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.team
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira
 
-import com.sgale.gaztelubira.multiplatform.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination
 
-data class TeamUiState(
-    val players: List<GBPlayer> = emptyList(),
-    val managers: List<GBPlayer> = emptyList(),
-    val isAdmin: Boolean = false
+data class GazteluBiraActions(
+    val navigateTo: (UiDestination) -> Unit
 )

@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.team
+package com.sgale.gaztelubira.multiplatform.model
 
-import com.sgale.gaztelubira.multiplatform.model.GBPlayer
+import androidx.compose.runtime.Immutable
 
-data class TeamUiState(
-    val players: List<GBPlayer> = emptyList(),
-    val managers: List<GBPlayer> = emptyList(),
-    val isAdmin: Boolean = false
+@Immutable
+data class GBSeason(
+    val points: Int,
+    val games: Int,
+    val wins: Int,
+    val draws: Int,
+    val loses: Int,
+    val goalsFor: Int,
+    val goalsAgainst: Int,
+    val currentStreak: Int,
+    val lastGames: List<GBMatchResult>
 )

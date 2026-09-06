@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira
 
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import androidx.compose.runtime.Composable
 
-data class GBInformation(
-    val id: FirebaseId,
-    val team: TeamModel,
-    val points: Int,
-    val games: Int,
-    val wins: Int,
-    val draws: Int,
-    val loses: Int,
-    val goalsFor: Int,
-    val goalsAgainst: Int,
-    val streak: Streak
-)
+@Composable
+fun GazteluBiraView(
+    state: GazteluBiraUiState,
+    actions: GazteluBiraActions
+) {
+    GazteluBiraViewUI(
+        state = state,
+        actions = actions
+    )
+}
