@@ -25,7 +25,7 @@ import com.sgale.gaztelubira.core.data.mappers.asTeamResponse
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_INSERTION

@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.data.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 @Entity

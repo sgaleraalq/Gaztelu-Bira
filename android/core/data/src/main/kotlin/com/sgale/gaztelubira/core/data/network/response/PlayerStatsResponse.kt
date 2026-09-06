@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.data.network.response
 
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import kotlinx.serialization.Serializable
 
 @Keep

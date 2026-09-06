@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.usecase.firestore
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbPlayers

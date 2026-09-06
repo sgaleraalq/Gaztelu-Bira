@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.domain.usecase.firestore.insert
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
 import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesStatsDb

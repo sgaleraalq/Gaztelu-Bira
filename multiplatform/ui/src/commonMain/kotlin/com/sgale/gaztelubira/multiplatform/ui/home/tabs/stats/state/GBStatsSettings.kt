@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state
 
 import androidx.compose.runtime.Stable
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
@@ -44,5 +44,10 @@ sealed interface GBStatsSettings {
         val draft: GBPunctuation
     ) : GBStatsSettings {
         override val title = Res.string.punctuation_values
+    }
+
+    companion object {
+        internal fun GBStatsSettings.isAtMenu(): Boolean =
+            this == Menu
     }
 }

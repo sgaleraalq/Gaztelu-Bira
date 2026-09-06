@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -64,9 +64,6 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import com.sgale.gaztelubira.multiplatform.designsystem.utils.shimmerEffect
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.LeaderboardPosition.FIRST
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.LeaderboardPosition.SECOND
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.LeaderboardPosition.THIRD
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_down
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_up
@@ -115,19 +112,19 @@ internal fun StatsLeaderboard(
         LeaderboardPlayer(
             modifier = Modifier.weight(1f),
             player = second,
-            position = SECOND,
+            position = LeaderboardPosition.SECOND,
             onPlayerSelected = onPlayerSelected
         )
         LeaderboardPlayer(
             modifier = Modifier.weight(1f), 
             player = first,
-            position = FIRST,
+            position = LeaderboardPosition.FIRST,
             onPlayerSelected = onPlayerSelected
         )
         LeaderboardPlayer(
             modifier = Modifier.weight(1f), 
             player = third,
-            position = THIRD,
+            position = LeaderboardPosition.THIRD,
             onPlayerSelected = onPlayerSelected
         )
     }

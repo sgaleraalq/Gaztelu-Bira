@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.screens.player_detail.ui.PlayerDetailImage
 import com.sgale.gaztelubira.core.screens.player_detail.ui.PlayerDetailInformationBox
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBackButton

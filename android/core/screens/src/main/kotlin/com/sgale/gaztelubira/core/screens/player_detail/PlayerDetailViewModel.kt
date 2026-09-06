@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.usecase.db.FetchMatches
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayer
@@ -28,7 +28,6 @@ import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayerStats
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

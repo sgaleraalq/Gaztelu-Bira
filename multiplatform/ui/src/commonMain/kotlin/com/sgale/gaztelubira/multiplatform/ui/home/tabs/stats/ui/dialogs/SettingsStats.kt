@@ -39,7 +39,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBStat
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.GBStatsSettings.Hidden
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource

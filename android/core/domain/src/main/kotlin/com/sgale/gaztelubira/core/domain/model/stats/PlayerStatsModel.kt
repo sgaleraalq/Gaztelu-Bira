@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
+package com.sgale.gaztelubira.core.domain.model.stats
 
-import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
-import com.sgale.gaztelubira.multiplatform.model.GBStat
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
+import androidx.compose.runtime.Stable
+import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
-data class StatsActions(
-    val onPlayerSelected: (String) -> Unit,
-    val onPlayerDismissed: () -> Unit,
-    val onSettingsChanged: (GBStatsSettings) -> Unit,
-    val onStatSelected: (GBStat) -> Unit,
-    val onPunctuationDraftChanged: (GBPunctuation) -> Unit,
-    val onPunctuationConfirmed: (GBPunctuation) -> Unit
+@Stable
+data class PlayerStatsModel(
+    val id: FirebaseId,
+    val player: PlayerModel,
+    val stats: Map<FirebaseId, Stats>, // Map match to stats
+    val percentage: Double = 0.0
 )

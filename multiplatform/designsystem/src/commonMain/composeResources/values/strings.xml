@@ -94,7 +94,7 @@
     <string name="mid_defensive_right">Mid defensive right</string>
     <string name="midfielder">Midfielder</string>
     <string name="name">Name</string>
-    <string name="need_to_set_percentage">You need to set percentage</string>
+    <string name="need_to_set_percentage">You need to set "Percentage" stat</string>
     <string name="no">No</string>
     <string name="no_description_provided">No description provided</string>
     <string name="no_location_available">No location available</string>

@@ -94,7 +94,7 @@
     <string name="mid_defensive_right">Medio defensivo derecho</string>
     <string name="midfielder">Centrocampista</string>
     <string name="name">Nombre</string>
-    <string name="need_to_set_percentage">Debes establecer el porcentaje</string>
+    <string name="need_to_set_percentage">Debes establecer la estadística "Porcentaje"</string>
     <string name="no">No</string>
     <string name="no_description_provided">No se proporcionó descripción</string>
     <string name="no_location_available">No hay ubicación disponible</string>

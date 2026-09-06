@@ -53,7 +53,7 @@ import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.MIN_YELLOW_CARDS
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.PENALTIES_PROVOKED
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.SAVES
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.GBStatsSettings.Hidden
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.assists

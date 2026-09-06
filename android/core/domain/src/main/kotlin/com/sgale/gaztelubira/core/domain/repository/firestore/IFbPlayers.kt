@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.domain.repository.firestore
 
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 interface IFbPlayers {

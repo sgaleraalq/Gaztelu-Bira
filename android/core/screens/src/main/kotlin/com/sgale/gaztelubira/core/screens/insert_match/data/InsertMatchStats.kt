@@ -19,8 +19,8 @@ package com.sgale.gaztelubira.core.screens.insert_match.data
 import androidx.compose.runtime.Stable
 import com.sgale.gaztelubira.core.domain.model.match.MatchStats
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.Stat
-import com.sgale.gaztelubira.core.domain.model.player.Stat.Goals
+import com.sgale.gaztelubira.core.domain.model.stats.Stat
+import com.sgale.gaztelubira.core.domain.model.stats.Stat.Goals
 
 @Stable
 data class InsertMatchStats(

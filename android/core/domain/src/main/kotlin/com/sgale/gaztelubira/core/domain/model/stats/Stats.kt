@@ -14,15 +14,20 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.model.player
+package com.sgale.gaztelubira.core.domain.model.stats
 
-import androidx.compose.runtime.Stable
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import kotlinx.serialization.Serializable
 
-@Stable
-data class PlayerStatsModel(
-    val id: FirebaseId,
-    val player: PlayerModel,
-    val stats: Map<FirebaseId, Stats>, // Map match to stats
-    val percentage: Double = 0.0
+@Serializable
+data class Stats(
+    val assists: Int,
+    val cleanSheets: Int,
+    val fails: Int,
+    val gamesPlayed: Int,
+    val goals: Int,
+    val goalsProvoked: Int,
+    val penaltiesProvoked: Int,
+    val redCards: Int,
+    val saves: Int,
+    val yellowCards: Int
 )

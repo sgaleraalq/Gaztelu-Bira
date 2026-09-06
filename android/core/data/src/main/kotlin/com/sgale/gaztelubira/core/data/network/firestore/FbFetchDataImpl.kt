@@ -30,8 +30,8 @@ import com.sgale.gaztelubira.core.data.network.response.TeamResponse
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId

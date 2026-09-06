@@ -16,60 +16,35 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.GBStatsSettings.Hidden
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.GBStatsSettings.Menu
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.StatsPlayerDialog
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.StatsSettingsDialog
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.SelectedStatTitle
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsClassification
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsLeaderboard
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loading
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsLoaded
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsLoading
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsTitle
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.PlayerCard
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.Settings
 
 @Composable
 internal fun StatsViewUI(
     state: StatsUiState,
     actions: StatsActions
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(12.dp)
-    ) {
-        if (state.isLoading) {
-            StatsLoading()
-        } else {
-            StatsTitle(onSettingsClicked = { actions.onSettingsChanged(Menu) })
-            StatsLeaderboard(
-                first = state.players.getOrNull(0),
-                second = state.players.getOrNull(1),
-                third = state.players.getOrNull(2),
-                onPlayerSelected = actions.onPlayerSelected
-            )
-            SelectedStatTitle(state.selectedStat)
-            StatsClassification(
-                modifier = Modifier.weight(0.6f),
-                players = state.players,
-                selectPlayer = actions.onPlayerSelected
-            )
-        }
+    when (state.state) {
+        Loading -> StatsLoading()
+        Loaded -> StatsLoaded(state, actions)
     }
 
-    StatsPlayerDialog(
+    PlayerCard(
         player = state.selectedPlayer,
         onDismiss = actions.onPlayerDismissed
     )
 
-    if (state.settings != Hidden) {
-        StatsSettingsDialog(
-            settings = state.settings,
-            selectedStat = state.selectedStat,
-            punctuation = state.punctuation,
-            actions = actions
-        )
-    }
+    Settings(
+        show = state.settings != Hidden,
+        settings = state.settings,
+        selectedStat = state.selectedStat,
+        punctuation = state.punctuation,
+        actions = actions
+    )
 }

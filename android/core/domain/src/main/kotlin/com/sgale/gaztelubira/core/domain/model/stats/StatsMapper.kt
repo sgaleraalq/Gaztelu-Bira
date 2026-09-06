@@ -17,7 +17,6 @@
 package com.sgale.gaztelubira.core.domain.model.stats
 
 import com.sgale.gaztelubira.core.domain.model.player.PlayerDisplayStats
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Position
 import com.sgale.gaztelubira.core.domain.model.player.Position.Bench
 import com.sgale.gaztelubira.core.domain.model.player.Position.Defender
@@ -25,7 +24,6 @@ import com.sgale.gaztelubira.core.domain.model.player.Position.Forward
 import com.sgale.gaztelubira.core.domain.model.player.Position.GoalKeeper
 import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
 import com.sgale.gaztelubira.core.domain.model.player.Position.MidFielder
-import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.domain.utils.formatDecimal
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail

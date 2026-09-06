@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.model.player
+package com.sgale.gaztelubira.core.domain.model.stats
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

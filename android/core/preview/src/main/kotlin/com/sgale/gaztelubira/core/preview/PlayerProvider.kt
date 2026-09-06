@@ -19,13 +19,13 @@ package com.sgale.gaztelubira.core.preview
 import com.sgale.gaztelubira.core.preview.RandomValues.RANDOM_IMAGES
 import com.sgale.gaztelubira.core.preview.RandomValues.RANDOM_NAMES
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Position.Defender
 import com.sgale.gaztelubira.core.domain.model.player.Position.Forward
 import com.sgale.gaztelubira.core.domain.model.player.Position.GoalKeeper
 import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
 import com.sgale.gaztelubira.core.domain.model.player.Position.MidFielder
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.utils.generateRandomUUID
 
 object PlayerProvider {

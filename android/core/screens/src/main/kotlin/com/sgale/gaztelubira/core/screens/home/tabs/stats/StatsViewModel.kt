@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toDetail
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toGBPlayerStat
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toStat
@@ -28,8 +28,10 @@ import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayersStats
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.GBStatsSettings
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Companion.computing
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -81,7 +83,7 @@ internal class StatsViewModel @Inject constructor(
             handler.statsDisplayed.collect { ranking ->
                 _state.update { state ->
                     state.copy(
-                        isLoading = false,
+                        state = Loaded,
                         players = ranking.map { it.toGBPlayerStat(state.selectedStat) }
                     )
                 }
@@ -90,7 +92,7 @@ internal class StatsViewModel @Inject constructor(
 
         viewModelScope.launch {
             handler.valueChanged.collect { recomputing ->
-                _state.update { it.copy(isLoading = recomputing && it.players.isEmpty()) }
+                _state.update { it.copy(state = computing(recomputing && it.players.isEmpty())) }
             }
         }
     }

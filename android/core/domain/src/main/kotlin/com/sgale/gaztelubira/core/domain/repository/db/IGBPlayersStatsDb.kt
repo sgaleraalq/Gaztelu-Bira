@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.repository.db
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 

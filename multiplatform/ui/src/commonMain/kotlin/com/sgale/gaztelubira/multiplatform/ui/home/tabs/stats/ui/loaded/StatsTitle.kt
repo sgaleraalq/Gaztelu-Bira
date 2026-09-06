@@ -14,28 +14,23 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_settings
@@ -81,19 +76,6 @@ internal fun SelectedStatTitle(
         GBText(
             text = stringResource(stat.label),
             style = gBTypography().bodyLarge.copy(fontWeight = Normal)
-        )
-    }
-}
-
-@Composable
-internal fun StatsLoading() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Center
-    ) {
-        GBProgressDialog(
-            show = true,
-            color = primaryRed
         )
     }
 }

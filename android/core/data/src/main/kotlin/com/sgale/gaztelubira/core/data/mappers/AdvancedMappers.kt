@@ -31,8 +31,8 @@ import com.sgale.gaztelubira.core.domain.model.match.MatchStats
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.match.MatchType.Companion.fromString
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorMatch
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer

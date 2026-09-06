@@ -23,7 +23,7 @@ import com.sgale.gaztelubira.core.data.mappers.asPlayerModel
 import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
 import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences

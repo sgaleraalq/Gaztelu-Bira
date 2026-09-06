@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.model.player
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state
 
-import kotlinx.serialization.Serializable
+sealed interface GBStatsState {
+    data object Loading : GBStatsState
+    data object Loaded : GBStatsState
 
-@Serializable
-data class Stats(
-    val assists: Int,
-    val cleanSheets: Int,
-    val fails: Int,
-    val gamesPlayed: Int,
-    val goals: Int,
-    val goalsProvoked: Int,
-    val penaltiesProvoked: Int,
-    val redCards: Int,
-    val saves: Int,
-    val yellowCards: Int
-)
+    companion object {
+        fun computing(loading: Boolean) =
+            when (loading) {
+                true -> Loading
+                false -> Loaded
+            }
+    }
+}

@@ -20,8 +20,8 @@ import com.sgale.gaztelubira.core.data.db.GBDatabase
 import com.sgale.gaztelubira.core.data.db.entities.PlayerStatsEntity
 import com.sgale.gaztelubira.core.data.mappers.asPlayerStatsEntity
 import com.sgale.gaztelubira.core.data.mappers.asPlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Stats
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
 import javax.inject.Inject

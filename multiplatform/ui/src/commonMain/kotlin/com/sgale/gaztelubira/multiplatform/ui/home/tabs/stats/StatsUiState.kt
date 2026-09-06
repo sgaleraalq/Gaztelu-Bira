@@ -20,12 +20,17 @@ import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
+import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loading
 
 data class StatsUiState(
-    val isLoading: Boolean = true,
-    val selectedStat: GBStat = GBStat.PERCENTAGE,
+    val state: GBStatsState = Loading,
+    val selectedStat: GBStat = PERCENTAGE,
     val players: List<GBPlayerStat> = emptyList(),
     val punctuation: GBPunctuation = GBPunctuation(),
     val selectedPlayer: GBPlayerStatsDetail? = null,
-    val settings: GBStatsSettings = GBStatsSettings.Hidden
+    val settings: GBStatsSettings = Hidden
 )

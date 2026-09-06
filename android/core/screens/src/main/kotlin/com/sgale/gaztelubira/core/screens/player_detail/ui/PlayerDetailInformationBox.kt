@@ -54,7 +54,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.player_detail.LOGO_SIZE
 import com.sgale.gaztelubira.core.screens.player_detail.PlayerDetailState

@@ -46,39 +46,43 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun StatsPlayerDialog(
+internal fun PlayerCard(
     player: GBPlayerStatsDetail?,
     onDismiss: () -> Unit
 ) {
     if (player == null) return
 
-    val scrollState = rememberScrollState()
-
     GBDialog(
         dismiss = onDismiss,
         color = lightGray
-    ) { modifier ->
-        Column(
-            modifier = modifier.size(500.dp).padding(12.dp)
-        ) {
-            PlayerDialogHeader(
-                image = player.faceImage,
-                name = player.name
-            )
-
-            Column(
-                modifier = Modifier.verticalScroll(scrollState)
-            ) {
-                player.stats.forEach { statValue ->
-                    PlayerDialogStat(statValue)
-                }
-            }
-        }
+    ) {
+        PlayerStatsCard(player)
     }
 }
 
 @Composable
-private fun PlayerDialogHeader(
+private fun PlayerStatsCard(
+    player: GBPlayerStatsDetail
+) {
+
+    Column(
+        modifier = Modifier
+            .size(500.dp)
+            .padding(12.dp)
+    ) {
+        PlayerInformation(
+            image = player.faceImage,
+            name = player.name
+        )
+
+        PlayerStats(
+            player = player
+        )
+    }
+}
+
+@Composable
+private fun PlayerInformation(
     image: String?,
     name: String
 ) {
@@ -103,7 +107,22 @@ private fun PlayerDialogHeader(
 }
 
 @Composable
-private fun PlayerDialogStat(
+private fun PlayerStats(
+    player: GBPlayerStatsDetail
+) {
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = Modifier.verticalScroll(scrollState)
+    ) {
+        player.stats.forEach { statValue ->
+            PlayerStat(statValue)
+        }
+    }
+}
+
+@Composable
+private fun PlayerStat(
     statValue: GBStatValue
 ) {
     Row(
