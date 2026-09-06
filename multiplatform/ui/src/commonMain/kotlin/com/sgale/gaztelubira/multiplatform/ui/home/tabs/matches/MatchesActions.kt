@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.multiplatform.designsystem.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination
 
-/**
- * The design system draws a player from name, image and dorsal alone, so the domain model is
- * mapped down to that before it crosses over. Keeping the mapping here is what lets the domain
- * model live wherever it wants without the components following it.
- */
-fun PlayerModel.toGBPlayer(): GBPlayer =
-    GBPlayer(
-        id = id,
-        name = name,
-        image = faceImage,
-        dorsal = dorsal
-    )
+data class MatchesActions(
+    val onAddMatchClicked: () -> Unit,
+    val onDismissMessage: () -> Unit,
+    val navigateTo: (UiDestination) -> Unit
+)
