@@ -55,7 +55,6 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.player_detail.LOGO_SIZE
 import com.sgale.gaztelubira.core.screens.player_detail.PlayerDetailState
@@ -65,7 +64,6 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
-import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 @Composable
 internal fun PlayerDetailInformationBox(
@@ -110,12 +108,11 @@ internal fun PlayerDetailInformationBox(
         )
     }
 
-    if (showGBMessage) {
-        GBAnimatedMessage(
-            msg = stringResource(R.string.not_yet_available),
-            dismissMsg = { showGBMessage = false }
-        )
-    }
+    GBAnimatedMessage(
+        show = showGBMessage,
+        msg = stringResource(R.string.not_yet_available),
+        dismissMsg = { showGBMessage = false }
+    )
 }
 
 @Composable
@@ -216,7 +213,9 @@ private fun PlayerStatItem(
         )
         Spacer(Modifier.height(4.dp))
         GBText(
-            modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp),
             text = playerStat,
             style = gBTypography().bodySmall,
             alignment = Center,
@@ -245,7 +244,9 @@ private fun PersonalizedSpacer(itemHeight: Int) {
 
 @Composable
 private fun DiagonalLine() {
-    Canvas(Modifier.fillMaxWidth().height(5.dp)) {
+    Canvas(Modifier
+        .fillMaxWidth()
+        .height(5.dp)) {
         val start = Offset(0f, 0f)
         val end = Offset(size.width * 1f, size.height * 1f)
 
@@ -263,7 +264,9 @@ private fun ViewStatsButton(
     viewStats: () -> Unit
 ) {
     GBElevatedButton(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
         text = stringResource(R.string.view_stats),
         backgroundColor = primaryRed,
         textColor = White,

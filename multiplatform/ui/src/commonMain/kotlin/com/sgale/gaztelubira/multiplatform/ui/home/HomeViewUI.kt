@@ -22,13 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBLogoutDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
-import com.sgale.gaztelubira.multiplatform.ui.home.ui.GBBottomNavigation
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.logout
-import com.sgale.gaztelubira.multiplatform.ui.resources.no
-import com.sgale.gaztelubira.multiplatform.ui.resources.sure_want_to_logout
-import com.sgale.gaztelubira.multiplatform.ui.resources.yes
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun HomeViewUI(

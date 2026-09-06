@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.ui
+package com.sgale.gaztelubira.multiplatform.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBottomNavItem
-import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 
 @Composable
 fun GBBottomNavigation(
