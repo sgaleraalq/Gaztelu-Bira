@@ -62,8 +62,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.leaderboardThird
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softGreen
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import com.sgale.gaztelubira.multiplatform.designsystem.utils.shimmerEffect
+import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.LeaderboardPosition.FIRST
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.LeaderboardPosition.SECOND
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.LeaderboardPosition.THIRD

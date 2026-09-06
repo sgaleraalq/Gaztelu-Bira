@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.home.tabs.stats.data
+package com.sgale.gaztelubira.core.domain.model.player
 
 import androidx.compose.runtime.Stable
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 @Stable

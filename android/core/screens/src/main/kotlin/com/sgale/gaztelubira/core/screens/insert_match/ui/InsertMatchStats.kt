@@ -83,7 +83,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_te
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import androidx.compose.ui.res.painterResource
-import com.sgale.gaztelubira.core.screens.toGBPlayer
+import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 
 private val STAT_BOX_SIZE = 75.dp
 private val PLAYER_STAT_BOX_SIZE = 20.dp

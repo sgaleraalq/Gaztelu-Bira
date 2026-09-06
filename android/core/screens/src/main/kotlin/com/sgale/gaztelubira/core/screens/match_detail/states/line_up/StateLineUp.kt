@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState
@@ -51,10 +52,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.sgale.gaztelubira.multiplatform.ui.AppImages
-import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 internal val benchBgColor = gray_box_in_black_bg
 internal val benchHorizontalPadding = 12.dp

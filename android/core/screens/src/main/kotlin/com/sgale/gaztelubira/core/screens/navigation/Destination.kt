@@ -33,7 +33,9 @@ import com.sgale.gaztelubira.core.screens.player_detail.PlayerDetailScreen
 import com.sgale.gaztelubira.core.screens.review_photo.ReviewImageScreen
 import com.sgale.gaztelubira.core.screens.splash.SplashScreen
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromGazteluBiraTab
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromLogin
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromMatchesTab
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab
 import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.WelcomeView
 import kotlinx.coroutines.launch
@@ -210,8 +212,21 @@ interface Destination {
     companion object {
         internal fun UiDestination.toDestination(): Destination =
             when (this) {
+                is FromGazteluBiraTab -> this.toDestination()
                 is FromLogin -> this.toDestination()
+                is FromMatchesTab -> this.toDestination()
                 is FromTeamTab -> this.toDestination()
+            }
+
+        private fun FromGazteluBiraTab.toDestination(): Destination =
+            when (this) {
+                FromGazteluBiraTab.InsertTeam -> InsertTeam
+            }
+
+        private fun FromMatchesTab.toDestination(): Destination =
+            when (this) {
+                FromMatchesTab.InsertMatch -> InsertMatch
+                is FromMatchesTab.MatchDetail -> MatchDetail(id)
             }
 
         private fun FromLogin.toDestination(): Destination =

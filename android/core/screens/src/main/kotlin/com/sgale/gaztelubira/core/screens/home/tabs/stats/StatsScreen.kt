@@ -18,30 +18,28 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsView
 
 @Composable
-fun StatsScreen(
-    state: NavigationState,
+internal fun StatsScreen(
     viewModel: StatsViewModel = hiltViewModel<StatsViewModel>()
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val players by viewModel.players.collectAsStateWithLifecycle()
-    val punctuation by viewModel.punctuation.collectAsStateWithLifecycle()
-    val selectedPlayer by viewModel.selectedPlayer.collectAsStateWithLifecycle()
-    val valueChanged by viewModel.valueChanged.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    StatsScreenUI(
-        state = uiState,
-        punctuation = punctuation,
-        players = players,
-        selectedPlayer = selectedPlayer,
-        valueChanged = valueChanged,
-        calculatePercentage = { viewModel.calculatePercentage(it) },
-        changeSelectedStat = { viewModel.changeSelectedStat(it) },
-        changePunctuation = { viewModel.changePunctuation(it) },
-        selectPlayer = { viewModel.selectPlayer(it) }
-    )
+    val actions = remember(viewModel) {
+        StatsActions(
+            onPlayerSelected = viewModel::onPlayerSelected,
+            onPlayerDismissed = viewModel::onPlayerDismissed,
+            onSettingsChanged = viewModel::onSettingsChanged,
+            onStatSelected = viewModel::onStatSelected,
+            onPunctuationDraftChanged = viewModel::onPunctuationDraftChanged,
+            onPunctuationConfirmed = viewModel::onPunctuationConfirmed
+        )
+    }
+
+    StatsView(state, actions)
 }

@@ -31,8 +31,8 @@ import com.sgale.gaztelubira.core.domain.model.player.Stat.Percentage
 import com.sgale.gaztelubira.core.domain.model.player.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.model.player.Stat.Saves
 import com.sgale.gaztelubira.core.domain.model.player.Stat.YellowCards
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.PlayerDisplayStats
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.Punctuation
+import com.sgale.gaztelubira.core.domain.model.player.PlayerDisplayStats
+import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,7 +47,7 @@ class StatsHandler(
     private val matchesFlow: Flow<List<MatchModel>>,
     scope: CoroutineScope
 ) {
-    private val punctuation = MutableStateFlow(Punctuation())
+    private val punctuation = MutableStateFlow(GBPunctuation())
     private val _statsDisplayed = MutableStateFlow<List<PlayerDisplayStats>>(emptyList())
     val statsDisplayed: StateFlow<List<PlayerDisplayStats>> = _statsDisplayed
     val valueChanged = MutableStateFlow(false)
@@ -105,7 +105,7 @@ class StatsHandler(
 
     fun calculatePercentage(
         player: PlayerStatsModel,
-        punctuation: Punctuation
+        punctuation: GBPunctuation
     ): Double {
         val tGamesPlayed = player.stats.values.sumOf { it.gamesPlayed }
         if (tGamesPlayed == 0) return 0.0
@@ -139,7 +139,7 @@ class StatsHandler(
         selectedStat: Stat,
         players: List<PlayerStatsModel>,
         matches: List<MatchModel>,
-        punctuation: Punctuation
+        punctuation: GBPunctuation
     ): List<PlayerDisplayStats> {
         val lastMatchId = matches.lastOrNull()?.id ?: return emptyList()
         return players
@@ -164,7 +164,7 @@ class StatsHandler(
     private fun calculateStats(
         player: PlayerStatsModel,
         stat: Stat,
-        punctuation: Punctuation
+        punctuation: GBPunctuation
     ): Double {
         return when (stat) {
             Goals -> player.stats.values.sumOf { it.goals }.toDouble()
@@ -181,7 +181,7 @@ class StatsHandler(
         }
     }
 
-    fun changePunctuation(newPunctuation: Punctuation) {
+    fun changePunctuation(newPunctuation: GBPunctuation) {
         punctuation.value = newPunctuation
     }
 }

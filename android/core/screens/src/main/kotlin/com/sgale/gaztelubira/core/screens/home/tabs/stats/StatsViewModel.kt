@@ -20,90 +20,111 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Stat
-import com.sgale.gaztelubira.core.domain.model.player.Stat.Percentage
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toDetail
+import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toGBPlayerStat
+import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toStat
 import com.sgale.gaztelubira.core.domain.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayersStats
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.PlayerDisplayStats
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.Punctuation
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.StatsUiState
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.StatsUiState.Loading
-import com.sgale.gaztelubira.core.screens.home.tabs.stats.data.StatsUiState.StatsLoaded
+import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
+import com.sgale.gaztelubira.multiplatform.model.GBStat
+import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.GBStatsSettings
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class StatsViewModel @Inject constructor(
+internal class StatsViewModel @Inject constructor(
     private val getPlayerStats: GetPlayersStats,
     private val getMatches: GetMatches
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<StatsUiState>(Loading)
-    val uiState: StateFlow<StatsUiState> = _uiState
-    private val _punctuation = MutableStateFlow(Punctuation())
-    val punctuation: StateFlow<Punctuation> = _punctuation
-    private val _selectedPlayer = MutableStateFlow<PlayerStatsModel?>(null)
-    val selectedPlayer: StateFlow<PlayerStatsModel?> = _selectedPlayer
+
+    private val _state = MutableStateFlow(StatsUiState())
+    internal val state: StateFlow<StatsUiState> = _state.asStateFlow()
+
     private val playersStats = MutableStateFlow<List<PlayerStatsModel>>(emptyList())
     private val matches = MutableStateFlow<List<MatchModel>>(emptyList())
-    private val selectedStat = MutableStateFlow(Percentage)
+    private val selectedStat = MutableStateFlow(PERCENTAGE.toStat())
 
-    val handler = StatsHandler(
+    /**
+     * The ranking itself — totals, ordering and how many places each player moved — stays in this
+     * handler on the Android side. It works on domain models, and only its result is mapped over.
+     */
+    private val handler = StatsHandler(
         playersList = playersStats,
         selectedStat = selectedStat,
         matchesFlow = matches,
         scope = viewModelScope
     )
 
-    val valueChanged = handler.valueChanged
-
-    val players: StateFlow<List<PlayerDisplayStats>> = handler.statsDisplayed
-
     init {
         viewModelScope.launch {
             getPlayerStats()
                 .flowOn(Dispatchers.IO)
-                .collect { combined ->
-                    playersStats.value = combined
-                    _uiState.value = StatsLoaded(selectedStat.value)
-                }
+                .collect { playersStats.value = it }
         }
 
         viewModelScope.launch {
             getMatches()
                 .flowOn(Dispatchers.IO)
-                .collect { list ->
-                    matches.value = list
+                .collect { matches.value = it }
+        }
+
+        viewModelScope.launch {
+            handler.statsDisplayed.collect { ranking ->
+                _state.update { state ->
+                    state.copy(
+                        isLoading = false,
+                        players = ranking.map { it.toGBPlayerStat(state.selectedStat) }
+                    )
                 }
+            }
+        }
+
+        viewModelScope.launch {
+            handler.valueChanged.collect { recomputing ->
+                _state.update { it.copy(isLoading = recomputing && it.players.isEmpty()) }
+            }
         }
     }
 
-    fun calculatePercentage(player: PlayerStatsModel): Double =
-        handler.calculatePercentage(player, _punctuation.value)
-
-    fun changeSelectedStat(stat: Stat) {
-        selectedStat.value = stat
-        _uiState.value = StatsLoaded(
-            selectedStat = stat
-        )
+    internal fun onStatSelected(stat: GBStat) {
+        selectedStat.value = stat.toStat()
+        _state.update { it.copy(selectedStat = stat) }
     }
 
-    fun changePunctuation(punctuation: Punctuation) {
-        _punctuation.value = punctuation
+    internal fun onPunctuationDraftChanged(punctuation: GBPunctuation) {
+        _state.update { state ->
+            state.copy(settings = GBStatsSettings.ChangePunctuation(punctuation))
+        }
+    }
+
+    /**
+     * Only now does the leaderboard get rescored: the sliders were editing a draft.
+     */
+    internal fun onPunctuationConfirmed(punctuation: GBPunctuation) {
+        _state.update { it.copy(punctuation = punctuation) }
         handler.changePunctuation(punctuation)
     }
 
-    fun selectPlayer(playerId: FirebaseId?) {
-        if (playerId == null) {
-            _selectedPlayer.value = null
-        } else {
-            _selectedPlayer.value = playersStats.value.find { it.id == playerId }
-        }
+    internal fun onSettingsChanged(settings: GBStatsSettings) {
+        _state.update { it.copy(settings = settings) }
+    }
+
+    internal fun onPlayerSelected(playerId: String) {
+        val player = playersStats.value.find { it.id == playerId } ?: return
+        val percentage = handler.calculatePercentage(player, _state.value.punctuation)
+        _state.update { it.copy(selectedPlayer = player.toDetail(percentage)) }
+    }
+
+    internal fun onPlayerDismissed() {
+        _state.update { it.copy(selectedPlayer = null) }
     }
 }

@@ -47,7 +47,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAsyncImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.GBPlayerStat
+import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import org.jetbrains.compose.resources.stringResource
 
 private val PLAYER_CLASSIFICATION_SIZE = 36.dp

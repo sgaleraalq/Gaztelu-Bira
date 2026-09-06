@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation
@@ -56,7 +57,6 @@ import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
-import com.sgale.gaztelubira.core.screens.toGBPlayer
 
 private val BENCH_PLAYER_SIZE = 70.dp
 
@@ -256,8 +256,10 @@ private fun AddBenchPlayerButton(
     onButtonClicked: () -> Unit
 ) {
     GBAddButton(
-        modifier = Modifier.height(BENCH_PLAYER_SIZE)
-    ) { onButtonClicked() }
+        show = true,
+        modifier = Modifier.height(BENCH_PLAYER_SIZE),
+        onButtonClicked = { onButtonClicked() }
+    )
 }
 
 
@@ -310,7 +312,9 @@ private fun Managers(
         horizontalArrangement = spacedBy(6.dp)
     ) {
         if (managers.first == null) {
-            GBAddButton {
+            GBAddButton(
+                show = true
+            ) {
                 showPlayers()
                 changeSelectedPosition(Manager)
                 changePlayerState(PlayerState.Manager)
@@ -323,7 +327,9 @@ private fun Managers(
             )
         }
         if (managers.second == null) {
-            GBAddButton {
+            GBAddButton(
+                show = true
+            ) {
                 showPlayers()
                 changePlayerState(PlayerState.Manager)
                 changeSelectedPosition(Manager)
