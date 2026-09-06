@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches
+package com.sgale.gaztelubira.core.screens
 
-import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import android.content.Context
+import android.widget.Toast.LENGTH_SHORT
+import android.widget.Toast.makeText
 
-data class MatchesActions(
-    val navigateTo: (UiDestination) -> Unit
-)
+internal fun showToast(
+    context: Context,
+    msg: String
+) {
+    makeText(context, msg, LENGTH_SHORT).show()
+}

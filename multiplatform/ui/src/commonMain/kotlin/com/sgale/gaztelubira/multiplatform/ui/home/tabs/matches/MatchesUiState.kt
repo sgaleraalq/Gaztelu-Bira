@@ -21,5 +21,5 @@ import com.sgale.gaztelubira.multiplatform.model.GBMatch
 data class MatchesUiState(
     val matches: List<GBMatch> = emptyList(),
     val isAdmin: Boolean = false,
-    val showNotEnoughPlayers: Boolean = false
+    val hasEnoughPlayers: Boolean = false
 )

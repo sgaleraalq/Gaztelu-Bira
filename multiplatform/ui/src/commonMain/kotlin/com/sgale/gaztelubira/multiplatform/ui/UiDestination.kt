@@ -22,6 +22,17 @@ sealed interface UiDestination {
         data object Splash : FromLogin
     }
 
+    sealed interface FromGazteluBiraTab : UiDestination {
+        data object InsertTeam : FromGazteluBiraTab
+    }
+
+    sealed interface FromMatchesTab : UiDestination {
+        data object InsertMatch: FromMatchesTab
+        data class MatchDetail(
+            val id: String
+        ) : FromMatchesTab
+    }
+
     sealed interface FromTeamTab : UiDestination {
         data object InsertPlayer : FromTeamTab
         data class PlayerDetail(

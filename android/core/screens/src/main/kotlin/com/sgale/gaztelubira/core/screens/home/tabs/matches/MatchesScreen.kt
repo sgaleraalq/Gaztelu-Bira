@@ -17,28 +17,53 @@
 package com.sgale.gaztelubira.core.screens.home.tabs.matches
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.core.screens.showToast
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesActions
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesView
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.not_enough_players
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun MatchesScreen(
-    state: NavigationState,
-    viewModel: MatchesViewModel = hiltViewModel<MatchesViewModel>(),
+internal fun MatchesScreen(
+    navState: NavigationState,
+    viewModel: MatchesViewModel = hiltViewModel<MatchesViewModel>()
 ) {
+    val context = LocalContext.current
     val mainViewModel = LocalMainViewModel.current
+    val notEnoughPlayersMsg = stringResource(Res.string.not_enough_players)
+
     val userSession by mainViewModel.userSession.collectAsState()
+    val state by viewModel.state.collectAsState()
 
-    val matches by viewModel.matches.collectAsState()
-    val enoughPlayers by viewModel.enoughPlayers.collectAsState()
+    val actions = remember(navState, viewModel) {
+        MatchesActions(
+            navigateTo = { destination ->
+                val navigate = { navState.navigateTo(destination.toDestination()) }
 
-    MatchesScreenUI(
-        user = userSession,
-        matches = matches,
-        hasEnoughPlayers = enoughPlayers,
-        calculateResult = GetMatchResultUseCase(),
-        navigateTo = { state.navigateTo(it) }
-    )
+                when (state.hasEnoughPlayers) {
+                    true -> navigate()
+                    false -> showToast(context, notEnoughPlayersMsg)
+                }
+            }
+        )
+    }
+
+    LaunchedEffect(userSession) {
+        viewModel.onSessionChanged(
+            team = userSession?.team,
+            isAdmin = userSession?.isAdmin() == true
+        )
+    }
+
+    MatchesView(state, actions)
 }

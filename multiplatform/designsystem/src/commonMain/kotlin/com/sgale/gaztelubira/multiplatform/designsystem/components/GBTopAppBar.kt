@@ -73,19 +73,25 @@ fun GBTopAppBar(
             style = MaterialTheme.typography.titleLarge
         )
 
-        if (showAdminButton) {
-            GBAddButton { onButtonClicked() }
-        }
+        GBAddButton(
+            show = showAdminButton,
+            onButtonClicked = { onButtonClicked() }
+        )
     }
 }
 
 @Composable
 fun GBAddButton(
     modifier: Modifier = Modifier,
+    show: Boolean,
     onButtonClicked: () -> Unit
 ) {
+    if (!show) return
+
     Icon(
-        modifier = modifier.size(36.dp).clickable { onButtonClicked() },
+        modifier = modifier
+            .size(36.dp)
+            .clickable { onButtonClicked() },
         painter = painterResource(Res.drawable.ic_button_add),
         contentDescription = null,
         tint = Unspecified

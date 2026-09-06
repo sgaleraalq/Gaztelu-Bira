@@ -20,13 +20,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAnimatedMessage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromMatchesTab.InsertMatch
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromMatchesTab.MatchDetail
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.ui.Matches
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.not_enough_players
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun MatchesViewUI(
@@ -38,17 +35,11 @@ internal fun MatchesViewUI(
     ) {
         GBTopAppBar(
             showAdminButton = state.isAdmin,
-            onButtonClicked = actions.onAddMatchClicked
+            onButtonClicked = { actions.navigateTo(InsertMatch) }
         )
         Matches(
             matches = state.matches,
             onMatchClicked = { matchId -> actions.navigateTo(MatchDetail(matchId)) }
         )
     }
-
-    GBAnimatedMessage(
-        show = state.showNotEnoughPlayers,
-        msg = stringResource(Res.string.not_enough_players),
-        dismissMsg = actions.onDismissMessage
-    )
 }

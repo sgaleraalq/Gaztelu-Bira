@@ -18,12 +18,12 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
 import com.sgale.gaztelubira.core.preview.PlayerProvider.providePlayerInformationList
-import com.sgale.gaztelubira.core.screens.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -69,9 +69,9 @@ private fun TeamUiState.withSquad(squad: List<PlayerModel>): TeamUiState {
         players = players
             .filter { it.dorsal != null }
             .sortedBy { it.dorsal }
-            .map(PlayerModel::toGBPlayer),
+            .map { player -> player.toGBPlayer() },
         managers = managers
             .sortedBy { it.name }
-            .map(PlayerModel::toGBPlayer)
+            .map { player -> player.toGBPlayer() }
     )
 }

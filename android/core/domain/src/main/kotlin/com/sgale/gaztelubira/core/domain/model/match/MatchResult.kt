@@ -22,19 +22,19 @@ enum class MatchResult(
     val transColor: Color,
     val solidColor: Color
 ) {
-    Victory(
+    VICTORY(
         transColor = Color(0x3315FF99),
         solidColor = Color(0xFF00C853)
     ),
-    Draw(
+    DRAW(
         transColor = Color(0x33FFD60A),
         solidColor = Color(0xFFFFD60A)
     ),
-    Defeat(
+    DEFEAT(
         transColor = Color(0x33FF3B30),
         solidColor = Color(0xFFFF3B30)
     ),
-    Undefined(
+    UNDEFINED(
         transColor = Color(0xFF333333),
         solidColor = Color(0xFF999999)
     )

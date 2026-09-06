@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches
+package com.sgale.gaztelubira.core.domain.model.match
 
-import com.sgale.gaztelubira.multiplatform.ui.UiDestination
-
-data class MatchesActions(
-    val navigateTo: (UiDestination) -> Unit
-)
+enum class MatchStatus {
+    LOCAL,
+    VISITOR
+}

@@ -43,9 +43,12 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun GBAnimatedMessage(
+    show: Boolean,
     msg: String?,
     dismissMsg: () -> Unit
 ) {
+    if (!show) return
+
     var message by remember { mutableStateOf(msg) }
 
     LaunchedEffect(Unit) {

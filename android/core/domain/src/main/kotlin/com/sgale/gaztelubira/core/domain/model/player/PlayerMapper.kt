@@ -14,10 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches
+package com.sgale.gaztelubira.core.domain.model.player
 
-import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 
-data class MatchesActions(
-    val navigateTo: (UiDestination) -> Unit
-)
+object PlayerMapper {
+    fun PlayerModel.toGBPlayer(): GBPlayer =
+        GBPlayer(
+            id = id,
+            name = name,
+            image = faceImage,
+            dorsal = dorsal
+        )
+}

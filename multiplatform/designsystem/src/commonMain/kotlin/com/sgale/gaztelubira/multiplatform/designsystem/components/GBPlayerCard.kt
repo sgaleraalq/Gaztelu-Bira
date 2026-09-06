@@ -66,7 +66,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_backgr
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_background_top_gradient
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_name_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_stat_text_color
-import com.sgale.gaztelubira.multiplatform.designsystem.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_delete
 import kotlin.Float.Companion.POSITIVE_INFINITY
