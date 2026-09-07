@@ -25,17 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerData
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerData.PictureType.Body
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerData.PictureType.Face
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.ImageSelected
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.Name
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.UseSameImg
-import com.sgale.gaztelubira.core.screens.insert_player.UiState
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Capture
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Dorsal
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Position
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType.Body
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType.Face
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.ImageSelected
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Name
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.UseSameImg
+import com.sgale.gaztelubira.core.screens.insert.player.UiState
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Capture
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Dorsal
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Position
 
 @Composable
 internal fun InsertPlayerUiComponents(

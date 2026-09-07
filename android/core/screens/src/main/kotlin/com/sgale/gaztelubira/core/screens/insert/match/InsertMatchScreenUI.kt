@@ -33,11 +33,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchTeamsInformation
-import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchButtons
-import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchTeams
-import com.sgale.gaztelubira.core.screens.insert_match.ui.InsertMatchTeamsDialog
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
+import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchButtons
+import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchTeams
+import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchTeamsDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
 
 @Composable

@@ -41,8 +41,8 @@ import com.sgale.gaztelubira.core.domain.model.stats.Stat.CleanSheets
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.YellowCards
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchStats
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchStats
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText

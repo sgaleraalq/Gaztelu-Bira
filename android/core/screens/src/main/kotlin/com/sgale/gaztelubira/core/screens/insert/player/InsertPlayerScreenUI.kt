@@ -26,18 +26,18 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.Dorsal
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.Position
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Capture
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Default
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Dorsal
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Loading
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Position
-import com.sgale.gaztelubira.core.screens.insert_player.ui.DorsalDialog
-import com.sgale.gaztelubira.core.screens.insert_player.ui.InsertPlayerUiComponents
-import com.sgale.gaztelubira.core.screens.insert_player.ui.MediaOrCameraDialog
-import com.sgale.gaztelubira.core.screens.insert_player.ui.PositionDialog
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Dorsal
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Position
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Capture
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Default
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Dorsal
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Loading
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Position
+import com.sgale.gaztelubira.core.screens.insert.player.ui.DorsalDialog
+import com.sgale.gaztelubira.core.screens.insert.player.ui.InsertPlayerUiComponents
+import com.sgale.gaztelubira.core.screens.insert.player.ui.MediaOrCameraDialog
+import com.sgale.gaztelubira.core.screens.insert.player.ui.PositionDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
 
 @Composable

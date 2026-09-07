@@ -25,8 +25,8 @@ import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
-import com.sgale.gaztelubira.core.screens.player_detail.ui.PlayerDetailImage
-import com.sgale.gaztelubira.core.screens.player_detail.ui.PlayerDetailInformationBox
+import com.sgale.gaztelubira.core.screens.detail.player.ui.PlayerDetailImage
+import com.sgale.gaztelubira.core.screens.detail.player.ui.PlayerDetailInformationBox
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBackButton
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gb_text_field_label_color
 import com.sgale.gaztelubira.multiplatform.ui.AppImages

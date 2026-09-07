@@ -53,11 +53,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextOverflow.Companion.Visible
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.stats.Stat
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Assists
@@ -72,7 +74,7 @@ import com.sgale.gaztelubira.core.domain.model.stats.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Saves
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.YellowCards
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchStats
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchStats
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
@@ -82,8 +84,6 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
-import androidx.compose.ui.res.painterResource
-import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 
 private val STAT_BOX_SIZE = 75.dp
 private val PLAYER_STAT_BOX_SIZE = 20.dp

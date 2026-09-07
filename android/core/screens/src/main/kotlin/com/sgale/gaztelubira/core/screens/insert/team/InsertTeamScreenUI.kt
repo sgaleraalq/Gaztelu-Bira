@@ -25,9 +25,9 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.screens.insert_team.ui.InsertTeamButton
-import com.sgale.gaztelubira.core.screens.insert_team.ui.InsertTeamImage
-import com.sgale.gaztelubira.core.screens.insert_team.ui.InsertTeamName
+import com.sgale.gaztelubira.core.screens.insert.team.ui.InsertTeamButton
+import com.sgale.gaztelubira.core.screens.insert.team.ui.InsertTeamImage
+import com.sgale.gaztelubira.core.screens.insert.team.ui.InsertTeamName
 
 @Composable
 internal fun InsertTeamScreenUI(

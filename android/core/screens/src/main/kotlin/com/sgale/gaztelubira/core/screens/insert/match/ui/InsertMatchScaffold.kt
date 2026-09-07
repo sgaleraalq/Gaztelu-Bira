@@ -22,9 +22,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Default
 import com.sgale.gaztelubira.core.screens.navigation.MultiplatformBackHandler
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Default
 
 @Composable
 internal fun InsertMatchScaffold(

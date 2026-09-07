@@ -33,7 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.utils.getActualTimeAsLong
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchInformation
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchInformation
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBasicTextField
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography

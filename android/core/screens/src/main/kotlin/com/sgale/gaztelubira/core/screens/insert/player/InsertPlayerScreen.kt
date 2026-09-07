@@ -24,8 +24,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Default
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Loading
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Default
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.MultiplatformBackHandler
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState

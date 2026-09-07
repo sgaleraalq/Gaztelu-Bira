@@ -43,8 +43,8 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.utils.toDate
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Details
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Details
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import kotlin.Int.Companion.MAX_VALUE

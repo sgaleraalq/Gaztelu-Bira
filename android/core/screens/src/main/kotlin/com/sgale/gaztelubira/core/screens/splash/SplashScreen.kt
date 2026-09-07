@@ -17,29 +17,27 @@
 package com.sgale.gaztelubira.core.screens.splash
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.remember
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.components.SingletonComponent
+import com.sgale.gaztelubira.multiplatform.ui.splash.SplashActions
+import com.sgale.gaztelubira.multiplatform.ui.splash.SplashView
 
 @Composable
-fun SplashScreen(state: NavigationState) {
-    val contractor = EntryPointAccessors
-        .fromApplication<SplashContractorEntryPoint>(LocalContext.current.applicationContext)
-        .splashContractor()
-    val avoid by contractor.avoid.collectAsState()
-    val completed by contractor.completed.collectAsState()
-    val destination by contractor.destination.collectAsState()
+internal fun SplashScreen(
+    navState: NavigationState,
+    viewModel: SplashViewModel = hiltViewModel<SplashViewModel>()
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    SplashScreenUI(completed, avoid) { state.navigateTo(destination, clearStack = true) }
-}
-
-@EntryPoint
-@InstallIn(SingletonComponent::class)
-internal interface SplashContractorEntryPoint {
-    fun splashContractor(): SplashContractor
+    SplashView(
+        state = state,
+        actions = remember(viewModel, navState) {
+            SplashActions(
+                navigate = { viewModel.navigate(navState) }
+            )
+        }
+    )
 }

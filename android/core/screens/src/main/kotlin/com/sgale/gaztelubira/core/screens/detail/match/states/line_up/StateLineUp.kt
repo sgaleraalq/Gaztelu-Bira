@@ -45,8 +45,8 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Lineup
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Lineup
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBFootballField
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText

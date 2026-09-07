@@ -56,8 +56,8 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.player_detail.LOGO_SIZE
-import com.sgale.gaztelubira.core.screens.player_detail.PlayerDetailState
+import com.sgale.gaztelubira.core.screens.detail.player.LOGO_SIZE
+import com.sgale.gaztelubira.core.screens.detail.player.PlayerDetailState
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAnimatedMessage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText

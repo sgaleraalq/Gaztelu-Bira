@@ -26,24 +26,25 @@ import com.sgale.gaztelubira.core.domain.usecase.db.GetAvailableDorsals
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewPlayer
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.domain.utils.IToastManager
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerData.PictureType
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerData.PictureType.Body
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerData.PictureType.Face
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.BodyImage
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.Dorsal
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.FaceImage
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.ImageSelected
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.Name
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerViewModel.InsertPlayerField.UseSameImg
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Default
-import com.sgale.gaztelubira.core.screens.insert_player.UiState.Loading
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType.Body
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType.Face
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.BodyImage
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Dorsal
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.FaceImage
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.ImageSelected
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Name
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Position
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.UseSameImg
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Default
+import com.sgale.gaztelubira.core.screens.insert.player.UiState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
 class InsertPlayerViewModel @Inject constructor(

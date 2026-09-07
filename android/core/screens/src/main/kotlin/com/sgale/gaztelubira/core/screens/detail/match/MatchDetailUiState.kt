@@ -17,10 +17,10 @@
 package com.sgale.gaztelubira.core.screens.detail.match
 
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Loading
-import com.sgale.gaztelubira.core.screens.match_detail.states.information.MatchDetailInformation
-import com.sgale.gaztelubira.core.screens.match_detail.states.line_up.MatchDetailLineUp
-import com.sgale.gaztelubira.core.screens.match_detail.states.stats.MatchDetailStats
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Loading
+import com.sgale.gaztelubira.core.screens.detail.match.states.information.MatchDetailInformation
+import com.sgale.gaztelubira.core.screens.detail.match.states.line_up.MatchDetailLineUp
+import com.sgale.gaztelubira.core.screens.detail.match.states.stats.MatchDetailStats
 
 data class MatchDetailUiState(
     val uiState: MatchDetailState = Loading,

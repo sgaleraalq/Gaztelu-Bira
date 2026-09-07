@@ -24,12 +24,12 @@ import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromFrontCamera
 import com.sgale.gaztelubira.core.screens.auth.login.LoginScreen
 import com.sgale.gaztelubira.core.screens.auth.signup.SignUpScreen
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailScreen
+import com.sgale.gaztelubira.core.screens.detail.player.PlayerDetailScreen
 import com.sgale.gaztelubira.core.screens.home.HomeScreen
-import com.sgale.gaztelubira.core.screens.insert_match.InsertMatchScreen
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerScreen
-import com.sgale.gaztelubira.core.screens.insert_team.InsertTeamScreen
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailScreen
-import com.sgale.gaztelubira.core.screens.player_detail.PlayerDetailScreen
+import com.sgale.gaztelubira.core.screens.insert.match.InsertMatchScreen
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerScreen
+import com.sgale.gaztelubira.core.screens.insert.team.InsertTeamScreen
 import com.sgale.gaztelubira.core.screens.review_photo.ReviewImageScreen
 import com.sgale.gaztelubira.core.screens.splash.SplashScreen
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination

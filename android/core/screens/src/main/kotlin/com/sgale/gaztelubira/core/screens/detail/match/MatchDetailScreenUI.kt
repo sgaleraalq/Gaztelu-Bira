@@ -22,15 +22,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Red
 import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Details
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Lineup
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Loading
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Stats
-import com.sgale.gaztelubira.core.screens.match_detail.states.information.MatchDetailStateDetails
-import com.sgale.gaztelubira.core.screens.match_detail.states.line_up.MatchDetailStateLineUp
-import com.sgale.gaztelubira.core.screens.match_detail.states.stats.MatchDetailStateStats
-import com.sgale.gaztelubira.core.screens.match_detail.ui.MatchDetailHeader
-import com.sgale.gaztelubira.core.screens.match_detail.ui.MatchDetailInformationBar
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Details
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Lineup
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Loading
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Stats
+import com.sgale.gaztelubira.core.screens.detail.match.states.information.MatchDetailStateDetails
+import com.sgale.gaztelubira.core.screens.detail.match.states.line_up.MatchDetailStateLineUp
+import com.sgale.gaztelubira.core.screens.detail.match.states.stats.MatchDetailStateStats
+import com.sgale.gaztelubira.core.screens.detail.match.ui.MatchDetailHeader
+import com.sgale.gaztelubira.core.screens.detail.match.ui.MatchDetailInformationBar
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDialog
 
 @Composable

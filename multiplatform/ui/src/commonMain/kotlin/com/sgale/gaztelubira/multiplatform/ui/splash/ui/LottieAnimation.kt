@@ -34,21 +34,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale.Companion.Fit
 import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.rememberLottiePainter
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBLocalImage
+import com.sgale.gaztelubira.multiplatform.ui.AppAnimations
+import com.sgale.gaztelubira.multiplatform.ui.AppAnimations.SPLASH
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import io.github.alexzhirkevich.compottie.Compottie.IterateForever
+import io.github.alexzhirkevich.compottie.ExperimentalCompottieApi
 import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.Resource
 import io.github.alexzhirkevich.compottie.animateLottieCompositionAsState
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 
+@OptIn(ExperimentalCompottieApi::class)
 @Composable
 fun LottieAnimation(modifier: Modifier) {
-    val composition by rememberLottieComposition(
-        LottieCompositionSpec.RawRes(Res.raw.anim_splash)
-    )
+    val composition by rememberLottieComposition {
+        LottieCompositionSpec.Resource(
+            path = SPLASH,
+            reader = Res::readBytes
+        )
+    }
 
     val progress by animateLottieCompositionAsState(
         composition = composition,
@@ -77,10 +84,13 @@ fun LottieAnimation(modifier: Modifier) {
             contentScale = Fit
         )
 
-        if (composition != null) {
+        composition?.let {
             Image(
                 modifier = Modifier.graphicsLayer { this.alpha = alpha },
-                painter = rememberLottiePainter(composition, progress = progress),
+                painter = rememberLottiePainter(
+                    composition = it,
+                    progress = { progress }
+                ),
                 contentDescription = null
             )
         }

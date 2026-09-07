@@ -16,9 +16,9 @@
 
 package com.sgale.gaztelubira.core.screens.detail.match
 
-import com.sgale.gaztelubira.core.screens.match_detail.states.information.MatchDetailInformation
-import com.sgale.gaztelubira.core.screens.match_detail.states.line_up.MatchDetailLineUp
-import com.sgale.gaztelubira.core.screens.match_detail.states.stats.MatchDetailStats
+import com.sgale.gaztelubira.core.screens.detail.match.states.information.MatchDetailInformation
+import com.sgale.gaztelubira.core.screens.detail.match.states.line_up.MatchDetailLineUp
+import com.sgale.gaztelubira.core.screens.detail.match.states.stats.MatchDetailStats
 
 sealed class MatchDetailState {
     data object Loading: MatchDetailState()

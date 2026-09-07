@@ -18,8 +18,6 @@ package com.sgale.gaztelubira.core.screens.insert.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.stats.Stat
@@ -40,31 +38,33 @@ import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
 import com.sgale.gaztelubira.core.domain.usecase.db.GetTeams
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewMatch
 import com.sgale.gaztelubira.core.domain.utils.IToastManager
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.Second
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchInformation
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Default
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchStats
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.Bench
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LineUp
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.Manager
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.StatPlayer
+import com.sgale.gaztelubira.core.screens.insert.match.data.isValid
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation.ManagerPosition
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation.ManagerPosition.First
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchFormation.ManagerPosition.Second
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchInformation
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Default
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchState.Loading
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchStats
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchTeamsInformation
-import com.sgale.gaztelubira.core.screens.insert_match.data.PlayerState
-import com.sgale.gaztelubira.core.screens.insert_match.data.PlayerState.Bench
-import com.sgale.gaztelubira.core.screens.insert_match.data.PlayerState.LineUp
-import com.sgale.gaztelubira.core.screens.insert_match.data.PlayerState.Manager
-import com.sgale.gaztelubira.core.screens.insert_match.data.PlayerState.StatPlayer
-import com.sgale.gaztelubira.core.screens.insert_match.data.isValid
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
 class InsertMatchViewModel @Inject constructor(

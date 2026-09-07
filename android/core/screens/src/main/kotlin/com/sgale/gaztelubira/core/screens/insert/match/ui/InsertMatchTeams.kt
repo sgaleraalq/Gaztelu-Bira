@@ -54,8 +54,8 @@ import com.sgale.gaztelubira.core.domain.model.team.TeamSide.Visitor
 import com.sgale.gaztelubira.core.domain.utils.DATE_FORMAT
 import com.sgale.gaztelubira.core.domain.utils.getDateFromLong
 import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.insert_match.InsertMatchTeamsViewModel
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchTeamsInformation
+import com.sgale.gaztelubira.core.screens.insert.match.InsertMatchTeamsViewModel
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBasicTextField
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam

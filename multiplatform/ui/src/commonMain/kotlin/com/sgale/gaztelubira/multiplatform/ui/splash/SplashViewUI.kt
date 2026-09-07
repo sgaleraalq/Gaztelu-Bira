@@ -16,9 +16,37 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.splash
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.BottomCenter
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Modifier
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressBar
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.ui.splash.ui.LottieAnimation
 
 @Composable
-internal fun SplashViewUI() {
-
+internal fun SplashViewUI(
+    state: SplashUiState,
+    actions: SplashActions
+) {
+    GBScaffold(
+        showTopAppBar = true,
+        content = { modifier ->
+            Box(
+                modifier = modifier.fillMaxSize()
+            ) {
+                LottieAnimation(
+                    modifier = Modifier.align(Center)
+                )
+                GBProgressBar(
+                    modifier = Modifier.align(BottomCenter),
+                    completed = state.completed,
+                    avoid = state.avoid,
+                    onFinish = actions.navigate
+                )
+            }
+        }
+    )
 }

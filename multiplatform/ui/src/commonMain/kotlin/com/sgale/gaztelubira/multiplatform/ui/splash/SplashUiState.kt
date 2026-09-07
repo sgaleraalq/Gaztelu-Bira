@@ -16,12 +16,7 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.splash
 
-import androidx.compose.runtime.Composable
-
-@Composable
-fun SplashView(
-    state: SplashUiState,
-    actions: SplashActions
-) {
-    SplashViewUI(state, actions)
-}
+data class SplashUiState(
+    val completed: Boolean = false,
+    val avoid: Boolean = false
+)

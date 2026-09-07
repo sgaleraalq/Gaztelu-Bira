@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Position
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.domain.utils.getActualTimeAsLong
-import com.sgale.gaztelubira.core.screens.insert_player.InsertPlayerData.PictureType.Face
+import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType.Face
 
 data class InsertPlayerData(
     val id: String = getActualTimeAsLong().toString(),

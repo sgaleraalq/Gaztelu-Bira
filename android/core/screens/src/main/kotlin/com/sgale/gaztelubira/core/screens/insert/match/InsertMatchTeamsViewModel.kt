@@ -23,13 +23,13 @@ import com.sgale.gaztelubira.core.domain.model.match.MatchType.League
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamSide
 import com.sgale.gaztelubira.core.domain.usecase.db.GetNumberOfJourneys
-import com.sgale.gaztelubira.core.screens.insert_match.data.InsertMatchTeamsInformation
+import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
 class InsertMatchTeamsViewModel @Inject constructor(

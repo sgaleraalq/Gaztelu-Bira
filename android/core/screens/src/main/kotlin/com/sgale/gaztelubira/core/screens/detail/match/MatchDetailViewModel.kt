@@ -18,23 +18,23 @@ package com.sgale.gaztelubira.core.screens.detail.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Companion.getLineUpFromString
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchMatchStats
 import com.sgale.gaztelubira.core.domain.utils.IToastManager
+import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Lineup
+import com.sgale.gaztelubira.core.screens.detail.match.states.information.MatchDetailInformation
+import com.sgale.gaztelubira.core.screens.detail.match.states.line_up.MatchDetailLineUp
+import com.sgale.gaztelubira.core.screens.detail.match.states.stats.MatchDetailStats
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.match_detail.MatchDetailState.Lineup
-import com.sgale.gaztelubira.core.screens.match_detail.states.information.MatchDetailInformation
-import com.sgale.gaztelubira.core.screens.match_detail.states.line_up.MatchDetailLineUp
-import com.sgale.gaztelubira.core.screens.match_detail.states.stats.MatchDetailStats
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Companion.getLineUpFromString
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
 class MatchDetailViewModel @Inject constructor(

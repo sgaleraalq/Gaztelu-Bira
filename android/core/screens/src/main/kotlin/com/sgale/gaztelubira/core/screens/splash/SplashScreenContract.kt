@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.splash
+package com.sgale.gaztelubira.core.screens.splash
 
-import androidx.compose.runtime.Composable
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 
-@Composable
-fun SplashView(
-    state: SplashUiState,
-    actions: SplashActions
-) {
-    SplashViewUI(state, actions)
+interface SplashScreenContract {
+    interface ViewModel {
+        fun navigate(state: NavigationState)
+    }
 }

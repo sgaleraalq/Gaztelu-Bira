@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.splash
+package com.sgale.gaztelubira.multiplatform.ui
 
-import androidx.compose.runtime.Composable
-
-@Composable
-fun SplashView(
-    state: SplashUiState,
-    actions: SplashActions
-) {
-    SplashViewUI(state, actions)
+/**
+ * dotLottie animations shipped with the app, as `composeResources` paths.
+ *
+ * Unlike drawables or fonts, `files/` gets no generated `Res` accessor — it is read by path with
+ * `Res.readBytes`. Naming the paths here keeps the string literals in one place, the same way
+ * [AppImages] does for artwork.
+ */
+object AppAnimations {
+    const val SPLASH: String = "files/anim_splash.lottie"
+    const val FOOTBALL_FIELD: String = "files/anim_football_field.lottie"
 }
