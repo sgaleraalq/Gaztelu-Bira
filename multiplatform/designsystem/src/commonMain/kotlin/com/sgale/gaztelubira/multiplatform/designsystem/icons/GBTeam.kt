@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.multiplatform.designsystem.icons
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Groups
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_groups
+import org.jetbrains.compose.resources.painterResource
 
 val GBIcons.GBTeamBottomTab: Painter
-    @Composable get() = rememberVectorPainter(Icons.Default.Groups)
+    @Composable get() = painterResource(Res.drawable.ic_groups)

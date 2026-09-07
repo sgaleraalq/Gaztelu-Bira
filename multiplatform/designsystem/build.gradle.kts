@@ -23,7 +23,7 @@ plugins {
      *
      * Since AGP 9.0 `com.android.library` is incompatible with the Kotlin Multiplatform plugin;
      * the Android target of a KMP module is configured through `com.android.kotlin.multiplatform.library`
-     * and its `androidLibrary { }` DSL instead.
+     * and its `android { }` DSL instead (`androidLibrary { }`, its former name, is deprecated).
      */
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.kotlin.multiplatform.library")
@@ -33,7 +33,7 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = "com.sgale.gaztelubira.multiplatform.designsystem"
         compileSdk = libs.versions.compileSdk.get().toInt()
         minSdk = libs.versions.minSdk.get().toInt()
@@ -60,12 +60,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(compose.components.resources)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.runtime)
-            implementation(compose.ui)
-            api(compose.materialIconsExtended)
+            api(libs.compose.multiplatform.foundation)
+            api(libs.compose.multiplatform.material3)
+            api(libs.compose.multiplatform.resources)
+            api(libs.compose.multiplatform.runtime)
+            api(libs.compose.multiplatform.ui)
 
             /**
              * Images from network. Coil's okhttp fetcher is JVM only, so the multiplatform
@@ -73,14 +72,6 @@ kotlin {
              */
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
-        }
-
-        androidMain.dependencies {
-            implementation(libs.ktor.client.okhttp)
-        }
-
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
         }
     }
 }

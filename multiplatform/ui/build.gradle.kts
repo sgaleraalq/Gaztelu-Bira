@@ -23,7 +23,7 @@ plugins {
      *
      * Since AGP 9.0 `com.android.library` is incompatible with the Kotlin Multiplatform plugin;
      * the Android target of a KMP module is configured through `com.android.kotlin.multiplatform.library`
-     * and its `androidLibrary { }` DSL instead.
+     * and its `android { }` DSL instead (`androidLibrary { }`, its former name, is deprecated).
      */
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.kotlin.multiplatform.library")
@@ -33,7 +33,7 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = "com.sgale.gaztelubira.multiplatform.ui"
         compileSdk = libs.versions.compileSdk.get().toInt()
         minSdk = libs.versions.minSdk.get().toInt()
@@ -58,40 +58,13 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "GazteluBiraUI"
             isStatic = true
-
-            /**
-             * The design system has no framework of its own; it ships inside this one, so its
-             * types (and the generated `Res`) have to be exported to be visible from Swift.
-             */
             export(project(":multiplatform:designsystem"))
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.components.resources)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.runtime)
-            implementation(compose.ui)
-            api(compose.materialIconsExtended)
-
-            /**
-             * Images from network. Coil's okhttp fetcher is JVM only, so the multiplatform
-             * build goes through the Ktor one and each platform contributes its own engine.
-             */
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.ktor)
-
             api(project(":multiplatform:designsystem"))
-        }
-
-        androidMain.dependencies {
-            implementation(libs.ktor.client.okhttp)
-        }
-
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
         }
     }
 }

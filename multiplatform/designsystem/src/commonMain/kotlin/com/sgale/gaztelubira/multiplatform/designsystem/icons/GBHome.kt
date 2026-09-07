@@ -16,36 +16,41 @@
 
 package com.sgale.gaztelubira.multiplatform.designsystem.icons
 
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.unit.dp
 
 private val homeVector by lazy {
-    materialIcon("HomeBottomTab") {
-        path(
-            stroke = SolidColor(Color.Black),
-            strokeLineWidth = 2f,
-            strokeLineCap = StrokeCap.Round,
-            strokeLineJoin = StrokeJoin.Round
-        ) {
-            moveTo(12f, 3f)
-            lineTo(4f, 9f)
-            verticalLineTo(21f)
-            horizontalLineTo(10f)
-            verticalLineTo(14f)
-            horizontalLineTo(14f)
-            verticalLineTo(21f)
-            horizontalLineTo(20f)
-            verticalLineTo(9f)
-            close()
-        }
-    }
+    ImageVector.Builder(
+        name = "HomeBottomTab",
+        defaultWidth = 24.dp,
+        defaultHeight = 24.dp,
+        viewportWidth = 24f,
+        viewportHeight = 24f
+    ).path(
+        stroke = SolidColor(Color.Black),
+        strokeLineWidth = 2f,
+        strokeLineCap = StrokeCap.Round,
+        strokeLineJoin = StrokeJoin.Round
+    ) {
+        moveTo(12f, 3f)
+        lineTo(4f, 9f)
+        verticalLineTo(21f)
+        horizontalLineTo(10f)
+        verticalLineTo(14f)
+        horizontalLineTo(14f)
+        verticalLineTo(21f)
+        horizontalLineTo(20f)
+        verticalLineTo(9f)
+        close()
+    }.build()
 }
 
 val GBIcons.GBHomeBottomTab: Painter
