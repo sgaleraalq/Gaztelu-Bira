@@ -30,6 +30,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.SliderDefaults.Thumb
 import androidx.compose.material3.SliderDefaults.Track
+import androidx.compose.material3.SliderState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -53,8 +54,8 @@ import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.MIN_YELLOW_CARDS
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.PENALTIES_PROVOKED
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.SAVES
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.assists
 import com.sgale.gaztelubira.multiplatform.ui.resources.clean_sheets
@@ -65,18 +66,22 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.red_cards
 import com.sgale.gaztelubira.multiplatform.ui.resources.saves
 import com.sgale.gaztelubira.multiplatform.ui.resources.update_punctuation
 import com.sgale.gaztelubira.multiplatform.ui.resources.yellow_cards
-import kotlin.math.roundToInt
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
+import kotlin.math.roundToInt
 
 private val STANDARD_VALUES = listOf(0, 1, 2, 3, 4, 5)
 private val CARD_VALUES = listOf(1, 3, 5)
 
-/**
- * Every slider edits [draft], a copy of the punctuation in use. Nothing is scored differently
- * until the button at the bottom promotes the draft — otherwise the whole leaderboard would
- * recompute on every drag.
- */
+private data class SliderSpec(
+    val label: StringResource,
+    val value: Int,
+    val field: PunctuationField,
+    val possibleValues: List<Int> = STANDARD_VALUES,
+    val isNegative: Boolean = false,
+    val isCard: Boolean = false
+)
+
 @Composable
 internal fun SettingsPunctuation(
     draft: GBPunctuation,
@@ -101,15 +106,6 @@ internal fun SettingsPunctuation(
     }
 }
 
-private data class SliderSpec(
-    val label: StringResource,
-    val value: Int,
-    val field: PunctuationField,
-    val possibleValues: List<Int> = STANDARD_VALUES,
-    val isNegative: Boolean = false,
-    val isCard: Boolean = false
-)
-
 @Composable
 private fun Sliders(
     modifier: Modifier,
@@ -118,17 +114,56 @@ private fun Sliders(
 ) {
     val scrollState = rememberScrollState()
     val specs = listOf(
-        SliderSpec(Res.string.goals, draft.goals, GOALS),
-        SliderSpec(Res.string.assists, draft.assists, ASSISTS),
-        SliderSpec(Res.string.clean_sheets, draft.cleanSheets, CLEAN_SHEETS),
-        SliderSpec(Res.string.penalties, draft.penaltiesProvoked, PENALTIES_PROVOKED),
-        SliderSpec(Res.string.saves, draft.saves, SAVES),
-        SliderSpec(Res.string.fails, draft.fails, FAILS, isNegative = true),
-        SliderSpec(Res.string.yellow_cards, draft.minYellowCards, MIN_YELLOW_CARDS, CARD_VALUES, isCard = true),
-        SliderSpec(Res.string.red_cards, draft.minRedCards, MIN_RED_CARDS, CARD_VALUES, isCard = true)
+        SliderSpec(
+            label = Res.string.goals,
+            value = draft.goals,
+            field = GOALS
+        ),
+        SliderSpec(
+            label = Res.string.assists,
+            value = draft.assists,
+            field = ASSISTS
+        ),
+        SliderSpec(
+            label = Res.string.clean_sheets,
+            value = draft.cleanSheets,
+            field = CLEAN_SHEETS
+        ),
+        SliderSpec(
+            label = Res.string.penalties,
+            value = draft.penaltiesProvoked,
+            field = PENALTIES_PROVOKED
+        ),
+        SliderSpec(
+            label = Res.string.saves,
+            value = draft.saves,
+            field = SAVES
+        ),
+        SliderSpec(
+            label = Res.string.fails,
+            value = draft.fails,
+            field = FAILS,
+            isNegative = true
+        ),
+        SliderSpec(
+            label = Res.string.yellow_cards,
+            value = draft.minYellowCards,
+            field = MIN_YELLOW_CARDS,
+            possibleValues = CARD_VALUES,
+            isCard = true
+        ),
+        SliderSpec(
+            label = Res.string.red_cards,
+            value = draft.minRedCards,
+            field = MIN_RED_CARDS,
+            possibleValues = CARD_VALUES,
+            isCard = true
+        )
     )
 
-    Row(modifier.padding(12.dp)) {
+    Row(
+        modifier = modifier.padding(12.dp)
+    ) {
         Column(
             modifier = modifier.verticalScroll(scrollState).padding(12.dp)
         ) {
@@ -196,31 +231,37 @@ private fun PunctuationSlider(
         inactiveTickColor = gray_box_in_black_bg
     )
 
+    val onValueChanged: (Float) -> Unit = { newIndex ->
+        val selected = possibleValues.getOrElse(newIndex.roundToInt()) { possibleValues.first() }
+        onPositionChanged(if (isNegative) -selected else selected)
+    }
+
+    val thumb = @Composable {
+        Thumb(
+            interactionSource = remember { MutableInteractionSource() },
+            thumbSize = DpSize(14.dp, 14.dp),
+            colors = sliderColors
+        )
+    }
+
+    val track: @Composable (SliderState) -> Unit = { sliderState ->
+        Track(
+            modifier = Modifier.height(4.dp),
+            sliderState = sliderState,
+            colors = sliderColors,
+            thumbTrackGapSize = 0.dp,
+            drawStopIndicator = null
+        )
+    }
+
     Slider(
         modifier = modifier,
         value = currentIndex.toFloat(),
-        onValueChange = { newIndex ->
-            val selected = possibleValues.getOrElse(newIndex.roundToInt()) { possibleValues.first() }
-            onPositionChanged(if (isNegative) -selected else selected)
-        },
+        onValueChange = { onValueChanged(it) },
         valueRange = 0f..(possibleValues.size - 1).toFloat(),
         steps = steps,
         colors = sliderColors,
-        thumb = {
-            Thumb(
-                interactionSource = remember { MutableInteractionSource() },
-                thumbSize = DpSize(14.dp, 14.dp),
-                colors = sliderColors
-            )
-        },
-        track = { sliderState ->
-            Track(
-                modifier = Modifier.height(4.dp),
-                sliderState = sliderState,
-                colors = sliderColors,
-                thumbTrackGapSize = 0.dp,
-                drawStopIndicator = null
-            )
-        }
+        thumb = { thumb() },
+        track = { track(it) }
     )
 }
