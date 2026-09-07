@@ -22,7 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import com.sgale.gaztelubira.core.screens.splash.ui.LottieAnimation
+import com.sgale.gaztelubira.multiplatform.ui.splash.ui.LottieAnimation
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressBar
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 

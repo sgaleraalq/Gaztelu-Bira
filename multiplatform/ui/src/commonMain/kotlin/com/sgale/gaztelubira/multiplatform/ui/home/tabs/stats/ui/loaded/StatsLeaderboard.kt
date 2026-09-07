@@ -64,6 +64,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import com.sgale.gaztelubira.multiplatform.designsystem.utils.shimmerEffect
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.LeaderboardPosition.FIRST
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.LeaderboardPosition.SECOND
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.LeaderboardPosition.THIRD
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_down
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_up
@@ -112,19 +115,19 @@ internal fun StatsLeaderboard(
         LeaderboardPlayer(
             modifier = Modifier.weight(1f),
             player = second,
-            position = LeaderboardPosition.SECOND,
+            position = SECOND,
             onPlayerSelected = onPlayerSelected
         )
         LeaderboardPlayer(
             modifier = Modifier.weight(1f), 
             player = first,
-            position = LeaderboardPosition.FIRST,
+            position = FIRST,
             onPlayerSelected = onPlayerSelected
         )
         LeaderboardPlayer(
             modifier = Modifier.weight(1f), 
             player = third,
-            position = LeaderboardPosition.THIRD,
+            position = THIRD,
             onPlayerSelected = onPlayerSelected
         )
     }
@@ -208,7 +211,11 @@ private fun LeaderCard(
         Box(
             modifier = imageModifier
                 .align(TopCenter)
-                .border(width = 2.dp, color = position.circleColor, shape = RoundedCornerShape(50))
+                .border(
+                    width = 2.dp,
+                    color = position.circleColor,
+                    shape = RoundedCornerShape(50)
+                )
         ) {
             GBAsyncImage(
                 modifier = Modifier
@@ -217,7 +224,7 @@ private fun LeaderCard(
                     .padding(8.dp),
                 image = player?.bodyImage,
                 contentScale = Fit,
-                placeholder = AppImages.facePlayer,
+                placeholder = AppImages.bodyPlayer,
                 isLoading = false,
                 finishLoading = { isLoading = false }
             )

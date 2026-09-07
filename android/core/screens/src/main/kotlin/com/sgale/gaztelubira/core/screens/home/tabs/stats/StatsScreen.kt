@@ -32,8 +32,7 @@ internal fun StatsScreen(
 
     val actions = remember(viewModel) {
         StatsActions(
-            onPlayerSelected = viewModel::onPlayerSelected,
-            onPlayerDismissed = viewModel::onPlayerDismissed,
+            onPlayerAction = viewModel::onPlayerAction,
             onSettingsChanged = viewModel::onSettingsChanged,
             onStatSelected = viewModel::onStatSelected,
             onPunctuationDraftChanged = viewModel::onPunctuationDraftChanged,

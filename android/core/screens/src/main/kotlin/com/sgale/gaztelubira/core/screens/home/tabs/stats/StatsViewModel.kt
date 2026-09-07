@@ -29,6 +29,8 @@ import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.*
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Companion.computing
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
@@ -119,13 +121,20 @@ internal class StatsViewModel @Inject constructor(
         _state.update { it.copy(settings = settings) }
     }
 
-    internal fun onPlayerSelected(playerId: String) {
+    internal fun onPlayerAction(action: GBStatsPlayerModal) {
+        when (action) {
+            DismissPlayer -> onPlayerDismissed()
+            is ShowPlayer -> onPlayerSelected(action.id)
+        }
+    }
+
+    private fun onPlayerSelected(playerId: String) {
         val player = playersStats.value?.find { it.id == playerId } ?: return
         val percentage = handler.calculatePercentage(player, _state.value.punctuation)
         _state.update { it.copy(selectedPlayer = player.toDetail(percentage)) }
     }
 
-    internal fun onPlayerDismissed() {
+    private fun onPlayerDismissed() {
         _state.update { it.copy(selectedPlayer = null) }
     }
 }

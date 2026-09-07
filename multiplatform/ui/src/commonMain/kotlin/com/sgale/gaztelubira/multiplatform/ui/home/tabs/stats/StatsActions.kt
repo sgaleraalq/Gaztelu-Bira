@@ -18,11 +18,11 @@ package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
 
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
 
 data class StatsActions(
-    val onPlayerSelected: (String) -> Unit,
-    val onPlayerDismissed: () -> Unit,
+    val onPlayerAction: (GBStatsPlayerModal) -> Unit,
     val onSettingsChanged: (GBStatsSettings) -> Unit,
     val onStatSelected: (GBStat) -> Unit,
     val onPunctuationDraftChanged: (GBPunctuation) -> Unit,

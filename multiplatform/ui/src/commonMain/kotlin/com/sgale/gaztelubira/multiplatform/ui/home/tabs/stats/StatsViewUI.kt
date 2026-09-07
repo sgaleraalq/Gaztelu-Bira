@@ -17,6 +17,8 @@
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
 
 import androidx.compose.runtime.Composable
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loading
@@ -37,7 +39,7 @@ internal fun StatsViewUI(
 
     PlayerCard(
         player = state.selectedPlayer,
-        onDismiss = actions.onPlayerDismissed
+        onDismiss = { actions.onPlayerAction(DismissPlayer) }
     )
 
     Settings(

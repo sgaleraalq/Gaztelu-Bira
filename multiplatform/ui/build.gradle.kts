@@ -64,6 +64,15 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            /**
+             * Compottie
+             */
+            implementation(libs.compottie)
+            implementation(libs.compottie.lite)
+            implementation(libs.compottie.dot)
+            implementation(libs.compottie.network)
+            implementation(libs.compottie.resources)
+
             api(project(":multiplatform:designsystem"))
         }
     }

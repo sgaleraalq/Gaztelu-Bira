@@ -15,6 +15,7 @@ composeBom = "2026.08.00"
 composeMultiplatform = "1.12.0"
 composeMultiplatformMaterial3 = "1.9.0"
 composeNavigation = "2.10.0"
+compottie="2.3.1"
 coreKtx = "1.19.0"
 coil = "3.6.1"
 camerax = "1.6.2"
@@ -111,6 +112,12 @@ compose-multiplatform-material3 = { module = "org.jetbrains.compose.material3:ma
 compose-multiplatform-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
 compose-multiplatform-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
 compose-multiplatform-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
+
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+compottie-lite = { module = "io.github.alexzhirkevich:compottie-lite", version.ref = "compottie" }
+compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottie" }
+compottie-network = { module = "io.github.alexzhirkevich:compottie-network", version.ref = "compottie" }
+compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
 
 ## Hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }

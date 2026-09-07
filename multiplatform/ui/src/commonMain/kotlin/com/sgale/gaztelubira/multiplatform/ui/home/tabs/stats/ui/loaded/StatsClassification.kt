@@ -48,6 +48,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import org.jetbrains.compose.resources.stringResource
 
 private val PLAYER_CLASSIFICATION_SIZE = 36.dp
@@ -143,6 +144,7 @@ private fun ClassificationPlayerImage(
             .size(PLAYER_CLASSIFICATION_SIZE),
         image = image,
         contentScale = Fit,
+        placeholder = AppImages.facePlayer,
         isLoading = isLoading,
         finishLoading = { isLoading = false }
     )
