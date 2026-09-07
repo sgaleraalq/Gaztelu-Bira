@@ -27,7 +27,7 @@ import com.sgale.gaztelubira.core.domain.utils.IToastManager
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.splash.SplashContractor
+import com.sgale.gaztelubira.core.screens.splash.SplashController
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,7 +44,7 @@ private val DEFAULT_TAB = STATS
 class MainViewModel @Inject constructor(
     private val getUserSession: GetUser,
     private val isUserAuthenticated: IsUserAuthenticated,
-    private val splashContractor: SplashContractor,
+    private val splashController: SplashController,
     private val preferences: IGBPreferences,
     private val initAppHandler: InitAppHandler,
     private val toastManager: IToastManager
@@ -75,7 +75,7 @@ class MainViewModel @Inject constructor(
 
     fun reset() {
         _userSession.value = null
-        splashContractor.reset()
+        splashController.reset()
         defaultHomeTab = DEFAULT_TAB
     }
 
@@ -101,7 +101,7 @@ class MainViewModel @Inject constructor(
                 val result = initAppHandler.firstTimeInit()
 
                 result.onSuccess {
-                    splashContractor.contractCompleted(Home)
+                    splashController.complete(Home)
                 }.onFailure {
                     println("GBError: $it")
                     manageInitAppError()
@@ -126,14 +126,14 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun handleInit() {
-        splashContractor.avoidSplash(Home)
+        splashController.skip(Home)
         checkForUpdates()
         fetchInformation()
     }
 
     private fun manageInitAppError() {
         toastManager.showToast("There was a problem joining the app, try again.")
-        splashContractor.contractCompleted(Welcome)
+        splashController.complete(Welcome)
     }
 
     private fun resolveUser(userId: String) {

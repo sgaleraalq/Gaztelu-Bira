@@ -38,11 +38,11 @@ class PlayerDetailViewModel @Inject constructor(
     private val fetchPlayerInformation: FetchPlayer,
     private val fetchPlayerStats: FetchPlayerStats,
     private val fetchMatches: FetchMatches
-) : ViewModel(), PlayerDetailContract {
+) : ViewModel() {
     private val _playerState = MutableStateFlow<PlayerDetailState?>(null)
-    override val playerState: StateFlow<PlayerDetailState?> = _playerState
+    val playerState: StateFlow<PlayerDetailState?> = _playerState
 
-    override fun calculateMatchesStats(
+    fun calculateMatchesStats(
         appTeam: TeamModel?,
         matches: List<MatchModel>,
         playerStats: PlayerStatsModel

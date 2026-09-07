@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.player
+package com.sgale.gaztelubira.multiplatform.ui.splash.state
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import kotlinx.coroutines.flow.StateFlow
+/**
+ * The splash is only ever in one of these, never in a combination of them.
+ */
+enum class SplashPhase {
+    /** Boot work is still running; the bar creeps up without ever claiming to be done. */
+    LOADING,
 
-interface PlayerDetailContract {
-    val playerState: StateFlow<PlayerDetailState?>
-    fun calculateMatchesStats(
-        appTeam: TeamModel?,
-        matches: List<MatchModel>,
-        playerStats: PlayerStatsModel
-    )
+    /** Boot work is over; the bar runs to 100% and only then hands over to navigation. */
+    COMPLETING,
+
+    /** There was nothing to wait for; the splash steps aside straight away. */
+    SKIPPED
 }

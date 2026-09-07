@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
+
 package com.sgale.gaztelubira.core.screens.splash
 
 import com.sgale.gaztelubira.core.screens.navigation.Destination
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
-import javax.inject.Inject
+import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Finished.Completed
+import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Finished.Skipped
+import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Loading
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
-class SplashState @Inject constructor() : SplashContractor {
-    override val completed = MutableStateFlow(false)
-    override val avoid = MutableStateFlow(false)
-    override val destination = MutableStateFlow<Destination>(Welcome)
+class SplashState @Inject constructor() : SplashController {
+    private val _status = MutableStateFlow<SplashStatus>(Loading)
+    override val status: StateFlow<SplashStatus> = _status.asStateFlow()
 
-    override fun contractCompleted(newDestination: Destination) {
-        destination.value = newDestination
-        completed.value = true
+    override fun complete(destination: Destination) {
+        _status.value = Completed(destination)
     }
 
-    override fun avoidSplash(newDestination: Destination) {
-        destination.value = newDestination
-        avoid.value = true
+    override fun skip(destination: Destination) {
+        _status.value = Skipped(destination)
     }
 
     override fun reset() {
-        completed.value = false
-        avoid.value = false
-        destination.value = Welcome
+        _status.value = Loading
     }
 }

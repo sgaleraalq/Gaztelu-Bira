@@ -14,14 +14,25 @@
  * limitations under the License.
  */
 
+
 package com.sgale.gaztelubira.multiplatform.ui.splash
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
+import com.sgale.gaztelubira.multiplatform.ui.splash.state.SplashPhase.SKIPPED
 
 @Composable
 fun SplashView(
     state: SplashUiState,
     actions: SplashActions
 ) {
+    val navigate by rememberUpdatedState(actions.navigate)
+
+    LaunchedEffect(state.phase) {
+        if (state.phase == SKIPPED) navigate()
+    }
+
     SplashViewUI(state, actions)
 }

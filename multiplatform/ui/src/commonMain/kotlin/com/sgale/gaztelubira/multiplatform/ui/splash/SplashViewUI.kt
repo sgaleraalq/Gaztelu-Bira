@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressBar
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.ui.splash.state.SplashPhase.COMPLETING
+import com.sgale.gaztelubira.multiplatform.ui.splash.state.SplashPhase.SKIPPED
 import com.sgale.gaztelubira.multiplatform.ui.splash.ui.LottieAnimation
 
 @Composable
@@ -40,12 +42,14 @@ internal fun SplashViewUI(
                 LottieAnimation(
                     modifier = Modifier.align(Center)
                 )
-                GBProgressBar(
-                    modifier = Modifier.align(BottomCenter),
-                    completed = state.completed,
-                    avoid = state.avoid,
-                    onFinish = actions.navigate
-                )
+
+                if (state.phase != SKIPPED) {
+                    GBProgressBar(
+                        modifier = Modifier.align(BottomCenter),
+                        completed = state.phase == COMPLETING,
+                        onFinish = actions.navigate
+                    )
+                }
             }
         }
     )

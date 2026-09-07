@@ -36,7 +36,7 @@ import kotlinx.coroutines.withContext
 class InsertTeamViewModel @Inject constructor(
     private val insertNewTeam: InsertNewTeam,
     private val toastManager: IToastManager
-): ViewModel(), InsertTeamContractor.ViewModel {
+): ViewModel() {
 
     private val _data = MutableStateFlow(InsertTeamData())
     val data: StateFlow<InsertTeamData> = _data
@@ -48,7 +48,7 @@ class InsertTeamViewModel @Inject constructor(
     val validInformation: StateFlow<Boolean> = _validInformation
 
 
-    override fun insertTeam(
+    fun insertTeam(
         state: NavigationState,
         img: CommonImage?,
         teamName: String,

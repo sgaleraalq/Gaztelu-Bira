@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+
 package com.sgale.gaztelubira.multiplatform.designsystem.components
 
 import androidx.compose.animation.core.Animatable
@@ -35,10 +36,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.withFrameNanos
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
@@ -53,25 +52,32 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.milliseconds
 
+private const val LOADING_DURATION_MS = 2_000
+private const val FINISH_DURATION_MS = 500
+
+/**
+ * How far the bar is allowed to creep while the work is still running. It never reaches the end on
+ * its own, so hitting 100% always means the caller said so.
+ */
+private const val LOADING_CAP = 0.75f
+
 @Composable
 fun GBProgressBar(
     modifier: Modifier,
     completed: Boolean,
-    avoid: Boolean,
     onFinish: () -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = spacedBy(12.dp)
     ) {
-        GBProgressBarText(avoid)
-        GBProgressBarBar(completed, avoid) { onFinish() }
+        GBProgressBarText()
+        GBProgressBarBar(completed, onFinish)
     }
 }
 
 @Composable
-fun GBProgressBarText(avoid: Boolean) {
-    if (avoid) return
+private fun GBProgressBarText() {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = CenterVertically,
@@ -88,12 +94,12 @@ fun GBProgressBarText(avoid: Boolean) {
 }
 
 @Composable
-fun LoadingDots() {
+private fun LoadingDots() {
     val animatables = remember { List(3) { Animatable(0f) } }
 
     LaunchedEffect(Unit) {
         while (true) {
-            animatables.forEachIndexed { index, animatable ->
+            animatables.forEach { animatable ->
                 launch {
                     animatable.animateTo(
                         targetValue = -5f,
@@ -124,35 +130,31 @@ fun LoadingDots() {
 }
 
 @Composable
-fun GBProgressBarBar(
+private fun GBProgressBarBar(
     completed: Boolean,
-    avoid: Boolean,
     onFinish: () -> Unit
 ) {
-    if (avoid) { onFinish(); return }
+    val progress = remember { Animatable(0f) }
+    val currentOnFinish by rememberUpdatedState(onFinish)
 
-    var loadingFraction by remember { mutableFloatStateOf(0f) }
-    val maxTimeBeforeFinish = 2_000_000_000L
-    val finishDuration = 500_000_000L
-    val maxFractionBeforeFinish = 0.75f
+    LaunchedEffect(Unit) {
+        progress.animateTo(
+            targetValue = LOADING_CAP,
+            animationSpec = tween(LOADING_DURATION_MS, easing = LinearEasing)
+        )
+    }
 
+    /**
+     * Animating the same [Animatable] cancels the creep above and picks up from wherever it got to,
+     * so the bar never jumps backwards no matter when the work finishes.
+     */
     LaunchedEffect(completed) {
-        if (!completed) {
-            animateFraction(
-                state = { loadingFraction = it },
-                from = 0f,
-                to = maxFractionBeforeFinish,
-                durationNanos = maxTimeBeforeFinish
-            )
-        } else {
-            animateFraction(
-                state = { loadingFraction = it },
-                from = loadingFraction,
-                to = 1f,
-                durationNanos = finishDuration
-            )
-            onFinish()
-        }
+        if (!completed) return@LaunchedEffect
+        progress.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(FINISH_DURATION_MS, easing = LinearEasing)
+        )
+        currentOnFinish()
     }
 
     Box(
@@ -164,26 +166,8 @@ fun GBProgressBarBar(
         Box(
             Modifier
                 .fillMaxHeight()
-                .fillMaxWidth(loadingFraction)
+                .fillMaxWidth(progress.value)
                 .background(primaryRed)
         )
     }
-}
-
-suspend fun animateFraction(
-    state: (Float) -> Unit,
-    from: Float,
-    to: Float,
-    durationNanos: Long
-) {
-    var lastTime = withFrameNanos { it }
-    var elapsed = 0L
-    while (elapsed < durationNanos) {
-        val now = withFrameNanos { it }
-        val delta = now - lastTime
-        lastTime = now
-        elapsed += delta
-        state((from + (to - from) * (elapsed.toFloat() / durationNanos)).coerceIn(0f, 1f))
-    }
-    state(to)
 }

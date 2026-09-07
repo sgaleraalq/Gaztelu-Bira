@@ -32,12 +32,14 @@ internal fun SplashScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    SplashView(
-        state = state,
-        actions = remember(viewModel, navState) {
-            SplashActions(
-                navigate = { viewModel.navigate(navState) }
-            )
-        }
-    )
+    val actions = remember(
+        viewModel,
+        navState
+    ) {
+        SplashActions(
+            navigate = { viewModel.navigate(navState) }
+        )
+    }
+
+    SplashView(state, actions)
 }

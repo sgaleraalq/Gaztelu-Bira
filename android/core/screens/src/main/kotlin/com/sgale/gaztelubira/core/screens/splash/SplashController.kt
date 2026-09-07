@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
+
 package com.sgale.gaztelubira.core.screens.splash
 
 import com.sgale.gaztelubira.core.screens.navigation.Destination
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
-interface SplashContractor {
-    val completed: MutableStateFlow<Boolean>
-    val avoid: MutableStateFlow<Boolean>
-    val destination: MutableStateFlow<Destination>
-    fun contractCompleted(newDestination: Destination)
-    fun avoidSplash(newDestination: Destination)
+/**
+ * App-scoped hand-off between the boot sequence, which drives it, and the splash screen, which only
+ * observes it. Writing is done through the three calls below so no other holder of this singleton
+ * can push the splash into a state the boot sequence did not ask for.
+ */
+interface SplashController {
+    val status: StateFlow<SplashStatus>
+
+    /** Boot finished with work worth showing: the bar completes, then the app moves on. */
+    fun complete(destination: Destination)
+
+    /** Boot had nothing to wait for: the splash steps aside immediately. */
+    fun skip(destination: Destination)
+
+    /** Back to square one, for when the user logs out and the app boots again. */
     fun reset()
 }

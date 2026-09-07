@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.screens.di
 
 import com.sgale.gaztelubira.core.domain.utils.PermissionBridge
 import com.sgale.gaztelubira.core.domain.utils.SharedImagesBridge
-import com.sgale.gaztelubira.core.screens.splash.SplashContractor
+import com.sgale.gaztelubira.core.screens.splash.SplashController
 import com.sgale.gaztelubira.core.screens.splash.SplashState
 import dagger.Binds
 import dagger.Module
@@ -33,7 +33,7 @@ internal interface ScreensModule {
 
     @Binds
     @Singleton
-    fun bindSplashContractor(splashState: SplashState): SplashContractor
+    fun bindSplashController(splashState: SplashState): SplashController
 }
 
 @Module

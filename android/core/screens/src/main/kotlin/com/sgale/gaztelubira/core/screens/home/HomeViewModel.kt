@@ -32,7 +32,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class HomeViewModel @Inject constructor(
     private val logout: Logout
-): ViewModel(), HomeScreenContract.ViewModel {
+): ViewModel() {
 
     private val _state = MutableStateFlow(HomeUiState())
     internal val state: StateFlow<HomeUiState> = _state
@@ -49,7 +49,7 @@ internal class HomeViewModel @Inject constructor(
         _state.update { it.copy(showLogoutDialog = show) }
     }
 
-    override fun logout(state: NavigationState, mainViewModel: MainViewModel) {
+    internal fun logout(state: NavigationState, mainViewModel: MainViewModel) {
         mainViewModel.reset()
         state.navigateTo(Login, true)
         logout()

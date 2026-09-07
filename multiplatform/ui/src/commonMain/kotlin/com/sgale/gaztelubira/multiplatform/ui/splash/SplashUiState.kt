@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
+
 package com.sgale.gaztelubira.multiplatform.ui.splash
 
+import com.sgale.gaztelubira.multiplatform.ui.splash.state.SplashPhase
+import com.sgale.gaztelubira.multiplatform.ui.splash.state.SplashPhase.LOADING
+
 data class SplashUiState(
-    val completed: Boolean = false,
-    val avoid: Boolean = false
+    val phase: SplashPhase = LOADING
 )
