@@ -124,7 +124,7 @@ private fun ClassificationPosition(
 ) {
     GBText(
         modifier = Modifier.width(24.dp),
-        text = position.toString(),
+        text = position?.toString() ?: "",
         style = gBTypography().bodyMedium,
         alignment = TextAlign.End
     )

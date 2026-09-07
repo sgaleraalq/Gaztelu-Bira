@@ -48,8 +48,14 @@ class StatsHandler(
     scope: CoroutineScope
 ) {
     private val punctuation = MutableStateFlow(GBPunctuation())
-    private val _statsDisplayed = MutableStateFlow<List<PlayerDisplayStats>>(emptyList())
-    val statsDisplayed: StateFlow<List<PlayerDisplayStats>> = _statsDisplayed
+
+    /**
+     * `null` until the first ranking is actually computed. An empty list is a real result — the
+     * database has no players yet — so the two cases cannot share a value, or the screen has no way
+     * to tell "still loading" from "loaded and empty".
+     */
+    private val _statsDisplayed = MutableStateFlow<List<PlayerDisplayStats>?>(null)
+    val statsDisplayed: StateFlow<List<PlayerDisplayStats>?> = _statsDisplayed
     val valueChanged = MutableStateFlow(false)
 
     init {

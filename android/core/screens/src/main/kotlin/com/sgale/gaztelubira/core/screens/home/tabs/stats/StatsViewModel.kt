@@ -37,6 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -47,22 +48,17 @@ internal class StatsViewModel @Inject constructor(
     private val getPlayerStats: GetPlayersStats,
     private val getMatches: GetMatches
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(StatsUiState())
     internal val state: StateFlow<StatsUiState> = _state.asStateFlow()
 
-    private val playersStats = MutableStateFlow<List<PlayerStatsModel>>(emptyList())
-    private val matches = MutableStateFlow<List<MatchModel>>(emptyList())
+    private val playersStats = MutableStateFlow<List<PlayerStatsModel>?>(null)
+    private val matches = MutableStateFlow<List<MatchModel>?>(null)
     private val selectedStat = MutableStateFlow(PERCENTAGE.toStat())
 
-    /**
-     * The ranking itself — totals, ordering and how many places each player moved — stays in this
-     * handler on the Android side. It works on domain models, and only its result is mapped over.
-     */
     private val handler = StatsHandler(
-        playersList = playersStats,
+        playersList = playersStats.filterNotNull(),
         selectedStat = selectedStat,
-        matchesFlow = matches,
+        matchesFlow = matches.filterNotNull(),
         scope = viewModelScope
     )
 
@@ -80,7 +76,7 @@ internal class StatsViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            handler.statsDisplayed.collect { ranking ->
+            handler.statsDisplayed.filterNotNull().collect { ranking ->
                 _state.update { state ->
                     state.copy(
                         state = Loaded,
@@ -92,7 +88,10 @@ internal class StatsViewModel @Inject constructor(
 
         viewModelScope.launch {
             handler.valueChanged.collect { recomputing ->
-                _state.update { it.copy(state = computing(recomputing && it.players.isEmpty())) }
+                if (!recomputing) return@collect
+                _state.update { state ->
+                    state.copy(state = computing(state.players.isEmpty()))
+                }
             }
         }
     }
@@ -121,7 +120,7 @@ internal class StatsViewModel @Inject constructor(
     }
 
     internal fun onPlayerSelected(playerId: String) {
-        val player = playersStats.value.find { it.id == playerId } ?: return
+        val player = playersStats.value?.find { it.id == playerId } ?: return
         val percentage = handler.calculatePercentage(player, _state.value.punctuation)
         _state.update { it.copy(selectedPlayer = player.toDetail(percentage)) }
     }
