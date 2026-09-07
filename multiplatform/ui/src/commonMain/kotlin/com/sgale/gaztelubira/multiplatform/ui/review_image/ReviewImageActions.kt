@@ -15,8 +15,9 @@
  */
 
 
-package com.sgale.gaztelubira.activity
+package com.sgale.gaztelubira.multiplatform.ui.review_image
 
-import androidx.lifecycle.ViewModel
-
-class GazteluBiraViewModel : ViewModel()
+data class ReviewImageActions(
+    val onRepeat: () -> Unit,
+    val onAccept: () -> Unit
+)

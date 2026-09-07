@@ -15,8 +15,17 @@
  */
 
 
-package com.sgale.gaztelubira.activity
+package com.sgale.gaztelubira.multiplatform.ui.review_image
 
-import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.Composable
 
-class GazteluBiraViewModel : ViewModel()
+/**
+ * Shared entry point for the review screen: state in, actions out, nothing platform-specific.
+ */
+@Composable
+fun ReviewImageView(
+    state: ReviewImageUiState,
+    actions: ReviewImageActions
+) {
+    ReviewImageViewUI(state, actions)
+}
