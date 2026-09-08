@@ -58,6 +58,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState.PlayerWinRate
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
@@ -76,6 +77,7 @@ private const val LOGO_SIZE = 50
 internal fun PlayerDetailInformationBox(
     modifier: Modifier,
     state: PlayerDetailUiState,
+    actions: PlayerDetailActions
 ) {
     Box(
         modifier = modifier
@@ -87,11 +89,9 @@ internal fun PlayerDetailInformationBox(
             )
     ) {
         Image(
+            modifier = Modifier.fillMaxSize().alpha(0.025f),
             painter = painterResource(Res.drawable.img_football_ball),
             contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize()
-                .alpha(0.025f),
             contentScale = Crop
         )
 
@@ -104,7 +104,7 @@ internal fun PlayerDetailInformationBox(
 
         PlayerInformation(
             state = state,
-            onViewStats = { }
+            onViewStats = { actions.showToast() }
         )
     }
 }
@@ -153,9 +153,7 @@ private fun PlayerBasicStats(
         PlayerStatItem(
             modifier = Modifier
                 .weight(1f)
-                .onGloballyPositioned { coordinates ->
-                    itemHeight = coordinates.size.height
-                },
+                .onGloballyPositioned { coordinates -> itemHeight = coordinates.size.height },
             statValue = winRate.wins.toString(),
             playerStat = stringResource(Res.string.wins)
         )
@@ -194,16 +192,12 @@ private fun PlayerStatItem(
         GBText(
             text = statValue,
             alignment = Center,
-            style = gBTypography().headlineLarge.copy(
-                fontWeight = Bold
-            ),
+            style = gBTypography().headlineLarge.copy(fontWeight = Bold),
             textColor = primaryBlue
         )
         Spacer(Modifier.height(4.dp))
         GBText(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 6.dp),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
             text = playerStat,
             style = gBTypography().bodySmall,
             alignment = Center,
@@ -232,9 +226,9 @@ private fun PersonalizedSpacer(itemHeight: Int) {
 
 @Composable
 private fun DiagonalLine() {
-    Canvas(Modifier
-        .fillMaxWidth()
-        .height(5.dp)) {
+    Canvas(
+        modifier = Modifier.fillMaxWidth().height(5.dp)
+    ) {
         val start = Offset(0f, 0f)
         val end = Offset(size.width * 1f, size.height * 1f)
 
@@ -252,9 +246,7 @@ private fun ViewStatsButton(
     viewStats: () -> Unit
 ) {
     GBElevatedButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
         text = stringResource(Res.string.view_stats),
         backgroundColor = primaryRed,
         textColor = White,

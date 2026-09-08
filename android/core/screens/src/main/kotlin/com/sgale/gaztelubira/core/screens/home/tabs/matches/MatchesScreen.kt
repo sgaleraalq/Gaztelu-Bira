@@ -24,7 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesActions
@@ -48,10 +48,8 @@ internal fun MatchesScreen(
     val actions = remember(navState, viewModel) {
         MatchesActions(
             navigateTo = { destination ->
-                val navigate = { navState.navigateTo(destination.toDestination()) }
-
                 when (state.hasEnoughPlayers) {
-                    true -> navigate()
+                    true -> navState.navigateTo(destination)
                     false -> showToast(context, notEnoughPlayersMsg)
                 }
             }

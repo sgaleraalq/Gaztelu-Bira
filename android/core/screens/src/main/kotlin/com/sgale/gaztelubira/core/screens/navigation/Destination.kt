@@ -61,7 +61,7 @@ interface Destination {
     }
 
     @Serializable
-    data object Splash: Destination {
+    data object Splash : Destination {
         override val routeName = "splash"
 
         @Composable
@@ -129,7 +129,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            PlayerDetailScreen(playerId, isManager, state::navigateBack)
+            PlayerDetailScreen(state, playerId, isManager)
         }
     }
 
@@ -137,7 +137,7 @@ interface Destination {
      * Insert screens
      */
     @Serializable
-    data object InsertMatch: Destination {
+    data object InsertMatch : Destination {
         override val routeName = "insert_match"
 
         @Composable
@@ -172,7 +172,7 @@ interface Destination {
     @Serializable
     data class Camera(
         val key: String
-    ): Destination {
+    ) : Destination {
         override val routeName = "camera"
 
         @Composable
@@ -211,14 +211,15 @@ interface Destination {
     }
 
     companion object {
-        internal fun UiDestination.toDestination(): Destination =
-            when (this) {
-                is FromGazteluBiraTab -> this.toDestination()
-                is FromLogin -> this.toDestination()
-                is FromMatchesTab -> this.toDestination()
-                is FromTeamTab -> this.toDestination()
-                is Back ->
+        internal fun NavigationState.navigateTo(uiDestination: UiDestination) {
+            when (uiDestination) {
+                Back -> navigateBack()
+                is FromGazteluBiraTab -> navigateTo(uiDestination.toDestination())
+                is FromLogin -> navigateTo(uiDestination.toDestination())
+                is FromMatchesTab -> navigateTo(uiDestination.toDestination())
+                is FromTeamTab -> navigateTo(uiDestination.toDestination())
             }
+        }
 
         private fun FromGazteluBiraTab.toDestination(): Destination =
             when (this) {

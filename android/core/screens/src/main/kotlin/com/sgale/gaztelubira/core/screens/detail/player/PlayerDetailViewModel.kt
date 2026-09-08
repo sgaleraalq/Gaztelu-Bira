@@ -19,17 +19,20 @@ package com.sgale.gaztelubira.core.screens.detail.player
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.match.MatchModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
 import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.usecase.db.FetchMatches
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayer
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayerStats
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState.PlayerWinRate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -40,10 +43,10 @@ internal class PlayerDetailViewModel @Inject constructor(
     private val fetchPlayerStats: FetchPlayerStats,
     private val fetchMatches: FetchMatches
 ) : ViewModel() {
-    private val _playerState = MutableStateFlow(PlayerDetailUiState())
-    internal val playerState: StateFlow<PlayerDetailUiState?> = _playerState
+    private val _state = MutableStateFlow(PlayerDetailUiState())
+    internal val state: StateFlow<PlayerDetailUiState> = _state
 
-    fun calculateMatchesStats(
+    private fun calculateMatchesStats(
         appTeam: TeamModel?,
         matches: List<MatchModel>,
         playerStats: PlayerStatsModel
@@ -76,35 +79,41 @@ internal class PlayerDetailViewModel @Inject constructor(
             }
         }
 
-//        _playerState.value = PlayerDetailState(
-//            wins = wins,
-//            draws = draws,
-//            loses = loses
-//        )
+        _state.update {
+            it.copy(
+                winRate = PlayerWinRate(wins, draws, loses)
+            )
+        }
     }
 
-    private val _playerInformation = MutableStateFlow<PlayerModel?>(null)
-    val playerInformation = _playerInformation
-
-    private val _playerStats = MutableStateFlow<PlayerStatsModel?>(null)
-    val playerStats = _playerStats
-
-    fun loadPlayerInformation(
-        appTeam: TeamModel?,
-        playerId: String
+    internal fun updateState(
+        playerId: String,
+        isManager: Boolean
     ) {
         viewModelScope.launch {
-            _playerInformation.value = withContext(Dispatchers.IO) {
+            val playerInfo = withContext(Dispatchers.IO) {
                 fetchPlayerInformation(playerId)
             }
-            _playerStats.value = withContext(Dispatchers.IO) {
+
+            val playerStats = withContext(Dispatchers.IO) {
                 fetchPlayerStats(playerId)
             }
             val matches = withContext(Dispatchers.IO) {
                 fetchMatches()
             }
 
-            calculateMatchesStats(appTeam, matches, _playerStats.value!!)
+            playerStats?.let {
+                calculateMatchesStats(GAZTELU_BIRA, matches, playerStats)
+            }
+
+            playerInfo?.let {
+                _state.update {
+                    it.copy(
+                        isManager = isManager,
+                        player = playerInfo.toGBPlayer()
+                    )
+                }
+            }
         }
     }
 }

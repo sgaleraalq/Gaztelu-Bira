@@ -23,7 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraView
@@ -39,7 +39,7 @@ internal fun GazteluBiraScreen(
 
     val actions = remember(navState, viewModel) {
         GazteluBiraActions(
-            navigateTo = { destination -> navState.navigateTo(destination.toDestination()) }
+            navigateTo = { destination -> navState.navigateTo(destination) }
         )
     }
 

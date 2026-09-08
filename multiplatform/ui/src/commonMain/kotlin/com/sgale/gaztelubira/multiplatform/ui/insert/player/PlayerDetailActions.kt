@@ -19,5 +19,6 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.player
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination
 
 data class PlayerDetailActions(
+    val showToast: () -> Unit,
     val navigateTo: (UiDestination) -> Unit = {}
 )

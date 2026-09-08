@@ -17,44 +17,44 @@
 package com.sgale.gaztelubira.core.screens.detail.player
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailActions
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailView
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.not_yet_available
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun PlayerDetailScreen(
+    navState: NavigationState,
     playerId: String,
     isManager: Boolean,
-    navigateBack: () -> Unit,
     viewModel: PlayerDetailViewModel = hiltViewModel<PlayerDetailViewModel>()
 ) {
-//    val mainViewModel = LocalMainViewModel.current
-//    val user by mainViewModel.userSession.collectAsState()
-//
-//    val playerStats by viewModel.playerStats.collectAsState()
-//    val playerInformation by viewModel.playerInformation.collectAsState()
-//    val playerState by viewModel.playerState.collectAsState()
-//
-//    LaunchedEffect(true, user) {
-//        if (user == null) return@LaunchedEffect
-//        viewModel.loadPlayerInformation(user?.team, playerId)
-//    }
-//
-//    GBScaffold(title = "") { modifier ->
-//        PlayerDetailScreenUI(
-//            modifier = modifier,
-//            user = user,
-//            isManager = isManager,
-//            playerInformation = playerInformation,
-//            playerStats = playerStats,
-//            playerState = playerState,
-//            navigateBack = { navigateBack() }
-//        )
-//    }
+    val context = LocalContext.current
+    val notAvailableYetMsg = stringResource(Res.string.not_yet_available)
 
-    PlayerDetailView(
-        state = PlayerDetailUiState(),
-        actions = PlayerDetailActions()
-    )
+    LaunchedEffect(true) {
+        viewModel.updateState(playerId, isManager)
+    }
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+
+    val actions = remember(navState) {
+        PlayerDetailActions(
+            showToast = { showToast(context, notAvailableYetMsg) },
+            navigateTo = { destination -> navState.navigateTo(destination) }
+        )
+    }
+
+    PlayerDetailView(state, actions)
 }

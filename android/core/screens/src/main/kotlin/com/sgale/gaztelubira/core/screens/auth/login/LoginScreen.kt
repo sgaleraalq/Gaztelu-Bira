@@ -24,7 +24,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.auth.login.LoginEvent.LoggedIn
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions
@@ -57,7 +57,7 @@ internal fun LoginScreen(
                 onPasswordChanged = viewModel::onPasswordChanged,
                 onTogglePasswordVisibility = viewModel::onTogglePasswordVisibility,
                 onLogin = viewModel::onLogin,
-                navigateTo = { destination -> navState.navigateTo(destination.toDestination()) }
+                navigateTo = { destination -> navState.navigateTo(destination) }
             )
         }
     )

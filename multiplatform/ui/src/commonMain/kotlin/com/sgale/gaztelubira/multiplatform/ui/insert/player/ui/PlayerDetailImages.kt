@@ -19,15 +19,11 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.player.ui
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale.Companion.Fit
-import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerImage
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale.Companion.Fit
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 
 @Composable
 fun PlayerDetailImage(
@@ -41,13 +37,4 @@ fun PlayerDetailImage(
         contentScale = Fit,
         placeholder = placeholder
     )
-}
-
-@Composable
-fun TeamImage(
-    modifier: Modifier,
-    logo: String?,
-    logoSize: Int
-) {
-
 }

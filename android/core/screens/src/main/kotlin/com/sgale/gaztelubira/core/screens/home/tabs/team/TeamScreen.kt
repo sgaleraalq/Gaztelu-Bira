@@ -23,7 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.toDestination
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamView
@@ -42,7 +42,7 @@ internal fun TeamScreen(
         viewModel
     ) {
         TeamActions(
-            navigateTo = { destination -> navState.navigateTo(destination.toDestination()) }
+            navigateTo = { destination -> navState.navigateTo(destination) }
         )
     }
 
