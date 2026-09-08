@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.model
+package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Composable
 
-@Stable
-data class GBPlayer(
-    val id: String = "",
-    val name: String = "",
-    val image: String? = null,
-    val dorsal: Int? = null
-)
+@Composable
+fun PlayerDetailView(
+    state: PlayerDetailUiState,
+    actions: PlayerDetailActions
+) {
+    PlayerDetailViewUI(
+        state = state,
+        actions = actions
+    )
+}

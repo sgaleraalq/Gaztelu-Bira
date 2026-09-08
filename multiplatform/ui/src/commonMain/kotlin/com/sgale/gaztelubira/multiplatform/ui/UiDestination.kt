@@ -17,6 +17,8 @@
 package com.sgale.gaztelubira.multiplatform.ui
 
 sealed interface UiDestination {
+    interface Back: UiDestination
+
     sealed interface FromLogin : UiDestination {
         data object SignUp : FromLogin
         data object Splash : FromLogin
@@ -27,7 +29,7 @@ sealed interface UiDestination {
     }
 
     sealed interface FromMatchesTab : UiDestination {
-        data object InsertMatch: FromMatchesTab
+        data object InsertMatch : FromMatchesTab
         data class MatchDetail(
             val id: String
         ) : FromMatchesTab
@@ -38,5 +40,9 @@ sealed interface UiDestination {
         data class PlayerDetail(
             val id: String
         ) : FromTeamTab
+    }
+
+    sealed interface FromPlayerDetail : UiDestination {
+        data object NavigateBack : Back
     }
 }

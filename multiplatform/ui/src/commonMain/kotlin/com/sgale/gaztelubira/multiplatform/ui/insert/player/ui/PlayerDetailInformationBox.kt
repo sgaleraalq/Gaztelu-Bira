@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.player.ui
+package com.sgale.gaztelubira.multiplatform.ui.insert.player.ui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -28,14 +28,15 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -48,34 +49,34 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
-import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.detail.player.LOGO_SIZE
-import com.sgale.gaztelubira.core.screens.detail.player.PlayerDetailState
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAnimatedMessage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState.PlayerWinRate
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.draws
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_football_ball
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
+import com.sgale.gaztelubira.multiplatform.ui.resources.loses
+import com.sgale.gaztelubira.multiplatform.ui.resources.view_stats
+import com.sgale.gaztelubira.multiplatform.ui.resources.wins
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+
+private const val LOGO_SIZE = 50
 
 @Composable
 internal fun PlayerDetailInformationBox(
-    logoUrl: String?,
     modifier: Modifier,
-    player: PlayerModel?,
-    playerStats: PlayerStatsModel?,
-    state: PlayerDetailState?
+    state: PlayerDetailUiState,
 ) {
-    var viewStats by remember { mutableStateOf(false) }
-    var showGBMessage by remember { mutableStateOf(false) }
-
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -86,42 +87,31 @@ internal fun PlayerDetailInformationBox(
             )
     ) {
         Image(
-            painter = painterResource(R.drawable.img_football_ball),
+            painter = painterResource(Res.drawable.img_football_ball),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize()
                 .alpha(0.025f),
             contentScale = Crop
         )
-        TeamImage(
-            modifier = Modifier.align(TopCenter),
-            logo = logoUrl,
-            logoSize = LOGO_SIZE
+
+        GBImage(
+            modifier = Modifier.align(TopCenter)
+                .size(LOGO_SIZE.dp)
+                .offset(y = (-(LOGO_SIZE / 2)).dp),
+            painter = painterResource(Res.drawable.img_gaztelu_bira)
         )
+
         PlayerInformation(
-            player = player,
-            playerStats = playerStats,
-            wins = state?.wins,
-            draws = state?.draws,
-            loses = state?.loses,
-            onViewStats = { /* TODO */ showGBMessage = true }
+            state = state,
+            onViewStats = { }
         )
     }
-
-    GBAnimatedMessage(
-        show = showGBMessage,
-        msg = stringResource(R.string.not_yet_available),
-        dismissMsg = { showGBMessage = false }
-    )
 }
 
 @Composable
 private fun PlayerInformation(
-    player: PlayerModel?,
-    playerStats: PlayerStatsModel?,
-    wins: Int?,
-    draws: Int?,
-    loses: Int?,
+    state: PlayerDetailUiState,
     onViewStats: () -> Unit
 ) {
     Column(
@@ -130,9 +120,9 @@ private fun PlayerInformation(
             .padding(top = (LOGO_SIZE / 2 + 16).dp, bottom = 16.dp)
     ) {
         Spacer(Modifier.weight(1f))
-        PlayerName(player?.name)
+        PlayerName(state.player.name)
         Spacer(Modifier.height(24.dp))
-        PlayerBasicStats(wins, draws, loses)
+        PlayerBasicStats(state.winRate)
         Spacer(Modifier.height(12.dp))
         ViewStatsButton { onViewStats() }
     }
@@ -153,9 +143,7 @@ private fun PlayerName(playerName: String?) {
 
 @Composable
 private fun PlayerBasicStats(
-    wins: Int?,
-    draws: Int?,
-    loses: Int?
+    winRate: PlayerWinRate
 ) {
     var itemHeight by remember { mutableIntStateOf(0) }
 
@@ -168,24 +156,24 @@ private fun PlayerBasicStats(
                 .onGloballyPositioned { coordinates ->
                     itemHeight = coordinates.size.height
                 },
-            statValue = wins.toString(),
-            playerStat = stringResource(R.string.wins)
+            statValue = winRate.wins.toString(),
+            playerStat = stringResource(Res.string.wins)
         )
 
         PersonalizedSpacer(itemHeight)
 
         PlayerStatItem(
             modifier = Modifier.weight(1f),
-            statValue = draws.toString(),
-            playerStat = stringResource(R.string.draws)
+            statValue = winRate.draws.toString(),
+            playerStat = stringResource(Res.string.draws)
         )
 
         PersonalizedSpacer(itemHeight)
 
         PlayerStatItem(
             modifier = Modifier.weight(1f),
-            statValue = loses.toString(),
-            playerStat = stringResource(R.string.loses)
+            statValue = winRate.loses.toString(),
+            playerStat = stringResource(Res.string.loses)
         )
     }
 }
@@ -267,7 +255,7 @@ private fun ViewStatsButton(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp),
-        text = stringResource(R.string.view_stats),
+        text = stringResource(Res.string.view_stats),
         backgroundColor = primaryRed,
         textColor = White,
         roundness = 32,

@@ -25,22 +25,23 @@ import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.usecase.db.FetchMatches
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayer
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayerStats
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
-class PlayerDetailViewModel @Inject constructor(
+internal class PlayerDetailViewModel @Inject constructor(
     private val fetchPlayerInformation: FetchPlayer,
     private val fetchPlayerStats: FetchPlayerStats,
     private val fetchMatches: FetchMatches
 ) : ViewModel() {
-    private val _playerState = MutableStateFlow<PlayerDetailState?>(null)
-    val playerState: StateFlow<PlayerDetailState?> = _playerState
+    private val _playerState = MutableStateFlow(PlayerDetailUiState())
+    internal val playerState: StateFlow<PlayerDetailUiState?> = _playerState
 
     fun calculateMatchesStats(
         appTeam: TeamModel?,
@@ -75,11 +76,11 @@ class PlayerDetailViewModel @Inject constructor(
             }
         }
 
-        _playerState.value = PlayerDetailState(
-            wins = wins,
-            draws = draws,
-            loses = loses
-        )
+//        _playerState.value = PlayerDetailState(
+//            wins = wins,
+//            draws = draws,
+//            loses = loses
+//        )
     }
 
     private val _playerInformation = MutableStateFlow<PlayerModel?>(null)

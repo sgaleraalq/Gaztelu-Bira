@@ -33,6 +33,7 @@ import com.sgale.gaztelubira.core.screens.insert.team.InsertTeamScreen
 import com.sgale.gaztelubira.core.screens.review_photo.ReviewImageScreen
 import com.sgale.gaztelubira.core.screens.splash.SplashScreen
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination.Back
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromGazteluBiraTab
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromLogin
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromMatchesTab
@@ -216,6 +217,7 @@ interface Destination {
                 is FromLogin -> this.toDestination()
                 is FromMatchesTab -> this.toDestination()
                 is FromTeamTab -> this.toDestination()
+                is Back ->
             }
 
         private fun FromGazteluBiraTab.toDestination(): Destination =

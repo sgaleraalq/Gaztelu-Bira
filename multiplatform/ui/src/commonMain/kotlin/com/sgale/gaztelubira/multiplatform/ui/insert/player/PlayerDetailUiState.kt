@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.model
+package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
-import androidx.compose.runtime.Stable
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 
-@Stable
-data class GBPlayer(
-    val id: String = "",
-    val name: String = "",
-    val image: String? = null,
-    val dorsal: Int? = null
-)
+data class PlayerDetailUiState(
+    val isManager: Boolean = false,
+    val player: GBPlayer = GBPlayer(),
+    val winRate: PlayerWinRate = PlayerWinRate(),
+    val stats: PlayerStats? = null
+) {
+    data class PlayerWinRate(
+        val wins: Int = 0,
+        val draws: Int = 0,
+        val loses: Int = 0
+    )
+
+    data class PlayerStats(
+        val tbd: String
+    )
+}

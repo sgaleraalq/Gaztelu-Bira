@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.player.ui
+package com.sgale.gaztelubira.multiplatform.ui.insert.player.ui
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,8 +49,5 @@ fun TeamImage(
     logo: String?,
     logoSize: Int
 ) {
-    GBPlayerImage(
-        modifier = modifier.size(logoSize.dp).offset(y = (-(logoSize / 2)).dp),
-        image = logo
-    )
+
 }

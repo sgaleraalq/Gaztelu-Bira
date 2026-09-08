@@ -17,43 +17,44 @@
 package com.sgale.gaztelubira.core.screens.detail.player
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
-
-internal const val LOGO_SIZE = 50
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailActions
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailView
 
 @Composable
-fun PlayerDetailScreen(
+internal fun PlayerDetailScreen(
     playerId: String,
     isManager: Boolean,
     navigateBack: () -> Unit,
     viewModel: PlayerDetailViewModel = hiltViewModel<PlayerDetailViewModel>()
 ) {
-    val mainViewModel = LocalMainViewModel.current
-    val user by mainViewModel.userSession.collectAsState()
+//    val mainViewModel = LocalMainViewModel.current
+//    val user by mainViewModel.userSession.collectAsState()
+//
+//    val playerStats by viewModel.playerStats.collectAsState()
+//    val playerInformation by viewModel.playerInformation.collectAsState()
+//    val playerState by viewModel.playerState.collectAsState()
+//
+//    LaunchedEffect(true, user) {
+//        if (user == null) return@LaunchedEffect
+//        viewModel.loadPlayerInformation(user?.team, playerId)
+//    }
+//
+//    GBScaffold(title = "") { modifier ->
+//        PlayerDetailScreenUI(
+//            modifier = modifier,
+//            user = user,
+//            isManager = isManager,
+//            playerInformation = playerInformation,
+//            playerStats = playerStats,
+//            playerState = playerState,
+//            navigateBack = { navigateBack() }
+//        )
+//    }
 
-    val playerStats by viewModel.playerStats.collectAsState()
-    val playerInformation by viewModel.playerInformation.collectAsState()
-    val playerState by viewModel.playerState.collectAsState()
-
-    LaunchedEffect(true, user) {
-        if (user == null) return@LaunchedEffect
-        viewModel.loadPlayerInformation(user?.team, playerId)
-    }
-
-    GBScaffold(title = "") { modifier ->
-        PlayerDetailScreenUI(
-            modifier = modifier,
-            user = user,
-            isManager = isManager,
-            playerInformation = playerInformation,
-            playerStats = playerStats,
-            playerState = playerState,
-            navigateBack = { navigateBack() }
-        )
-    }
+    PlayerDetailView(
+        state = PlayerDetailUiState(),
+        actions = PlayerDetailActions()
+    )
 }

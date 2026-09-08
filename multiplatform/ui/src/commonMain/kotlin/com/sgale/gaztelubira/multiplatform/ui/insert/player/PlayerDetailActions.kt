@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.player
+package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
-data class PlayerDetailState(
-    val wins: Int,
-    val draws: Int,
-    val loses: Int
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+
+data class PlayerDetailActions(
+    val navigateTo: (UiDestination) -> Unit = {}
 )
