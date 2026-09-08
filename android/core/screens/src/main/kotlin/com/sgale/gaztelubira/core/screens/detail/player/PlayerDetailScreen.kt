@@ -26,8 +26,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.showToast
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailActions
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailView
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailActions
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailView
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.not_yet_available
 import org.jetbrains.compose.resources.stringResource

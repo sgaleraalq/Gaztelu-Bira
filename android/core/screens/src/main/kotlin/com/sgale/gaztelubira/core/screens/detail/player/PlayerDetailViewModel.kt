@@ -26,8 +26,8 @@ import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BI
 import com.sgale.gaztelubira.core.domain.usecase.db.FetchMatches
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayer
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayerStats
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState.PlayerWinRate
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState.PlayerWinRate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

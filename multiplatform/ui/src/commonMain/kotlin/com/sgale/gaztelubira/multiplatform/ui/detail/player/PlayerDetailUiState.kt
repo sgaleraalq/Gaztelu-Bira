@@ -14,11 +14,23 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.player
+package com.sgale.gaztelubira.multiplatform.ui.detail.player
 
-import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 
-data class PlayerDetailActions(
-    val showToast: () -> Unit,
-    val navigateTo: (UiDestination) -> Unit = {}
-)
+data class PlayerDetailUiState(
+    val isManager: Boolean = false,
+    val player: GBPlayer = GBPlayer(),
+    val winRate: PlayerWinRate = PlayerWinRate(),
+    val stats: PlayerStats? = null
+) {
+    data class PlayerWinRate(
+        val wins: Int = 0,
+        val draws: Int = 0,
+        val loses: Int = 0
+    )
+
+    data class PlayerStats(
+        val tbd: String
+    )
+}

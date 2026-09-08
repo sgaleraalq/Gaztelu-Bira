@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.player
+package com.sgale.gaztelubira.multiplatform.ui.detail.player
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
@@ -27,12 +26,11 @@ import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBackButton
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gb_text_field_label_color
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.Back
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.PlayerDetailImage
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.PlayerDetailInformationBox
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.ui.PlayerDetailImage
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.ui.PlayerDetailInformationBox
 
 @Composable
 internal fun PlayerDetailViewUI(

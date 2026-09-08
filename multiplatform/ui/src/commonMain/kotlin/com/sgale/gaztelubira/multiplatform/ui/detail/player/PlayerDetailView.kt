@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.player
+package com.sgale.gaztelubira.multiplatform.ui.detail.player
 
 import androidx.compose.runtime.Composable
 

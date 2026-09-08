@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.player.ui
+package com.sgale.gaztelubira.multiplatform.ui.detail.player.ui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -58,9 +58,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailActions
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.PlayerDetailUiState.PlayerWinRate
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailActions
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.draws
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_football_ball
@@ -143,7 +142,7 @@ private fun PlayerName(playerName: String?) {
 
 @Composable
 private fun PlayerBasicStats(
-    winRate: PlayerWinRate
+    winRate: PlayerDetailUiState.PlayerWinRate
 ) {
     var itemHeight by remember { mutableIntStateOf(0) }
 
