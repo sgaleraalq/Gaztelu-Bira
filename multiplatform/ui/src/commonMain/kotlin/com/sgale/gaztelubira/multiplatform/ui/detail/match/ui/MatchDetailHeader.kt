@@ -39,7 +39,10 @@ internal fun MatchDetailHeader(
     visitorGoals: Int,
     onBackPressed: () -> Unit
 ) {
-    Row(Modifier.fillMaxWidth(), verticalAlignment = CenterVertically) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = CenterVertically
+    ) {
         GBBackButton { onBackPressed() }
         GBMatchDetailResult(
             modifier = Modifier.weight(1f),
@@ -64,9 +67,21 @@ private fun GBMatchDetailResult(
         modifier = modifier,
         verticalAlignment = CenterVertically
     ) {
-        GBTeamDetailResult(Modifier.weight(1f), localTeam, localGoals)
-        GBText(":", Modifier.padding(horizontal = 8.dp))
-        GBTeamDetailResult(Modifier.weight(1f), visitorTeam, visitorGoals, false)
+        GBTeamDetailResult(
+            modifier = Modifier.weight(1f),
+            teamModel = localTeam,
+            goals = localGoals
+        )
+        GBText(
+            modifier = Modifier.padding(horizontal = 8.dp),
+            text = ":"
+        )
+        GBTeamDetailResult(
+            modifier = Modifier.weight(1f),
+            teamModel = visitorTeam,
+            goals = visitorGoals,
+            isLocal = false
+        )
     }
 
 }
@@ -78,7 +93,10 @@ private fun GBTeamDetailResult(
     goals: Int,
     isLocal: Boolean = true
 ) {
-    Row(modifier, verticalAlignment = CenterVertically) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = CenterVertically
+    ) {
         if (!isLocal) {
             GBText(
                 text = goals.toString(),
@@ -86,7 +104,10 @@ private fun GBTeamDetailResult(
             )
         }
         Spacer(Modifier.weight(1f))
-        GBTeam(Modifier.size(36.dp), teamModel?.logo)
+        GBTeam(
+            modifier = Modifier.size(36.dp),
+            image = teamModel?.logo
+        )
         Spacer(Modifier.weight(1f))
         if (isLocal) {
             GBText(

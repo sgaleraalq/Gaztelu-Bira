@@ -64,8 +64,15 @@ internal fun MatchDetailInformationBar(
     onLineUpsClicked: () -> Unit,
     onStatsClicked: () -> Unit
 ) {
-    Column(Modifier.padding(bottom = 8.dp).padding(horizontal = 12.dp)) {
-        Row(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
+    Column(
+        modifier = Modifier
+            .padding(bottom = 8.dp).padding(horizontal = 12.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp)
+        ) {
             MatchDetailInformationBarItem(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.details),
@@ -96,14 +103,13 @@ private fun MatchDetailInformationBarItem(
     isHighlighted: Boolean,
     onClick: () -> Unit
 ) {
-    Box(modifier.clickable { onClick() }, contentAlignment = Center) {
+    Box(
+        modifier = modifier.clickable { onClick() },
+        contentAlignment = Center
+    ) {
         GBText(
             text = text,
-            textColor = if (isHighlighted) {
-                White
-            } else {
-                player_card_name_text_color
-            },
+            textColor = if (isHighlighted) White else player_card_name_text_color,
             style = gBTypography().bodyMedium.copy(
                 fontWeight = if (isHighlighted) Bold else Thin
             )

@@ -25,6 +25,7 @@ import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailStat
 
 data class MatchDetailUiState(
     val uiState: MatchDetailState = Loading,
+    val team: GBTeam? = null,
     val localTeam: GBTeam? = null,
     val localGoals: Int = 0,
     val visitorTeam: GBTeam? = null,

@@ -24,10 +24,10 @@ sealed interface MatchDetailState {
     ): MatchDetailState
 
     data class Lineup(
-        val lineUp: MatchDetailLineUp
+        val lineUp: MatchDetailLineUp?
     ): MatchDetailState
 
     data class Stats(
-        val stats: MatchDetailStats
+        val stats: MatchDetailStats?
     ): MatchDetailState
 }

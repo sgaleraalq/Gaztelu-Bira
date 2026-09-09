@@ -33,16 +33,18 @@ import androidx.compose.ui.Alignment.Companion.Bottom
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.bench
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_bench
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 private val PLAYER_SIZE = 32.dp
 
@@ -51,7 +53,7 @@ private val PLAYER_SIZE = 32.dp
  */
 internal fun LazyGridScope.benchPlayers(
     showBench: Boolean,
-    benchPlayers: List<PlayerModel>
+    benchPlayers: List<GBPlayer>
 ) {
     item( span = { GridItemSpan(maxLineSpan) }) {
         AnimatedVisibility(
@@ -88,10 +90,10 @@ private fun BenchTitle() {
     ) {
         GBIcon(
             modifier = Modifier.size(32.dp),
-            icon = painterResource(R.drawable.ic_bench)
+            icon = painterResource(Res.drawable.ic_bench)
         )
         GBText(
-            text = stringResource(R.string.bench),
+            text = stringResource(Res.string.bench),
             style = gBTypography().bodyLarge
         )
     }
@@ -100,7 +102,7 @@ private fun BenchTitle() {
 @Composable
 private fun SubstituteCard(
     modifier: Modifier,
-    player: PlayerModel
+    player: GBPlayer
 ) {
     Row(
         verticalAlignment = CenterVertically,
@@ -108,7 +110,8 @@ private fun SubstituteCard(
     ) {
         GBPlayerCard(
             modifier = modifier.size(24.dp),
-            player = player.toGBPlayer(),
+            player = player,
+            placeholder = AppImages.facePlayer,
             showDorsal = false,
             showDeletion = false
         )
@@ -127,7 +130,7 @@ private fun SubstituteCard(
  */
 @Composable
 internal fun Managers(
-    managers: Pair<PlayerModel?, PlayerModel?>
+    managers: Pair<GBPlayer?, GBPlayer?>
 ) {
     managers.first?.let { manager ->
         ManagerCard(
@@ -148,14 +151,15 @@ internal fun Managers(
 @Composable
 private fun ManagerCard(
     modifier: Modifier,
-    player: PlayerModel
+    player: GBPlayer
 ) {
     Column(
         horizontalAlignment = CenterHorizontally
     ) {
         GBPlayerCard(
             modifier = modifier,
-            player = player.toGBPlayer(),
+            player = player,
+            placeholder = AppImages.manager,
             showDorsal = false,
             showDeletion = false
         )

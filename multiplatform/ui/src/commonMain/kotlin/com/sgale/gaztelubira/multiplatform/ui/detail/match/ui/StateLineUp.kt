@@ -54,6 +54,7 @@ import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailStat
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 
 internal val benchBgColor = gray_box_in_black_bg
 internal val benchHorizontalPadding = 12.dp
@@ -64,7 +65,7 @@ fun MatchDetailStateLineUp(
     team: GBTeam?,
     state: MatchDetailState?
 ) {
-    val lineUp = (state as Lineup).lineUp
+    val lineUp = (state as? Lineup)?.lineUp ?: return
 
     val scope = rememberCoroutineScope()
     var animationPlayed by rememberSaveable { mutableStateOf(false) }
@@ -99,7 +100,7 @@ fun MatchDetailStateLineUp(
                     onAnimationFinished = {
                         animationPlayed = true
                         scope.launch {
-                            delay(200)
+                            delay(200.milliseconds)
                             showBench = true
                         }
                     }

@@ -21,9 +21,10 @@ import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeam
+import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchMatchStats
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Companion.getLineUpFromString
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation
@@ -44,7 +45,8 @@ internal class MatchDetailViewModel @Inject constructor(
     private val fetchMatchStats: FetchMatchStats
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(MatchDetailUiState())
+    private val gazteluBira = GAZTELU_BIRA.toGBTeam()
+    private val _state = MutableStateFlow(MatchDetailUiState(team = gazteluBira))
     internal val state: StateFlow<MatchDetailUiState> = _state
 
     fun changeUiState(state: MatchDetailState) {
@@ -53,7 +55,10 @@ internal class MatchDetailViewModel @Inject constructor(
         )
     }
 
-    fun loadMatch(state: NavigationState, matchId: FirebaseId) {
+    fun loadMatch(
+        matchId: FirebaseId,
+        onMatchNotFound: () -> Unit
+    ) {
         viewModelScope.launch {
             val matchStats = withContext(Dispatchers.IO) {
                 fetchMatchStats(matchId)
@@ -62,8 +67,7 @@ internal class MatchDetailViewModel @Inject constructor(
             if (matchStats != null) {
                 createStateFromStats(matchStats)
             } else {
-//                showErrorToast()
-                state.navigateBack()
+                onMatchNotFound()
             }
         }
     }
@@ -102,7 +106,7 @@ internal class MatchDetailViewModel @Inject constructor(
         benchPlayers = matchStats.benchPlayers.map { it.toGBPlayer() },
         managers = matchStats.managers.map { it.toGBPlayer() },
         matchFormation = getLineUpFromString(matchStats.formation),
-        players = matchStats.lineUpPlayers
+        players = matchStats.lineUpPlayers.mapValues { (_, player) -> player?.toGBPlayer() }
     )
 
 
