@@ -49,7 +49,10 @@ internal fun PlayerDetailScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
 
-    val actions = remember(navState) {
+    val actions = remember(
+        viewModel,
+        navState
+    ) {
         PlayerDetailActions(
             showToast = { showToast(context, notAvailableYetMsg) },
             navigateTo = { destination -> navState.navigateTo(destination) }

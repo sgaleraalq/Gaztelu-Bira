@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match.ui
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -40,22 +40,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.font.FontWeight.Companion.Thin
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Details
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Lineup
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Loading
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Stats
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_name_text_color
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Details
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Loading
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Stats
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.details
+import com.sgale.gaztelubira.multiplatform.ui.resources.line_ups
+import com.sgale.gaztelubira.multiplatform.ui.resources.stats
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun MatchDetailInformationBar(
+internal fun MatchDetailInformationBar(
     state: MatchDetailState,
     onDetailsClicked: () -> Unit,
     onLineUpsClicked: () -> Unit,
@@ -65,19 +68,19 @@ fun MatchDetailInformationBar(
         Row(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
             MatchDetailInformationBarItem(
                 modifier = Modifier.weight(1f),
-                text = stringResource(R.string.details),
+                text = stringResource(Res.string.details),
                 isHighlighted = state is Details,
                 onClick = { onDetailsClicked() }
             )
             MatchDetailInformationBarItem(
                 modifier = Modifier.weight(1f),
-                text = stringResource(R.string.line_ups),
+                text = stringResource(Res.string.line_ups),
                 isHighlighted = state is Lineup,
                 onClick = { onLineUpsClicked() }
             )
             MatchDetailInformationBarItem(
                 modifier = Modifier.weight(1f),
-                text = stringResource(R.string.stats),
+                text = stringResource(Res.string.stats),
                 isHighlighted = state is Stats,
                 onClick = { onStatsClicked() }
             )
@@ -87,7 +90,7 @@ fun MatchDetailInformationBar(
 }
 
 @Composable
-fun MatchDetailInformationBarItem(
+private fun MatchDetailInformationBarItem(
     modifier: Modifier,
     text: String,
     isHighlighted: Boolean,
@@ -109,7 +112,9 @@ fun MatchDetailInformationBarItem(
 }
 
 @Composable
-internal fun MatchDetailInformationPointer(state: MatchDetailState) {
+private fun MatchDetailInformationPointer(
+    state: MatchDetailState
+) {
     val density = LocalDensity.current
     var totalWidth by remember { mutableStateOf(0.dp) }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match.states.line_up
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
@@ -42,17 +42,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Lineup
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBFootballField
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -62,10 +61,10 @@ internal val benchHorizontalPadding = 12.dp
 @Composable
 fun MatchDetailStateLineUp(
     modifier: Modifier,
-    team: TeamModel?,
+    team: GBTeam?,
     state: MatchDetailState?
 ) {
-    val lineUp = (state as Lineup).lineUp ?: return
+    val lineUp = (state as Lineup).lineUp
 
     val scope = rememberCoroutineScope()
     var animationPlayed by rememberSaveable { mutableStateOf(false) }
@@ -95,7 +94,7 @@ fun MatchDetailStateLineUp(
             fieldImage = AppImages.footballField,
                     modifier = Modifier.fillMaxWidth().fillMaxHeight(0.95f),
                     formation = lineUp.matchFormation,
-                    players = lineUp.players.mapValues { entry -> entry.value?.toGBPlayer() },
+                    players = lineUp.players.mapValues { entry -> entry.value }, // TODO
                     showAnimation = !animationPlayed,
                     onAnimationFinished = {
                         animationPlayed = true
@@ -113,8 +112,8 @@ fun MatchDetailStateLineUp(
 
 @Composable
 fun StartingElevenHeader(
-    managers: Pair<PlayerModel?, PlayerModel?>,
-    team: TeamModel?
+    managers: Pair<GBPlayer?, GBPlayer?>,
+    team: GBTeam?
 ) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),

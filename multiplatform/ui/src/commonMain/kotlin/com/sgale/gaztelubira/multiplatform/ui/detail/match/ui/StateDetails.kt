@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match.states.information
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -32,21 +32,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextAlign.Companion.End
 import androidx.compose.ui.text.style.TextAlign.Companion.Justify
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.domain.utils.toDate
-import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Details
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Details
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_date
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_location
+import com.sgale.gaztelubira.multiplatform.ui.resources.no_description_provided
+import com.sgale.gaztelubira.multiplatform.ui.resources.no_location_available
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import kotlin.Int.Companion.MAX_VALUE
 
 @Composable
@@ -62,7 +66,7 @@ fun MatchDetailStateDetails(
         verticalArrangement = spacedBy(12.dp)
     ) {
         DetailsTitle(info.local, info.visitor)
-        DetailsDate(info.date.toDate())
+        DetailsDate() // TODO
         DetailsDescription(
             modifier = Modifier.weight(1f).verticalScroll(scrollState),
             description = info.description
@@ -73,14 +77,14 @@ fun MatchDetailStateDetails(
 
 @Composable
 fun DetailsDate(
-    date: String
+    date: String = ""
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        DetailsIcon(R.drawable.ic_date)
+        DetailsIcon(Res.drawable.ic_date)
         Spacer(Modifier.width(8.dp))
         GBText(
             text = date,
@@ -93,8 +97,8 @@ fun DetailsDate(
 
 @Composable
 fun DetailsTitle(
-    local: TeamModel,
-    visitor: TeamModel
+    local: GBTeam,
+    visitor: GBTeam
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -132,7 +136,7 @@ fun DetailsDescription(
 ) {
     GBText(
         modifier = modifier.fillMaxWidth().padding(12.dp),
-        text = description ?: stringResource(R.string.no_description_provided),
+        text = description ?: stringResource(Res.string.no_description_provided),
         style = gBTypography().bodyMedium,
         alignment = Justify,
         maxLines = MAX_VALUE
@@ -149,9 +153,9 @@ fun DetailsLocation(
         horizontalArrangement = spacedBy(8.dp)
     ) {
         Spacer(Modifier.weight(1f))
-        DetailsIcon(R.drawable.ic_location)
+        DetailsIcon(Res.drawable.ic_location)
         GBText(
-            text = location ?: stringResource(R.string.no_location_available),
+            text = location ?: stringResource(Res.string.no_location_available),
             style = gBTypography().bodyMedium,
             alignment = End
         )
@@ -159,7 +163,9 @@ fun DetailsLocation(
 }
 
 @Composable
-fun DetailsIcon(painter: Int) {
+fun DetailsIcon(
+    painter: DrawableResource
+) {
     Icon(
         modifier = Modifier.size(16.dp),
         painter = painterResource(painter),

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match.states.information
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.state
 
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
 
 data class MatchDetailInformation(
-    val local: TeamModel,
-    val visitor: TeamModel,
+    val local: GBTeam,
+    val visitor: GBTeam,
     val date: Long,
     val description: String?,
     val location: String?

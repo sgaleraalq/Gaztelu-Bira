@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.detail.player
+package com.sgale.gaztelubira.multiplatform.ui.detail.match
 
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 
-data class PlayerDetailActions(
-    val showToast: () -> Unit,
+data class MatchDetailActions(
+    val changeUiState: (MatchDetailState) -> Unit,
     val navigateTo: (UiDestination) -> Unit
 )

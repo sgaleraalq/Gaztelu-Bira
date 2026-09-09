@@ -19,15 +19,18 @@ package com.sgale.gaztelubira.core.screens.detail.match
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
+import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeam
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchMatchStats
-import com.sgale.gaztelubira.core.domain.utils.IToastManager
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Lineup
-import com.sgale.gaztelubira.core.screens.detail.match.states.information.MatchDetailInformation
-import com.sgale.gaztelubira.core.screens.detail.match.states.line_up.MatchDetailLineUp
-import com.sgale.gaztelubira.core.screens.detail.match.states.stats.MatchDetailStats
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Companion.getLineUpFromString
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailLineUp
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailStats
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,15 +40,15 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MatchDetailViewModel @Inject constructor(
-    private val fetchMatchStats: FetchMatchStats,
-    private val toastManager: IToastManager
+internal class MatchDetailViewModel @Inject constructor(
+    private val fetchMatchStats: FetchMatchStats
 ) : ViewModel() {
-    private val _data = MutableStateFlow(MatchDetailUiState())
-    val data: StateFlow<MatchDetailUiState> = _data
+
+    private val _state = MutableStateFlow(MatchDetailUiState())
+    internal val state: StateFlow<MatchDetailUiState> = _state
 
     fun changeUiState(state: MatchDetailState) {
-        _data.value = _data.value.copy(
+        _state.value = _state.value.copy(
             uiState = state
         )
     }
@@ -59,7 +62,7 @@ class MatchDetailViewModel @Inject constructor(
             if (matchStats != null) {
                 createStateFromStats(matchStats)
             } else {
-                showErrorToast()
+//                showErrorToast()
                 state.navigateBack()
             }
         }
@@ -70,11 +73,11 @@ class MatchDetailViewModel @Inject constructor(
         val lineUp = setLineUp(matchStats)
         val stats = setStats(matchStats)
 
-        _data.value = _data.value.copy(
+        _state.value = _state.value.copy(
             uiState = Lineup(lineUp),
-            localTeam = matchStats.matchModel.localTeam,
+            localTeam = matchStats.matchModel.localTeam.toGBTeam(),
             localGoals = matchStats.matchModel.localGoals,
-            visitorTeam = matchStats.matchModel.visitorTeam,
+            visitorTeam = matchStats.matchModel.visitorTeam.toGBTeam(),
             visitorGoals = matchStats.matchModel.visitorGoals,
             information = matchInformation,
             lineUp = lineUp,
@@ -85,8 +88,8 @@ class MatchDetailViewModel @Inject constructor(
     private fun setMatchInformation(
         matchStats: MatchStatsModel
     ) = MatchDetailInformation(
-        local = matchStats.matchModel.localTeam,
-        visitor = matchStats.matchModel.visitorTeam,
+        local = matchStats.matchModel.localTeam.toGBTeam(),
+        visitor = matchStats.matchModel.visitorTeam.toGBTeam(),
         date = matchStats.matchModel.date,
         description = matchStats.description,
         location = matchStats.location
@@ -96,8 +99,8 @@ class MatchDetailViewModel @Inject constructor(
     private fun setLineUp(
         matchStats: MatchStatsModel
     ) = MatchDetailLineUp(
-        benchPlayers = matchStats.benchPlayers,
-        managers = matchStats.managers,
+        benchPlayers = matchStats.benchPlayers.map { it.toGBPlayer() },
+        managers = matchStats.managers.map { it.toGBPlayer() },
         matchFormation = getLineUpFromString(matchStats.formation),
         players = matchStats.lineUpPlayers
     )
@@ -106,18 +109,14 @@ class MatchDetailViewModel @Inject constructor(
     private fun setStats(
         matchStats: MatchStatsModel
     ) = MatchDetailStats(
-        assists = matchStats.stats.assists,
-        cleanSheets = matchStats.stats.cleanSheets,
-        fails = matchStats.stats.fails,
-        goals = matchStats.stats.goals,
-        goalsProvoked = matchStats.stats.goalsProvoked,
-        penaltiesProvoked = matchStats.stats.penaltiesProvoked,
-        redCards = matchStats.stats.redCards,
-        saves = matchStats.stats.saves,
-        yellowCards = matchStats.stats.yellowCards
+        assists = matchStats.stats.assists.map { it.toGBPlayer() },
+        cleanSheets = matchStats.stats.cleanSheets.map { it.toGBPlayer() },
+        fails = matchStats.stats.fails.map { it.toGBPlayer() },
+        goals = matchStats.stats.goals.map { it.toGBPlayer() },
+        goalsProvoked = matchStats.stats.goalsProvoked.map { it.toGBPlayer() },
+        penaltiesProvoked = matchStats.stats.penaltiesProvoked.map { it.toGBPlayer() },
+        redCards = matchStats.stats.redCards.map { it.toGBPlayer() },
+        saves = matchStats.stats.saves.map { it.toGBPlayer() },
+        yellowCards = matchStats.stats.yellowCards.map { it.toGBPlayer() }
     )
-
-    private fun showErrorToast() {
-        toastManager.showToast("There was an error")
-    }
 }

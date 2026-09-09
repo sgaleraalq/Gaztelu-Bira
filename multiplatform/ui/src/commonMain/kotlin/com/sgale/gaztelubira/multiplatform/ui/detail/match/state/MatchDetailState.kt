@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match.states.line_up
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.state
 
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+sealed interface MatchDetailState {
+    data object Loading: MatchDetailState
 
-data class MatchDetailLineUp(
-    val benchPlayers: List<PlayerModel>,
-    val managers: List<PlayerModel>,
-    val matchFormation: LineUpFormation,
-    val players: Map<Int, PlayerModel?>
-)
+    data class Details(
+        val information: MatchDetailInformation?
+    ): MatchDetailState
+
+    data class Lineup(
+        val lineUp: MatchDetailLineUp
+    ): MatchDetailState
+
+    data class Stats(
+        val stats: MatchDetailStats
+    ): MatchDetailState
+}

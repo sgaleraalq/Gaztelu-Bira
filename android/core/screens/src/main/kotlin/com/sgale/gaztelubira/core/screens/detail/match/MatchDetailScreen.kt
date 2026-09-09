@@ -18,36 +18,40 @@ package com.sgale.gaztelubira.core.screens.detail.match
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailActions
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailView
 
 @Composable
-fun MatchDetailScreen(
-    state: NavigationState,
+internal fun MatchDetailScreen(
+    navState: NavigationState,
     matchId: FirebaseId,
     viewModel: MatchDetailViewModel = hiltViewModel<MatchDetailViewModel>()
 ) {
-    val mainViewModel = LocalMainViewModel.current
-    val user by mainViewModel.userSession.collectAsState()
-
-    val data by viewModel.data.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(true) {
-        viewModel.loadMatch(state, matchId)
+        viewModel.loadMatch(navState, matchId)
     }
 
-    GBScaffold(title = "") { modifier ->
-        MatchDetailScreenUI(
-            modifier = modifier,
-            user = user,
-            data = data,
-            changeUiState = { viewModel.changeUiState(it) },
-            navigateBack = { state.navigateBack() }
+    val actions = remember(
+        viewModel,
+        navState
+    ) {
+        MatchDetailActions(
+            changeUiState = viewModel::changeUiState,
+            navigateTo = { destination -> navState.navigateTo(destination) }
         )
     }
+
+    MatchDetailView(
+        state = state,
+        actions = actions
+    )
 }

@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.detail.player
+package com.sgale.gaztelubira.multiplatform.ui.detail.match
 
-import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import androidx.compose.runtime.Composable
 
-data class PlayerDetailActions(
-    val showToast: () -> Unit,
-    val navigateTo: (UiDestination) -> Unit
-)
+@Composable
+fun MatchDetailView(
+    state: MatchDetailUiState,
+    actions: MatchDetailActions
+) {
+    MatchDetailViewUI(
+        state = state,
+        actions = actions
+    )
+}

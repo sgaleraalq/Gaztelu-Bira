@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.detail.player
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.state;
 
-import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 
-data class PlayerDetailActions(
-    val showToast: () -> Unit,
-    val navigateTo: (UiDestination) -> Unit
+data class MatchDetailLineUp(
+    val benchPlayers: List<GBPlayer>,
+    val managers: List<GBPlayer>,
+    val matchFormation: LineUpFormation,
+    val players: Map<Int, GBPlayer?>
 )

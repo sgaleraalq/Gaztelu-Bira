@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match.states.line_up
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn

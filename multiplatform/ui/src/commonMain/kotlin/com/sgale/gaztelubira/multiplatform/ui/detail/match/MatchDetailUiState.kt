@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match
+package com.sgale.gaztelubira.multiplatform.ui.detail.match
 
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailState.Loading
-import com.sgale.gaztelubira.core.screens.detail.match.states.information.MatchDetailInformation
-import com.sgale.gaztelubira.core.screens.detail.match.states.line_up.MatchDetailLineUp
-import com.sgale.gaztelubira.core.screens.detail.match.states.stats.MatchDetailStats
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailLineUp
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.*
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailStats
 
 data class MatchDetailUiState(
     val uiState: MatchDetailState = Loading,
-    val localTeam: TeamModel? = null,
+    val localTeam: GBTeam? = null,
     val localGoals: Int = 0,
-    val visitorTeam: TeamModel? = null,
+    val visitorTeam: GBTeam? = null,
     val visitorGoals: Int = 0,
     val information: MatchDetailInformation? = null,
     val lineUp: MatchDetailLineUp? = null,

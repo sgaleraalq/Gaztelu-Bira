@@ -16,7 +16,6 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.detail.player.ui
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +30,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
@@ -43,12 +41,10 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
@@ -60,6 +56,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailActions
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState.PlayerWinRate
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.draws
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_football_ball
@@ -118,11 +115,11 @@ private fun PlayerInformation(
             .fillMaxSize()
             .padding(top = (LOGO_SIZE / 2 + 16).dp, bottom = 16.dp)
     ) {
-        Spacer(Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
         PlayerName(state.player.name)
-        Spacer(Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         PlayerBasicStats(state.winRate)
-        Spacer(Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         ViewStatsButton { onViewStats() }
     }
 }
@@ -142,7 +139,7 @@ private fun PlayerName(playerName: String?) {
 
 @Composable
 private fun PlayerBasicStats(
-    winRate: PlayerDetailUiState.PlayerWinRate
+    winRate: PlayerWinRate
 ) {
     var itemHeight by remember { mutableIntStateOf(0) }
 
@@ -156,17 +153,13 @@ private fun PlayerBasicStats(
             statValue = winRate.wins.toString(),
             playerStat = stringResource(Res.string.wins)
         )
-
         PersonalizedSpacer(itemHeight)
-
         PlayerStatItem(
             modifier = Modifier.weight(1f),
             statValue = winRate.draws.toString(),
             playerStat = stringResource(Res.string.draws)
         )
-
         PersonalizedSpacer(itemHeight)
-
         PlayerStatItem(
             modifier = Modifier.weight(1f),
             statValue = winRate.loses.toString(),
@@ -204,39 +197,6 @@ private fun PlayerStatItem(
         )
         Spacer(Modifier.height(12.dp))
         HorizontalDivider(thickness = 1.dp, color = primaryRed)
-    }
-}
-
-@Composable
-private fun PersonalizedSpacer(itemHeight: Int) {
-    Column(
-        modifier = Modifier
-            .width(8.dp)
-            .height(with(LocalDensity.current) { itemHeight.toDp() })
-            .padding(vertical = 12.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = CenterHorizontally
-    ) {
-        repeat(8) {
-            DiagonalLine()
-        }
-    }
-}
-
-@Composable
-private fun DiagonalLine() {
-    Canvas(
-        modifier = Modifier.fillMaxWidth().height(5.dp)
-    ) {
-        val start = Offset(0f, 0f)
-        val end = Offset(size.width * 1f, size.height * 1f)
-
-        drawLine(
-            color = primaryBlue,
-            start = start,
-            end = end,
-            strokeWidth = 4f
-        )
     }
 }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match.ui
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,17 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBackButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
 
 @Composable
-fun MatchDetailHeader(
-    localTeam: TeamModel?,
+internal fun MatchDetailHeader(
+    localTeam: GBTeam?,
     localGoals: Int,
-    visitorTeam: TeamModel?,
+    visitorTeam: GBTeam?,
     visitorGoals: Int,
     onBackPressed: () -> Unit
 ) {
@@ -53,11 +53,11 @@ fun MatchDetailHeader(
 }
 
 @Composable
-fun GBMatchDetailResult(
+private fun GBMatchDetailResult(
     modifier: Modifier,
-    localTeam: TeamModel?,
+    localTeam: GBTeam?,
     localGoals: Int,
-    visitorTeam: TeamModel?,
+    visitorTeam: GBTeam?,
     visitorGoals: Int
 ) {
     Row(
@@ -72,9 +72,9 @@ fun GBMatchDetailResult(
 }
 
 @Composable
-fun GBTeamDetailResult(
+private fun GBTeamDetailResult(
     modifier: Modifier,
-    teamModel: TeamModel?,
+    teamModel: GBTeam?,
     goals: Int,
     isLocal: Boolean = true
 ) {

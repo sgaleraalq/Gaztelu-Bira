@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.detail.match.states.stats
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.state;
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 
 data class MatchDetailStats(
-    val assists: List<PlayerModel>,
-    val cleanSheets: List<PlayerModel>,
-    val fails: List<PlayerModel>,
-    val goals: List<PlayerModel>,
-    val goalsProvoked: List<PlayerModel>,
-    val penaltiesProvoked: List<PlayerModel>,
-    val redCards: List<PlayerModel>,
-    val saves: List<PlayerModel>,
-    val yellowCards: List<PlayerModel>
+    val assists: List<GBPlayer>,
+    val cleanSheets: List<GBPlayer>,
+    val fails: List<GBPlayer>,
+    val goals: List<GBPlayer>,
+    val goalsProvoked: List<GBPlayer>,
+    val penaltiesProvoked: List<GBPlayer>,
+    val redCards: List<GBPlayer>,
+    val saves: List<GBPlayer>,
+    val yellowCards: List<GBPlayer>
 )
