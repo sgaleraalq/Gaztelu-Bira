@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -61,11 +61,15 @@ fun MatchDetailStateDetails(
     val info = (state as Details).information ?: return
 
     val scrollState = rememberScrollState()
+
     Column(
-        modifier.padding(horizontal = 12.dp).padding(top = 12.dp, bottom = 24.dp),
+        modifier = modifier.padding(horizontal = 12.dp).padding(top = 12.dp, bottom = 24.dp),
         verticalArrangement = spacedBy(12.dp)
     ) {
-        DetailsTitle(info.local, info.visitor)
+        DetailsTitle(
+            local = info.local,
+            visitor = info.visitor
+        )
         DetailsDate() // TODO
         DetailsDescription(
             modifier = Modifier.weight(1f).verticalScroll(scrollState),

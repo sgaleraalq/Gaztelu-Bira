@@ -20,8 +20,11 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class PlayerPosition(
-    val showOrder: Int,
     val position: LineUpPosition,
     val x: Float,
     val y: Float
-)
+) {
+    init {
+        require(x in 0f..1f && y in 0f..1f) { "$position sits off the pitch: ($x, $y)" }
+    }
+}

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.header
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,38 +30,35 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
 
 @Composable
 internal fun MatchDetailHeader(
-    localTeam: GBTeam?,
-    localGoals: Int,
-    visitorTeam: GBTeam?,
-    visitorGoals: Int,
+    state: MatchDetailUiState,
     onBackPressed: () -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = CenterVertically
     ) {
-        GBBackButton { onBackPressed() }
+        GBBackButton(
+            onClick = { onBackPressed() }
+        )
         GBMatchDetailResult(
             modifier = Modifier.weight(1f),
-            localTeam = localTeam,
-            localGoals = localGoals,
-            visitorTeam = visitorTeam,
-            visitorGoals = visitorGoals
+            state = state
         )
-        GBBackButton(isVisible = false) { }
+        GBBackButton(
+            isVisible = false,
+            onClick = {}
+        )
     }
 }
 
 @Composable
 private fun GBMatchDetailResult(
     modifier: Modifier,
-    localTeam: GBTeam?,
-    localGoals: Int,
-    visitorTeam: GBTeam?,
-    visitorGoals: Int
+    state: MatchDetailUiState,
 ) {
     Row(
         modifier = modifier,
@@ -69,8 +66,8 @@ private fun GBMatchDetailResult(
     ) {
         GBTeamDetailResult(
             modifier = Modifier.weight(1f),
-            teamModel = localTeam,
-            goals = localGoals
+            teamModel = state.localTeam,
+            goals = state.localGoals
         )
         GBText(
             modifier = Modifier.padding(horizontal = 8.dp),
@@ -78,8 +75,8 @@ private fun GBMatchDetailResult(
         )
         GBTeamDetailResult(
             modifier = Modifier.weight(1f),
-            teamModel = visitorTeam,
-            goals = visitorGoals,
+            teamModel = state.visitorTeam,
+            goals = state.visitorGoals,
             isLocal = false
         )
     }

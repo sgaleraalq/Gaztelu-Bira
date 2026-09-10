@@ -23,43 +23,49 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Red
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressDialog
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.Back
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Details
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Stats
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.MatchDetailHeader
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.MatchDetailInformationBar
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.MatchDetailStateDetails
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.MatchDetailStateLineUp
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.MatchDetailStateStats
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.header.MatchDetailHeader
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.header.MatchDetailInformationBar
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.detail.MatchDetailStateDetails
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.detail.MatchDetailStateLineUp
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.detail.MatchDetailStateStats
 
 @Composable
 internal fun MatchDetailViewUI(
+    modifier: Modifier,
     state: MatchDetailUiState,
     actions: MatchDetailActions
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         MatchDetailHeader(
-            localTeam = state.localTeam,
-            localGoals = state.localGoals,
-            visitorTeam = state.visitorTeam,
-            visitorGoals = state.visitorGoals,
+            state = state,
             onBackPressed = { actions.navigateTo(Back) }
         )
         MatchDetailInformationBar(
-            state = state.uiState,
-            onDetailsClicked = { actions.changeUiState(Details(state.information)) },
-            onLineUpsClicked = { actions.changeUiState(Lineup(state.lineUp)) },
-            onStatsClicked = { actions.changeUiState(Stats(state.stats)) }
+            state = state,
+            actions = actions,
         )
 
-        when (state.uiState) {
-            Loading -> GBProgressDialog(show = true, color = Red)
-            is Details -> MatchDetailStateDetails(Modifier.weight(1f), state.uiState)
-            is Lineup -> MatchDetailStateLineUp(Modifier.weight(1f), state.team, state.uiState)
-            is Stats -> MatchDetailStateStats(Modifier.weight(1f), state.uiState)
-        }
+        DisplayDetail(
+            modifier = Modifier.weight(1f),
+            state = state
+        )
     }
+}
+
+@Composable
+private fun DisplayDetail(
+    modifier: Modifier,
+    state: MatchDetailUiState
+) = when (state.uiState) {
+    Loading -> GBProgressDialog(show = true, color = Red)
+    is Details -> MatchDetailStateDetails(modifier = modifier, state = state.uiState)
+    is Lineup -> MatchDetailStateLineUp(modifier = modifier, team = state.team, state = state.uiState)
+    is Stats -> MatchDetailStateStats(modifier = modifier, state = state.uiState)
 }

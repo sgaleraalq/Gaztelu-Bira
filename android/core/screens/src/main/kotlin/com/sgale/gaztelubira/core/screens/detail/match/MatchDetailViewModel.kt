@@ -21,11 +21,10 @@ import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeam
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchMatchStats
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Companion.getLineUpFromString
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailLineUp
@@ -105,7 +104,7 @@ internal class MatchDetailViewModel @Inject constructor(
     ) = MatchDetailLineUp(
         benchPlayers = matchStats.benchPlayers.map { it.toGBPlayer() },
         managers = matchStats.managers.map { it.toGBPlayer() },
-        matchFormation = getLineUpFromString(matchStats.formation),
+        matchFormation = LineUpFormation.fromCode(matchStats.formation) ?: LineUpFormation.DEFAULT,
         players = matchStats.lineUpPlayers.mapValues { (_, player) -> player?.toGBPlayer() }
     )
 

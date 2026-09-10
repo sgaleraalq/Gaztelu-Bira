@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.header
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -22,13 +22,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,58 +48,24 @@ import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailStat
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Stats
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.details
-import com.sgale.gaztelubira.multiplatform.ui.resources.line_ups
-import com.sgale.gaztelubira.multiplatform.ui.resources.stats
-import org.jetbrains.compose.resources.stringResource
+
+private const val POINTER_OFFSET = "pointer_offset"
+private const val POINTER_MOVE_DURATION = 400
 
 @Composable
-internal fun MatchDetailInformationBar(
-    state: MatchDetailState,
-    onDetailsClicked: () -> Unit,
-    onLineUpsClicked: () -> Unit,
-    onStatsClicked: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .padding(bottom = 8.dp).padding(horizontal = 12.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp)
-        ) {
-            MatchDetailInformationBarItem(
-                modifier = Modifier.weight(1f),
-                text = stringResource(Res.string.details),
-                isHighlighted = state is Details,
-                onClick = { onDetailsClicked() }
-            )
-            MatchDetailInformationBarItem(
-                modifier = Modifier.weight(1f),
-                text = stringResource(Res.string.line_ups),
-                isHighlighted = state is Lineup,
-                onClick = { onLineUpsClicked() }
-            )
-            MatchDetailInformationBarItem(
-                modifier = Modifier.weight(1f),
-                text = stringResource(Res.string.stats),
-                isHighlighted = state is Stats,
-                onClick = { onStatsClicked() }
-            )
-        }
-        MatchDetailInformationPointer(state)
-    }
-}
-
-@Composable
-private fun MatchDetailInformationBarItem(
+internal fun MatchDetailBox(
     modifier: Modifier,
     text: String,
     isHighlighted: Boolean,
     onClick: () -> Unit
 ) {
+    val textStyle = gBTypography().bodyMedium.copy(
+        fontWeight = when (isHighlighted) {
+            true -> Bold
+            false -> Thin
+        }
+    )
+
     Box(
         modifier = modifier.clickable { onClick() },
         contentAlignment = Center
@@ -110,15 +73,13 @@ private fun MatchDetailInformationBarItem(
         GBText(
             text = text,
             textColor = if (isHighlighted) White else player_card_name_text_color,
-            style = gBTypography().bodyMedium.copy(
-                fontWeight = if (isHighlighted) Bold else Thin
-            )
+            style = textStyle
         )
     }
 }
 
 @Composable
-private fun MatchDetailInformationPointer(
+internal fun MatchDetailPointer(
     state: MatchDetailState
 ) {
     val density = LocalDensity.current
@@ -134,17 +95,15 @@ private fun MatchDetailInformationPointer(
     val cellWidth = if (totalWidth > 0.dp) totalWidth / 3 else 0.dp
     val pointerPadding = 32.dp
     val offsetX by animateDpAsState(
-        targetValue = (cellWidth * targetIndex)+ pointerPadding/2,
-        animationSpec = tween(400, easing = FastOutSlowInEasing),
-        label = "pointerOffset"
+        targetValue = (cellWidth * targetIndex) + pointerPadding / 2,
+        animationSpec = tween(POINTER_MOVE_DURATION, easing = FastOutSlowInEasing),
+        label = POINTER_OFFSET
     )
 
     Box(
         Modifier
             .fillMaxWidth()
-            .onGloballyPositioned {
-                totalWidth = with(density) { it.size.width.toDp() }
-            }
+            .onGloballyPositioned { totalWidth = with(density) { it.size.width.toDp() } }
             .height(2.dp)
     ) {
         Box(

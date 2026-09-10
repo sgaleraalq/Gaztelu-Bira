@@ -29,7 +29,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Goa
 data class InsertMatchFormation(
     val state: PlayerState = LineUp,
     val formation: LineUpFormation = FourThreeThree,
-    val lineUp: Map<Int, PlayerModel?> = (0..10).associateWith { null },
+    val lineUp: Map<Int, PlayerModel?> = FourThreeThree.positions.indices.associateWith { null },
     val benchPlayers: List<PlayerModel> = emptyList(),
     val managers: Pair<PlayerModel?, PlayerModel?> = Pair(null, null),
     val selectedPosition: LineUpPosition = Goalkeeper,

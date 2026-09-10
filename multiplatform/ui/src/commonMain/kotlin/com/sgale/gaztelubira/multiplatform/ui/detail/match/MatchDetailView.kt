@@ -17,14 +17,21 @@
 package com.sgale.gaztelubira.multiplatform.ui.detail.match
 
 import androidx.compose.runtime.Composable
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 @Composable
 fun MatchDetailView(
     state: MatchDetailUiState,
     actions: MatchDetailActions
 ) {
-    MatchDetailViewUI(
-        state = state,
-        actions = actions
-    )
+
+    GBScaffold(
+        title = ""
+    ) { modifier ->
+        MatchDetailViewUI(
+            modifier = modifier,
+            state = state,
+            actions = actions
+        )
+    }
 }

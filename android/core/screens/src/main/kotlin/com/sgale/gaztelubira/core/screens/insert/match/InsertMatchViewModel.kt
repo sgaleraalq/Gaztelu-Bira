@@ -390,7 +390,7 @@ class InsertMatchViewModel @Inject constructor(
             location = _informationState.value.location,
             description = _informationState.value.description,
             matchModel = match.toMatchModel(),
-            formation = _formationState.value.formation.formation,
+            formation = _formationState.value.formation.code,
             lineUpPlayers = _formationState.value.getLineUpPlayers(),
             benchPlayers = _formationState.value.benchPlayers,
             managers = _formationState.value.managers.toList().filterNotNull(),

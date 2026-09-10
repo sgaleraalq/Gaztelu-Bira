@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui
+package com.sgale.gaztelubira.multiplatform.ui.detail.match.ui.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

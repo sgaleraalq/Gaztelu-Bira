@@ -52,7 +52,6 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBFootballFie
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.Companion.ALL_FORMATIONS
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
@@ -99,7 +98,7 @@ internal fun FormationPossibilities(
     formationState: InsertMatchFormation,
     changeFormationSelected: (LineUpFormation) -> Unit
 ) {
-    val formations = remember { ALL_FORMATIONS }
+    val formations = remember { LineUpFormation.entries }
 
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
@@ -108,10 +107,10 @@ internal fun FormationPossibilities(
     ) {
         items(
             items = formations,
-            key = { it.formation }
+            key = { it.code }
         ) { formation ->
             InsertMatchFormationButton(
-                text = formation.formation,
+                text = formation.code,
                 isSelected = formation == formationState.formation,
                 onClick = { changeFormationSelected(formation) }
             )
