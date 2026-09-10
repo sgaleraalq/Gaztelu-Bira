@@ -55,18 +55,19 @@ internal fun PlayerCard(
     GBDialog(
         dismiss = onDismiss,
         color = lightGray
-    ) {
-        PlayerStatsCard(player)
+    ) { modifier ->
+        PlayerStatsCard(modifier, player)
     }
 }
 
 @Composable
 private fun PlayerStatsCard(
+    modifier: Modifier,
     player: GBPlayerStatsDetail
 ) {
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .size(500.dp)
             .padding(12.dp)
     ) {

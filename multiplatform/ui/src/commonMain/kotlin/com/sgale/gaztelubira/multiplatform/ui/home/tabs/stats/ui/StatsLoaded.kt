@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.ShowPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Menu
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.SelectedStatTitle
@@ -55,7 +54,8 @@ internal fun StatsLoaded(
         StatsClassification(
             modifier = Modifier.weight(0.6f),
             players = state.players,
-            selectPlayer = { actions.onPlayerAction(ShowPlayer(it)) }
+            selectPlayer = { actions.onPlayerAction(ShowPlayer(it)) },
+            onImgLoadingError = actions.onImgLoadingError
         )
     }
 }

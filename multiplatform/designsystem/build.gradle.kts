@@ -73,6 +73,19 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
         }
+
+        /**
+         * Ktor picks its engine off the runtime classpath: with none there, the first image
+         * request dies in `HttpClient`'s initialiser with "Failed to find HTTP client engine
+         * implementation" and nothing ever loads.
+         */
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
     }
 }
 

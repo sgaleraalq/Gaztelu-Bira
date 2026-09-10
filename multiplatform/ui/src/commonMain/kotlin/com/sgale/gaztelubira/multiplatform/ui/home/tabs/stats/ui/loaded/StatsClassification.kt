@@ -57,7 +57,8 @@ private val PLAYER_CLASSIFICATION_SIZE = 36.dp
 internal fun StatsClassification(
     modifier: Modifier,
     players: List<GBPlayerStat>,
-    selectPlayer: (String) -> Unit
+    selectPlayer: (String) -> Unit,
+    onImgLoadingError: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -69,6 +70,7 @@ internal fun StatsClassification(
             ClassificationCard(
                 player = player,
                 position = index + 4,
+                onImgLoadingError = onImgLoadingError,
                 onClick = { selectPlayer(player.id) }
             )
         }
@@ -77,7 +79,7 @@ internal fun StatsClassification(
             items = players.filter { it.dorsal == null },
             key = { _, player -> player.id }
         ) { _, player ->
-            UnrankedPlayer(player)
+            UnrankedPlayer(player, onImgLoadingError)
         }
     }
 }
@@ -86,7 +88,8 @@ internal fun StatsClassification(
 private fun ClassificationCard(
     player: GBPlayerStat,
     position: Int,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onImgLoadingError: (String) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -101,7 +104,8 @@ private fun ClassificationCard(
             position = position
         )
         ClassificationPlayerImage(
-            image = player.faceImage
+            image = player.faceImage,
+            onImgLoadingError = onImgLoadingError
         )
         ClassificationName(
             modifier = Modifier.weight(1f),
@@ -133,7 +137,8 @@ private fun ClassificationPosition(
 
 @Composable
 private fun ClassificationPlayerImage(
-    image: String?
+    image: String?,
+    onImgLoadingError: (String) -> Unit
 ) {
     var isLoading by remember { mutableStateOf(true) }
 
@@ -146,7 +151,8 @@ private fun ClassificationPlayerImage(
         contentScale = Fit,
         placeholder = AppImages.facePlayer,
         isLoading = isLoading,
-        finishLoading = { isLoading = false }
+        finishLoading = { isLoading = false },
+        onError = { onImgLoadingError(it) }
     )
 }
 
@@ -177,7 +183,8 @@ private fun ClassificationName(
 
 @Composable
 private fun UnrankedPlayer(
-    player: GBPlayerStat
+    player: GBPlayerStat,
+    onImgLoadingError: (String) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -189,7 +196,7 @@ private fun UnrankedPlayer(
         horizontalArrangement = spacedBy(16.dp)
     ) {
         ClassificationPosition(null)
-        ClassificationPlayerImage(player.faceImage)
+        ClassificationPlayerImage(player.faceImage, onImgLoadingError)
         ClassificationName(Modifier.weight(1f), player)
     }
 }

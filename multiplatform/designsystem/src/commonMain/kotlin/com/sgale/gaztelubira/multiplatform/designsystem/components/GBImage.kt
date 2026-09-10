@@ -53,7 +53,8 @@ fun GBImage(
     imageModifier: Modifier = Modifier,
     image: String?,
     placeholder: Painter? = null,
-    contentScale: ContentScale = Crop
+    contentScale: ContentScale = Crop,
+    logError: () -> Unit = {}
 ) {
     var isLoading by remember { mutableStateOf(false) }
     val customModifier = if (isLoading) modifier.shimmerEffect() else modifier
@@ -67,11 +68,14 @@ fun GBImage(
             model = image,
             contentScale = contentScale,
             contentDescription = null,
-            onLoading = { isLoading = true },
-            onError = { isLoading = false },
-            onSuccess = { isLoading = false },
             error = placeholder,
-            fallback = placeholder
+            fallback = placeholder,
+            onLoading = { isLoading = true },
+            onSuccess = { isLoading = false },
+            onError = {
+                logError()
+                isLoading = false
+            },
         )
     }
 }
@@ -127,14 +131,18 @@ fun GBAsyncImage(
     placeholder: Painter? = null,
     contentScale: ContentScale = Crop,
     isLoading: Boolean = false,
-    finishLoading: () -> Unit = {}
+    finishLoading: () -> Unit = {},
+    onError: (String) -> Unit = {}
 ) {
     AsyncImage(
         modifier = if (isLoading) modifier.shimmerEffect() else modifier,
         model = image,
         contentScale = contentScale,
         contentDescription = null,
-        onError = { finishLoading() },
+        onError = { error ->
+            onError(error.result.throwable.message.orEmpty())
+            finishLoading()
+        },
         onSuccess = { finishLoading() },
         error = placeholder,
         fallback = placeholder

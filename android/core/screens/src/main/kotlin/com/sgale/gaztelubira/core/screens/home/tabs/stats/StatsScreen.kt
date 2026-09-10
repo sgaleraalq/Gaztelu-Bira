@@ -16,11 +16,13 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsView
 
@@ -36,7 +38,8 @@ internal fun StatsScreen(
             onSettingsChanged = viewModel::onSettingsChanged,
             onStatSelected = viewModel::onStatSelected,
             onPunctuationDraftChanged = viewModel::onPunctuationDraftChanged,
-            onPunctuationConfirmed = viewModel::onPunctuationConfirmed
+            onPunctuationConfirmed = viewModel::onPunctuationConfirmed,
+            onImgLoadingError = { Log.e(TAG, "Error loading image: $it", )}
         )
     }
 

@@ -26,5 +26,6 @@ data class StatsActions(
     val onSettingsChanged: (GBStatsSettings) -> Unit,
     val onStatSelected: (GBStat) -> Unit,
     val onPunctuationDraftChanged: (GBPunctuation) -> Unit,
-    val onPunctuationConfirmed: (GBPunctuation) -> Unit
+    val onPunctuationConfirmed: (GBPunctuation) -> Unit,
+    val onImgLoadingError: (String) -> Unit = {}
 )

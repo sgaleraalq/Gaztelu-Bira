@@ -26,6 +26,7 @@ lifecycle = "2.11.0"
 hilt = "2.60.1"
 hiltNavigationCompose = "1.4.0"
 ksp = "2.3.9"
+ktor = "3.4.0"
 nav3 = "1.1.7"
 serialization = "2.4.20"
 serializationKotlinx = "1.11.0"
@@ -58,6 +59,8 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 ## Image loading
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 
 ## Firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
