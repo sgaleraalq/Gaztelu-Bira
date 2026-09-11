@@ -34,11 +34,10 @@ class InsertNewTeam @Inject constructor(
 ) {
     suspend operator fun invoke(
         img: CommonImage?,
-        teamName: String,
-        teamId: String,
+        team: TeamModel,
         onFailure: () -> Unit
     ): FirebaseInsertResult {
-        val imgPath = "$TEAMS/$teamId"
+        val imgPath = "$TEAMS/${team.id}"
 
         val insertionResult: ImageInsertionResult = if (img != null) {
             storage.insertImage(imgPath, img)
@@ -50,8 +49,8 @@ class InsertNewTeam @Inject constructor(
 
         if (insertionResult is Success) {
             val team = TeamModel(
-                id = teamId,
-                name = teamName,
+                id = team.id,
+                name = team.name,
                 logo = insertionResult.url
             )
 

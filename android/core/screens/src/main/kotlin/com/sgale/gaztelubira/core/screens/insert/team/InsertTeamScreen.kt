@@ -18,13 +18,12 @@ package com.sgale.gaztelubira.core.screens.insert.team
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
+import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
@@ -36,25 +35,28 @@ internal fun InsertTeamScreen(
     navState: NavigationState,
     viewModel: InsertTeamViewModel = hiltViewModel<InsertTeamViewModel>()
 ) {
-    val mainViewModel = LocalMainViewModel.current
-    val user by mainViewModel.userSession.collectAsState()
-    val validInformation by viewModel.validInformation.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     val errorMsg = stringResource(R.string.upload_error_message)
-
-    val state by viewModel.state.collectAsStateWithLifecycle()
 
     BackHandler(state.state.isNotLoading()) {
         navState.navigateBack()
     }
 
+    val galleryManager = rememberGalleryManager { commonImage ->
+        viewModel.onImagePicked(commonImage)
+    }
+
     val actions = remember(
+        viewModel,
         navState,
-        viewModel
+        galleryManager,
+        errorMsg
     ) {
         InsertTeamActions(
-            updateField = {},
-            insertTeam = {}
+            updateField = viewModel::updateField,
+            pickImage = galleryManager::launch,
+            insertTeam = { viewModel.insertTeam(navState, errorMsg) }
         )
     }
 
@@ -62,20 +64,4 @@ internal fun InsertTeamScreen(
         state = state,
         actions = actions
     )
-
-//    GBScaffold(
-//        showTopAppBar = true,
-//        title = stringResource(R.string.insert_new_team)
-//    ) { modifier ->
-//        InsertTeamScreenUI(
-//            modifier = modifier,
-//            data = data,
-//            loading = loading,
-//            validInformation = validInformation,
-//            updateName = { viewModel.updateName(it) },
-//            updatePicture = { viewModel.updatePicture(it) },
-//            removeImage = { viewModel.updatePicture(null) },
-//            onInsert = { viewModel.insertTeam(state, data.img, data.teamName, data.id, errorMsg) }
-//        )
-//    }
 }

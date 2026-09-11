@@ -22,13 +22,21 @@ import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewTeam
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
+import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromGallery
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Default
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.InvalidInformation
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,48 +46,86 @@ import javax.inject.Inject
 @HiltViewModel
 internal class InsertTeamViewModel @Inject constructor(
     private val insertNewTeam: InsertNewTeam
-): ViewModel() {
-    private val initialState = InsertTeamUiState(teamId = currentTimeMillis().toString())
-    private val _state = MutableStateFlow(initialState)
-    internal val state: StateFlow<InsertTeamUiState> = _state
+) : ViewModel() {
 
-    private val _validInformation = MutableStateFlow(true)
-    val validInformation: StateFlow<Boolean> = _validInformation
+    private val _state = MutableStateFlow(InsertTeamUiState(teamId = currentTimeMillis().toString()))
+    internal val state: StateFlow<InsertTeamUiState> = _state.asStateFlow()
 
+    /**
+     * The shared state only carries the uri the UI draws, so the picked image is kept here with the
+     * platform shape the upload needs.
+     */
+    private var selectedImage: CommonImage? = null
+
+    internal fun updateField(field: InsertTeamField) {
+        when (field) {
+            is TeamName -> onNameChanged(field.newName)
+            is TeamImage -> onImageChanged(field.newImage)
+        }
+    }
+
+    /**
+     * Editing the name clears the last validation failure, but never interrupts an upload in flight.
+     */
+    private fun onNameChanged(newName: String) {
+        _state.update { state ->
+            state.copy(
+                teamName = newName,
+                state = if (state.state == InvalidInformation) Default else state.state
+            )
+        }
+    }
+
+    /**
+     * The shared UI only ever clears the image, so anything else reaching here comes from a gallery
+     * uri and is rebuilt as such.
+     */
+    private fun onImageChanged(newImage: String?) {
+        onImagePicked(newImage?.takeIf { it.isNotBlank() }?.let { FromGallery(uri = it) })
+    }
+
+    internal fun onImagePicked(image: CommonImage?) {
+        selectedImage = image
+        _state.update { it.copy(teamImage = image?.uri.orEmpty()) }
+    }
 
     internal fun insertTeam(
-        team: TeamModel
+        navState: NavigationState,
+        errorMsg: String
     ) {
-        if (!validInformation()) {
-            _validInformation.value = false
+        val team = _state.value
+
+        if (team.teamName.isBlank()) {
+            _state.update { it.copy(state = InvalidInformation) }
             return
         }
 
         viewModelScope.launch {
-            loading()
+            _state.update { it.copy(state = Loading) }
+
             val result = withContext(Dispatchers.IO) {
-                insertNewTeam(img, teamName, teamId) {
-                    showToast(errorMsg)
-                }
+                insertNewTeam(
+                    img = selectedImage,
+                    team = team.toTeamModel(),
+                    onFailure = {
+//                        TODO
+                        /* toastManager.showToast(errorMsg) */
+                    }
+                )
             }
 
             if (result is TeamInserted) {
-                state.navigateTo(Home, true)
+                navState.navigateTo(Home, true)
             } else {
-                _loading.value = false
+                _state.update { it.copy(state = Default) }
             }
         }
     }
 
-    fun updateName(newName: String) {
-        _data.value = _data.value.copy(teamName = newName)
-    }
-
-    fun updatePicture(newPicture: CommonImage?) {
-        _data.value = _data.value.copy(img = newPicture)
-    }
-
-    private fun loading() {
-        _state.update { it.copy(state = Loading) }
-    }
+    private fun InsertTeamUiState.toTeamModel() =
+        TeamModel(
+            id = teamId,
+            name = teamName,
+            logo = teamImage
+        )
 }

@@ -58,14 +58,9 @@ internal fun InsertTeamName(
 internal fun InsertTeamImage(
     img: String?,
     loading: Boolean,
+    onPickImage: () -> Unit,
     updatePicture: (String?) -> Unit
 ) {
-//    val galleryManager = rememberGalleryManager { commonImage ->
-//        if (!loading) {
-//            updatePicture(commonImage)
-//        }
-//    }
-
     GBInsertImage(
         modifier = Modifier
             .padding(horizontal = 24.dp)
@@ -78,7 +73,7 @@ internal fun InsertTeamImage(
         iconModifier = Modifier.size(100.dp),
         image = img,
         iconSize = 100.dp,
-        onClick = { /* TODO */ },
+        onClick = onPickImage,
         removeImage = { updatePicture("") },
         isClickable = !loading,
         enableExpansion = false,

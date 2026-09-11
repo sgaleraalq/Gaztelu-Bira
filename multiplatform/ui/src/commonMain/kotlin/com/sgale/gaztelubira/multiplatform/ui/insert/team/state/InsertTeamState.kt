@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
 
 sealed interface InsertTeamState {
     data object Default : InsertTeamState
-    data object ValidInformation : InsertTeamState
+    data object InvalidInformation : InsertTeamState
     data object Loading : InsertTeamState
 
     companion object {
@@ -28,7 +28,7 @@ sealed interface InsertTeamState {
         internal fun InsertTeamState.isLoading(): Boolean =
             this == Loading
 
-        internal fun InsertTeamState.isValidInformation(): Boolean =
-            this == ValidInformation
+        internal fun InsertTeamState.isInvalidInformation(): Boolean =
+            this == InvalidInformation
     }
 }

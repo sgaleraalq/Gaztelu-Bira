@@ -20,5 +20,6 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
 
 data class InsertTeamActions(
     val updateField: (InsertTeamField) -> Unit,
+    val pickImage: () -> Unit,
     val insertTeam: () -> Unit
 )

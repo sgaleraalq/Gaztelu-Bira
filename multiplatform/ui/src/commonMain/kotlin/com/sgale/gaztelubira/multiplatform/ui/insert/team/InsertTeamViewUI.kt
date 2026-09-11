@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Companion.isLoading
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Companion.isValidInformation
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Companion.isInvalidInformation
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamButton
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamName
@@ -46,12 +46,13 @@ internal fun InsertTeamViewUI(
         InsertTeamName(
             teamName = state.teamName,
             loading = state.state.isLoading(),
-            validInformation = state.state.isValidInformation(),
+            validInformation = !state.state.isInvalidInformation(),
             onTeamNameChanged =  { newName -> actions.updateField(TeamName(newName)) }
         )
         InsertTeamImage(
             img = state.teamImage,
             loading = state.state.isLoading(),
+            onPickImage = actions.pickImage,
             updatePicture = { newImg -> actions.updateField(TeamImage(newImg)) }
         )
         Spacer(Modifier.weight(1f))
