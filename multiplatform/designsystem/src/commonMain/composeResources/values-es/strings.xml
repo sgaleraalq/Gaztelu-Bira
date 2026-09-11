@@ -155,4 +155,7 @@
     <string name="wins">Victorias</string>
     <string name="yellow_cards">Tarjetas amarillas</string>
     <string name="yes">Sí</string>
+
+    <string name="invalid_team_name">Nombre de equipo no valido</string>
+    <string name="invalid_team_image">Imagen de equipo no valida</string>
 </resources>

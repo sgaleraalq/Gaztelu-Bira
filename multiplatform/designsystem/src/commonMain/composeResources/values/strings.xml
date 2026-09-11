@@ -155,4 +155,7 @@
     <string name="wins">Wins</string>
     <string name="yellow_cards">Yellow cards</string>
     <string name="yes">Yes</string>
+
+    <string name="invalid_team_name">Invalid team name</string>
+    <string name="invalid_team_image">Invalid team image</string>
 </resources>

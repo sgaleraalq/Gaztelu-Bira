@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
+package com.sgale.gaztelubira.multiplatform.ui.insert.team
 
-sealed interface InsertTeamField {
-    data class TeamName(
-        val newName: String
-    ): InsertTeamField
+import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InvalidTeamReason
 
-    data class TeamImage(
-        val newImage: String?
-    ): InsertTeamField
-
-    companion object {
-        internal val EMPTY_IMAGE = TeamImage("")
-    }
+internal class InvalidTeamHandler: InvalidInformationHandler(
+    invalidInformation = InvalidTeamReason
+) {
 }

@@ -16,12 +16,15 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.insert.team
 
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Default
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertDataUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
 
 data class InsertTeamUiState(
+    override val state: InsertingDataState = Default,
+    override val handler: InvalidInformationHandler = InvalidTeamHandler(),
     val teamId: String,
     val teamName: String = "",
-    val teamImage: String = "",
-    val state: InsertTeamState = Default
-)
+    val teamImage: String = ""
+): InsertDataUiState

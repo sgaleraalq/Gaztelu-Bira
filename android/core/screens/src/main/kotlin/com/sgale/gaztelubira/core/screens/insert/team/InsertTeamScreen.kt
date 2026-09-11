@@ -20,15 +20,13 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamView
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Companion.isNotLoading
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
 
 @Composable
 internal fun InsertTeamScreen(
@@ -36,8 +34,6 @@ internal fun InsertTeamScreen(
     viewModel: InsertTeamViewModel = hiltViewModel<InsertTeamViewModel>()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-
-    val errorMsg = stringResource(R.string.upload_error_message)
 
     BackHandler(state.state.isNotLoading()) {
         navState.navigateBack()
@@ -50,13 +46,12 @@ internal fun InsertTeamScreen(
     val actions = remember(
         viewModel,
         navState,
-        galleryManager,
-        errorMsg
+        galleryManager
     ) {
         InsertTeamActions(
             updateField = viewModel::updateField,
             pickImage = galleryManager::launch,
-            insertTeam = { viewModel.insertTeam(navState, errorMsg) }
+            insertTeam = { viewModel.insertTeam(navState) }
         )
     }
 

@@ -18,16 +18,13 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.team
 
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Companion.isLoading
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Companion.isInvalidInformation
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isLoading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamButton
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamName
@@ -43,22 +40,31 @@ internal fun InsertTeamViewUI(
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = spacedBy(16.dp)
     ) {
-        InsertTeamName(
-            teamName = state.teamName,
-            loading = state.state.isLoading(),
-            validInformation = !state.state.isInvalidInformation(),
-            onTeamNameChanged =  { newName -> actions.updateField(TeamName(newName)) }
-        )
-        InsertTeamImage(
-            img = state.teamImage,
-            loading = state.state.isLoading(),
-            onPickImage = actions.pickImage,
-            updatePicture = { newImg -> actions.updateField(TeamImage(newImg)) }
-        )
-        Spacer(Modifier.weight(1f))
-        InsertTeamButton(
-            loading = state.state.isLoading(),
-            onInsert = actions.insertTeam
+        InsertTeamForm(
+            modifier = Modifier.weight(1f),
+            state = state,
+            actions = actions
         )
     }
+}
+
+@Composable
+private fun InsertTeamForm(
+    modifier: Modifier,
+    state: InsertTeamUiState,
+    actions: InsertTeamActions
+) {
+    InsertTeamName(
+        state = state,
+        onTeamNameChanged =  { newName -> actions.updateField(TeamName(newName)) }
+    )
+    InsertTeamImage(
+        state = state,
+        actions = actions
+    )
+    InsertTeamButton(
+        modifier = modifier,
+        loading = state.state.isLoading(),
+        onInsert = actions.insertTeam
+    )
 }

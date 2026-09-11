@@ -14,21 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
+package com.sgale.gaztelubira.multiplatform.ui.insert
 
-sealed interface InsertTeamState {
-    data object Default : InsertTeamState
-    data object InvalidInformation : InsertTeamState
-    data object Loading : InsertTeamState
-
-    companion object {
-        fun InsertTeamState.isNotLoading(): Boolean =
-            !isLoading()
-
-        internal fun InsertTeamState.isLoading(): Boolean =
-            this == Loading
-
-        internal fun InsertTeamState.isInvalidInformation(): Boolean =
-            this == InvalidInformation
-    }
+interface InsertDataUiState {
+    val state: InsertingDataState
+    val handler: InvalidInformationHandler
 }

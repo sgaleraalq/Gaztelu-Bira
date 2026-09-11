@@ -29,9 +29,9 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Default
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.InvalidInformation
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Loading
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.InvalidInformation
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -48,13 +48,10 @@ internal class InsertTeamViewModel @Inject constructor(
     private val insertNewTeam: InsertNewTeam
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(InsertTeamUiState(teamId = currentTimeMillis().toString()))
+    private val initialState = InsertTeamUiState(teamId = getCurrentTimeId())
+    private val _state = MutableStateFlow(initialState)
     internal val state: StateFlow<InsertTeamUiState> = _state.asStateFlow()
 
-    /**
-     * The shared state only carries the uri the UI draws, so the picked image is kept here with the
-     * platform shape the upload needs.
-     */
     private var selectedImage: CommonImage? = null
 
     internal fun updateField(field: InsertTeamField) {
@@ -64,9 +61,6 @@ internal class InsertTeamViewModel @Inject constructor(
         }
     }
 
-    /**
-     * Editing the name clears the last validation failure, but never interrupts an upload in flight.
-     */
     private fun onNameChanged(newName: String) {
         _state.update { state ->
             state.copy(
@@ -76,12 +70,12 @@ internal class InsertTeamViewModel @Inject constructor(
         }
     }
 
-    /**
-     * The shared UI only ever clears the image, so anything else reaching here comes from a gallery
-     * uri and is rebuilt as such.
-     */
     private fun onImageChanged(newImage: String?) {
-        onImagePicked(newImage?.takeIf { it.isNotBlank() }?.let { FromGallery(uri = it) })
+        onImagePicked(
+            image = newImage
+                ?.takeIf { it.isNotBlank() }
+                ?.let { FromGallery(uri = it) }
+        )
     }
 
     internal fun onImagePicked(image: CommonImage?) {
@@ -90,8 +84,7 @@ internal class InsertTeamViewModel @Inject constructor(
     }
 
     internal fun insertTeam(
-        navState: NavigationState,
-        errorMsg: String
+        navState: NavigationState
     ) {
         val team = _state.value
 
@@ -128,4 +121,7 @@ internal class InsertTeamViewModel @Inject constructor(
             name = teamName,
             logo = teamImage
         )
+
+    private fun getCurrentTimeId() =
+        currentTimeMillis().toString()
 }

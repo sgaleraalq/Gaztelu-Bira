@@ -17,6 +17,7 @@
 package com.sgale.gaztelubira.multiplatform.ui.insert.team.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,6 +30,11 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTextField
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.Companion.EMPTY_IMAGE
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isInvalidInformation
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team
 import com.sgale.gaztelubira.multiplatform.ui.resources.team_name
@@ -36,30 +42,26 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertTeamName(
-    teamName: String,
-    loading: Boolean,
-    validInformation: Boolean,
+    state: InsertTeamUiState,
     onTeamNameChanged: (String) -> Unit
 ) {
     GBTextField(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp),
-        text = teamName,
+        text = state.teamName,
         onTextChanged = { onTeamNameChanged(it) },
         label = stringResource(Res.string.team_name),
         firstCap = true,
-        enabled = !loading,
-        error = !validInformation
+        enabled = state.state.isNotLoading(),
+        error = state.state.isInvalidInformation()
     )
 }
 
 @Composable
 internal fun InsertTeamImage(
-    img: String?,
-    loading: Boolean,
-    onPickImage: () -> Unit,
-    updatePicture: (String?) -> Unit
+    state: InsertTeamUiState,
+    actions: InsertTeamActions
 ) {
     GBInsertImage(
         modifier = Modifier
@@ -71,11 +73,11 @@ internal fun InsertTeamImage(
             ),
         imageModifier = Modifier.size(400.dp),
         iconModifier = Modifier.size(100.dp),
-        image = img,
+        image = state.teamImage,
         iconSize = 100.dp,
-        onClick = onPickImage,
-        removeImage = { updatePicture("") },
-        isClickable = !loading,
+        onClick = actions.pickImage,
+        removeImage = { actions.updateField(EMPTY_IMAGE) },
+        isClickable = state.state.isNotLoading(),
         enableExpansion = false,
         placeholder = AppImages.teamCrest
     )
@@ -83,17 +85,18 @@ internal fun InsertTeamImage(
 
 @Composable
 internal fun InsertTeamButton(
+    modifier: Modifier,
     loading: Boolean,
     onInsert: () -> Unit
 ) {
+    Spacer(modifier = modifier)
     GBInsertButton(
         modifier = Modifier
             .padding(horizontal = 12.dp)
             .padding(bottom = 16.dp),
         text = stringResource(Res.string.insert_team),
         loading = loading,
-        enabled = true
-    ) {
-        onInsert()
-    }
+        enabled = true,
+        onInsert = onInsert
+    )
 }

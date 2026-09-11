@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
+package com.sgale.gaztelubira.multiplatform.ui.insert
 
-sealed interface InsertTeamField {
-    data class TeamName(
-        val newName: String
-    ): InsertTeamField
-
-    data class TeamImage(
-        val newImage: String?
-    ): InsertTeamField
+sealed interface InsertingDataState {
+    data object Default : InsertingDataState
+    data object Loading : InsertingDataState
+    data object Inserted: InsertingDataState
+    data class Error(val error: String): InsertingDataState
 
     companion object {
-        internal val EMPTY_IMAGE = TeamImage("")
+        fun InsertingDataState.isNotLoading(): Boolean =
+            !isLoading()
+
+        internal fun InsertingDataState.isLoading(): Boolean =
+            this == Loading
     }
 }

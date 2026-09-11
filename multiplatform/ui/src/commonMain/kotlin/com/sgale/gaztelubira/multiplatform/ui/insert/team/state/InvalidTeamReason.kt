@@ -16,16 +16,21 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
 
-sealed interface InsertTeamField {
-    data class TeamName(
-        val newName: String
-    ): InsertTeamField
+import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationReason
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_team_name
+import org.jetbrains.compose.resources.StringResource
 
-    data class TeamImage(
-        val newImage: String?
-    ): InsertTeamField
-
-    companion object {
-        internal val EMPTY_IMAGE = TeamImage("")
+internal sealed interface InvalidTeamReason : InvalidInformationReason {
+    data object TeamName: InvalidTeamReason {
+        override val reason: StringResource
+            get() = Res.string.invalid_team_name
     }
+
+//    TEAM_NAME(
+//        reason = Res.string.invalid_team_name
+//    ),
+//    TEAM_IMAGE(
+//        reason = Res.string.invalid_team_image
+//    )
 }

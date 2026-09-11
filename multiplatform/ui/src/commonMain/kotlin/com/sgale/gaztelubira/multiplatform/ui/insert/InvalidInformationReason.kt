@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
+package com.sgale.gaztelubira.multiplatform.ui.insert
 
-sealed interface InsertTeamField {
-    data class TeamName(
-        val newName: String
-    ): InsertTeamField
+import org.jetbrains.compose.resources.StringResource
 
-    data class TeamImage(
-        val newImage: String?
-    ): InsertTeamField
-
-    companion object {
-        internal val EMPTY_IMAGE = TeamImage("")
-    }
+interface InvalidInformationReason {
+    val reason: StringResource
 }

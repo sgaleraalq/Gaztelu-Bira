@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
+package com.sgale.gaztelubira.core.domain.repository.firestore
 
-sealed interface InsertTeamField {
-    data class TeamName(
-        val newName: String
-    ): InsertTeamField
-
-    data class TeamImage(
-        val newImage: String?
-    ): InsertTeamField
-
-    companion object {
-        internal val EMPTY_IMAGE = TeamImage("")
+sealed interface InsertData {
+    data class Error(val error: String): InsertData
+    sealed interface Success {
+        data object TeamInserted: Success
     }
 }
