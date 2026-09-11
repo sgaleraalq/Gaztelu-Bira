@@ -17,9 +17,9 @@
 package com.sgale.gaztelubira.multiplatform.ui.insert.team
 
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InvalidTeamReason
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InvalidTeamReason.TeamName
 
 internal class InvalidTeamHandler: InvalidInformationHandler(
-    invalidInformation = InvalidTeamReason
+    invalidInformation = TeamName
 ) {
 }
