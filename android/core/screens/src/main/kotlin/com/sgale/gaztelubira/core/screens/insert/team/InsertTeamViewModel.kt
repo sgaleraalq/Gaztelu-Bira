@@ -18,42 +18,37 @@ package com.sgale.gaztelubira.core.screens.insert.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.model.team.TeamModel
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewTeam
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.domain.utils.IToastManager
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.System.currentTimeMillis
+import javax.inject.Inject
 
 @HiltViewModel
-class InsertTeamViewModel @Inject constructor(
-    private val insertNewTeam: InsertNewTeam,
-    private val toastManager: IToastManager
+internal class InsertTeamViewModel @Inject constructor(
+    private val insertNewTeam: InsertNewTeam
 ): ViewModel() {
-
-    private val _data = MutableStateFlow(InsertTeamData())
-    val data: StateFlow<InsertTeamData> = _data
-
-    private val _loading = MutableStateFlow(false)
-    val loading = _loading
+    private val initialState = InsertTeamUiState(teamId = currentTimeMillis().toString())
+    private val _state = MutableStateFlow(initialState)
+    internal val state: StateFlow<InsertTeamUiState> = _state
 
     private val _validInformation = MutableStateFlow(true)
     val validInformation: StateFlow<Boolean> = _validInformation
 
 
-    fun insertTeam(
-        state: NavigationState,
-        img: CommonImage?,
-        teamName: String,
-        teamId: String,
-        errorMsg: String
+    internal fun insertTeam(
+        team: TeamModel
     ) {
         if (!validInformation()) {
             _validInformation.value = false
@@ -61,7 +56,7 @@ class InsertTeamViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            _loading.value = true
+            loading()
             val result = withContext(Dispatchers.IO) {
                 insertNewTeam(img, teamName, teamId) {
                     showToast(errorMsg)
@@ -84,10 +79,7 @@ class InsertTeamViewModel @Inject constructor(
         _data.value = _data.value.copy(img = newPicture)
     }
 
-    private fun validInformation(): Boolean =
-        _data.value.teamName.isNotBlank()
-
-    private fun showToast(msg: String) {
-        toastManager.showToast(msg)
+    private fun loading() {
+        _state.update { it.copy(state = Loading) }
     }
 }

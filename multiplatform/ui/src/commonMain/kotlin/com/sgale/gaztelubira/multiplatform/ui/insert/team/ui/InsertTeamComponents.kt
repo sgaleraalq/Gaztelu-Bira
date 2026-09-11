@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.team.ui
+package com.sgale.gaztelubira.multiplatform.ui.insert.team.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,16 +23,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTextField
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team
+import com.sgale.gaztelubira.multiplatform.ui.resources.team_name
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertTeamName(
@@ -47,7 +47,7 @@ internal fun InsertTeamName(
             .padding(horizontal = 24.dp),
         text = teamName,
         onTextChanged = { onTeamNameChanged(it) },
-        label = stringResource(R.string.team_name),
+        label = stringResource(Res.string.team_name),
         firstCap = true,
         enabled = !loading,
         error = !validInformation
@@ -56,16 +56,15 @@ internal fun InsertTeamName(
 
 @Composable
 internal fun InsertTeamImage(
-    img: CommonImage?,
+    img: String?,
     loading: Boolean,
-    updatePicture: (CommonImage?) -> Unit,
-    removeImage: () -> Unit
+    updatePicture: (String?) -> Unit
 ) {
-    val galleryManager = rememberGalleryManager { commonImage ->
-        if (!loading) {
-            updatePicture(commonImage)
-        }
-    }
+//    val galleryManager = rememberGalleryManager { commonImage ->
+//        if (!loading) {
+//            updatePicture(commonImage)
+//        }
+//    }
 
     GBInsertImage(
         modifier = Modifier
@@ -77,10 +76,10 @@ internal fun InsertTeamImage(
             ),
         imageModifier = Modifier.size(400.dp),
         iconModifier = Modifier.size(100.dp),
-        image = img?.uri,
+        image = img,
         iconSize = 100.dp,
-        onClick = { galleryManager.launch() },
-        removeImage = { removeImage() },
+        onClick = { /* TODO */ },
+        removeImage = { updatePicture("") },
         isClickable = !loading,
         enableExpansion = false,
         placeholder = AppImages.teamCrest
@@ -96,7 +95,7 @@ internal fun InsertTeamButton(
         modifier = Modifier
             .padding(horizontal = 12.dp)
             .padding(bottom = 16.dp),
-        text = stringResource(R.string.insert_team),
+        text = stringResource(Res.string.insert_team),
         loading = loading,
         enabled = true
     ) {

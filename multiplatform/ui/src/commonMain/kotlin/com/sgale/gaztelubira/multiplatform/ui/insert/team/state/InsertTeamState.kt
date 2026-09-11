@@ -14,14 +14,21 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.team
+package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
 
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.domain.utils.getActualTimeAsLong
+sealed interface InsertTeamState {
+    data object Default : InsertTeamState
+    data object ValidInformation : InsertTeamState
+    data object Loading : InsertTeamState
 
-data class InsertTeamData(
-    val id: FirebaseId = getActualTimeAsLong().toString(),
-    val img: CommonImage? = null,
-    val teamName: String = ""
-)
+    companion object {
+        fun InsertTeamState.isNotLoading(): Boolean =
+            !isLoading()
+
+        internal fun InsertTeamState.isLoading(): Boolean =
+            this == Loading
+
+        internal fun InsertTeamState.isValidInformation(): Boolean =
+            this == ValidInformation
+    }
+}
