@@ -18,19 +18,22 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
 
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationReason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_team_image
 import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_team_name
 import org.jetbrains.compose.resources.StringResource
 
 internal sealed interface InvalidTeamReason : InvalidInformationReason {
-    data object TeamName: InvalidTeamReason {
-        override val reason: StringResource
-            get() = Res.string.invalid_team_name
+    data class TeamName(
+        val name: String
+    ): InvalidTeamReason {
+        override val reason: StringResource = Res.string.invalid_team_name
+        override fun isValid(): Boolean = name.isNotBlank()
     }
 
-//    TEAM_NAME(
-//        reason = Res.string.invalid_team_name
-//    ),
-//    TEAM_IMAGE(
-//        reason = Res.string.invalid_team_image
-//    )
+    data class TeamImage(
+        val validPath: Boolean
+    ): InvalidTeamReason {
+        override val reason: StringResource = Res.string.invalid_team_image
+        override fun isValid(): Boolean = validPath
+    }
 }

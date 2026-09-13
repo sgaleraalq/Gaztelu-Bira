@@ -23,6 +23,7 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.Fi
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewTeam
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromGallery
+import com.sgale.gaztelubira.core.domain.utils.IImageValidator
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
@@ -30,7 +31,6 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.InvalidInformation
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +45,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class InsertTeamViewModel @Inject constructor(
-    private val insertNewTeam: InsertNewTeam
+    private val insertNewTeam: InsertNewTeam,
+    private val imageValidator: IImageValidator
 ) : ViewModel() {
 
     private val initialState = InsertTeamUiState(teamId = getCurrentTimeId())
@@ -62,12 +63,7 @@ internal class InsertTeamViewModel @Inject constructor(
     }
 
     private fun onNameChanged(newName: String) {
-        _state.update { state ->
-            state.copy(
-                teamName = newName,
-                state = if (state.state == InvalidInformation) Default else state.state
-            )
-        }
+        _state.update { it.copy(teamName = newName) }
     }
 
     private fun onImageChanged(newImage: String?) {
@@ -80,7 +76,17 @@ internal class InsertTeamViewModel @Inject constructor(
 
     internal fun onImagePicked(image: CommonImage?) {
         selectedImage = image
-        _state.update { it.copy(teamImage = image?.uri.orEmpty()) }
+
+        val uri = image?.uri
+        if (uri == null) {
+            _state.update { it.copy(teamImage = "", validImage = false) }
+            return
+        }
+
+        viewModelScope.launch {
+            val validImage = imageValidator.isValidImage(uri)
+            _state.update { it.copy(teamImage = uri, validImage = validImage) }
+        }
     }
 
     internal fun insertTeam(
@@ -88,10 +94,9 @@ internal class InsertTeamViewModel @Inject constructor(
     ) {
         val team = _state.value
 
-        if (team.teamName.isBlank()) {
-            _state.update { it.copy(state = InvalidInformation) }
-            return
-        }
+        /* The button is disabled while the handler reports a pending option; this only guards
+           against an insert reaching here any other way. */
+        if (!team.handler.isValid) return
 
         viewModelScope.launch {
             _state.update { it.copy(state = Loading) }

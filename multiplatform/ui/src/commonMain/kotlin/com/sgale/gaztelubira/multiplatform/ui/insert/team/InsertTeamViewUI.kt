@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isLoading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamButton
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.ui.InsertTeamName
@@ -64,7 +63,7 @@ private fun InsertTeamForm(
     )
     InsertTeamButton(
         modifier = modifier,
-        loading = state.state.isLoading(),
+        state = state,
         onInsert = actions.insertTeam
     )
 }

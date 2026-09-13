@@ -17,9 +17,15 @@
 package com.sgale.gaztelubira.multiplatform.ui.insert.team
 
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
+import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationReason
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InvalidTeamReason.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InvalidTeamReason.TeamName
 
-internal class InvalidTeamHandler: InvalidInformationHandler(
-    invalidInformation = TeamName
-) {
+internal class InvalidTeamHandler(
+    state: InsertTeamUiState
+) : InvalidInformationHandler() {
+    override val reasons: List<InvalidInformationReason> = listOf(
+        TeamName(state.teamName),
+        TeamImage(state.validImage)
+    )
 }

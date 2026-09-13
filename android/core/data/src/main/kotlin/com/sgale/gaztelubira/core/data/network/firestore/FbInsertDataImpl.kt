@@ -68,10 +68,10 @@ class FbInsertDataImpl @Inject constructor(
     override suspend fun insertNewPlayer(player: PlayerModel): FirebaseInsertResult {
         return suspendCancellableCoroutine { continuation ->
             val timestamp = PlayerTimestamp()
-            firestore.collection(season)
+            firestore.collection("debug") // TODO
                 .document(INFORMATION)
                 .set(timestamp, merge())
-            firestore.collection(season)
+            firestore.collection("debug") // TODO
                 .document(INFORMATION)
                 .collection(PLAYERS)
                 .document(player.id)
@@ -91,10 +91,10 @@ class FbInsertDataImpl @Inject constructor(
     ): FirebaseInsertResult {
         return suspendCancellableCoroutine { continuation ->
             val timestamp = TeamTimestamp()
-            firestore.collection(season)
+            firestore.collection("debug") // TODO
                 .document(INFORMATION)
                 .set(timestamp, merge())
-            firestore.collection(season)
+            firestore.collection("debug") // TODO
                 .document(INFORMATION)
                 .collection(TEAMS)
                 .document(team.id)

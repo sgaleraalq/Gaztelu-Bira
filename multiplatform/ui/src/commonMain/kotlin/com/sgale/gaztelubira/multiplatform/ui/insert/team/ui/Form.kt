@@ -33,8 +33,9 @@ import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.Companion.EMPTY_IMAGE
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isInvalidInformation
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isLoading
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
+import com.sgale.gaztelubira.multiplatform.ui.insert.ui.InvalidInformationMessage
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team
 import com.sgale.gaztelubira.multiplatform.ui.resources.team_name
@@ -53,8 +54,7 @@ internal fun InsertTeamName(
         onTextChanged = { onTeamNameChanged(it) },
         label = stringResource(Res.string.team_name),
         firstCap = true,
-        enabled = state.state.isNotLoading(),
-        error = state.state.isInvalidInformation()
+        enabled = state.state.isNotLoading()
     )
 }
 
@@ -86,17 +86,18 @@ internal fun InsertTeamImage(
 @Composable
 internal fun InsertTeamButton(
     modifier: Modifier,
-    loading: Boolean,
+    state: InsertTeamUiState,
     onInsert: () -> Unit
 ) {
     Spacer(modifier = modifier)
+    InvalidInformationMessage(state.handler.invalidReason)
     GBInsertButton(
         modifier = Modifier
             .padding(horizontal = 12.dp)
             .padding(bottom = 16.dp),
         text = stringResource(Res.string.insert_team),
-        loading = loading,
-        enabled = true,
+        loading = state.state.isLoading(),
+        enabled = state.handler.isValid,
         onInsert = onInsert
     )
 }

@@ -16,6 +16,16 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.insert
 
-abstract class InvalidInformationHandler(
-    protected val invalidInformation: InvalidInformationReason
-)
+abstract class InvalidInformationHandler {
+
+    protected abstract val reasons: List<InvalidInformationReason>
+
+    /**
+     * The first option that does not pass, or null once every one of them does.
+     */
+    val invalidReason: InvalidInformationReason?
+        get() = reasons.firstOrNull { !it.isValid() }
+
+    val isValid: Boolean
+        get() = invalidReason == null
+}

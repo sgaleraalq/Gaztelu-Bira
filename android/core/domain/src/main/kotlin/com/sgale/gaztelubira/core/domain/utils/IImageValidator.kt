@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert
+package com.sgale.gaztelubira.core.domain.utils
 
-import org.jetbrains.compose.resources.StringResource
-
-interface InvalidInformationReason {
-    val reason: StringResource
-    fun isValid(): Boolean
+interface IImageValidator {
+    /**
+     * Whether [uri] still points at something this device can actually read. A picked path can be
+     * gone or unreadable by the time it is used, and only the platform can tell.
+     */
+    suspend fun isValidImage(uri: String): Boolean
 }

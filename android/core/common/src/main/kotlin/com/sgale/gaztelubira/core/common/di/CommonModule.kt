@@ -16,7 +16,9 @@
 
 package com.sgale.gaztelubira.core.common.di
 
+import com.sgale.gaztelubira.core.common.utils.ImageValidator
 import com.sgale.gaztelubira.core.common.utils.ToastManager
+import com.sgale.gaztelubira.core.domain.utils.IImageValidator
 import com.sgale.gaztelubira.core.domain.utils.IToastManager
 import dagger.Binds
 import dagger.Module
@@ -31,4 +33,8 @@ internal interface CommonModule {
     @Binds
     @Singleton
     fun bindToastManager(toastManager: ToastManager): IToastManager
+
+    @Binds
+    @Singleton
+    fun bindImageValidator(imageValidator: ImageValidator): IImageValidator
 }
