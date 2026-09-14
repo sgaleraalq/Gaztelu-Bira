@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
+package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
-sealed interface InsertTeamField {
-    data class TeamName(
-        val name: String
-    ): InsertTeamField
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertDataActions
 
-    data class TeamImage(
-        val image: String?
-    ): InsertTeamField
-
-    companion object {
-        internal val EMPTY_IMAGE = TeamImage("")
-    }
-}
+data class InsertPlayerActions(
+    override val onMissingField: (String) -> Unit
+): InsertDataActions

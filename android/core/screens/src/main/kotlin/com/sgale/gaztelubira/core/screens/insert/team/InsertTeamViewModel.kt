@@ -57,8 +57,8 @@ internal class InsertTeamViewModel @Inject constructor(
 
     internal fun updateField(field: InsertTeamField) {
         when (field) {
-            is TeamName -> onNameChanged(field.newName)
-            is TeamImage -> onImageChanged(field.newImage)
+            is TeamName -> onNameChanged(field.name)
+            is TeamImage -> onImageChanged(field.image)
         }
     }
 

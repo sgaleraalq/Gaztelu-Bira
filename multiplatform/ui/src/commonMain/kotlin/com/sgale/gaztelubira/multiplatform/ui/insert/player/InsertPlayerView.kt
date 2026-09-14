@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.images.camera
+package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
-internal class CameraManager {
+import androidx.compose.runtime.Composable
+
+@Composable
+fun InsertPlayerView(
+    state: InsertPlayerUiState,
+    actions: InsertPlayerActions
+) {
 
 }

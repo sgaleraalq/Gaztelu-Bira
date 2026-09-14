@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.images.permissions
+package com.sgale.gaztelubira.core.screens.insert.manager.permissions
 
 import android.Manifest
 import android.Manifest.permission.READ_EXTERNAL_STORAGE

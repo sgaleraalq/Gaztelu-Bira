@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.images.gallery
+package com.sgale.gaztelubira.core.screens.insert.manager.camera
 
-import androidx.compose.runtime.Immutable
+internal class CameraManager {
 
-@Immutable
-internal class Gallery(
-    private val onLaunch: () -> Unit
-) {
-    internal fun launch() = onLaunch()
 }

@@ -26,7 +26,7 @@ import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromGallery
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.showToast
-import com.sgale.gaztelubira.core.screens.insert.images.gallery.rememberGalleryManager
+import com.sgale.gaztelubira.core.screens.insert.manager.gallery.rememberGalleryManager
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
 import com.sgale.gaztelubira.core.screens.insert.player.UiState.Default
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home

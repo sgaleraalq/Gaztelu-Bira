@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.images.gallery
+package com.sgale.gaztelubira.core.screens.insert.manager.gallery
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -25,8 +25,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import com.sgale.gaztelubira.core.screens.insert.images.permissions.MediaPermission.GALLERY
-import com.sgale.gaztelubira.core.screens.insert.images.permissions.rememberPermissionsManager
+import com.sgale.gaztelubira.core.screens.insert.manager.permissions.MediaPermission.GALLERY
+import com.sgale.gaztelubira.core.screens.insert.manager.permissions.rememberPermissionsManager
 
 @Composable
 internal fun rememberGalleryManager(
