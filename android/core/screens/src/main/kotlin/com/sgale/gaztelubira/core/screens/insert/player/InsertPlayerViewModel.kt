@@ -18,204 +18,144 @@ package com.sgale.gaztelubira.core.screens.insert.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Position
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.PlayerInserted
-import com.sgale.gaztelubira.core.domain.usecase.ShowCamera
-import com.sgale.gaztelubira.core.domain.usecase.ShowGallery
 import com.sgale.gaztelubira.core.domain.usecase.db.GetAvailableDorsals
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewPlayer
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.domain.utils.IToastManager
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType.Body
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerData.PictureType.Face
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.BodyImage
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Dorsal
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.FaceImage
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.ImageSelected
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Name
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.Position
-import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerViewModel.InsertPlayerField.UseSameImg
-import com.sgale.gaztelubira.core.screens.insert.player.UiState.Default
-import com.sgale.gaztelubira.core.screens.insert.player.UiState.Loading
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
+import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Dorsal
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Image
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.SelectedPicture
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType.Body
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType.Face
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.System.currentTimeMillis
 import javax.inject.Inject
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Position as PositionField
 
 @HiltViewModel
-class InsertPlayerViewModel @Inject constructor(
-    private val toastManager: IToastManager,
-    private val showCameraUseCase: ShowCamera,
-    private val showGalleryUseCase: ShowGallery,
-    private val insertNewPlayerUseCase: InsertNewPlayer,
+internal class InsertPlayerViewModel @Inject constructor(
+    private val insertNewPlayer: InsertNewPlayer,
     private val getAvailableDorsals: GetAvailableDorsals
 ) : ViewModel() {
-    enum class InsertPlayerField {
-        Name, Dorsal, Position, FaceImage, BodyImage, UseSameImg, ImageSelected
-    }
 
-    private val _insertPlayerData = MutableStateFlow(InsertPlayerData())
-    val data: StateFlow<InsertPlayerData> = _insertPlayerData
+    private val initialState = InsertPlayerUiState(playerId = getCurrentTimeId())
+    private val _state = MutableStateFlow(initialState)
+    internal val state: StateFlow<InsertPlayerUiState> = _state.asStateFlow()
 
-    private var dorsals: List<Int> = emptyList()
-
-    private val _uiState = MutableStateFlow<UiState>(Default)
-    val uiState: StateFlow<UiState> = _uiState
+    /**
+     * The picked images are kept aside rather than in the state: the state only carries the uri the
+     * form needs to draw, while the upload needs the mime type that came with it.
+     */
+    private var faceImage: CommonImage? = null
+    private var bodyImage: CommonImage? = null
 
     init {
         viewModelScope.launch {
-            dorsals = withContext(Dispatchers.IO) { getAvailableDorsals() }
+            val dorsals = withContext(IO) { getAvailableDorsals() }
+            _state.update { it.copy(availableDorsals = dorsals) }
         }
     }
 
-    fun getDorsals(): List<Int> = dorsals
-
-    fun initCamera(
-        permissionDeniedMsg: String,
-        launchCamera: () -> Unit
-    ) {
-        viewModelScope.launch {
-            showCameraUseCase(
-                onLaunchCamera = { launchCamera() },
-                onPermissionsDenied = { showToast(permissionDeniedMsg) }
-            )
+    internal fun updateField(field: InsertPlayerField) {
+        when (field) {
+            is Name -> _state.update { it.copy(playerName = field.newName) }
+            is Dorsal -> _state.update { it.copy(dorsal = field.newDorsal) }
+            is PositionField -> _state.update { it.copy(position = field.newPosition) }
+            is SelectedPicture -> _state.update { it.copy(selectedPicture = field.type) }
+            is Image -> onImageChanged(field.type, field.newImage)
         }
     }
 
-    fun initGallery(
-        permissionDeniedMsg: String,
-        launchGallery: () -> Unit
-    ) {
-        viewModelScope.launch {
-            showGalleryUseCase(
-                onLaunchGallery = { launchGallery() },
-                onPermissionsDenied = { showToast(permissionDeniedMsg) }
-            )
-        }
+    internal fun showDialog(dialog: InsertPlayerDialog) {
+        _state.update { it.copy(dialog = dialog) }
     }
 
-    fun insertNewPlayer(
-        uploadErrorMsg: String,
-        notValidPlayerMsg: String,
-        onSuccess: () -> Unit
+    /** Drops the picture into whichever box the user tapped before opening the source dialog. */
+    internal fun onImagePicked(image: CommonImage?) {
+        setImage(_state.value.selectedPicture, image)
+    }
+
+    internal fun insertPlayer(
+        navState: NavigationState,
+        onFailure: () -> Unit
     ) {
-        if (!validPlayer()) {
-            insertButtonEnabled(false)
-            showToast(notValidPlayerMsg) { insertButtonEnabled(true) }
-            return
-        }
+        val player = _state.value
+
+        /* The button reports the missing field instead of inserting, so this only guards against
+           an insert reaching here any other way. */
+        if (!player.handler.isValid) return
 
         viewModelScope.launch {
-            updateState(Loading)
+            _state.update { it.copy(state = Loading) }
 
-            val newPlayerInserted = withContext(Dispatchers.IO) {
-                insertNewPlayerUseCase(
-                    player = _insertPlayerData.value.toPlayerModel(),
-                    faceImg = _insertPlayerData.value.faceImage,
-                    bodyImg = _insertPlayerData.value.bodyImage
+            val result = withContext(IO) {
+                insertNewPlayer(
+                    player = player.toPlayerModel(),
+                    faceImg = faceImage,
+                    bodyImg = bodyImage
                 )
             }
 
-            if (newPlayerInserted is PlayerInserted) {
-                onSuccess()
+            if (result is PlayerInserted) {
+                navState.navigateTo(Home, true)
             } else {
-                showToast(uploadErrorMsg)
-                updateState(Default)
+                onFailure()
+                _state.update { it.copy(state = Default) }
             }
         }
     }
 
-    fun removeImage() {
-        when (getLastSelected()) {
-            Face -> updateField(FaceImage, null)
-            Body -> updateField(BodyImage, null)
-        }
-        _insertPlayerData.value = _insertPlayerData.value.copy(useSameImage = false)
-    }
-
-    fun updateState(newState: UiState) {
-        _uiState.value = newState
-    }
-
-    fun updateField(field: InsertPlayerField, value: Any? = null) {
-        val current = _insertPlayerData.value
-        _insertPlayerData.value = when (field) {
-            Name -> current.copy(name = value as String)
-            Dorsal -> current.copy(dorsal = value as Int)
-            Position -> current.copy(position = value as Position)
-            FaceImage -> current.copy(faceImage = value as CommonImage?)
-            BodyImage -> current.copy(bodyImage = value as CommonImage?)
-            UseSameImg -> current.copy(useSameImage = value as Boolean)
-            ImageSelected -> current.copy(lastSelected = value as PictureType)
-        }
-
-        if (field == UseSameImg && value == true) {
-            useSameImage()
-        } else if (field == UseSameImg && value == false) {
-            removeSameImage()
-        }
-    }
-
-    fun updatePicture(image: CommonImage?) {
-        viewModelScope.launch {
-            when (_insertPlayerData.value.lastSelected) {
-                Face -> updateField(FaceImage, image)
-                Body -> updateField(BodyImage, image)
-            }
-        }
-    }
-
-    private fun getLastSelected(): PictureType = _insertPlayerData.value.lastSelected
-
-    private fun insertButtonEnabled(enabled: Boolean) {
-        _insertPlayerData.value = _insertPlayerData.value.copy(canInsert = enabled)
-    }
-
-    private fun removeSameImage() {
-        when (getLastSelected()) {
-            Face -> {
-                _insertPlayerData.value = _insertPlayerData.value.copy(lastSelected = Body)
-                updateField(FaceImage, null)
-            }
-            Body -> {
-                _insertPlayerData.value = _insertPlayerData.value.copy(lastSelected = Face)
-                updateField(BodyImage, null)
-            }
-        }
-    }
-
-    private fun showToast(msg: String, onFinish: () -> Unit = {}) {
-        toastManager.showToast(
-            msg = msg,
-            onFinish =  { onFinish() }
+    private fun onImageChanged(type: PictureType, newImage: String?) {
+        setImage(
+            type = type,
+            image = newImage
+                ?.takeIf { it.isNotBlank() }
+                ?.let { CommonImage.FromGallery(uri = it) }
         )
     }
 
-    private fun useSameImage() {
-        when (getLastSelected()) {
+    private fun setImage(type: PictureType, image: CommonImage?) {
+        val uri = image?.uri.orEmpty()
+        when (type) {
             Face -> {
-                _insertPlayerData.value = _insertPlayerData.value.copy(lastSelected = Body)
-                updateField(BodyImage, _insertPlayerData.value.faceImage)
+                faceImage = image
+                _state.update { it.copy(faceImage = uri) }
             }
+
             Body -> {
-                _insertPlayerData.value = _insertPlayerData.value.copy(lastSelected = Face)
-                updateField(FaceImage, _insertPlayerData.value.bodyImage)
+                bodyImage = image
+                _state.update { it.copy(bodyImage = uri) }
             }
         }
     }
 
-    private fun validPlayer(): Boolean {
-        val player = _insertPlayerData.value
-        val validDorsal = if (player.notManager()) {
-            player.dorsal > 0
-        } else {
-            true
-        }
+    private fun InsertPlayerUiState.toPlayerModel(): PlayerModel =
+        PlayerModel(
+            id = playerId,
+            name = playerName,
+            dorsal = dorsal,
+            position = position?.let { Position.valueOf(it.name) },
+            faceImage = "",
+            bodyImage = ""
+        )
 
-        return player.name.isNotBlank() && validDorsal && player.position != null
-    }
+    private fun getCurrentTimeId(): String = currentTimeMillis().toString()
 }

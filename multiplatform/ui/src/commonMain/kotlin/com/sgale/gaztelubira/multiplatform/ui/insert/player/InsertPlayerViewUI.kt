@@ -16,9 +16,67 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
+import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerButton
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerDialogs
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerImages
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerMainInformation
 
 @Composable
-internal fun InsertPlayerViewUI() {
+internal fun InsertPlayerViewUI(
+    modifier: Modifier,
+    state: InsertPlayerUiState,
+    actions: InsertPlayerActions
+) {
+    Column(
+        modifier = modifier.fillMaxSize()
+    ) {
+        InsertPlayerForm(
+            state = state,
+            actions = actions
+        )
+        /* The modifier carries the weight: the button lays it out as a Spacer above itself, so the
+           form keeps its natural height and the button sits at the bottom. */
+        InsertPlayerButton(
+            modifier = Modifier.weight(1f),
+            state = state,
+            actions = actions
+        )
+    }
 
+    InsertPlayerDialogs(
+        state = state,
+        actions = actions
+    )
+}
+
+@Composable
+private fun InsertPlayerForm(
+    state: InsertPlayerUiState,
+    actions: InsertPlayerActions
+) {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        horizontalAlignment = CenterHorizontally,
+        verticalArrangement = spacedBy(8.dp)
+    ) {
+        InsertPlayerMainInformation(
+            state = state,
+            actions = actions
+        )
+        Spacer(Modifier.height(16.dp))
+        InsertPlayerImages(
+            state = state,
+            actions = actions
+        )
+    }
 }

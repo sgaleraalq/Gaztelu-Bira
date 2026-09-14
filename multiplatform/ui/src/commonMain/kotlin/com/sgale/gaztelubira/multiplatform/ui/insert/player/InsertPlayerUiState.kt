@@ -18,9 +18,32 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertDataUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.None
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType.Face
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PlayerPosition
 
 data class InsertPlayerUiState(
-    override val state: InsertingDataState,
+    val playerId: String,
+    val playerName: String = "",
+    val dorsal: Int = 0,
+    val position: PlayerPosition? = null,
+    val faceImage: String = "",
+    val bodyImage: String = "",
+    /** Which box a picked picture lands in — set when the user taps one of the two rows. */
+    val selectedPicture: PictureType = Face,
+    val availableDorsals: List<Int> = emptyList(),
+    val dialog: InsertPlayerDialog = None,
+    override val state: InsertingDataState = Default
+) : InsertDataUiState {
     override val handler: InvalidInformationHandler
-): InsertDataUiState
+        get() = InvalidPlayerHandler(this)
+
+    internal fun imageOf(type: PictureType): String = when (type) {
+        Face -> faceImage
+        PictureType.Body -> bodyImage
+    }
+}

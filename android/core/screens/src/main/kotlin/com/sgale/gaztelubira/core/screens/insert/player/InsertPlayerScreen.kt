@@ -17,52 +17,53 @@
 package com.sgale.gaztelubira.core.screens.insert.player
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromGallery
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.R
-import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.core.screens.insert.manager.gallery.rememberGalleryManager
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
-import com.sgale.gaztelubira.core.screens.insert.player.UiState.Default
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
+import com.sgale.gaztelubira.core.screens.insert.manager.permissions.MediaPermission.CAMERA
+import com.sgale.gaztelubira.core.screens.insert.manager.permissions.rememberPermissionsManager
 import com.sgale.gaztelubira.core.screens.navigation.MultiplatformBackHandler
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.navigation.launchCameraAndWaitForResult
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
+import com.sgale.gaztelubira.core.screens.showToast
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerActions
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerView
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.permission_denied_camera
+import com.sgale.gaztelubira.multiplatform.ui.resources.permission_denied_gallery
+import com.sgale.gaztelubira.multiplatform.ui.resources.upload_error_message
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertPlayerScreen(
-    state: NavigationState,
+    navState: NavigationState,
     viewModel: InsertPlayerViewModel = hiltViewModel<InsertPlayerViewModel>()
 ) {
-    val notValidPlayerMsg = stringResource(R.string.not_valid_player_to_insert)
-    val permissionDeniedCamera = stringResource(R.string.permission_denied_camera)
-    val permissionDeniedGallery = stringResource(R.string.permission_denied_gallery)
-    val uploadErrorMsg = stringResource(R.string.upload_error_message)
-
     val context = LocalContext.current
-    val mainViewModel = LocalMainViewModel.current
-    val user by mainViewModel.userSession.collectAsState()
+    val scope = rememberCoroutineScope()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    val data by viewModel.data.collectAsState()
-    val uiState by viewModel.uiState.collectAsState()
+    val galleryDeniedMsg = stringResource(Res.string.permission_denied_gallery)
+    val cameraDeniedMsg = stringResource(Res.string.permission_denied_camera)
+    val uploadErrorMsg = stringResource(Res.string.upload_error_message)
 
-    MultiplatformBackHandler(uiState != Loading) {
-        state.navigateBack()
+    MultiplatformBackHandler(state.state.isNotLoading()) {
+        navState.navigateBack()
     }
 
+    val permissions = rememberPermissionsManager()
+
     val galleryManager = rememberGalleryManager(
-        onPermissionDenied = { showToast(context, permissionDeniedGallery) }
+        onPermissionDenied = { showToast(context, galleryDeniedMsg) }
     ) { uri ->
-        viewModel.updatePicture(
+        viewModel.onImagePicked(
             FromGallery(
                 uri = uri.toString(),
                 mimeType = context.contentResolver.getType(uri)
@@ -70,41 +71,44 @@ internal fun InsertPlayerScreen(
         )
     }
 
-    val launchCamera = {
-        viewModel.updateState(Default)
-        viewModel.initCamera(
-            permissionDeniedMsg = permissionDeniedCamera,
-            launchCamera = {
-                CoroutineScope(Main).launch {
-                    launchCameraAndWaitForResult(state = state) { viewModel.updatePicture(it) }
+    /**
+     * The camera is a destination of our own rather than a system picker, so it is navigated to and
+     * its result awaited; the permission is asked for here because that screen opens the device
+     * camera straight away.
+     */
+    val takePicture = {
+        permissions.withPermission(
+            permission = CAMERA,
+            onDenied = { showToast(context, cameraDeniedMsg) }
+        ) {
+            scope.launch {
+                launchCameraAndWaitForResult(state = navState) { image ->
+                    viewModel.onImagePicked(image)
                 }
             }
+        }
+    }
+
+    val actions = remember(
+        viewModel,
+        navState,
+        galleryManager,
+        permissions
+    ) {
+        InsertPlayerActions(
+            updateField = viewModel::updateField,
+            showDialog = viewModel::showDialog,
+            pickImage = galleryManager::launch,
+            takePicture = takePicture,
+            insertPlayer = {
+                viewModel.insertPlayer(navState) { showToast(context, uploadErrorMsg) }
+            },
+            onMissingField = { message -> showToast(context, message) }
         )
     }
 
-    val insertPlayer = {
-        viewModel.insertNewPlayer(
-            uploadErrorMsg = uploadErrorMsg,
-            notValidPlayerMsg = notValidPlayerMsg,
-            onSuccess = { state.navigateTo(Home, true) }
-        )
-    }
-
-    GBScaffold(
-        showTopAppBar = true,
-        title = stringResource(R.string.insert_new_player)
-    ) { modifier ->
-        InsertPlayerScreenUI(
-            modifier = modifier,
-            data = data,
-            uiState = uiState,
-            getAvDorsals = { viewModel.getDorsals() },
-            updateUi = { viewModel.updateState(it) },
-            updateField = { field, value -> viewModel.updateField(field, value) },
-            onMediaClicked = { galleryManager.launch() },
-            onCameraClicked = { launchCamera() },
-            removeImage = { viewModel.removeImage() },
-            onInsert = { insertPlayer() }
-        )
-    }
+    InsertPlayerView(
+        state = state,
+        actions = actions
+    )
 }

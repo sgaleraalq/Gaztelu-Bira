@@ -159,4 +159,7 @@
     <string name="invalid_team_name">Nombre de equipo no valido</string>
     <string name="invalid_team_image">Imagen de equipo no valida</string>
     <string name="error_picking_image">Ha ocurrido un error seleccionando esa imagen</string>
+    <string name="invalid_player_name">Nombre de jugador no valido</string>
+    <string name="invalid_player_dorsal">Dorsal de jugador no valido</string>
+    <string name="invalid_player_position">Posicion de jugador no valida</string>
 </resources>

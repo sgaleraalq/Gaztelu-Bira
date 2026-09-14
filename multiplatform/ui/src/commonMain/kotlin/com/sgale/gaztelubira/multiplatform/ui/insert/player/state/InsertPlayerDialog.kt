@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.player
+package com.sgale.gaztelubira.multiplatform.ui.insert.player.state
 
-sealed class UiState {
-    data object Default: UiState()
-    data object Loading: UiState()
-    data object Capture: UiState()
-    data object Position: UiState()
-    data class Dorsal(val dorsals: List<Int>): UiState()
+/**
+ * Which of the form's pickers is on screen. Kept apart from
+ * [com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState] so that "a dialog is open"
+ * and "the player is being uploaded" cannot overwrite one another.
+ */
+sealed interface InsertPlayerDialog {
+    data object None : InsertPlayerDialog
+    data object Capture : InsertPlayerDialog
+    data object Dorsals : InsertPlayerDialog
+    data object Positions : InsertPlayerDialog
 }

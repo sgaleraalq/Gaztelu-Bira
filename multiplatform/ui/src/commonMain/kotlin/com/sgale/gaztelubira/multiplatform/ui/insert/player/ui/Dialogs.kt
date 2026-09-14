@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.player.ui
+package com.sgale.gaztelubira.multiplatform.ui.insert.player.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,63 +26,93 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridCells.Fixed
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign.Companion.Center
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.model.player.Position
-import com.sgale.gaztelubira.core.domain.model.player.Position.Bench
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBMediaOrCamera
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerActions
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Capture
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Dorsals
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.None
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Positions
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Dorsal
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Position
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PlayerPosition
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.select_dorsal
+import com.sgale.gaztelubira.multiplatform.ui.resources.select_media_from
+import com.sgale.gaztelubira.multiplatform.ui.resources.select_position
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun MediaOrCameraDialog(
-    onDismiss: () -> Unit,
-    onMedia: () -> Unit,
-    onCamera: () -> Unit
+internal fun InsertPlayerDialogs(
+    state: InsertPlayerUiState,
+    actions: InsertPlayerActions
 ) {
-    GBMediaOrCamera(
-        title = stringResource(R.string.select_media_from),
-        dismiss = onDismiss,
-        onMediaClicked = onMedia,
-        onCameraClicked = onCamera
-    )
+    val dismiss = { actions.showDialog(None) }
+
+    when (state.dialog) {
+        None -> Unit
+
+        Capture -> GBMediaOrCamera(
+            title = stringResource(Res.string.select_media_from),
+            dismiss = dismiss,
+            onMediaClicked = {
+                dismiss()
+                actions.pickImage()
+            },
+            onCameraClicked = {
+                dismiss()
+                actions.takePicture()
+            }
+        )
+
+        Dorsals -> DorsalDialog(
+            dorsals = state.availableDorsals,
+            onDorsalClicked = { dorsal -> actions.updateField(Dorsal(dorsal)) },
+            dismiss = dismiss
+        )
+
+        Positions -> PositionDialog(
+            onPositionClicked = { position -> actions.updateField(Position(position)) },
+            dismiss = dismiss
+        )
+    }
 }
 
 @Composable
-internal fun DorsalDialog(
+private fun DorsalDialog(
     dorsals: List<Int>,
     onDorsalClicked: (Int) -> Unit,
     dismiss: () -> Unit
 ) {
     GBDialog(
         modifier = Modifier.fillMaxSize().padding(32.dp),
-        dismiss = { dismiss() }
+        dismiss = dismiss
     ) { modifier ->
         Column(
             modifier = modifier.size(400.dp)
         ) {
-            InsertPlayerDialogTitle(
-                text = stringResource(R.string.select_dorsal)
-            )
+            InsertPlayerDialogTitle(text = stringResource(Res.string.select_dorsal))
             LazyVerticalGrid(
                 modifier = Modifier.weight(1f),
-                columns = GridCells.Fixed(5),
+                columns = Fixed(5),
                 horizontalArrangement = spacedBy(12.dp),
                 verticalArrangement = spacedBy(12.dp),
                 contentPadding = PaddingValues(12.dp)
@@ -100,7 +130,7 @@ internal fun DorsalDialog(
 }
 
 @Composable
-internal fun DorsalCard(
+private fun DorsalCard(
     dorsal: Int,
     onDorsalClicked: (Int) -> Unit,
     dismiss: () -> Unit
@@ -113,64 +143,47 @@ internal fun DorsalCard(
                 onDorsalClicked(dorsal)
                 dismiss()
             },
-        contentAlignment = Alignment.Center
+        contentAlignment = Center
     ) {
         GBText(
             text = dorsal.toString(),
             style = gBTypography().bodyMedium,
             textColor = Black,
-            alignment = Center
+            alignment = TextAlign.Center
         )
     }
 }
 
 @Composable
-internal fun PositionDialog(
-    onPositionClicked: (Position) -> Unit,
+private fun PositionDialog(
+    onPositionClicked: (PlayerPosition) -> Unit,
     dismiss: () -> Unit
 ) {
     GBDialog(
         modifier = Modifier.padding(32.dp),
-        dismiss = { dismiss() }
+        dismiss = dismiss
     ) { modifier ->
-        Column(
-            modifier = modifier
-        ) {
-            InsertPlayerDialogTitle(
-                text = stringResource(R.string.select_position)
-            )
-            PositionsCard(
-                onPositionClicked = onPositionClicked,
-                dismiss = dismiss
-            )
+        Column(modifier = modifier) {
+            InsertPlayerDialogTitle(text = stringResource(Res.string.select_position))
+            PlayerPosition.selectable.forEach { position ->
+                GBText(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onPositionClicked(position)
+                            dismiss()
+                        }
+                        .padding(16.dp),
+                    text = stringResource(position.label),
+                    alignment = TextAlign.Center
+                )
+            }
         }
     }
 }
 
 @Composable
-internal fun PositionsCard(
-    onPositionClicked: (Position) -> Unit,
-    dismiss: () -> Unit
-) {
-    Position.entries
-        .filter { it != Bench }
-        .forEach { position ->
-            GBText(
-                text = stringResource(position.positionName),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        onPositionClicked(position)
-                        dismiss()
-                    }
-                    .padding(16.dp),
-                alignment = Center
-            )
-        }
-}
-
-@Composable
-internal fun InsertPlayerDialogTitle(
+private fun InsertPlayerDialogTitle(
     text: String
 ) {
     GBText(
