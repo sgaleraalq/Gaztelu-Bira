@@ -64,6 +64,6 @@ private fun InsertTeamForm(
     InsertTeamButton(
         modifier = modifier,
         state = state,
-        onInsert = actions.insertTeam
+        actions = actions
     )
 }

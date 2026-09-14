@@ -86,8 +86,10 @@ internal fun InsertTeamImage(
 internal fun InsertTeamButton(
     modifier: Modifier,
     state: InsertTeamUiState,
-    onInsert: () -> Unit
+    actions: InsertTeamActions
 ) {
+    val invalidMessage = state.handler.invalidReason?.let { stringResource(it.reason) }
+
     Spacer(modifier = modifier)
     GBInsertButton(
         modifier = Modifier
@@ -95,7 +97,13 @@ internal fun InsertTeamButton(
             .padding(bottom = 16.dp),
         text = stringResource(Res.string.insert_team),
         loading = state.state.isLoading(),
-        enabled = state.handler.isValid,
-        onInsert = onInsert
+        enabled = state.state.isNotLoading(),
+        onInsert = {
+            if (invalidMessage != null) {
+                actions.onMissingField(invalidMessage)
+            } else {
+                actions.insertTeam()
+            }
+        }
     )
 }

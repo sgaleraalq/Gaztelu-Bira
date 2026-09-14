@@ -19,10 +19,13 @@ package com.sgale.gaztelubira.core.screens.insert.player
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromGallery
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.core.screens.insert.images.gallery.rememberGalleryManager
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
 import com.sgale.gaztelubira.core.screens.insert.player.UiState.Default
@@ -45,6 +48,7 @@ internal fun InsertPlayerScreen(
     val permissionDeniedGallery = stringResource(R.string.permission_denied_gallery)
     val uploadErrorMsg = stringResource(R.string.upload_error_message)
 
+    val context = LocalContext.current
     val mainViewModel = LocalMainViewModel.current
     val user by mainViewModel.userSession.collectAsState()
 
@@ -55,15 +59,14 @@ internal fun InsertPlayerScreen(
         state.navigateBack()
     }
 
-    val galleryManager = rememberGalleryManager {
-        // TODO
-//        viewModel.updatePicture(commonImage)
-    }
-
-    val launchGallery = {
-        viewModel.initGallery(
-            permissionDeniedMsg = permissionDeniedGallery,
-            launchGallery = { galleryManager.launch() }
+    val galleryManager = rememberGalleryManager(
+        onPermissionDenied = { showToast(context, permissionDeniedGallery) }
+    ) { uri ->
+        viewModel.updatePicture(
+            FromGallery(
+                uri = uri.toString(),
+                mimeType = context.contentResolver.getType(uri)
+            )
         )
     }
 
@@ -98,7 +101,7 @@ internal fun InsertPlayerScreen(
             getAvDorsals = { viewModel.getDorsals() },
             updateUi = { viewModel.updateState(it) },
             updateField = { field, value -> viewModel.updateField(field, value) },
-            onMediaClicked = { launchGallery() },
+            onMediaClicked = { galleryManager.launch() },
             onCameraClicked = { launchCamera() },
             removeImage = { viewModel.removeImage() },
             onInsert = { insertPlayer() }

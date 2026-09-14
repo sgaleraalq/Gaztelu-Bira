@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.insert.team
+package com.sgale.gaztelubira.multiplatform.ui.insert
 
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertDataActions
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
-
-data class InsertTeamActions(
-    val updateField: (InsertTeamField) -> Unit,
-    val pickImage: () -> Unit,
-    val insertTeam: () -> Unit,
-    override val onMissingField: (String) -> Unit
-): InsertDataActions
+interface InsertDataActions {
+    val onMissingField: (String) -> Unit
+}

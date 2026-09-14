@@ -14,13 +14,29 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.insert.images.gallery
+package com.sgale.gaztelubira.core.screens.insert.images.permissions
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal class Gallery(
-    private val onLaunch: () -> Unit
+class Permissions internal constructor(
+    private val granted: (MediaPermission) -> Boolean,
+    private val request: (MediaPermission, (Boolean) -> Unit) -> Unit
 ) {
-    internal fun launch() = onLaunch()
+    internal fun isGranted(permission: MediaPermission): Boolean = granted(permission)
+
+    internal fun withPermission(
+        permission: MediaPermission,
+        onDenied: () -> Unit = {},
+        onGranted: () -> Unit
+    ) {
+        if (granted(permission)) {
+            onGranted()
+            return
+        }
+
+        request(permission) { isGranted ->
+            if (isGranted) onGranted() else onDenied()
+        }
+    }
 }

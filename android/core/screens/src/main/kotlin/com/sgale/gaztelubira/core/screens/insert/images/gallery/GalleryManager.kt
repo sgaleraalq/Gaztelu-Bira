@@ -22,16 +22,37 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.ImageOnly
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import com.sgale.gaztelubira.core.screens.insert.images.permissions.MediaPermission.GALLERY
+import com.sgale.gaztelubira.core.screens.insert.images.permissions.rememberPermissionsManager
 
 @Composable
 internal fun rememberGalleryManager(
-    onImageSelected: (Uri) -> Unit = {},
-    onFailure: () -> Unit = {}
+    onPermissionDenied: () -> Unit = {},
+    onCancelled: () -> Unit = {},
+    onImageSelected: (Uri) -> Unit
 ): Gallery {
-    val launcher = rememberLauncherForActivityResult(PickVisualMedia()) { uri ->
-        uri?.let { onImageSelected(it) } ?: onFailure()
+    val permissions = rememberPermissionsManager()
+    val contract = remember { PickVisualMedia() }
+    val request = remember { PickVisualMediaRequest(ImageOnly) }
+    val currentOnPermissionDenied by rememberUpdatedState(onPermissionDenied)
+
+    val launcher = rememberLauncherForActivityResult(contract) { uri ->
+        uri?.let { onImageSelected(it) } ?: onCancelled()
     }
 
-    return remember { Gallery { launcher.launch(PickVisualMediaRequest(ImageOnly)) } }
+    return remember(permissions) {
+        Gallery(
+            onLaunch = {
+                permissions.withPermission(
+                    permission = GALLERY,
+                    onDenied = { currentOnPermissionDenied() }
+                ) {
+                    launcher.launch(request)
+                }
+            }
+        )
+    }
 }

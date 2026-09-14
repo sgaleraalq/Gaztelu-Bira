@@ -31,7 +31,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamView
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_picking_image
+import com.sgale.gaztelubira.multiplatform.ui.resources.permission_denied_gallery
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -41,16 +41,17 @@ internal fun InsertTeamScreen(
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val errorMsg = stringResource(Res.string.error_picking_image)
+    val permissionDeniedMsg = stringResource(Res.string.permission_denied_gallery)
 
     BackHandler(state.state.isNotLoading()) {
         navState.navigateBack()
     }
 
     val galleryManager = rememberGalleryManager(
-        onImageSelected = { uri -> viewModel.updateField(TeamImage("adlñfa")) },
-        onFailure = { showToast(context, errorMsg) }
-    )
+        onPermissionDenied = { showToast(context, permissionDeniedMsg) }
+    ) { uri ->
+        viewModel.updateField(TeamImage(uri.toString()))
+    }
 
     val actions = remember(
         viewModel,
@@ -60,7 +61,8 @@ internal fun InsertTeamScreen(
         InsertTeamActions(
             updateField = viewModel::updateField,
             pickImage = galleryManager::launch,
-            insertTeam = { viewModel.insertTeam(navState) }
+            insertTeam = { viewModel.insertTeam(navState) },
+            onMissingField = { message -> showToast(context, message)}
         )
     }
 

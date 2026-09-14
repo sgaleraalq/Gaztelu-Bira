@@ -88,7 +88,7 @@ fun GBInsertImage(
         modifier = boxClickableModifier.fillMaxWidth(),
         contentAlignment = Center
     ) {
-        if (image != null) {
+        if (!image.isNullOrBlank()) {
             GBImage(
                 modifier = clickableModifier.clip(
                     RoundedCornerShape(12.dp)
