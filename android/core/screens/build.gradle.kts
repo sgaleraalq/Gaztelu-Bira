@@ -30,6 +30,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.compose.activity)
+
     implementation(libs.androidx.exifinterface)
     implementation(libs.compose.navigation)
     implementation(libs.hilt.navigation.compose)

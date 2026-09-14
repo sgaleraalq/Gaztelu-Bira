@@ -21,9 +21,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
+import com.sgale.gaztelubira.core.screens.insert.images.gallery.rememberGalleryManager
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
 import com.sgale.gaztelubira.core.screens.insert.player.UiState.Default
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
@@ -55,8 +55,9 @@ internal fun InsertPlayerScreen(
         state.navigateBack()
     }
 
-    val galleryManager = rememberGalleryManager { commonImage ->
-        viewModel.updatePicture(commonImage)
+    val galleryManager = rememberGalleryManager {
+        // TODO
+//        viewModel.updatePicture(commonImage)
     }
 
     val launchGallery = {

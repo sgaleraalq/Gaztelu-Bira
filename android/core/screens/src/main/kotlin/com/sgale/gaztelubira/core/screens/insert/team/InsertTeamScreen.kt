@@ -20,28 +20,37 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.domain.utils.rememberGalleryManager
+import com.sgale.gaztelubira.core.screens.insert.images.gallery.rememberGalleryManager
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.core.screens.showToast
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamView
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
+import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_picking_image
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertTeamScreen(
     navState: NavigationState,
     viewModel: InsertTeamViewModel = hiltViewModel<InsertTeamViewModel>()
 ) {
+    val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val errorMsg = stringResource(Res.string.error_picking_image)
 
     BackHandler(state.state.isNotLoading()) {
         navState.navigateBack()
     }
 
-    val galleryManager = rememberGalleryManager { commonImage ->
-        viewModel.onImagePicked(commonImage)
-    }
+    val galleryManager = rememberGalleryManager(
+        onImageSelected = { uri -> viewModel.updateField(TeamImage("adlñfa")) },
+        onFailure = { showToast(context, errorMsg) }
+    )
 
     val actions = remember(
         viewModel,

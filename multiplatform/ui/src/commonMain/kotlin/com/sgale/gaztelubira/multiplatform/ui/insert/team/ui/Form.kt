@@ -30,12 +30,11 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTextField
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isLoading
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.Companion.EMPTY_IMAGE
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isLoading
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
-import com.sgale.gaztelubira.multiplatform.ui.insert.ui.InvalidInformationMessage
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team
 import com.sgale.gaztelubira.multiplatform.ui.resources.team_name
@@ -90,7 +89,6 @@ internal fun InsertTeamButton(
     onInsert: () -> Unit
 ) {
     Spacer(modifier = modifier)
-    InvalidInformationMessage(state.handler.invalidReason)
     GBInsertButton(
         modifier = Modifier
             .padding(horizontal = 12.dp)

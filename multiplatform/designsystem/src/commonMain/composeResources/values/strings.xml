@@ -158,4 +158,5 @@
 
     <string name="invalid_team_name">Invalid team name</string>
     <string name="invalid_team_image">Invalid team image</string>
+    <string name="error_picking_image">An error occurred picking that image</string>
 </resources>
