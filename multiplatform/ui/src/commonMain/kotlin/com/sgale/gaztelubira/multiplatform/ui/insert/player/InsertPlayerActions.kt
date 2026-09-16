@@ -23,7 +23,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerFi
 data class InsertPlayerActions(
     val openCamera: () -> Unit = { /* TODO */ },
     val updateField: (InsertPlayerField) -> Unit,
-    val onInsertPlayerAction: (InsertPlayerDialog) -> Unit,
+    val updateDialogState: (InsertPlayerDialog) -> Unit,
     val openGallery: () -> Unit,
     val insertPlayer: () -> Unit,
     override val onMissingField: (String) -> Unit

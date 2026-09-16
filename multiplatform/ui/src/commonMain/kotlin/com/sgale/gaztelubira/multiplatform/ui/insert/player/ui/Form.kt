@@ -43,11 +43,11 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companio
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Dorsal
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Generic.Dorsal
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Generic.Position
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Body
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Face
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Position
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Companion.emptyImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
@@ -109,14 +109,14 @@ private fun DorsalAndPosition(
             modifier = Modifier.weight(1f),
             informationText = dorsalText,
             enabled = !loading,
-            onClick = { actions.onInsertPlayerAction(Dorsal) }
+            onClick = { actions.updateDialogState(Dorsal) }
         )
 
         InformationComponent(
             modifier = Modifier.weight(1f),
             informationText = state.playerPosition,
             enabled = !loading,
-            onClick = { actions.onInsertPlayerAction(Position) }
+            onClick = { actions.updateDialogState(Position) }
         )
     }
 }
@@ -185,7 +185,7 @@ private fun PlayerImageRow(
         text = text,
         imageUri = image,
         placeholder = placeholder,
-        onClick = { actions.onInsertPlayerAction(action) },
+        onClick = { actions.updateDialogState(action) },
         removeImage = { actions.updateField(emptyImage()) }
     )
 }

@@ -32,6 +32,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.None
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Dorsal
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Image
@@ -54,7 +55,10 @@ internal class InsertPlayerViewModel @Inject constructor(
     private val getAvailableDorsals: GetAvailableDorsals
 ) : ViewModel() {
     private var selectedPicture = FACE
-    private val initialState = InsertPlayerUiState(playerId = getCurrentTimeId())
+    private val initialState = InsertPlayerUiState(
+        playerId = getCurrentTimeId(),
+        positions = emptyList() // TODO
+    )
     private val _state = MutableStateFlow(initialState)
     internal val state: StateFlow<InsertPlayerUiState> = _state.asStateFlow()
 
@@ -73,6 +77,7 @@ internal class InsertPlayerViewModel @Inject constructor(
     }
 
     internal fun updateField(field: InsertPlayerField) {
+        updateDialogState(None)
         when (field) {
             is Name -> _state.update { it.copy(playerName = field.name) }
             is Dorsal -> _state.update { it.copy(playerDorsal = field.dorsal) }
@@ -81,9 +86,10 @@ internal class InsertPlayerViewModel @Inject constructor(
         }
     }
 
-    internal fun showDialog(dialog: InsertPlayerDialog) {
-        _state.update { it.copy(dialog = dialog) }
+    internal fun updateDialogState(newState: InsertPlayerDialog) {
+        _state.update { it.copy(dialog = newState) }
     }
+
 
     /** Drops the picture into whichever box the user tapped before opening the source dialog. */
     internal fun onImagePicked(image: CommonImage?) {

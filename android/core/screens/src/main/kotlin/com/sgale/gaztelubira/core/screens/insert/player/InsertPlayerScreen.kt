@@ -92,9 +92,8 @@ internal fun InsertPlayerScreen(
     ) {
         InsertPlayerActions(
             updateField = viewModel::updateField,
-            showDialog = viewModel::showDialog,
-            pickImage = galleryManager::launch,
-            takePicture = takePicture,
+            updateDialogState = viewModel::updateDialogState,
+            openGallery = galleryManager::launch,
             insertPlayer = {
                 viewModel.insertPlayer(navState) { showToast(context, uploadErrorMsg) }
             },

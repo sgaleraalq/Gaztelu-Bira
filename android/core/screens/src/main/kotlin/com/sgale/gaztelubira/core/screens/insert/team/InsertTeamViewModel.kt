@@ -26,12 +26,12 @@ import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromGallery
 import com.sgale.gaztelubira.core.domain.utils.IImageValidator
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -79,13 +79,16 @@ internal class InsertTeamViewModel @Inject constructor(
 
         val uri = image?.uri
         if (uri == null) {
-            _state.update { it.copy(teamImage = "", validImage = false) }
+            _state.update { it.copy(teamImage = "") }
             return
         }
 
         viewModelScope.launch {
             val validImage = imageValidator.isValidImage(uri)
-            _state.update { it.copy(teamImage = uri, validImage = validImage) }
+
+            if (validImage) {
+                _state.update { it.copy(teamImage = uri) }
+            }
         }
     }
 

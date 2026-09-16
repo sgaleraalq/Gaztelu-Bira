@@ -51,7 +51,7 @@ internal fun InsertPlayerDialogs(
     state: InsertPlayerUiState,
     actions: InsertPlayerActions
 ) {
-    val dismiss = { actions.onInsertPlayerAction(None) }
+    val dismiss = { actions.updateDialogState(None) }
 
     when (state.dialog) {
         None -> Unit

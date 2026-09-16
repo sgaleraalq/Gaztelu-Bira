@@ -27,13 +27,17 @@ internal class InvalidPlayerHandler(
     state: InsertPlayerUiState
 ) : InvalidInformationHandler<InsertPlayerUiState>(state) {
     override val requiredFields: List<InvalidInformationReason> = listOfNotNull(
-        InvalidInformationReason(state.playerName, Res.string.invalid_player_name),
-        InvalidInformationReason(state.playerPosition, Res.string.invalid_player_position),
-        /* A manager wears no number, and only the platform knows which position that is, so it is
-           the one that says whether the dorsal is being asked for at all. */
+        InvalidInformationReason(
+            value = state.playerName,
+            reason = Res.string.invalid_player_name
+        ),
+        InvalidInformationReason(
+            value = state.playerPosition,
+            reason = Res.string.invalid_player_position
+        ),
         InvalidInformationReason(
             value = state.playerDorsal.takeIf { it > 0 }?.toString().orEmpty(),
             reason = Res.string.invalid_player_dorsal
-        ).takeIf { state.dorsalRequired }
+        )
     )
 }

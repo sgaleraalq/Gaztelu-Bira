@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerButton
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.dialogs.InsertPlayerDialogs
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerImages
@@ -35,7 +36,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerMainI
 internal fun InsertPlayerViewUI(
     modifier: Modifier,
     state: InsertPlayerUiState,
-    actions: InsertPlayerActions
+    actions: InsertPlayerActions,
 ) {
     Column(
         modifier = modifier.fillMaxSize()
