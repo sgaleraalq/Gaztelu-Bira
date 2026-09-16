@@ -60,7 +60,7 @@ internal fun InsertPlayerDialogs(
             GBMediaOrCamera(
                 title = stringResource(Res.string.select_media_from),
                 dismiss = dismiss,
-                onMediaClicked = { actions.openGallery() },
+                onMediaClicked = { /* actions.openGallery()*/ },
                 onCameraClicked = { actions.openCamera() }
             )
         }

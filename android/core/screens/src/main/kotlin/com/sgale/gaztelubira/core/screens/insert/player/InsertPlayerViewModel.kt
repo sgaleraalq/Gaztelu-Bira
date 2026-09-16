@@ -25,12 +25,16 @@ import com.sgale.gaztelubira.core.domain.model.utils.PictureType.FACE
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.PlayerInserted
 import com.sgale.gaztelubira.core.domain.usecase.db.GetAvailableDorsals
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewPlayer
+import com.sgale.gaztelubira.core.screens.insert.manager.gallery.Gallery
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Body
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Face
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.None
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Dorsal
@@ -80,6 +84,17 @@ internal class InsertPlayerViewModel @Inject constructor(
 
     internal fun updateDialogState(newState: InsertPlayerDialog) {
         _state.update { it.copy(dialog = newState) }
+    }
+
+    internal fun updateSelectedImage(
+        image: Images,
+        gallery: Gallery
+    ) {
+        selectedPicture = when (image) {
+            Body -> BODY
+            Face -> FACE
+        }
+        gallery.launch()
     }
 
     internal fun insertPlayer(

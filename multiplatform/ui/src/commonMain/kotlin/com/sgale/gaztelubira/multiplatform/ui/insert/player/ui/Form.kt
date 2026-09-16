@@ -189,7 +189,7 @@ private fun PlayerImageRow(
         text = text,
         imageUri = image,
         placeholder = placeholder,
-        onClick = { actions.openGallery() },
+        onClick = { actions.openGallery(action) },
         removeImage = { actions.updateField(EMPTY_IMAGE) }
     )
 }
