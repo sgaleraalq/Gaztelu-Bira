@@ -21,7 +21,7 @@ import com.sgale.gaztelubira.core.data.mappers.asResponse
 import com.sgale.gaztelubira.core.data.network.response.UserResponse
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils
 import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.USERS
@@ -91,7 +91,7 @@ class FbUsers @Inject constructor(
         return "TODO"
     }
 
-    private fun getUserTeam(): TeamModel {
+    private fun getUserTeam(): Team {
         return GazteluBiraUtils.GAZTELU_BIRA
     }
 }

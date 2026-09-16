@@ -25,9 +25,9 @@ import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 data class PlayerEntity(
     @PrimaryKey
     val id: FirebaseId,
+    val name: String,
+    val position: Position,
     val faceImage: String,
     val bodyImage: String,
-    val name: String,
-    val dorsal: Int?,
-    val position: Position?
+    val dorsal: Int?
 )

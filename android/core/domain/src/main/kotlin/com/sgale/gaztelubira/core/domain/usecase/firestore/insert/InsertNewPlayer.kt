@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.usecase.firestore.insert
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.BODY
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.FACE
@@ -34,7 +34,7 @@ class InsertNewPlayer @Inject constructor(
     private val playersDb: IGBPlayersDb
 ) {
     suspend operator fun invoke(
-        player: PlayerModel,
+        player: Player,
         faceImg: CommonImage?,
         bodyImg: CommonImage?
     ): FirebaseInsertResult {

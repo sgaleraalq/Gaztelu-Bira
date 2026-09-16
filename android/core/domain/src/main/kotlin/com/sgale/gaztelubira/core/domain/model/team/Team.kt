@@ -16,6 +16,12 @@
 
 package com.sgale.gaztelubira.core.domain.model.team
 
-enum class TeamSide {
-    Local, Visitor
-}
+import androidx.compose.runtime.Immutable
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+
+@Immutable
+data class Team(
+    val id: FirebaseId,
+    val name: String,
+    val logo: String?
+)

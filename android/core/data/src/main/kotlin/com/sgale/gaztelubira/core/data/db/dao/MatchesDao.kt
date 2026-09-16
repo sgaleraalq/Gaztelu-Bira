@@ -21,8 +21,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import com.sgale.gaztelubira.core.data.db.entities.MatchEntity
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.model.utils.GBConstants.LEAGUE
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -40,7 +40,7 @@ interface MatchesDao: BaseDao<MatchEntity> {
     override suspend fun deleteItem(id: FirebaseId)
 
     @Query("SELECT * FROM MatchEntity WHERE matchType = :type")
-    suspend fun getNumberOfJourneys(type: String = LEAGUE): List<MatchEntity>
+    suspend fun getNumberOfJourneys(type: String = LEAGUE.name): List<MatchEntity>
 
     @Query("SELECT * FROM MatchEntity")
     suspend fun getMatches(): List<MatchEntity>

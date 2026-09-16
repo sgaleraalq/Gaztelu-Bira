@@ -16,16 +16,16 @@
 
 package com.sgale.gaztelubira.core.domain.repository.db
 
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
 interface IGBPlayersStatsDb {
     suspend fun deletePlayer(id: FirebaseId)
-    suspend fun getPlayerStats(id: FirebaseId): PlayerStatsModel?
-    suspend fun insertPlayer(player: PlayerStatsModel)
+    suspend fun getPlayerStats(id: FirebaseId): PlayerStats?
+    suspend fun insertPlayer(player: PlayerStats)
     suspend fun insertStats(matchId: FirebaseId, stats: Map<FirebaseId, Stats>)
-    suspend fun insertStatsFromFB(stats: List<PlayerStatsModel>)
-    fun getPlayersStatsListAsFlow(): Flow<List<PlayerStatsModel>>
+    suspend fun insertStatsFromFB(stats: List<PlayerStats>)
+    fun getPlayersStatsListAsFlow(): Flow<List<PlayerStats>>
 }

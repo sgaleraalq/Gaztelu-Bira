@@ -21,18 +21,18 @@ import com.sgale.gaztelubira.core.data.db.entities.TeamEntity
 import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
 import com.sgale.gaztelubira.core.data.network.response.TeamResponse
 import com.sgale.gaztelubira.core.data.network.response.UserResponse
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
 
 /**
  * Match Model
  */
-fun MatchModel.asMatchResponse() = MatchMapper.asResponse(this)
-fun MatchModel.asMatchEntity() = MatchMapper.asEntity(this)
+fun Match.asMatchResponse() = MatchMapper.asResponse(this)
+fun Match.asMatchEntity() = MatchMapper.asEntity(this)
 
 /**
  * Match Stats
@@ -47,13 +47,13 @@ fun List<PlayerResponse>.asPlayerModel() =
     this.map { PlayerMapper.responseAsModel(it) }
 fun PlayerResponse.asPlayerModel() = PlayerMapper.responseAsModel(this)
 fun PlayerEntity.asPlayerDomain() = PlayerMapper.entityAsDomain(this)
-fun PlayerModel.asPlayerResponse() = PlayerMapper.asResponse(this)
-fun PlayerModel.asPlayerEntity() = PlayerMapper.asEntity(this)
+fun Player.asPlayerResponse() = PlayerMapper.asResponse(this)
+fun Player.asPlayerEntity() = PlayerMapper.asEntity(this)
 
 /**
  * Player Stats
  */
-fun PlayerStatsModel.asPlayerStatsEntity() = PlayerStatsMapper.asEntity(this)
+fun PlayerStats.asPlayerStatsEntity() = PlayerStatsMapper.asEntity(this)
 
 /**
  * Team Model
@@ -62,8 +62,8 @@ fun List<TeamResponse>.asTeamModel() =
     this.map { TeamMapper.responseAsModel(it) }
 fun TeamResponse.asTeamModel() = TeamMapper.responseAsModel(this)
 fun TeamEntity.asTeamModel() = TeamMapper.entityAsDomain(this)
-fun TeamModel.asTeamResponse() = TeamMapper.asResponse(this)
-fun TeamModel.asTeamEntity() = TeamMapper.asEntity(this)
+fun Team.asTeamResponse() = TeamMapper.asResponse(this)
+fun Team.asTeamEntity() = TeamMapper.asEntity(this)
 
 /**
  * User Model

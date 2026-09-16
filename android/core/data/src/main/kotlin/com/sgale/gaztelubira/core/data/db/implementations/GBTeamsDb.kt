@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.data.db.GBDatabase
 import com.sgale.gaztelubira.core.data.mappers.TeamMapper
 import com.sgale.gaztelubira.core.data.mappers.asTeamEntity
 import com.sgale.gaztelubira.core.data.mappers.asTeamModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
 import javax.inject.Inject
@@ -34,10 +34,10 @@ class GBTeamsDb @Inject constructor(
     override suspend fun deleteTeam(id: FirebaseId) {
         teamsDao.deleteItem(id)
     }
-    override suspend fun insertTeam(team: TeamModel) =
+    override suspend fun insertTeam(team: Team) =
         teamsDao.insert(team.asTeamEntity())
 
-    override suspend fun insertTeams(teams: List<TeamModel>) =
+    override suspend fun insertTeams(teams: List<Team>) =
         insertList(
             items = teams,
             mapper = TeamMapper::asEntity,
@@ -46,9 +46,9 @@ class GBTeamsDb @Inject constructor(
 
     override suspend fun getTeam(
         id: FirebaseId
-    ): TeamModel? = teamsDao.getItem(id)?.asTeamModel()
+    ): Team? = teamsDao.getItem(id)?.asTeamModel()
 
-    override fun getTeamsList(): Flow<List<TeamModel>> =
+    override fun getTeamsList(): Flow<List<Team>> =
         getFlow(
             source = teamsDao.getListAsFlow(),
             mapper = { it.asTeamModel() },

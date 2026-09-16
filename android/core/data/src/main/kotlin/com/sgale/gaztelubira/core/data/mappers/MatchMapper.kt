@@ -18,37 +18,37 @@ package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.MatchEntity
 import com.sgale.gaztelubira.core.data.network.response.MatchResponse
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 
 object MatchMapper :
-    Mapper<MatchResponse, MatchModel, MatchEntity> {
-    override fun asEntity(domain: MatchModel) =
+    Mapper<MatchResponse, Match, MatchEntity> {
+    override fun asEntity(domain: Match) =
         MatchEntity(
             id = domain.id,
             date = domain.date,
             matchName = domain.matchName,
-            matchType = domain.matchType.asString(),
+            matchType = domain.matchType.name,
             localTeam = domain.localTeam.id,
             localGoals = domain.localGoals,
             visitorTeam = domain.visitorTeam.id,
             visitorGoals = domain.visitorGoals
         )
 
-    override fun asResponse(domain: MatchModel) =
+    override fun asResponse(domain: Match) =
         MatchResponse(
             id = domain.id,
             date = domain.date,
             matchName = domain.matchName,
-            matchType = domain.matchType.asString(),
+            matchType = domain.matchType.name,
             localTeam = domain.localTeam.id,
             localGoals = domain.localGoals,
             visitorTeam = domain.visitorTeam.id,
             visitorGoals = domain.visitorGoals
         )
 
-    override fun entityAsDomain(entity: MatchEntity): MatchModel? =
+    override fun entityAsDomain(entity: MatchEntity): Match? =
         null
 
-    override fun responseAsModel(response: MatchResponse): MatchModel? =
+    override fun responseAsModel(response: MatchResponse): Match? =
         null
 }

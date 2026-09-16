@@ -18,10 +18,11 @@ package com.sgale.gaztelubira.core.screens.insert.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.match.MatchType.Cup
-import com.sgale.gaztelubira.core.domain.model.match.MatchType.League
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamSide
+import com.sgale.gaztelubira.core.domain.model.match.MatchSide
+import com.sgale.gaztelubira.core.domain.model.match.MatchSide.LOCAL
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.CUP
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.usecase.db.GetNumberOfJourneys
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,12 +55,12 @@ class InsertMatchTeamsViewModel @Inject constructor(
         }
     }
 
-    fun changeGoals(side: TeamSide, goals: Int?) {
+    fun changeGoals(side: MatchSide, goals: Int?) {
         val goals = goals ?: -1
         if (goals == -1 || goals in 0..15) {
             _matchInformation.value = _matchInformation.value.copy(
-                localGoals = if (side == TeamSide.Local) goals else _matchInformation.value.localGoals,
-                visitorGoals = if (side == TeamSide.Local) _matchInformation.value.visitorGoals else goals
+                localGoals = if (side == LOCAL) goals else _matchInformation.value.localGoals,
+                visitorGoals = if (side == LOCAL) _matchInformation.value.visitorGoals else goals
             )
         }
     }
@@ -77,7 +78,7 @@ class InsertMatchTeamsViewModel @Inject constructor(
     }
 
     fun updateLocalTeam(
-        appTeam: TeamModel?,
+        appTeam: Team?,
         journeyName: String,
         cupName: String
     ) {
@@ -97,10 +98,10 @@ class InsertMatchTeamsViewModel @Inject constructor(
     }
 
     fun updateMatchType() {
-        val matchType = if (_matchInformation.value.matchType == League) {
-            Cup
+        val matchType = if (_matchInformation.value.matchType == LEAGUE) {
+            CUP
         } else {
-            League
+            LEAGUE
         }
 
         val cupName = _matchInformation.value.cupName
@@ -108,13 +109,13 @@ class InsertMatchTeamsViewModel @Inject constructor(
         _matchInformation.value = _matchInformation.value.copy(
             matchType = matchType,
             matchName = when (matchType) {
-                League -> getLeagueJourney()
-                Cup -> cupName
+                LEAGUE -> getLeagueJourney()
+                CUP -> cupName
             }
         )
     }
 
-    fun updateSelectedTeam(team: TeamModel) {
+    fun updateSelectedTeam(team: Team) {
         when (_matchInformation.value.appTeamLocal) {
             true -> visitorSelected(team)
             false -> localSelected(team)
@@ -128,13 +129,13 @@ class InsertMatchTeamsViewModel @Inject constructor(
         return "$jName ${nJourneys + 1}"
     }
 
-    private fun localSelected(team: TeamModel) {
+    private fun localSelected(team: Team) {
         _matchInformation.value = _matchInformation.value.copy(
             local = team
         )
     }
 
-    private fun visitorSelected(team: TeamModel) {
+    private fun visitorSelected(team: Team) {
         _matchInformation.value = _matchInformation.value.copy(
             visitor = team
         )

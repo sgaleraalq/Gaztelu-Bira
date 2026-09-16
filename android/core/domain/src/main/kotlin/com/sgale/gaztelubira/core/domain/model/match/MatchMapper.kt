@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.domain.model.match
 
 import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBMatchResult
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.utils.toDate
 import com.sgale.gaztelubira.multiplatform.model.GBMatch
 import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
@@ -27,8 +27,8 @@ import com.sgale.gaztelubira.multiplatform.model.GBMatchType.CUP
 import com.sgale.gaztelubira.multiplatform.model.GBMatchType.LEAGUE
 
 object MatchMapper {
-    fun MatchModel.toGBMatch(
-        appTeam: TeamModel?,
+    fun Match.toGBMatch(
+        appTeam: Team?,
         result: MatchResult
     ): GBMatch =
         GBMatch(
@@ -43,7 +43,7 @@ object MatchMapper {
             result = if (appTeam == null) GBMatchResult.UNDEFINED else result.toGBMatchResult()
         )
 
-    private fun TeamModel.toGBMatchTeam(): GBMatchTeam =
+    private fun Team.toGBMatchTeam(): GBMatchTeam =
         GBMatchTeam(
             name = name,
             logo = logo
@@ -51,7 +51,7 @@ object MatchMapper {
 
     private fun MatchType.toGBMatchType(): GBMatchType =
         when (this) {
-            MatchType.League -> LEAGUE
-            MatchType.Cup -> CUP
+            MatchType.LEAGUE -> LEAGUE
+            MatchType.CUP -> CUP
         }
 }

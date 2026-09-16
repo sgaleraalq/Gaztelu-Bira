@@ -16,33 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.model.match
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import com.sgale.gaztelubira.core.domain.R
-import com.sgale.gaztelubira.core.domain.model.utils.GBConstants.CUP
-import com.sgale.gaztelubira.core.domain.model.utils.GBConstants.LEAGUE
-
-enum class MatchType(
-    @StringRes val type: Int,
-    @DrawableRes val icon: Int
-) {
-    League(R.string.league, R.drawable.ic_league),
-    Cup(R.string.cup, R.drawable.ic_cup);
-
-    fun asString(): String {
-        return when(this){
-            League -> LEAGUE
-            Cup -> CUP
-        }
-    }
-
-    companion object {
-        fun fromString(name: String): MatchType {
-            return when(name) {
-                LEAGUE -> League
-                CUP -> Cup
-                else -> League
-            }
-        }
-    }
+enum class MatchType {
+    LEAGUE,
+    CUP
 }

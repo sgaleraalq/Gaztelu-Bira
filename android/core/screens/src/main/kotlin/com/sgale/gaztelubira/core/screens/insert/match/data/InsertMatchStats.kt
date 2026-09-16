@@ -18,22 +18,22 @@ package com.sgale.gaztelubira.core.screens.insert.match.data
 
 import androidx.compose.runtime.Stable
 import com.sgale.gaztelubira.core.domain.model.match.MatchStats
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stat
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Goals
 
 @Stable
 data class InsertMatchStats(
     val selectedStat: Stat? = Goals,
-    val assists: List<PlayerModel> = emptyList(),
-    val cleanSheets: List<PlayerModel> = emptyList(),
-    val fails: List<PlayerModel> = emptyList(),
-    val goals: List<PlayerModel> = emptyList(),
-    val goalsProvoked: List<PlayerModel> = emptyList(),
-    val penaltiesProvoked: List<PlayerModel> = emptyList(),
-    val redCards: List<PlayerModel> = emptyList(),
-    val saves: List<PlayerModel> = emptyList(),
-    val yellowCards: List<PlayerModel> = emptyList()
+    val assists: List<Player> = emptyList(),
+    val cleanSheets: List<Player> = emptyList(),
+    val fails: List<Player> = emptyList(),
+    val goals: List<Player> = emptyList(),
+    val goalsProvoked: List<Player> = emptyList(),
+    val penaltiesProvoked: List<Player> = emptyList(),
+    val redCards: List<Player> = emptyList(),
+    val saves: List<Player> = emptyList(),
+    val yellowCards: List<Player> = emptyList()
 ) {
     fun toStatsMatchModel() = MatchStats(
         assists = assists,

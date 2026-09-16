@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.data.db.GBDatabase
 import com.sgale.gaztelubira.core.data.mappers.PlayerMapper
 import com.sgale.gaztelubira.core.data.mappers.asPlayerDomain
 import com.sgale.gaztelubira.core.data.mappers.asPlayerEntity
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
 import javax.inject.Inject
@@ -35,17 +35,17 @@ class GBPlayersDb @Inject constructor(
         playersDao.deleteItem(id)
     }
 
-    override suspend fun insertPlayer(player: PlayerModel) =
+    override suspend fun insertPlayer(player: Player) =
         playersDao.insert(player.asPlayerEntity())
 
-    override suspend fun insertPlayers(players: List<PlayerModel>) =
+    override suspend fun insertPlayers(players: List<Player>) =
         insertList(
             items = players,
             mapper = PlayerMapper::asEntity,
             dao = playersDao
         )
 
-    override suspend fun getPlayer(id: FirebaseId): PlayerModel? =
+    override suspend fun getPlayer(id: FirebaseId): Player? =
         playersDao.getItem(id)?.asPlayerDomain()
 
     override suspend fun getNumberOfPlayers(): Int =
@@ -56,10 +56,10 @@ class GBPlayersDb @Inject constructor(
         return (1..100).filterNot { it in taken }
     }
 
-    override suspend fun getPlayers(): List<PlayerModel> =
+    override suspend fun getPlayers(): List<Player> =
         playersDao.getPlayers().map { it.asPlayerDomain() }
 
-    override fun getPlayersListAsFlow(): Flow<List<PlayerModel>> =
+    override fun getPlayersListAsFlow(): Flow<List<Player>> =
         getFlow(
             source = playersDao.getListAsFlow(),
             mapper = { it.asPlayerDomain() },

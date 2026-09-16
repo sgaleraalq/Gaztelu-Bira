@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.model.match
+package com.sgale.gaztelubira.core.domain.model.player
 
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import androidx.compose.runtime.Immutable
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
-data class MatchModel(
+@Immutable
+data class Player(
     val id: FirebaseId,
-    val date: Long,
-    val matchName: String,
-    val matchType: MatchType,
-    val localTeam: TeamModel,
-    val visitorTeam: TeamModel,
-    val localGoals: Int,
-    val visitorGoals: Int
+    val name: String,
+    val position: Position,
+    val faceImage: String?,
+    val bodyImage: String?,
+    val dorsal: Int?
 )

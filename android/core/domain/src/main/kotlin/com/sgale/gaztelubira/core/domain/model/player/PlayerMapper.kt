@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.domain.model.player
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 
 object PlayerMapper {
-    fun PlayerModel.toGBPlayer(): GBPlayer =
+    fun Player.toGBPlayer(): GBPlayer =
         GBPlayer(
             id = id,
             name = name,

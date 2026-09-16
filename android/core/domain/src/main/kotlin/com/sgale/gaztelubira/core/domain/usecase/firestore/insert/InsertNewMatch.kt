@@ -16,9 +16,9 @@
 
 package com.sgale.gaztelubira.core.domain.usecase.firestore.insert
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
@@ -40,7 +40,7 @@ class InsertNewMatch @Inject constructor(
     private val playerStatsDb: IGBPlayersStatsDb
 ) {
     suspend operator fun invoke(
-        match: MatchModel,
+        match: Match,
         matchStats: MatchStatsModel
     ): FirebaseInsertResult = coroutineScope {
         val playerStats = createPlayerStats(matchStats)
@@ -72,7 +72,7 @@ class InsertNewMatch @Inject constructor(
         }
 
     private fun createStats(
-        player: PlayerModel,
+        player: Player,
         matchStats: MatchStatsModel
     ) = Stats(
         assists = matchStats.stats.assists.count { it == player },
@@ -94,9 +94,9 @@ class InsertNewMatch @Inject constructor(
 
     private fun getGamesPlayed(
         playerId: FirebaseId,
-        lineUpPlayers: Map<Int, PlayerModel?>,
-        benchPlayers: List<PlayerModel>,
-        managers: List<PlayerModel>
+        lineUpPlayers: Map<Int, Player?>,
+        benchPlayers: List<Player>,
+        managers: List<Player>
     ): Int {
         val inLineUp = lineUpPlayers.values.any { it?.id == playerId }
         val inBench = benchPlayers.any { it.id == playerId }

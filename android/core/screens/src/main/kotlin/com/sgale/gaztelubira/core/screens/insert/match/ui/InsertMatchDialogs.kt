@@ -35,8 +35,8 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.CleanSheets
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.YellowCards
@@ -56,9 +56,9 @@ private val CARD_SIZE = 60.dp
 internal fun InsertMatchDialogPlayers(
     playerPosition: LineUpPosition,
     isManager: Boolean,
-    players: List<PlayerModel>,
+    players: List<Player>,
     formation: InsertMatchFormation,
-    onPlayerSelected: (PlayerModel) -> Unit,
+    onPlayerSelected: (Player) -> Unit,
     dismiss: () -> Unit
 ) {
     val usedIds: Set<String> = buildSet {
@@ -91,9 +91,9 @@ internal fun InsertMatchDialogPlayers(
             items(
                 availablePlayers.filter {
                     if (isManager) {
-                        it.position == Manager
+                        it.position == MANAGER
                     } else {
-                        it.position != Manager
+                        it.position != MANAGER
                     }
                 }
             ) {
@@ -127,16 +127,16 @@ internal fun InsertMatchDialogPlayers(
 @Composable
 fun InsertMatchDialogStatsPlayers(
     statsState: InsertMatchStats?,
-    players: List<PlayerModel>,
+    players: List<Player>,
     formationState: InsertMatchFormation,
-    onPlayerSelected: (PlayerModel) -> Unit,
+    onPlayerSelected: (Player) -> Unit,
     dismiss: () -> Unit
 ){
     val playersInLineup = formationState.lineUp.values.filterNotNull()
     val playersInBench = formationState.benchPlayers
 
     val availablePlayers = players
-        .filter { it.position != Manager }
+        .filter { it.position != MANAGER }
         .filter { it in playersInLineup || it in playersInBench }
         .filter { player ->
             when (statsState?.selectedStat) {

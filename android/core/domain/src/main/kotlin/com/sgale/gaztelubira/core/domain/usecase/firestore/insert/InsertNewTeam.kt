@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.usecase.firestore.insert
 
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
@@ -34,7 +34,7 @@ class InsertNewTeam @Inject constructor(
 ) {
     suspend operator fun invoke(
         img: CommonImage?,
-        team: TeamModel,
+        team: Team,
         onFailure: () -> Unit
     ): FirebaseInsertResult {
         val imgPath = "$TEAMS/${team.id}"
@@ -48,7 +48,7 @@ class InsertNewTeam @Inject constructor(
         var result: FirebaseInsertResult?
 
         if (insertionResult is Success) {
-            val team = TeamModel(
+            val team = Team(
                 id = team.id,
                 name = team.name,
                 logo = insertionResult.url

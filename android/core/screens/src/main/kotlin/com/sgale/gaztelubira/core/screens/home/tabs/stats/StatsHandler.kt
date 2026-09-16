@@ -16,9 +16,9 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
 import com.sgale.gaztelubira.core.domain.model.stats.Stat
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Assists
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.CleanSheets
@@ -43,8 +43,8 @@ import kotlinx.coroutines.launch
 
 class StatsHandler(
     private val selectedStat: StateFlow<Stat>,
-    private val playersList: Flow<List<PlayerStatsModel>>,
-    private val matchesFlow: Flow<List<MatchModel>>,
+    private val playersList: Flow<List<PlayerStats>>,
+    private val matchesFlow: Flow<List<Match>>,
     scope: CoroutineScope
 ) {
     private val punctuation = MutableStateFlow(GBPunctuation())
@@ -75,7 +75,7 @@ class StatsHandler(
                 )
 
                 val currentRanking = players
-                    .filter { it.player.position != Manager }
+                    .filter { it.player.position != MANAGER }
                     .map { player ->
                         val statValue = calculateStats(player, stat, punctuation)
                         PlayerDisplayStats(
@@ -110,7 +110,7 @@ class StatsHandler(
     }
 
     fun calculatePercentage(
-        player: PlayerStatsModel,
+        player: PlayerStats,
         punctuation: GBPunctuation
     ): Double {
         val tGamesPlayed = player.stats.values.sumOf { it.gamesPlayed }
@@ -143,13 +143,13 @@ class StatsHandler(
 
     private fun calculatePrevPositions(
         selectedStat: Stat,
-        players: List<PlayerStatsModel>,
-        matches: List<MatchModel>,
+        players: List<PlayerStats>,
+        matches: List<Match>,
         punctuation: GBPunctuation
     ): List<PlayerDisplayStats> {
         val lastMatchId = matches.lastOrNull()?.id ?: return emptyList()
         return players
-            .filter { it.player.position != Manager }
+            .filter { it.player.position != MANAGER }
             .map { player ->
                 val prevStatsMap = player.stats.filterKeys { key -> key != lastMatchId }
                 val prevPlayer = player.copy(stats = prevStatsMap)
@@ -168,7 +168,7 @@ class StatsHandler(
     }
 
     private fun calculateStats(
-        player: PlayerStatsModel,
+        player: PlayerStats,
         stat: Stat,
         punctuation: GBPunctuation
     ): Double {

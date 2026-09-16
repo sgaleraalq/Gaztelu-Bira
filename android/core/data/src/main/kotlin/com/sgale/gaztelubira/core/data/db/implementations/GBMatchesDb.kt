@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.data.db.GBDatabase
 import com.sgale.gaztelubira.core.data.mappers.MatchMapper
 import com.sgale.gaztelubira.core.data.mappers.asMatchEntity
 import com.sgale.gaztelubira.core.data.mappers.asMatchModel
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
 import javax.inject.Inject
@@ -35,20 +35,20 @@ class GBMatchesDb @Inject constructor(
         matchesDao.deleteItem(id)
     }
 
-    override suspend fun fetchMatches(): List<MatchModel> =
+    override suspend fun fetchMatches(): List<Match> =
         matchesDao.getMatches().map { it.asMatchModel(getTeamsMap()) }
 
-    override suspend fun insertMatch(match: MatchModel) =
+    override suspend fun insertMatch(match: Match) =
         matchesDao.insert(match.asMatchEntity())
 
-    override suspend fun insertMatches(matches: List<MatchModel>) =
+    override suspend fun insertMatches(matches: List<Match>) =
         insertList(
             items = matches,
             mapper = MatchMapper::asEntity,
             dao = matchesDao
         )
 
-    override fun getMatchesListAsFlow(): Flow<List<MatchModel>> =
+    override fun getMatchesListAsFlow(): Flow<List<Match>> =
         getFlow(
             source = matchesDao.getListAsFlow(),
             mapper = { it.asMatchModel(getTeamsMap()) },

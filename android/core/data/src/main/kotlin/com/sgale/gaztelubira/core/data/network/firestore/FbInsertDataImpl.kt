@@ -22,11 +22,11 @@ import com.sgale.gaztelubira.core.data.mappers.asMatchStatsResponse
 import com.sgale.gaztelubira.core.data.mappers.asPlayerResponse
 import com.sgale.gaztelubira.core.data.mappers.asStatsResponse
 import com.sgale.gaztelubira.core.data.mappers.asTeamResponse
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_INSERTION
 import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_STATS_INSERTION
@@ -65,7 +65,7 @@ class FbInsertDataImpl @Inject constructor(
     private val firestore = Firebase.firestore
     private var season = gbSettings.getSeason()
 
-    override suspend fun insertNewPlayer(player: PlayerModel): FirebaseInsertResult {
+    override suspend fun insertNewPlayer(player: Player): FirebaseInsertResult {
         return suspendCancellableCoroutine { continuation ->
             val timestamp = PlayerTimestamp()
             firestore.collection("debug") // TODO
@@ -87,7 +87,7 @@ class FbInsertDataImpl @Inject constructor(
     }
 
     override suspend fun insertNewTeam(
-        team: TeamModel
+        team: Team
     ): FirebaseInsertResult {
         return suspendCancellableCoroutine { continuation ->
             val timestamp = TeamTimestamp()
@@ -110,7 +110,7 @@ class FbInsertDataImpl @Inject constructor(
     }
 
     override suspend fun insertStats(
-        match: MatchModel,
+        match: Match,
         matchStats: MatchStatsModel,
         playerStats: Map<FirebaseId, Stats>
     ): FirebaseInsertResult {

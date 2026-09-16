@@ -18,13 +18,13 @@ package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.PlayerEntity
 import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.Position.Companion.mapPosition
 
 object PlayerMapper :
-    Mapper<PlayerResponse, PlayerModel, PlayerEntity>
+    Mapper<PlayerResponse, Player, PlayerEntity>
 {
-    override fun asResponse(domain: PlayerModel) =
+    override fun asResponse(domain: Player) =
         PlayerResponse(
             id = domain.id,
             name = domain.name,
@@ -34,7 +34,7 @@ object PlayerMapper :
             bodyImage = domain.bodyImage ?: ""
         )
 
-    override fun asEntity(domain: PlayerModel) =
+    override fun asEntity(domain: Player) =
         PlayerEntity(
             id = domain.id,
             name = domain.name,
@@ -45,7 +45,7 @@ object PlayerMapper :
         )
 
     override fun entityAsDomain(entity: PlayerEntity) =
-        PlayerModel(
+        Player(
             id = entity.id,
             name = entity.name,
             dorsal = entity.dorsal,
@@ -54,8 +54,8 @@ object PlayerMapper :
             bodyImage = entity.bodyImage.ifBlank { null }
         )
 
-    override fun responseAsModel(response: PlayerResponse): PlayerModel =
-        PlayerModel(
+    override fun responseAsModel(response: PlayerResponse): Player =
+        Player(
             id = response.id,
             name = response.name,
             dorsal = response.dorsal,

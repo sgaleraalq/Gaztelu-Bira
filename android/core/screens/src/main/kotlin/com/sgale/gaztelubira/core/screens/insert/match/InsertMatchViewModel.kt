@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.screens.insert.match
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stat
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Assists
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.CleanSheets
@@ -32,7 +32,7 @@ import com.sgale.gaztelubira.core.domain.model.stats.Stat.Percentage
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Saves
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.YellowCards
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.StatsInserted
 import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
 import com.sgale.gaztelubira.core.domain.usecase.db.GetTeams
@@ -80,10 +80,10 @@ class InsertMatchViewModel @Inject constructor(
     /**
      * Fixed values
      */
-    private val _teams = MutableStateFlow<List<TeamModel>>(emptyList())
-    val teams: StateFlow<List<TeamModel>> = _teams
-    private val _players = MutableStateFlow<List<PlayerModel>>(emptyList())
-    val players: StateFlow<List<PlayerModel>> = _players
+    private val _teams = MutableStateFlow<List<Team>>(emptyList())
+    val teams: StateFlow<List<Team>> = _teams
+    private val _players = MutableStateFlow<List<Player>>(emptyList())
+    val players: StateFlow<List<Player>> = _players
 
     init {
         viewModelScope.launch {
@@ -138,7 +138,7 @@ class InsertMatchViewModel @Inject constructor(
         )
     }
 
-    fun insertPlayer(player: PlayerModel) {
+    fun insertPlayer(player: Player) {
         val state = _formationState.value.state
         when (state) {
             Bench -> insertBenchPlayer(player)
@@ -148,7 +148,7 @@ class InsertMatchViewModel @Inject constructor(
         }
     }
 
-    fun removePlayer(player: PlayerModel) {
+    fun removePlayer(player: Player) {
         val state = _formationState.value.state
         when (state) {
             Bench -> removeBenchPlayer(player)
@@ -162,7 +162,7 @@ class InsertMatchViewModel @Inject constructor(
         position.value = position.value.copy(position = playerIdx)
     }
 
-    private fun insertBenchPlayer(player: PlayerModel) {
+    private fun insertBenchPlayer(player: Player) {
         _formationState.value = _formationState.value.copy(
             benchPlayers = _formationState.value.benchPlayers.toMutableList().apply {
                 add(player)
@@ -170,7 +170,7 @@ class InsertMatchViewModel @Inject constructor(
         )
     }
 
-    private fun insertManager(manager: PlayerModel) {
+    private fun insertManager(manager: Player) {
         _formationState.value = _formationState.value.copy(
             managers = when (_formationState.value.selectedManager) {
                 First -> Pair(manager, _formationState.value.managers.second)
@@ -179,7 +179,7 @@ class InsertMatchViewModel @Inject constructor(
         )
     }
 
-    private fun insertLineUpPlayer(player: PlayerModel, position: Int) {
+    private fun insertLineUpPlayer(player: Player, position: Int) {
         val lineUp = _formationState.value.lineUp.toMutableMap()
         lineUp[position] = player
         _formationState.value = _formationState.value.copy(
@@ -187,7 +187,7 @@ class InsertMatchViewModel @Inject constructor(
         )
     }
 
-    private fun removeBenchPlayer(player: PlayerModel) {
+    private fun removeBenchPlayer(player: Player) {
         _formationState.value = _formationState.value.copy(
             benchPlayers = _formationState.value.benchPlayers.toMutableList().apply {
                 remove(player)
@@ -195,7 +195,7 @@ class InsertMatchViewModel @Inject constructor(
         )
     }
 
-    private fun removeLineUpPlayer(player: PlayerModel) {
+    private fun removeLineUpPlayer(player: Player) {
         val lineUp = _formationState.value.lineUp.toMutableMap()
         lineUp.forEach {
             if (it.value == player) {
@@ -248,7 +248,7 @@ class InsertMatchViewModel @Inject constructor(
         )
     }
 
-    fun addStat(value: PlayerModel) {
+    fun addStat(value: Player) {
         val stat = _statsState.value.selectedStat ?: return
         if (!stat.isInsertable) return
         _statsState.value = when (stat) {
@@ -389,7 +389,7 @@ class InsertMatchViewModel @Inject constructor(
             id = match.id,
             location = _informationState.value.location,
             description = _informationState.value.description,
-            matchModel = match.toMatchModel(),
+            match = match.toMatchModel(),
             formation = _formationState.value.formation.code,
             lineUpPlayers = _formationState.value.getLineUpPlayers(),
             benchPlayers = _formationState.value.benchPlayers,

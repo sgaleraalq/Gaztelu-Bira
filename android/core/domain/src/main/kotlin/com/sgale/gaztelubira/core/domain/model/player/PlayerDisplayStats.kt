@@ -16,13 +16,13 @@
 
 package com.sgale.gaztelubira.core.domain.model.player
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
-@Stable
+@Immutable
 data class PlayerDisplayStats(
     val id: FirebaseId,
-    val player: PlayerModel,
+    val player: Player,
     val stat: Double,
     val changedPosition: Int
 )

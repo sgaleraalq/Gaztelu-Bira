@@ -16,15 +16,15 @@
 
 package com.sgale.gaztelubira.core.domain.repository.db
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
 interface IGBMatchesDb {
     suspend fun deleteMatch(id: FirebaseId)
-    suspend fun fetchMatches(): List<MatchModel>
-    suspend fun insertMatch(match: MatchModel)
-    suspend fun insertMatches(matches: List<MatchModel>)
+    suspend fun fetchMatches(): List<Match>
+    suspend fun insertMatch(match: Match)
+    suspend fun insertMatches(matches: List<Match>)
     suspend fun getNumberOfJourneys(): Int
-    fun getMatchesListAsFlow(): Flow<List<MatchModel>>
+    fun getMatchesListAsFlow(): Flow<List<Match>>
 }

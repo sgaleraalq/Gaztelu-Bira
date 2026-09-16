@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 data class TeamSeason(
     val id: FirebaseId,
-    val team: TeamModel,
+    val team: Team,
     val points: Int,
     val games: Int,
     val wins: Int,

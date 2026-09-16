@@ -47,10 +47,10 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.domain.model.match.MatchType.League
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamSide.Local
-import com.sgale.gaztelubira.core.domain.model.team.TeamSide.Visitor
+import com.sgale.gaztelubira.core.domain.model.match.MatchSide.LOCAL
+import com.sgale.gaztelubira.core.domain.model.match.MatchSide.VISITOR
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.utils.DATE_FORMAT
 import com.sgale.gaztelubira.core.domain.utils.getDateFromLong
 import com.sgale.gaztelubira.core.screens.R
@@ -68,8 +68,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_
 
 @Composable
 internal fun InsertMatchTeams(
-    appTeam: TeamModel?,
-    selectedTeam: TeamModel?,
+    appTeam: Team?,
+    selectedTeam: Team?,
     onTeamClicked: () -> Unit,
     viewModel: InsertMatchTeamsViewModel
 ) {
@@ -105,7 +105,7 @@ internal fun InsertMatchTeams(
                 team = matchInformation.local,
                 goals = matchInformation.localGoals,
                 local = true,
-                onGoalsChanged = { viewModel.changeGoals(Local, it) },
+                onGoalsChanged = { viewModel.changeGoals(LOCAL, it) },
                 onTeamClicked = { if (!matchInformation.appTeamLocal) onTeamClicked() }
             )
             GBText(modifier = Modifier.padding(bottom = 24.dp), text = "-")
@@ -114,7 +114,7 @@ internal fun InsertMatchTeams(
                 team = matchInformation.visitor,
                 goals = matchInformation.visitorGoals,
                 local = false,
-                onGoalsChanged = { viewModel.changeGoals(Visitor, it) },
+                onGoalsChanged = { viewModel.changeGoals(VISITOR, it) },
                 { if (matchInformation.appTeamLocal) onTeamClicked() }
             )
         }
@@ -127,7 +127,7 @@ internal fun InsertMatchInformationRow(
     changeMatchType: () -> Unit,
     changeLocal: () -> Unit
 ) {
-    val matchTypeText = if (matchInformation.matchType == League) {
+    val matchTypeText = if (matchInformation.matchType == LEAGUE) {
         stringResource(R.string.league)
     } else {
         stringResource(R.string.cup)
@@ -231,7 +231,7 @@ internal fun InsertMatchName(name: String) {
 @Composable
 internal fun InsertMatchTeamComponent(
     modifier: Modifier,
-    team: TeamModel?,
+    team: Team?,
     goals: Int,
     local: Boolean,
     onGoalsChanged: (Int?) -> Unit,
@@ -263,7 +263,7 @@ internal fun InsertMatchTeamComponent(
 @Composable
 internal fun InsertPlayerTeam(
     modifier: Modifier,
-    team: TeamModel?,
+    team: Team?,
     onTeamClicked: () -> Unit
 ) {
     Column(

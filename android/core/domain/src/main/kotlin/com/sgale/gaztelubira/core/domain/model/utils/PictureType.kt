@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.model.match
+package com.sgale.gaztelubira.core.domain.model.utils
 
-enum class MatchStatus {
-    LOCAL,
-    VISITOR
+enum class PictureType {
+    FACE,
+    BODY
 }

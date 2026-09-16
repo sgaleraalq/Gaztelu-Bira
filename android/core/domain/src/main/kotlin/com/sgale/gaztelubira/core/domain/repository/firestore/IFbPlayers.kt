@@ -16,13 +16,13 @@
 
 package com.sgale.gaztelubira.core.domain.repository.firestore
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 interface IFbPlayers {
-    suspend fun fetchPlayerInformation(playerId: String): PlayerModel?
-    suspend fun fetchPlayerStats(playerId: String): PlayerStatsModel?
-    suspend fun insertNewPlayer(player: PlayerModel): Boolean
+    suspend fun fetchPlayerInformation(playerId: String): Player?
+    suspend fun fetchPlayerStats(playerId: String): PlayerStats?
+    suspend fun insertNewPlayer(player: Player): Boolean
     suspend fun insertPlayerImage(playerId: FirebaseId, image: ByteArray?, isFace: Boolean): String
 }

@@ -18,10 +18,10 @@ package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeam
 import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeamSummary
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.domain.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.domain.usecase.db.GetTeams
@@ -48,8 +48,8 @@ internal class GazteluBiraViewModel @Inject constructor(
     private val _state = MutableStateFlow(GazteluBiraUiState())
     internal val state: StateFlow<GazteluBiraUiState> = _state.asStateFlow()
 
-    private var matches: List<MatchModel> = emptyList()
-    private var appTeam: TeamModel? = null
+    private var matches: List<Match> = emptyList()
+    private var appTeam: Team? = null
 
     init {
         viewModelScope.launch {
@@ -77,7 +77,7 @@ internal class GazteluBiraViewModel @Inject constructor(
         }
     }
 
-    internal fun onSessionChanged(team: TeamModel?, isAdmin: Boolean) {
+    internal fun onSessionChanged(team: Team?, isAdmin: Boolean) {
         appTeam = team
         _state.update { it.copy(isAdmin = isAdmin) }
         renderSummary()

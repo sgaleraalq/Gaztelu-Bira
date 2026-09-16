@@ -16,17 +16,17 @@
 
 package com.sgale.gaztelubira.core.domain.model.match
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 data class MatchStatsModel(
     val id: FirebaseId,
     val location: String,
     val description: String,
-    val matchModel: MatchModel,
+    val match: Match,
     val formation: String,
-    val lineUpPlayers: Map<Int, PlayerModel?>,
-    val benchPlayers: List<PlayerModel>,
-    val managers: List<PlayerModel>,
+    val lineUpPlayers: Map<Int, Player?>,
+    val benchPlayers: List<Player>,
+    val managers: List<Player>,
     val stats: MatchStats
 )

@@ -17,22 +17,22 @@
 package com.sgale.gaztelubira.multiplatform.model
 
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.bench
 import com.sgale.gaztelubira.multiplatform.ui.resources.defender
 import com.sgale.gaztelubira.multiplatform.ui.resources.forward
 import com.sgale.gaztelubira.multiplatform.ui.resources.goalkeeper
 import com.sgale.gaztelubira.multiplatform.ui.resources.manager
 import com.sgale.gaztelubira.multiplatform.ui.resources.midfielder
+import com.sgale.gaztelubira.multiplatform.ui.resources.undefined
 import org.jetbrains.compose.resources.StringResource
 
 enum class GBPosition(
     val label: StringResource
 ) {
+    UNDEFINED(
+        label = Res.string.undefined
+    ),
     MANAGER(
         label = Res.string.manager
-    ),
-    BENCH(
-        label = Res.string.bench
     ),
     GOALKEEPER(
         label = Res.string.goalkeeper
@@ -40,7 +40,7 @@ enum class GBPosition(
     DEFENDER(
         label = Res.string.defender
     ),
-    MID_FIELDER(
+    MIDFIELDER(
         label = Res.string.midfielder
     ),
     FORWARD(

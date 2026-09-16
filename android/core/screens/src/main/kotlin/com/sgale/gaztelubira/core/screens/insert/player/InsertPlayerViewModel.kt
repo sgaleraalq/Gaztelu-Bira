@@ -18,8 +18,10 @@ package com.sgale.gaztelubira.core.screens.insert.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.Position
+import com.sgale.gaztelubira.core.domain.model.utils.PictureType.BODY
+import com.sgale.gaztelubira.core.domain.model.utils.PictureType.FACE
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.PlayerInserted
 import com.sgale.gaztelubira.core.domain.usecase.db.GetAvailableDorsals
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewPlayer
@@ -34,10 +36,6 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerFi
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Dorsal
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Image
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.SelectedPicture
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType.Body
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType.Face
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -55,7 +53,7 @@ internal class InsertPlayerViewModel @Inject constructor(
     private val insertNewPlayer: InsertNewPlayer,
     private val getAvailableDorsals: GetAvailableDorsals
 ) : ViewModel() {
-
+    private var selectedPicture = FACE
     private val initialState = InsertPlayerUiState(playerId = getCurrentTimeId())
     private val _state = MutableStateFlow(initialState)
     internal val state: StateFlow<InsertPlayerUiState> = _state.asStateFlow()
@@ -76,11 +74,10 @@ internal class InsertPlayerViewModel @Inject constructor(
 
     internal fun updateField(field: InsertPlayerField) {
         when (field) {
-            is Name -> _state.update { it.copy(playerName = field.newName) }
-            is Dorsal -> _state.update { it.copy(dorsal = field.newDorsal) }
-            is PositionField -> _state.update { it.copy(position = field.newPosition) }
-            is SelectedPicture -> _state.update { it.copy(selectedPicture = field.type) }
-            is Image -> onImageChanged(field.type, field.newImage)
+            is Name -> _state.update { it.copy(playerName = field.name) }
+            is Dorsal -> _state.update { it.copy(dorsal = field.dorsal) }
+            is PositionField -> _state.update { it.copy(position = field.position) }
+            is Image -> onImageChanged(field.image)
         }
     }
 
@@ -90,7 +87,7 @@ internal class InsertPlayerViewModel @Inject constructor(
 
     /** Drops the picture into whichever box the user tapped before opening the source dialog. */
     internal fun onImagePicked(image: CommonImage?) {
-        setImage(_state.value.selectedPicture, image)
+        setImage(image)
     }
 
     internal fun insertPlayer(
@@ -123,36 +120,35 @@ internal class InsertPlayerViewModel @Inject constructor(
         }
     }
 
-    private fun onImageChanged(type: PictureType, newImage: String?) {
+    private fun onImageChanged(newImage: String?) {
         setImage(
-            type = type,
             image = newImage
                 ?.takeIf { it.isNotBlank() }
                 ?.let { CommonImage.FromGallery(uri = it) }
         )
     }
 
-    private fun setImage(type: PictureType, image: CommonImage?) {
+    private fun setImage(image: CommonImage?) {
         val uri = image?.uri.orEmpty()
-        when (type) {
-            Face -> {
+        when (selectedPicture) {
+            FACE -> {
                 faceImage = image
                 _state.update { it.copy(faceImage = uri) }
             }
 
-            Body -> {
+            BODY -> {
                 bodyImage = image
                 _state.update { it.copy(bodyImage = uri) }
             }
         }
     }
 
-    private fun InsertPlayerUiState.toPlayerModel(): PlayerModel =
-        PlayerModel(
+    private fun InsertPlayerUiState.toPlayerModel(): Player =
+        Player(
             id = playerId,
             name = playerName,
             dorsal = dorsal,
-            position = position?.let { Position.valueOf(it.name) },
+            position = Position.valueOf(position),
             faceImage = "",
             bodyImage = ""
         )

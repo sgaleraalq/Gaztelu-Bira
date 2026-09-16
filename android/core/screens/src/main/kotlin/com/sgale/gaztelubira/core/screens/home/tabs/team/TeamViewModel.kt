@@ -19,8 +19,8 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
 import com.sgale.gaztelubira.core.preview.PlayerProvider.providePlayerInformationList
@@ -62,8 +62,8 @@ internal class TeamViewModel @Inject constructor(
     }
 }
 
-private fun TeamUiState.withSquad(squad: List<PlayerModel>): TeamUiState {
-    val (managers, players) = squad.partition { it.position == Manager }
+private fun TeamUiState.withSquad(squad: List<Player>): TeamUiState {
+    val (managers, players) = squad.partition { it.position == MANAGER }
 
     return copy(
         players = players

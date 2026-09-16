@@ -16,25 +16,25 @@
 
 package com.sgale.gaztelubira.core.domain.repository.firestore
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
 
 interface IGBFetchDataFb {
     fun getSeason(): String?
-    suspend fun fetchMatches(): List<MatchModel>
+    suspend fun fetchMatches(): List<Match>
     suspend fun fetchMatchesStats(): List<MatchStatsModel>
-    suspend fun fetchPlayers(): List<PlayerModel>
-    suspend fun fetchPlayersStats(): List<PlayerStatsModel>
-    suspend fun fetchTeams(): List<TeamModel>
+    suspend fun fetchPlayers(): List<Player>
+    suspend fun fetchPlayersStats(): List<PlayerStats>
+    suspend fun fetchTeams(): List<Team>
 
     /**
      * Individual
      */
-    suspend fun getTeam(id: FirebaseId): TeamModel?
+    suspend fun getTeam(id: FirebaseId): Team?
     suspend fun getTimestamp(docName: String, timestampName: String): FirebaseTimestamp
 }

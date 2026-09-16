@@ -18,10 +18,10 @@ package com.sgale.gaztelubira.core.screens.detail.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.usecase.db.FetchMatches
 import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayer
@@ -47,9 +47,9 @@ internal class PlayerDetailViewModel @Inject constructor(
     internal val state: StateFlow<PlayerDetailUiState> = _state
 
     private fun calculateMatchesStats(
-        appTeam: TeamModel?,
-        matches: List<MatchModel>,
-        playerStats: PlayerStatsModel
+        appTeam: Team?,
+        matches: List<Match>,
+        playerStats: PlayerStats
     ) {
         if (appTeam == null) return
         var wins = 0

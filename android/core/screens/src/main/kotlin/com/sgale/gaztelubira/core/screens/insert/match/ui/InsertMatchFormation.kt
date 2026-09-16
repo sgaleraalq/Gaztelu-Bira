@@ -37,7 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
@@ -65,7 +65,7 @@ internal fun InsertMatchFormation(
     formationState: InsertMatchFormation,
     showPlayers: () -> Unit,
     changePlayerState: (PlayerState) -> Unit,
-    removePlayer: (PlayerModel) -> Unit,
+    removePlayer: (Player) -> Unit,
     removeManager: () -> Unit,
     onPlayerSelected: (Int) -> Unit,
     changeFormationSelected: (LineUpFormation) -> Unit,
@@ -143,7 +143,7 @@ internal fun LineUpPlayers(
 private fun NonLineUpPlayers(
     formationState: InsertMatchFormation,
     changePlayerState: (PlayerState) -> Unit,
-    removePlayer: (PlayerModel) -> Unit,
+    removePlayer: (Player) -> Unit,
     showPlayers: () -> Unit,
     changeManagerSelected: (ManagerPosition) -> Unit,
     changeSelectedPosition: (LineUpPosition) -> Unit,
@@ -182,7 +182,7 @@ private fun BenchPlayers(
     modifier: Modifier,
     formationState: InsertMatchFormation,
     changePlayerState: (PlayerState) -> Unit,
-    removePlayer: (PlayerModel) -> Unit,
+    removePlayer: (Player) -> Unit,
     showPlayers: () -> Unit,
     changeSelectedPosition: (LineUpPosition) -> Unit
 ) {
@@ -210,7 +210,7 @@ internal fun BenchTitle() {
 private fun Bench(
     formationState: InsertMatchFormation,
     showPlayers: () -> Unit,
-    removeBenchPlayer: (PlayerModel) -> Unit,
+    removeBenchPlayer: (Player) -> Unit,
     changeSelectedPosition: (LineUpPosition) -> Unit
 ) {
     if (formationState.benchPlayers.isEmpty()) {
@@ -267,7 +267,7 @@ private fun AddBenchPlayerButton(
  */
 @Composable
 fun ManagersPlayers(
-    managers: Pair<PlayerModel?, PlayerModel?>,
+    managers: Pair<Player?, Player?>,
     changePlayerState: (PlayerState) -> Unit,
     changeSelectedPosition: (LineUpPosition) -> Unit,
     changeManagerSelected: (ManagerPosition) -> Unit,
@@ -298,7 +298,7 @@ private fun ManagersTitle() {
 
 @Composable
 private fun Managers(
-    managers: Pair<PlayerModel?, PlayerModel?>,
+    managers: Pair<Player?, Player?>,
     changePlayerState: (PlayerState) -> Unit,
     changeSelectedPosition: (LineUpPosition) -> Unit,
     changeManagerSelected: (ManagerPosition) -> Unit,
@@ -345,7 +345,7 @@ private fun Managers(
 
 @Composable
 private fun ManagerCard(
-    manager: PlayerModel,
+    manager: Player,
     removeManager: () -> Unit
 ) {
     GBPlayerCard(

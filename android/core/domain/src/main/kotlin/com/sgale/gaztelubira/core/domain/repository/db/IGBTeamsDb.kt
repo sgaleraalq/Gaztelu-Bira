@@ -16,14 +16,14 @@
 
 package com.sgale.gaztelubira.core.domain.repository.db
 
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
 interface IGBTeamsDb {
     suspend fun deleteTeam(id: FirebaseId)
-    suspend fun insertTeam(team: TeamModel)
-    suspend fun insertTeams(teams: List<TeamModel>)
-    suspend fun getTeam(id: FirebaseId): TeamModel?
-    fun getTeamsList(): Flow<List<TeamModel>>
+    suspend fun insertTeam(team: Team)
+    suspend fun insertTeams(teams: List<Team>)
+    suspend fun getTeam(id: FirebaseId): Team?
+    fun getTeamsList(): Flow<List<Team>>
 }

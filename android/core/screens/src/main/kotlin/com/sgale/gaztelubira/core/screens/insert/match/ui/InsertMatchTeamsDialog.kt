@@ -31,7 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import androidx.compose.ui.res.stringResource
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
@@ -41,9 +41,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 
 @Composable
 internal fun InsertMatchTeamsDialog(
-    teams: List<TeamModel>,
+    teams: List<Team>,
     dismiss: () -> Unit,
-    onTeamSelected: (TeamModel) -> Unit
+    onTeamSelected: (Team) -> Unit
 ) {
     GBDialog(
         dismiss = { dismiss() },
@@ -78,7 +78,7 @@ internal fun InsertMatchTeamsDialog(
 
 @Composable
 internal fun TeamItem(
-    team: TeamModel,
+    team: Team,
     onTeamSelected: () -> Unit
 ){
     Column(

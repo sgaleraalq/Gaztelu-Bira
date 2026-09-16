@@ -17,7 +17,6 @@
 package com.sgale.gaztelubira.multiplatform.ui.insert.player.state
 
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationReason
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PlayerPosition.Manager
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_player_dorsal
 import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_player_name
@@ -33,19 +32,15 @@ internal sealed interface InvalidPlayerReason : InvalidInformationReason {
     }
 
     data class MissingPosition(
-        val position: PlayerPosition?
+        val position: String?
     ) : InvalidPlayerReason {
         override val reason: StringResource = Res.string.invalid_player_position
         override fun isValid(): Boolean = position != null
     }
 
-    /**
-     * A manager does not wear a number, so the dorsal is only demanded from the rest of the squad.
-     * A player with no position yet is reported by [MissingPosition], which comes first.
-     */
     data class PlayerDorsal(
         val dorsal: Int,
-        val position: PlayerPosition?
+        val position: String?
     ) : InvalidPlayerReason {
         override val reason: StringResource = Res.string.invalid_player_dorsal
         override fun isValid(): Boolean = position == Manager || dorsal > 0

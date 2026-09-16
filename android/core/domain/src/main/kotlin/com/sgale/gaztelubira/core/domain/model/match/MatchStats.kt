@@ -16,16 +16,16 @@
 
 package com.sgale.gaztelubira.core.domain.model.match
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 
 data class MatchStats(
-    val assists: List<PlayerModel>,
-    val cleanSheets: List<PlayerModel>,
-    val fails: List<PlayerModel>,
-    val goals: List<PlayerModel>,
-    val goalsProvoked: List<PlayerModel>,
-    val penaltiesProvoked: List<PlayerModel>,
-    val redCards: List<PlayerModel>,
-    val saves: List<PlayerModel>,
-    val yellowCards: List<PlayerModel>
+    val assists: List<Player>,
+    val cleanSheets: List<Player>,
+    val fails: List<Player>,
+    val goals: List<Player>,
+    val goalsProvoked: List<Player>,
+    val penaltiesProvoked: List<Player>,
+    val redCards: List<Player>,
+    val saves: List<Player>,
+    val yellowCards: List<Player>
 )

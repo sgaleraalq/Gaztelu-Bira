@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.preview
 
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.preview.TeamProvider.provideRandomTeam
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchType
 import com.sgale.gaztelubira.core.domain.utils.generateRandomUUID
 import kotlin.random.Random
@@ -27,7 +27,7 @@ object MatchProvider {
 
     const val JOURNEY = "Journey"
 
-    fun provideMatchesList(matches: Int): List<MatchModel> = List(matches) {
+    fun provideMatchesList(matches: Int): List<Match> = List(matches) {
         provideMatch(it + 1)
     }
 
@@ -36,10 +36,10 @@ object MatchProvider {
         val end = 1767225600000L
         return Random.nextLong(start, end)
     }
-    private fun provideMatch(journey: Int): MatchModel {
+    private fun provideMatch(journey: Int): Match {
         val gazteluLocal = (0..1).random() == 0
 
-        return MatchModel(
+        return Match(
             date = randomLongFrom2025to2026(),
             id = generateRandomUUID(),
             matchName = "$JOURNEY $journey",

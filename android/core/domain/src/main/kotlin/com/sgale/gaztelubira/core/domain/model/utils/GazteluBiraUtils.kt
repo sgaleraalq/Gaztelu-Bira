@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.model.utils
 
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 
 object GazteluBiraUtils {
     const val TESTING = false
@@ -26,7 +26,9 @@ object GazteluBiraUtils {
         "https://firebasestorage.googleapis.com/v0/b/gbmultiplatform.firebasestorage.app/o/" +
             "img_gaztelu_bira.webp?alt=media&token=3708f1c5-f9d7-4353-8829-967b21df75ed"
 
-    val GAZTELU_BIRA = TeamModel(
-        GAZTELU_BIRA_ID, GAZTELU_BIRA_NAME, GAZTELU_BIRA_LOGO
+    val GAZTELU_BIRA = Team(
+        id = GAZTELU_BIRA_ID,
+        name = GAZTELU_BIRA_NAME,
+        logo = GAZTELU_BIRA_LOGO
     )
 }

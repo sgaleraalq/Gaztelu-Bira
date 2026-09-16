@@ -27,12 +27,12 @@ import com.sgale.gaztelubira.core.data.network.response.MatchStatsResponse
 import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
 import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
 import com.sgale.gaztelubira.core.data.network.response.TeamResponse
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
@@ -70,7 +70,7 @@ class FbFetchDataImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchMatches(): List<MatchModel> {
+    override suspend fun fetchMatches(): List<Match> {
         return try {
             val teamsMap = abstractDb.getTeamsMap()
             getTimestampAndSet(INFORMATION, MATCHES_INSERTION)
@@ -106,7 +106,7 @@ class FbFetchDataImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchPlayers(): List<PlayerModel> {
+    override suspend fun fetchPlayers(): List<Player> {
         return try {
             getTimestampAndSet(INFORMATION, PLAYERS_INSERTION)
             firestore.collection(season)
@@ -122,7 +122,7 @@ class FbFetchDataImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchPlayersStats(): List<PlayerStatsModel> {
+    override suspend fun fetchPlayersStats(): List<PlayerStats> {
         return try {
             getTimestampAndSet(STATS, STATS_INSERTION)
             val playersMap = abstractDb.getPlayersMap()
@@ -148,7 +148,7 @@ class FbFetchDataImpl @Inject constructor(
                         if (stats != null) match.id to stats else null
                     }.toMap()
 
-                PlayerStatsModel(
+                PlayerStats(
                     id = playerId,
                     player = playersMap[playerId] ?: ErrorPlayer,
                     stats = statsByMatch,
@@ -161,7 +161,7 @@ class FbFetchDataImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchTeams(): List<TeamModel> {
+    override suspend fun fetchTeams(): List<Team> {
         return try {
             getTimestampAndSet(INFORMATION, TEAMS_INSERTION)
             firestore.collection(season)
@@ -177,7 +177,7 @@ class FbFetchDataImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTeam(id: FirebaseId): TeamModel? {
+    override suspend fun getTeam(id: FirebaseId): Team? {
         return try {
             firestore.collection(season)
                 .document(INFORMATION)

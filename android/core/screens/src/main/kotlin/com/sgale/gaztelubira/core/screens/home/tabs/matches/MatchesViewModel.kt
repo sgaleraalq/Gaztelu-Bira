@@ -18,14 +18,13 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchMapper.toGBMatch
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DEFEAT
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.UNDEFINED
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
 import com.sgale.gaztelubira.core.domain.usecase.db.GetMatches
@@ -53,9 +52,7 @@ internal class MatchesViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableStateFlow(MatchesUiState())
     internal val state: StateFlow<MatchesUiState> = _state.asStateFlow()
-
-    private var appTeam: TeamModel? = null
-    private var matches: List<MatchModel> = emptyList()
+    private var matches: List<Match> = emptyList()
 
     init {
         viewModelScope.launch {
@@ -83,30 +80,28 @@ internal class MatchesViewModel @Inject constructor(
         _state.update { it.copy(hasEnoughPlayers = enabled) }
     }
 
-    internal fun onSessionChanged(team: TeamModel?, isAdmin: Boolean) {
-        appTeam = team
+    internal fun onSessionChanged(isAdmin: Boolean) {
         _state.update { it.copy(isAdmin = isAdmin) }
         renderMatches()
     }
 
     private fun renderMatches() {
-        val team = appTeam
         _state.update { state ->
             state.copy(
                 matches = matches.map { match ->
-                    match.toGBMatch(team, getMatchResult(match, team))
+                    match.toGBMatch(
+                        appTeam = GAZTELU_BIRA,
+                        result = getMatchResult(match)
+                    )
                 }
             )
         }
     }
 
     private fun getMatchResult(
-        match: MatchModel,
-        appTeam: TeamModel?
+        match: Match
     ): MatchResult {
-        if (appTeam == null) return UNDEFINED
-
-        val isLocal = match.localTeam.id == appTeam.id
+        val isLocal = match.localTeam.id == GAZTELU_BIRA.id
         val goalsFor = if (isLocal) match.localGoals else match.visitorGoals
         val goalsAgainst = if (isLocal) match.visitorGoals else match.localGoals
 

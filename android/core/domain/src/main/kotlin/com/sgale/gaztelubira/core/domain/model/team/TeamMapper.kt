@@ -17,7 +17,9 @@
 package com.sgale.gaztelubira.core.domain.model.team
 
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.*
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
 import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
 import com.sgale.gaztelubira.multiplatform.model.GBSeason
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
@@ -36,7 +38,7 @@ object TeamMapper {
             lastGames = streak.lastGames.map { it.toGBMatchResult() }
         )
 
-    fun TeamModel.toGBTeam(): GBTeam =
+    fun Team.toGBTeam(): GBTeam =
         GBTeam(
             id = id,
             name = name,
@@ -48,6 +50,5 @@ object TeamMapper {
             VICTORY -> GBMatchResult.VICTORY
             DRAW -> GBMatchResult.DRAW
             DEFEAT -> GBMatchResult.DEFEAT
-            UNDEFINED -> GBMatchResult.UNDEFINED
         }
 }

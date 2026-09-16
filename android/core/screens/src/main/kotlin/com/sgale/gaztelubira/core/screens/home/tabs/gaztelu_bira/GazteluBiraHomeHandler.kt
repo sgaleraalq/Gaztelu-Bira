@@ -16,21 +16,21 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DEFEAT
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatus
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatus.LOCAL
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatus.VISITOR
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.match.MatchSide
+import com.sgale.gaztelubira.core.domain.model.match.MatchSide.LOCAL
+import com.sgale.gaztelubira.core.domain.model.match.MatchSide.VISITOR
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.team.TeamSeason
 import com.sgale.gaztelubira.core.domain.model.team.TeamStreak
 
 internal class GazteluBiraHomeHandler(
-    private val appTeam: TeamModel,
-    private val matches: List<MatchModel>
+    private val appTeam: Team,
+    private val matches: List<Match>
 ) {
     private data class MatchResults(
         var wins: Int = 0,
@@ -80,7 +80,7 @@ internal class GazteluBiraHomeHandler(
     private fun getPoints(results: MatchResults): Int =
         (results.wins * 3) + results.draws
 
-    private fun getStatus(match: MatchModel): MatchStatus =
+    private fun getStatus(match: Match): MatchSide =
         when {
             match.localTeam.id == appTeam.id -> LOCAL
             else -> VISITOR
@@ -111,8 +111,8 @@ internal class GazteluBiraHomeHandler(
     }
 
     private fun updateMatchGoals(
-        status: MatchStatus,
-        match: MatchModel
+        status: MatchSide,
+        match: Match
     ) {
         when (status) {
             LOCAL -> {
@@ -128,8 +128,8 @@ internal class GazteluBiraHomeHandler(
     }
 
     private fun updateMatchResult(
-        status: MatchStatus,
-        match: MatchModel
+        status: MatchSide,
+        match: Match
     ) {
         if (match.localGoals == match.visitorGoals) {
             streak.games.add(DRAW)

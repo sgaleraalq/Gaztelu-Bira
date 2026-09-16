@@ -24,34 +24,34 @@ import com.sgale.gaztelubira.core.data.network.response.MatchResponse
 import com.sgale.gaztelubira.core.data.network.response.MatchStatsResponse
 import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
 import com.sgale.gaztelubira.core.data.network.response.StatsResponse
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStats
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.match.MatchType.Companion.fromString
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorMatch
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorTeam
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
+import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 
 /**
  * Match Model
  */
-fun List<MatchResponse>.asMatchModel(map: Map<FirebaseId, TeamModel>) =
+fun List<MatchResponse>.asMatchModel(map: Map<FirebaseId, Team>) =
     this.map { it.asMatchModel(map) }
 
 fun MatchResponse.asMatchModel(
-    teamMap: Map<FirebaseId, TeamModel>
-) = MatchModel(
+    teamMap: Map<FirebaseId, Team>
+) = Match(
     id = id,
     date = date,
     matchName = matchName,
-    matchType = fromString(matchType),
+    matchType = MatchType.valueOf(matchType),
     localTeam = getTeamModelFromMap(teamMap, localTeam),
     visitorTeam = getTeamModelFromMap(teamMap, visitorTeam),
     localGoals = localGoals,
@@ -59,12 +59,12 @@ fun MatchResponse.asMatchModel(
 )
 
 fun MatchEntity.asMatchModel(
-    teamMap: Map<FirebaseId, TeamModel>
-) = MatchModel(
+    teamMap: Map<FirebaseId, Team>
+) = Match(
     id = id,
     date = date,
     matchName = matchName,
-    matchType = fromString(matchType),
+    matchType = MatchType.valueOf(matchType),
     localTeam = getTeamModelFromMap(teamMap, localTeam),
     visitorTeam = getTeamModelFromMap(teamMap, visitorTeam),
     localGoals = localGoals,
@@ -72,7 +72,7 @@ fun MatchEntity.asMatchModel(
 )
 
 private fun getTeamModelFromMap(
-    map: Map<FirebaseId, TeamModel>,
+    map: Map<FirebaseId, Team>,
     id: FirebaseId
 ) = if (id == GAZTELU_BIRA_ID) GAZTELU_BIRA else map[id] ?: ErrorTeam
 
@@ -80,13 +80,13 @@ private fun getTeamModelFromMap(
  * Match Stats
  */
 fun MatchStatsResponse.asMatchStatsModel(
-    matchesMap: Map<FirebaseId, MatchModel>,
-    playersMap: Map<FirebaseId, PlayerModel>
+    matchesMap: Map<FirebaseId, Match>,
+    playersMap: Map<FirebaseId, Player>
 ) = MatchStatsModel(
     id = id,
     location = location,
     description = description,
-    matchModel = matchesMap[id] ?: ErrorMatch,
+    match = matchesMap[id] ?: ErrorMatch,
     formation = formation,
     lineUpPlayers = lineUpPlayers
         .mapKeys { it.key.toInt() }
@@ -97,13 +97,13 @@ fun MatchStatsResponse.asMatchStatsModel(
 )
 
 fun MatchStatsEntity.asMatchStatsModel(
-    matchesMap: Map<FirebaseId, MatchModel>,
-    playersMap: Map<FirebaseId, PlayerModel>
+    matchesMap: Map<FirebaseId, Match>,
+    playersMap: Map<FirebaseId, Player>
 ) = MatchStatsModel(
     id = id,
     location = location,
     description = description,
-    matchModel = matchesMap[id] ?: ErrorMatch,
+    match = matchesMap[id] ?: ErrorMatch,
     formation = formation,
     lineUpPlayers = lineUpPlayers.mapValues { playersMap[it.value] },
     benchPlayers = benchPlayers.mapNotNull { playersMap[it] },
@@ -115,16 +115,16 @@ fun MatchStatsEntity.asMatchStatsModel(
  * Player Stats
  */
 fun PlayerStatsEntity.asPlayerStatsModel(
-    playersMap: Map<FirebaseId, PlayerModel>,
+    playersMap: Map<FirebaseId, Player>,
     rules: String = "" // TODO
-) = PlayerStatsModel(
+) = PlayerStats(
     id = id,
     player = playersMap[id] ?: ErrorPlayer,
     stats = stats
 )
 
 fun StatsResponse.asStatsMatchModel(
-    playersMap: Map<FirebaseId, PlayerModel>
+    playersMap: Map<FirebaseId, Player>
 ) = MatchStats(
     assists = assists.mapNotNull { playersMap[it] },
     cleanSheets = cleanSheets.mapNotNull { playersMap[it] },
@@ -138,7 +138,7 @@ fun StatsResponse.asStatsMatchModel(
 )
 
 fun StatsMatchEntity.asStatsMatchModel(
-    playersMap: Map<FirebaseId, PlayerModel>
+    playersMap: Map<FirebaseId, Player>
 ) = MatchStats(
     assists = assists.mapNotNull { playersMap[it] },
     cleanSheets = cleanSheets.mapNotNull { playersMap[it] },

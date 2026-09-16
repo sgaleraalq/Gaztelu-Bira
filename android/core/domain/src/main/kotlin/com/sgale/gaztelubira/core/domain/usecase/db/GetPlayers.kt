@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.usecase.db
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +24,6 @@ import kotlinx.coroutines.flow.Flow
 class GetPlayers @Inject constructor(
     private val playersDb: IGBPlayersDb
 ) {
-    operator fun invoke(): Flow<List<PlayerModel>> =
+    operator fun invoke(): Flow<List<Player>> =
         playersDb.getPlayersListAsFlow()
 }

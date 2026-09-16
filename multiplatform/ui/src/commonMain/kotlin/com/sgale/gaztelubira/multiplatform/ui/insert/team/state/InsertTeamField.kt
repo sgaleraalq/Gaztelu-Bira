@@ -17,13 +17,18 @@
 package com.sgale.gaztelubira.multiplatform.ui.insert.team.state
 
 sealed interface InsertTeamField {
+    fun isValid()
     data class TeamName(
         val name: String
-    ): InsertTeamField
+    ) : InsertTeamField {
+        override fun isValid() {}
+    }
 
     data class TeamImage(
         val image: String?
-    ): InsertTeamField
+    ) : InsertTeamField {
+        override fun isValid() {}
+    }
 
     companion object {
         internal val EMPTY_IMAGE = TeamImage("")

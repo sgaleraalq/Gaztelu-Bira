@@ -18,16 +18,16 @@ package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.PlayerStatsEntity
 import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 
 object PlayerStatsMapper :
-    Mapper<PlayerStatsResponse, PlayerStatsModel, PlayerStatsEntity> {
+    Mapper<PlayerStatsResponse, PlayerStats, PlayerStatsEntity> {
     override fun asResponse(
-        domain: PlayerStatsModel
+        domain: PlayerStats
     ) = PlayerStatsResponse() // <- Not in use
 
     override fun asEntity(
-        domain: PlayerStatsModel
+        domain: PlayerStats
     ) = PlayerStatsEntity(
         id = domain.id,
         stats = domain.stats
@@ -35,9 +35,9 @@ object PlayerStatsMapper :
 
     override fun entityAsDomain(
         entity: PlayerStatsEntity
-    ): PlayerStatsModel? = null
+    ): PlayerStats? = null
 
     override fun responseAsModel(
         response: PlayerStatsResponse
-    ): PlayerStatsModel? = null
+    ): PlayerStats? = null
 }

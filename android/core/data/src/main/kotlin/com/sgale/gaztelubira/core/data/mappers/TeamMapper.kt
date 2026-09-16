@@ -18,18 +18,18 @@ package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.TeamEntity
 import com.sgale.gaztelubira.core.data.network.response.TeamResponse
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 
 object TeamMapper :
-    Mapper<TeamResponse, TeamModel, TeamEntity> {
-    override fun asResponse(domain: TeamModel) =
+    Mapper<TeamResponse, Team, TeamEntity> {
+    override fun asResponse(domain: Team) =
         TeamResponse(
             id = domain.id,
             name = domain.name,
             logo = domain.logo ?: ""
         )
 
-    override fun asEntity(domain: TeamModel) =
+    override fun asEntity(domain: Team) =
         TeamEntity(
             id = domain.id,
             name = domain.name,
@@ -37,13 +37,13 @@ object TeamMapper :
         )
 
     override fun entityAsDomain(entity: TeamEntity) =
-        TeamModel(
+        Team(
             id = entity.id,
             name = entity.name,
             logo = entity.logo
         )
     override fun responseAsModel(response: TeamResponse) =
-        TeamModel(
+        Team(
             id = response.id,
             name = response.name,
             logo = response.logo

@@ -18,28 +18,23 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.player.state
 
 sealed interface InsertPlayerField {
     data class Name(
-        val newName: String
+        val name: String
     ) : InsertPlayerField
 
     data class Dorsal(
-        val newDorsal: Int
+        val dorsal: Int
     ) : InsertPlayerField
 
     data class Position(
-        val newPosition: PlayerPosition
+        val position: String
     ) : InsertPlayerField
 
     data class Image(
-        val type: PictureType,
-        val newImage: String?
+        val image: String?
     ) : InsertPlayerField
 
-    /** Which box the next picked picture lands in. */
-    data class SelectedPicture(
-        val type: PictureType
-    ) : InsertPlayerField
 
     companion object {
-        internal fun emptyImage(type: PictureType) = Image(type, null)
+        internal fun emptyImage() = Image(null)
     }
 }

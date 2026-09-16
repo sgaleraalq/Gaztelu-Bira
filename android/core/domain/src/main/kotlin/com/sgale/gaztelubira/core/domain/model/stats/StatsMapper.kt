@@ -17,13 +17,14 @@
 package com.sgale.gaztelubira.core.domain.model.stats
 
 import com.sgale.gaztelubira.core.domain.model.player.PlayerDisplayStats
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.player.Position
-import com.sgale.gaztelubira.core.domain.model.player.Position.Bench
-import com.sgale.gaztelubira.core.domain.model.player.Position.Defender
-import com.sgale.gaztelubira.core.domain.model.player.Position.Forward
-import com.sgale.gaztelubira.core.domain.model.player.Position.GoalKeeper
-import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
-import com.sgale.gaztelubira.core.domain.model.player.Position.MidFielder
+import com.sgale.gaztelubira.core.domain.model.player.Position.DEFENDER
+import com.sgale.gaztelubira.core.domain.model.player.Position.FORWARD
+import com.sgale.gaztelubira.core.domain.model.player.Position.GOALKEEPER
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.model.player.Position.MIDFIELDER
+import com.sgale.gaztelubira.core.domain.model.player.Position.UNDEFINED
 import com.sgale.gaztelubira.core.domain.utils.formatDecimal
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
@@ -56,7 +57,7 @@ object StatsMapper {
         changedPosition = changedPosition
     )
 
-    fun PlayerStatsModel.toDetail(
+    fun PlayerStats.toDetail(
         percentage: Double
     ) = GBPlayerStatsDetail(
         name = player.name,
@@ -70,7 +71,7 @@ object StatsMapper {
         }
     )
 
-    private fun PlayerStatsModel.total(gbStat: GBStat): Int =
+    private fun PlayerStats.total(gbStat: GBStat): Int =
         when (gbStat) {
             GOALS -> stats.values.sumOf { it.goals }
             GOALS_PROVOKED -> stats.values.sumOf { it.goalsProvoked }
@@ -108,11 +109,11 @@ object StatsMapper {
 
     private fun Position.toGBPosition(): GBPosition =
         when (this) {
-            Manager -> GBPosition.MANAGER
-            Bench -> GBPosition.BENCH
-            GoalKeeper -> GBPosition.GOALKEEPER
-            Defender -> GBPosition.DEFENDER
-            MidFielder -> GBPosition.MID_FIELDER
-            Forward -> GBPosition.FORWARD
+            UNDEFINED -> GBPosition.UNDEFINED
+            MANAGER -> GBPosition.MANAGER
+            GOALKEEPER -> GBPosition.GOALKEEPER
+            DEFENDER -> GBPosition.DEFENDER
+            MIDFIELDER -> GBPosition.MIDFIELDER
+            FORWARD -> GBPosition.FORWARD
         }
 }

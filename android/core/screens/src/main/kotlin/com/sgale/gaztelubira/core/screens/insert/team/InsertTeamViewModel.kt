@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.screens.insert.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewTeam
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
@@ -121,7 +121,7 @@ internal class InsertTeamViewModel @Inject constructor(
     }
 
     private fun InsertTeamUiState.toTeamModel() =
-        TeamModel(
+        Team(
             id = teamId,
             name = teamName,
             logo = teamImage

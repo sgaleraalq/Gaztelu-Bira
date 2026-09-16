@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.usecase.firestore
 
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbPlayers
@@ -26,7 +26,7 @@ class FetchPlayerStats @Inject constructor(
     private val playerStatsDb: IGBPlayersStatsDb,
     private val repository: IFbPlayers
 ) {
-    suspend operator fun invoke(playerId: FirebaseId): PlayerStatsModel? {
+    suspend operator fun invoke(playerId: FirebaseId): PlayerStats? {
         val dbPlayer = playerStatsDb.getPlayerStats(playerId)
         return dbPlayer ?: repository.fetchPlayerStats(playerId)
     }

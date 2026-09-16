@@ -16,26 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.model.match
 
-import androidx.compose.ui.graphics.Color
-
-enum class MatchResult(
-    val transColor: Color,
-    val solidColor: Color
-) {
-    VICTORY(
-        transColor = Color(0x3315FF99),
-        solidColor = Color(0xFF00C853)
-    ),
-    DRAW(
-        transColor = Color(0x33FFD60A),
-        solidColor = Color(0xFFFFD60A)
-    ),
-    DEFEAT(
-        transColor = Color(0x33FF3B30),
-        solidColor = Color(0xFFFF3B30)
-    ),
-    UNDEFINED(
-        transColor = Color(0xFF333333),
-        solidColor = Color(0xFF999999)
-    )
+enum class MatchResult {
+    VICTORY,
+    DRAW,
+    DEFEAT
 }

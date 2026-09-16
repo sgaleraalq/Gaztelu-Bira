@@ -78,10 +78,10 @@ internal class MatchDetailViewModel @Inject constructor(
 
         _state.value = _state.value.copy(
             uiState = Lineup(lineUp),
-            localTeam = matchStats.matchModel.localTeam.toGBTeam(),
-            localGoals = matchStats.matchModel.localGoals,
-            visitorTeam = matchStats.matchModel.visitorTeam.toGBTeam(),
-            visitorGoals = matchStats.matchModel.visitorGoals,
+            localTeam = matchStats.match.localTeam.toGBTeam(),
+            localGoals = matchStats.match.localGoals,
+            visitorTeam = matchStats.match.visitorTeam.toGBTeam(),
+            visitorGoals = matchStats.match.visitorGoals,
             information = matchInformation,
             lineUp = lineUp,
             stats = stats
@@ -91,9 +91,9 @@ internal class MatchDetailViewModel @Inject constructor(
     private fun setMatchInformation(
         matchStats: MatchStatsModel
     ) = MatchDetailInformation(
-        local = matchStats.matchModel.localTeam.toGBTeam(),
-        visitor = matchStats.matchModel.visitorTeam.toGBTeam(),
-        date = matchStats.matchModel.date,
+        local = matchStats.match.localTeam.toGBTeam(),
+        visitor = matchStats.match.visitorTeam.toGBTeam(),
+        date = matchStats.match.date,
         description = matchStats.description,
         location = matchStats.location
     )

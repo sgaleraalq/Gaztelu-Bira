@@ -14,17 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.model.player
+package com.sgale.gaztelubira.core.domain.model.match
 
-import androidx.compose.runtime.Stable
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-
-@Stable
-data class PlayerModel(
-    val id: FirebaseId,
-    val faceImage: String?,
-    val bodyImage: String?,
-    val name: String,
-    val dorsal: Int?,
-    val position: Position?
-)
+enum class MatchSide {
+    LOCAL,
+    VISITOR
+}

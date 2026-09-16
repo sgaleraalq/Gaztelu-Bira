@@ -18,13 +18,13 @@ package com.sgale.gaztelubira.core.preview
 
 import com.sgale.gaztelubira.core.preview.RandomValues.RANDOM_IMAGES
 import com.sgale.gaztelubira.core.preview.RandomValues.RANDOM_NAMES
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Position.Defender
-import com.sgale.gaztelubira.core.domain.model.player.Position.Forward
-import com.sgale.gaztelubira.core.domain.model.player.Position.GoalKeeper
-import com.sgale.gaztelubira.core.domain.model.player.Position.Manager
-import com.sgale.gaztelubira.core.domain.model.player.Position.MidFielder
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.player.Position.DEFENDER
+import com.sgale.gaztelubira.core.domain.model.player.Position.FORWARD
+import com.sgale.gaztelubira.core.domain.model.player.Position.GOALKEEPER
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.model.player.Position.MIDFIELDER
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.utils.generateRandomUUID
 
@@ -38,7 +38,7 @@ object PlayerProvider {
         providePlayerInformation()
     }
 
-    fun providePlayerStats(): PlayerStatsModel {
+    fun providePlayerStats(): PlayerStats {
         val randomId = generateRandomUUID()
         val randomGoals = (0..10).random()
         val randomAssists = (0..10).random()
@@ -65,7 +65,7 @@ object PlayerProvider {
             gamesPlayed = randomGamesPlayed,
         )
 
-        return PlayerStatsModel(
+        return PlayerStats(
             id = randomId,
             player = providePlayerInformation(),
             stats = mapOf("" to stats),
@@ -73,10 +73,10 @@ object PlayerProvider {
         )
     }
 
-    fun providePlayerInformation(): PlayerModel {
-        val position = listOf(Manager, GoalKeeper, Defender, MidFielder, Forward).random()
+    fun providePlayerInformation(): Player {
+        val position = listOf(MANAGER, GOALKEEPER, DEFENDER, MIDFIELDER, FORWARD).random()
 
-        return PlayerModel(
+        return Player(
             id = generateRandomUUID(),
             faceImage = RANDOM_IMAGES.random(),
             bodyImage = RANDOM_IMAGES.random(),

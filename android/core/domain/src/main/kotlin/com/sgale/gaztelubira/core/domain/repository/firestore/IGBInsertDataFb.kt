@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.domain.repository.firestore
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 interface IGBInsertDataFb {
@@ -31,10 +31,10 @@ interface IGBInsertDataFb {
         data class ErrorInsert(val msg: String?): FirebaseInsertResult
     }
 
-    suspend fun insertNewPlayer(player: PlayerModel): FirebaseInsertResult
-    suspend fun insertNewTeam(team: TeamModel): FirebaseInsertResult
+    suspend fun insertNewPlayer(player: Player): FirebaseInsertResult
+    suspend fun insertNewTeam(team: Team): FirebaseInsertResult
     suspend fun insertStats(
-        match: MatchModel,
+        match: Match,
         matchStats: MatchStatsModel,
         playerStats: Map<FirebaseId, Stats>
     ): FirebaseInsertResult

@@ -22,8 +22,8 @@ import com.sgale.gaztelubira.core.data.mappers.PlayerMapper
 import com.sgale.gaztelubira.core.data.mappers.asPlayerModel
 import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
 import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
@@ -48,7 +48,7 @@ class FbPlayer @Inject constructor(
 ) : IFbPlayers {
     private val storage: FirebaseStorage = Firebase.storage
 
-    override suspend fun fetchPlayerInformation(playerId: FirebaseId): PlayerModel? {
+    override suspend fun fetchPlayerInformation(playerId: FirebaseId): Player? {
         return try {
             firestore.collection(gbSettings.getSeason())
                 .document(INFORMATION)
@@ -64,7 +64,7 @@ class FbPlayer @Inject constructor(
         }
     }
 
-    override suspend fun fetchPlayerStats(playerId: String): PlayerStatsModel? {
+    override suspend fun fetchPlayerStats(playerId: String): PlayerStats? {
         return try {
             val playersMap = abstractDb.getPlayersMap()
 
@@ -82,7 +82,7 @@ class FbPlayer @Inject constructor(
                 if (stats != null) match.id to stats else null
             }.toMap()
 
-            PlayerStatsModel(
+            PlayerStats(
                 id = playerId,
                 player = playersMap[playerId] ?: ErrorPlayer,
                 stats = statsByMatch,
@@ -94,7 +94,7 @@ class FbPlayer @Inject constructor(
         }
     }
 
-    override suspend fun insertNewPlayer(player: PlayerModel): Boolean {
+    override suspend fun insertNewPlayer(player: Player): Boolean {
         val playerResponse = PlayerMapper.asResponse(player)
         return try {
             firestore

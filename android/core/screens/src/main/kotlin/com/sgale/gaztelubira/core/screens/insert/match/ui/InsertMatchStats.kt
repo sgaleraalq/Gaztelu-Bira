@@ -60,7 +60,7 @@ import androidx.compose.ui.text.style.TextOverflow.Companion.Visible
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stat
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Assists
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.CleanSheets
@@ -137,7 +137,7 @@ internal fun InsertMatchStats(
 @Composable
 internal fun InsertMatchStatBox(
     stat: Stat,
-    values: List<PlayerModel>,
+    values: List<Player>,
     changePlayerState: () -> Unit,
     showStat: () -> Unit
 ) {
@@ -164,7 +164,7 @@ internal fun InsertMatchStatBox(
 @Composable
 internal fun StatBox(
     stat: Stat,
-    values: List<PlayerModel>,
+    values: List<Player>,
     changePlayerState: () -> Unit,
     showStat: () -> Unit
 ){
@@ -199,7 +199,7 @@ internal fun StatBox(
 
 @Composable
 internal fun InsertMatchStatPlayersSmallBox(
-    playerStats: List<PlayerModel>
+    playerStats: List<Player>
 ) {
     LazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
@@ -241,7 +241,7 @@ internal fun NumberOfStatsInsideContainer(
 
 @Composable
 internal fun InsertMatchStatPlayersBigBox(
-    players: List<PlayerModel>,
+    players: List<Player>,
     stat: Stat,
     changePlayerState: () -> Unit,
     showPlayers: () -> Unit,
@@ -311,7 +311,7 @@ internal fun StatsTitle(stat: Stat){
 
 @Composable
 internal fun InsertMatchPlayerStat(
-    player: PlayerModel,
+    player: Player,
     count: Int,
     changePlayerState: () -> Unit,
     removeStat: () -> Unit
@@ -340,7 +340,7 @@ internal fun InsertMatchPlayerStat(
     }
 }
 
-private fun getPlayerStats(state: InsertMatchStats, stat: Stat): List<PlayerModel> {
+private fun getPlayerStats(state: InsertMatchStats, stat: Stat): List<Player> {
     return when (stat) {
         Assists -> state.assists
         CleanSheets -> state.cleanSheets

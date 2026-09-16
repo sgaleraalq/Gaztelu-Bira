@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.screens.insert.match.data
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchType
-import com.sgale.gaztelubira.core.domain.model.match.MatchType.League
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.utils.getActualTimeAsLong
 
@@ -27,10 +27,10 @@ data class InsertMatchTeamsInformation(
     val id: FirebaseId = getActualTimeAsLong().toString(),
     val date: Long = getActualTimeAsLong(),
     val matchName: String = "",
-    val matchType: MatchType = League,
-    val local: TeamModel? = null,
+    val matchType: MatchType = LEAGUE,
+    val local: Team? = null,
     val localGoals: Int = -1,
-    val visitor: TeamModel? = null,
+    val visitor: Team? = null,
     val visitorGoals: Int = -1,
     val appTeamLocal: Boolean = true,
     val numberOfJourneys: Int = 0,
@@ -48,7 +48,7 @@ data class InsertMatchTeamsInformation(
     fun validMatch() = local != null && visitor != null
 
     fun toMatchModel() =
-        MatchModel(
+        Match(
             id = id,
             date = date,
             matchName = matchName,

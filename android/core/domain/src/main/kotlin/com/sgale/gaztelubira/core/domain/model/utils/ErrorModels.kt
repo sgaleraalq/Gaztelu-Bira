@@ -16,31 +16,32 @@
 
 package com.sgale.gaztelubira.core.domain.model.utils
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
-import com.sgale.gaztelubira.core.domain.model.match.MatchType.League
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Position.GOALKEEPER
+import com.sgale.gaztelubira.core.domain.model.team.Team
 
-val ErrorTeam = TeamModel(
+val ErrorTeam = Team(
     id = "error_team",
     name = "Error Team",
     logo = "https://firebasestorage.googleapis.com/v0/b/gbmultiplatform.firebasestorage.app/o/error_team.png?alt=media&token=8890839e-cc50-41db-a648-1502145e37d4"
 )
 
-val ErrorPlayer = PlayerModel(
+val ErrorPlayer = Player(
     id = "error_player",
     name = "Error Player",
     faceImage = null,
     bodyImage = null,
     dorsal = 0,
-    position = null
+    position = GOALKEEPER
 )
 
-val ErrorMatch = MatchModel(
+val ErrorMatch = Match(
     id = "error_team",
     date = 0L,
     matchName = "Error Match",
-    matchType = League,
+    matchType = LEAGUE,
     localTeam = ErrorTeam,
     visitorTeam = ErrorTeam,
     localGoals = 0,

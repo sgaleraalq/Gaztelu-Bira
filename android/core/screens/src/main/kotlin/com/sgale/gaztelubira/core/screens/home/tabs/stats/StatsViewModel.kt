@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
-import com.sgale.gaztelubira.core.domain.model.stats.PlayerStatsModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toDetail
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toGBPlayerStat
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toStat
@@ -53,8 +53,8 @@ internal class StatsViewModel @Inject constructor(
     private val _state = MutableStateFlow(StatsUiState())
     internal val state: StateFlow<StatsUiState> = _state.asStateFlow()
 
-    private val playersStats = MutableStateFlow<List<PlayerStatsModel>?>(null)
-    private val matches = MutableStateFlow<List<MatchModel>?>(null)
+    private val playersStats = MutableStateFlow<List<PlayerStats>?>(null)
+    private val matches = MutableStateFlow<List<Match>?>(null)
     private val selectedStat = MutableStateFlow(PERCENTAGE.toStat())
 
     private val handler = StatsHandler(

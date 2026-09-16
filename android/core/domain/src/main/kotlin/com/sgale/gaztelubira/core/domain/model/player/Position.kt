@@ -16,34 +16,17 @@
 
 package com.sgale.gaztelubira.core.domain.model.player
 
-import androidx.annotation.StringRes
-import com.sgale.gaztelubira.core.domain.R
-
-enum class Position(
-    @StringRes val positionName: Int
-) {
-    Manager(
-        R.string.manager
-    ),
-    Bench(
-        R.string.bench
-    ),
-    GoalKeeper(
-        R.string.goalkeeper
-    ),
-    Defender(
-        R.string.defender
-    ),
-    MidFielder(
-        R.string.midfielder
-    ),
-    Forward(
-        R.string.forward
-    );
+enum class Position {
+    UNDEFINED,
+    MANAGER,
+    GOALKEEPER,
+    DEFENDER,
+    MIDFIELDER,
+    FORWARD;
 
     companion object {
         fun mapPosition(position: String): Position =
             entries.firstOrNull { it.name.equals(position, ignoreCase = true) }
-                ?: Manager
+                ?: MANAGER
     }
 }

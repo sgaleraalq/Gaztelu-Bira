@@ -21,9 +21,9 @@ import com.sgale.gaztelubira.core.data.db.dao.BaseDao
 import com.sgale.gaztelubira.core.data.mappers.asMatchModel
 import com.sgale.gaztelubira.core.data.mappers.asPlayerDomain
 import com.sgale.gaztelubira.core.data.mappers.asTeamModel
-import com.sgale.gaztelubira.core.domain.model.match.MatchModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerModel
-import com.sgale.gaztelubira.core.domain.model.team.TeamModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -36,11 +36,11 @@ abstract class AbstractGBDb(
     private val playersDao = db.getPlayersDao()
     private val teamsDao = db.getTeamsDao()
 
-    suspend fun getMatchesMap(): Map<FirebaseId, MatchModel> =
+    suspend fun getMatchesMap(): Map<FirebaseId, Match> =
         matchesDao.getMatches().map { it.asMatchModel(getTeamsMap()) }.associateBy { it.id }
-    suspend fun getPlayersMap(): Map<FirebaseId, PlayerModel> =
+    suspend fun getPlayersMap(): Map<FirebaseId, Player> =
         playersDao.getPlayers().map { it.asPlayerDomain() }.associateBy { it.id }
-    suspend fun getTeamsMap(): Map<FirebaseId, TeamModel> =
+    suspend fun getTeamsMap(): Map<FirebaseId, Team> =
         teamsDao.getTeams().map { it.asTeamModel() }.associateBy { it.id }
 
     @OptIn(ExperimentalCoroutinesApi::class)
