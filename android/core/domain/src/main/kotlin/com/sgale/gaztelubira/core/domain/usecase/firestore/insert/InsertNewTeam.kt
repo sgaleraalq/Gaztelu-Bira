@@ -24,7 +24,6 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.Ima
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult.Success
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import javax.inject.Inject
 
 class InsertNewTeam @Inject constructor(
@@ -33,7 +32,7 @@ class InsertNewTeam @Inject constructor(
     private val teamsDb: IGBTeamsDb
 ) {
     suspend operator fun invoke(
-        img: CommonImage?,
+        img: String?,
         team: Team,
         onFailure: () -> Unit
     ): FirebaseInsertResult {

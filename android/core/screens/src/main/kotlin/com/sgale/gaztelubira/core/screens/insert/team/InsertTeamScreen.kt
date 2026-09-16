@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.screens.insert.manager.gallery.rememberGalleryManager
+import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
@@ -31,6 +32,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamView
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_inserting_team
 import com.sgale.gaztelubira.multiplatform.ui.resources.permission_denied_gallery
 import org.jetbrains.compose.resources.stringResource
 
@@ -42,6 +44,9 @@ internal fun InsertTeamScreen(
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
     val permissionDeniedMsg = stringResource(Res.string.permission_denied_gallery)
+    val insertionErrorMsg = stringResource(Res.string.error_inserting_team)
+
+    val onSuccessfulInsertion= { navState.navigateTo(Home, true) }
 
     BackHandler(state.state.isNotLoading()) {
         navState.navigateBack()
@@ -61,7 +66,7 @@ internal fun InsertTeamScreen(
         InsertTeamActions(
             updateField = viewModel::updateField,
             openGallery = galleryManager::launch,
-            insertTeam = { viewModel.insertTeam(navState) },
+            insertTeam = { viewModel.insertTeam(context, onSuccessfulInsertion, insertionErrorMsg) },
             onMissingField = { message -> showToast(context, message)}
         )
     }

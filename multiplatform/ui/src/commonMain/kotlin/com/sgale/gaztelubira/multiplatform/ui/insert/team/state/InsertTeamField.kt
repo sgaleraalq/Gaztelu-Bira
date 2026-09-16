@@ -26,6 +26,6 @@ sealed interface InsertTeamField {
     ) : InsertTeamField
 
     companion object {
-        internal val EMPTY_IMAGE = TeamImage("")
+        internal val EMPTY_IMAGE = TeamImage(null)
     }
 }

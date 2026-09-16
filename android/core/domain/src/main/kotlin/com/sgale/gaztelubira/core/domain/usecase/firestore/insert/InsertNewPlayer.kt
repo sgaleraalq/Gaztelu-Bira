@@ -25,7 +25,6 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult.Success
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import javax.inject.Inject
 
 class InsertNewPlayer @Inject constructor(
@@ -34,21 +33,19 @@ class InsertNewPlayer @Inject constructor(
     private val playersDb: IGBPlayersDb
 ) {
     suspend operator fun invoke(
-        player: Player,
-        faceImg: CommonImage?,
-        bodyImg: CommonImage?
+        player: Player
     ): FirebaseInsertResult {
         val faceImgPath = "$PLAYERS/$FACE/${player.id}"
         val bodyImgPath = "$PLAYERS/$BODY/${player.id}"
 
-        val faceImgInserted = if (faceImg != null) {
-            storage.insertImage(faceImgPath, faceImg)
+        val faceImgInserted = if (!player.faceImage.isNullOrBlank()) {
+            storage.insertImage(faceImgPath, player.faceImage)
         } else {
             Success(null)
         }
 
-        val bodyImgInserted = if (bodyImg != null) {
-            storage.insertImage(bodyImgPath, bodyImg)
+        val bodyImgInserted = if (!player.bodyImage.isNullOrBlank()) {
+            storage.insertImage(bodyImgPath, player.bodyImage)
         } else {
             Success(null)
         }

@@ -25,7 +25,6 @@ import com.sgale.gaztelubira.core.domain.model.utils.PictureType.FACE
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.PlayerInserted
 import com.sgale.gaztelubira.core.domain.usecase.db.GetAvailableDorsals
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewPlayer
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
@@ -57,17 +56,10 @@ internal class InsertPlayerViewModel @Inject constructor(
     private var selectedPicture = FACE
     private val initialState = InsertPlayerUiState(
         playerId = getCurrentTimeId(),
-        positions = emptyList() // TODO
+        positions = Position.entries.map { it.name }
     )
     private val _state = MutableStateFlow(initialState)
     internal val state: StateFlow<InsertPlayerUiState> = _state.asStateFlow()
-
-    /**
-     * The picked images are kept aside rather than in the state: the state only carries the uri the
-     * form needs to draw, while the upload needs the mime type that came with it.
-     */
-    private var faceImage: CommonImage? = null
-    private var bodyImage: CommonImage? = null
 
     init {
         viewModelScope.launch {
@@ -82,7 +74,7 @@ internal class InsertPlayerViewModel @Inject constructor(
             is Name -> _state.update { it.copy(playerName = field.name) }
             is Dorsal -> _state.update { it.copy(playerDorsal = field.dorsal) }
             is PositionField -> _state.update { it.copy(playerPosition = field.position) }
-            is Image -> onImageChanged(field.image)
+            is Image -> onImageChanged(newImage = field.image)
         }
     }
 
@@ -90,31 +82,18 @@ internal class InsertPlayerViewModel @Inject constructor(
         _state.update { it.copy(dialog = newState) }
     }
 
-
-    /** Drops the picture into whichever box the user tapped before opening the source dialog. */
-    internal fun onImagePicked(image: CommonImage?) {
-        setImage(image)
-    }
-
     internal fun insertPlayer(
         navState: NavigationState,
         onFailure: () -> Unit
     ) {
         val player = _state.value
-
-        /* The button reports the missing field instead of inserting, so this only guards against
-           an insert reaching here any other way. */
         if (!player.handler.isValid) return
 
         viewModelScope.launch {
             _state.update { it.copy(state = Loading) }
 
             val result = withContext(IO) {
-                insertNewPlayer(
-                    player = player.toPlayerModel(),
-                    faceImg = faceImage,
-                    bodyImg = bodyImage
-                )
+                insertNewPlayer(player.toPlayerModel())
             }
 
             if (result is PlayerInserted) {
@@ -127,25 +106,9 @@ internal class InsertPlayerViewModel @Inject constructor(
     }
 
     private fun onImageChanged(newImage: String?) {
-        setImage(
-            image = newImage
-                ?.takeIf { it.isNotBlank() }
-                ?.let { CommonImage.FromGallery(uri = it) }
-        )
-    }
-
-    private fun setImage(image: CommonImage?) {
-        val uri = image?.uri.orEmpty()
         when (selectedPicture) {
-            FACE -> {
-                faceImage = image
-                _state.update { it.copy(faceImage = uri) }
-            }
-
-            BODY -> {
-                bodyImage = image
-                _state.update { it.copy(bodyImage = uri) }
-            }
+            FACE -> { _state.update { it.copy(faceImage = newImage.orEmpty()) } }
+            BODY -> { _state.update { it.copy(bodyImage = newImage.orEmpty()) } }
         }
     }
 
@@ -155,8 +118,8 @@ internal class InsertPlayerViewModel @Inject constructor(
             name = playerName,
             dorsal = playerDorsal,
             position = Position.valueOf(playerPosition),
-            faceImage = "",
-            bodyImage = ""
+            faceImage = faceImage,
+            bodyImage = bodyImage
         )
 
     private fun getCurrentTimeId(): String = currentTimeMillis().toString()

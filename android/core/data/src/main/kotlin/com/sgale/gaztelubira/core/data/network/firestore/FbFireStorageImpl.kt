@@ -18,21 +18,20 @@ package com.sgale.gaztelubira.core.data.network.firestore
 
 import android.net.Uri
 import androidx.core.net.toUri
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.google.firebase.Firebase
 import com.google.firebase.storage.storage
-import javax.inject.Inject
+import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
+import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 class FbFireStorageImpl @Inject constructor(): IGBFireStorage {
     private val fireStorage by lazy { Firebase.storage }
 
-    override suspend fun insertImage(path: String, image: CommonImage): ImageInsertionResult {
+    override suspend fun insertImage(path: String, image: String): ImageInsertionResult {
         return try {
             val ref = fireStorage.reference.child(path)
-            ref.putFile(image.uri.toUri()).await()
+            ref.putFile(image.toUri()).await()
 
             val downloadUri: Uri = ref.downloadUrl.await()
             ImageInsertionResult.Success(downloadUri.toString())

@@ -16,17 +16,14 @@
 
 package com.sgale.gaztelubira.core.screens.insert.team
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewTeam
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromGallery
 import com.sgale.gaztelubira.core.domain.utils.IImageValidator
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
+import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
@@ -53,8 +50,6 @@ internal class InsertTeamViewModel @Inject constructor(
     private val _state = MutableStateFlow(initialState)
     internal val state: StateFlow<InsertTeamUiState> = _state.asStateFlow()
 
-    private var selectedImage: CommonImage? = null
-
     internal fun updateField(field: InsertTeamField) {
         when (field) {
             is TeamName -> onNameChanged(field.name)
@@ -67,33 +62,23 @@ internal class InsertTeamViewModel @Inject constructor(
     }
 
     private fun onImageChanged(newImage: String?) {
-        onImagePicked(
-            image = newImage
-                ?.takeIf { it.isNotBlank() }
-                ?.let { FromGallery(uri = it) }
-        )
-    }
-
-    internal fun onImagePicked(image: CommonImage?) {
-        selectedImage = image
-
-        val uri = image?.uri
-        if (uri == null) {
+        if (newImage.isNullOrBlank()) {
             _state.update { it.copy(teamImage = "") }
             return
         }
 
         viewModelScope.launch {
-            val validImage = imageValidator.isValidImage(uri)
-
+            val validImage = imageValidator.isValidImage(newImage)
             if (validImage) {
-                _state.update { it.copy(teamImage = uri) }
+                _state.update { it.copy(teamImage = newImage) }
             }
         }
     }
 
     internal fun insertTeam(
-        navState: NavigationState
+        context: Context,
+        onSuccess: () -> Unit,
+        errorMsg: String
     ) {
         val team = _state.value
 
@@ -104,22 +89,32 @@ internal class InsertTeamViewModel @Inject constructor(
 
             val result = withContext(Dispatchers.IO) {
                 insertNewTeam(
-                    img = selectedImage,
+                    img = team.teamImage,
                     team = team.toTeamModel(),
-                    onFailure = {
-//                        TODO
-                        /* toastManager.showToast(errorMsg) */
-                    }
+                    onFailure = { onFailure(context, errorMsg) }
                 )
             }
 
             if (result is TeamInserted) {
-                navState.navigateTo(Home, true)
+                onSuccess()
             } else {
-                _state.update { it.copy(state = Default) }
+                onFailure(context, errorMsg)
             }
         }
     }
+
+    private fun getCurrentTimeId(): String =
+        currentTimeMillis().toString()
+
+    private fun onFailure(
+        context: Context,
+        errorMsg: String
+    ) {
+        showToast(context, errorMsg)
+        resetUiState()
+    }
+
+    private fun resetUiState() { _state.update { initialState } }
 
     private fun InsertTeamUiState.toTeamModel() =
         Team(
@@ -127,7 +122,4 @@ internal class InsertTeamViewModel @Inject constructor(
             name = teamName,
             logo = teamImage
         )
-
-    private fun getCurrentTimeId() =
-        currentTimeMillis().toString()
 }

@@ -92,9 +92,7 @@ internal fun InsertTeamButton(
 
     Spacer(modifier = modifier)
     GBInsertButton(
-        modifier = Modifier
-            .padding(horizontal = 12.dp)
-            .padding(bottom = 16.dp),
+        modifier = Modifier.padding(horizontal = 12.dp).padding(bottom = 16.dp),
         text = stringResource(Res.string.insert_team),
         loading = state.state.isLoading(),
         enabled = state.state.isNotLoading(),

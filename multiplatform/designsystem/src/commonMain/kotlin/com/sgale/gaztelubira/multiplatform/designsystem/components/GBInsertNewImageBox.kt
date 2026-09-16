@@ -43,7 +43,10 @@ fun GBImageBoxRequester(
 ) {
     Row(
         modifier = modifier
-            .background(gray_box_in_black_bg, RoundedCornerShape(8.dp)),
+            .background(
+                color = gray_box_in_black_bg,
+                shape = RoundedCornerShape(8.dp)
+            ),
         verticalAlignment = CenterVertically
     ) {
         GBText(
@@ -63,8 +66,8 @@ fun GBImageBoxRequester(
             iconSize = iconSize,
             onClick = {},
             removeImage = { removeImage() },
-            isClickable = true,
             placeholder = placeholder,
+            isClickable = true,
             enableExpansion = true
         )
     }

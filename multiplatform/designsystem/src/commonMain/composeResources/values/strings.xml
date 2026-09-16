@@ -162,4 +162,5 @@
     <string name="invalid_player_name">Invalid player name</string>
     <string name="invalid_player_dorsal">Invalid player dorsal</string>
     <string name="invalid_player_position">Invalid player position</string>
+    <string name="error_inserting_team">Error inserting team</string>
 </resources>

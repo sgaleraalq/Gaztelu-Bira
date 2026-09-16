@@ -48,7 +48,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDi
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Body
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Face
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Companion.emptyImage
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Companion.EMPTY_IMAGE
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.body_image
@@ -58,6 +58,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.images
 import com.sgale.gaztelubira.multiplatform.ui.resources.information
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player
 import com.sgale.gaztelubira.multiplatform.ui.resources.player_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.position
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -94,6 +95,7 @@ private fun DorsalAndPosition(
     actions: InsertPlayerActions
 ) {
     val loading = state.state.isLoading()
+    val defaultPosition = stringResource(Res.string.position)
     val dorsalText = if (state.playerDorsal == 0) {
         stringResource(Res.string.dorsal)
     } else {
@@ -114,7 +116,7 @@ private fun DorsalAndPosition(
 
         InformationComponent(
             modifier = Modifier.weight(1f),
-            informationText = state.playerPosition,
+            informationText = state.playerPosition.ifBlank { defaultPosition },
             enabled = !loading,
             onClick = { actions.updateDialogState(Position) }
         )
@@ -138,7 +140,9 @@ private fun InformationComponent(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Center
         ) {
-            GBText(text = informationText)
+            GBText(
+                text = informationText
+            )
         }
     }
 }
@@ -185,8 +189,8 @@ private fun PlayerImageRow(
         text = text,
         imageUri = image,
         placeholder = placeholder,
-        onClick = { actions.updateDialogState(action) },
-        removeImage = { actions.updateField(emptyImage()) }
+        onClick = { actions.openGallery() },
+        removeImage = { actions.updateField(EMPTY_IMAGE) }
     )
 }
 
@@ -198,11 +202,11 @@ internal fun InsertPlayerButton(
 ) {
     val invalidMessage = state.handler.invalidReason?.let { stringResource(it.reason) }
 
-    Spacer(modifier = modifier)
+    Spacer(
+        modifier = modifier
+    )
     GBInsertButton(
-        modifier = Modifier
-            .padding(horizontal = 12.dp)
-            .padding(bottom = 16.dp),
+        modifier = Modifier.padding(horizontal = 12.dp).padding(bottom = 16.dp),
         text = stringResource(Res.string.insert_player),
         loading = state.state.isLoading(),
         enabled = state.state.isNotLoading(),

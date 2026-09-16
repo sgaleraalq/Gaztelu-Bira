@@ -16,12 +16,10 @@
 
 package com.sgale.gaztelubira.core.domain.repository.firestore
 
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
-
 interface IGBFireStorage {
     interface ImageInsertionResult {
         data class Success(val url: String?) : ImageInsertionResult
         data class Error(val message: String?) : ImageInsertionResult
     }
-    suspend fun insertImage(path: String, image: CommonImage): ImageInsertionResult
+    suspend fun insertImage(path: String, image: String): ImageInsertionResult
 }

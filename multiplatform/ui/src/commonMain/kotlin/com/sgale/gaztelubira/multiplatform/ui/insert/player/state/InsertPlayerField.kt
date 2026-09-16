@@ -35,6 +35,6 @@ sealed interface InsertPlayerField {
 
 
     companion object {
-        internal fun emptyImage() = Image(null)
+        internal val EMPTY_IMAGE = Image(null)
     }
 }
