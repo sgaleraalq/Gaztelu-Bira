@@ -60,7 +60,7 @@ internal fun InsertTeamScreen(
     ) {
         InsertTeamActions(
             updateField = viewModel::updateField,
-            pickImage = galleryManager::launch,
+            openGallery = galleryManager::launch,
             insertTeam = { viewModel.insertTeam(navState) },
             onMissingField = { message -> showToast(context, message)}
         )

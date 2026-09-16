@@ -26,14 +26,15 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDi
 data class InsertPlayerUiState(
     val playerId: String,
     val playerName: String = "",
-    val dorsal: Int = 0,
-    val position: String = "",
+    val playerDorsal: Int = 0,
+    val playerPosition: String = "",
     val faceImage: String = "",
     val bodyImage: String = "",
     val availableDorsals: List<Int> = emptyList(),
+    val positions: List<String>,
     val dialog: InsertPlayerDialog = None,
     override val state: InsertingDataState = Default
 ) : InsertDataUiState {
-    override val handler: InvalidInformationHandler
+    override val handler: InvalidInformationHandler<*>
         get() = InvalidPlayerHandler(this)
 }

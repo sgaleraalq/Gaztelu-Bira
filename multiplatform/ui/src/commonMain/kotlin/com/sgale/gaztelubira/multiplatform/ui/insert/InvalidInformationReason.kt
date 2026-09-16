@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.multiplatform.ui.insert
 
 import org.jetbrains.compose.resources.StringResource
 
-interface InvalidInformationReason {
+data class InvalidInformationReason(
+    val value: String,
     val reason: StringResource
-    fun isValid(): Boolean
-}
+)

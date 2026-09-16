@@ -71,11 +71,6 @@ internal fun InsertPlayerScreen(
         )
     }
 
-    /**
-     * The camera is a destination of our own rather than a system picker, so it is navigated to and
-     * its result awaited; the permission is asked for here because that screen opens the device
-     * camera straight away.
-     */
     val takePicture = {
         permissions.withPermission(
             permission = CAMERA,

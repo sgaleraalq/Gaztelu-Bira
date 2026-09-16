@@ -25,9 +25,8 @@ data class InsertTeamUiState(
     val teamId: String,
     val teamName: String = "",
     val teamImage: String = "",
-    val validImage: Boolean = false,
     override val state: InsertingDataState = Default
 ): InsertDataUiState {
-    override val handler: InvalidInformationHandler
+    override val handler: InvalidInformationHandler<*>
         get() = InvalidTeamHandler(this)
 }

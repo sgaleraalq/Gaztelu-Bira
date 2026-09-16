@@ -74,7 +74,7 @@ internal fun InsertTeamImage(
         iconModifier = Modifier.size(100.dp),
         image = state.teamImage,
         iconSize = 100.dp,
-        onClick = actions.pickImage,
+        onClick = actions.openGallery,
         removeImage = { actions.updateField(EMPTY_IMAGE) },
         isClickable = state.state.isNotLoading(),
         enableExpansion = false,

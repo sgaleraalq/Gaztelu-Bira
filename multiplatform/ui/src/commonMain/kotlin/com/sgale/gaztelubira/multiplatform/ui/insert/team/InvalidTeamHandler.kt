@@ -18,14 +18,22 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.team
 
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationReason
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InvalidTeamReason.TeamImage
-import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InvalidTeamReason.TeamName
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_team_image
+import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_team_name
 
 internal class InvalidTeamHandler(
     state: InsertTeamUiState
-) : InvalidInformationHandler() {
-    override val reasons: List<InvalidInformationReason> = listOf(
-        TeamName(state.teamName),
-        TeamImage(state.validImage)
-    )
+) : InvalidInformationHandler<InsertTeamUiState>(state) {
+    override val requiredFields: List<InvalidInformationReason> =
+        listOf(
+            InvalidInformationReason(
+                value = state.teamName,
+                reason = Res.string.invalid_team_name
+            ),
+            InvalidInformationReason(
+                value = state.teamImage,
+                reason = Res.string.invalid_team_image
+            )
+        )
 }

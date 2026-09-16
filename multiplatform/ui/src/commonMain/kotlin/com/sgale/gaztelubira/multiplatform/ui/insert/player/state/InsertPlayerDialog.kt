@@ -16,14 +16,16 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.insert.player.state
 
-/**
- * Which of the form's pickers is on screen. Kept apart from
- * [com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState] so that "a dialog is open"
- * and "the player is being uploaded" cannot overwrite one another.
- */
 sealed interface InsertPlayerDialog {
-    data object None : InsertPlayerDialog
-    data object Capture : InsertPlayerDialog
-    data object Dorsals : InsertPlayerDialog
-    data object Positions : InsertPlayerDialog
+    data object None: InsertPlayerDialog
+
+    sealed interface Generic: InsertPlayerDialog {
+        data object Dorsal: Generic
+        data object Position: Generic
+    }
+
+    sealed interface Images: InsertPlayerDialog {
+        data object Body: Images
+        data object Face: Images
+    }
 }

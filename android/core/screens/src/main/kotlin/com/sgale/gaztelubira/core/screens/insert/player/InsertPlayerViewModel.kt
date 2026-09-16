@@ -75,8 +75,8 @@ internal class InsertPlayerViewModel @Inject constructor(
     internal fun updateField(field: InsertPlayerField) {
         when (field) {
             is Name -> _state.update { it.copy(playerName = field.name) }
-            is Dorsal -> _state.update { it.copy(dorsal = field.dorsal) }
-            is PositionField -> _state.update { it.copy(position = field.position) }
+            is Dorsal -> _state.update { it.copy(playerDorsal = field.dorsal) }
+            is PositionField -> _state.update { it.copy(playerPosition = field.position) }
             is Image -> onImageChanged(field.image)
         }
     }
@@ -147,8 +147,8 @@ internal class InsertPlayerViewModel @Inject constructor(
         Player(
             id = playerId,
             name = playerName,
-            dorsal = dorsal,
-            position = Position.valueOf(position),
+            dorsal = playerDorsal,
+            position = Position.valueOf(playerPosition),
             faceImage = "",
             bodyImage = ""
         )

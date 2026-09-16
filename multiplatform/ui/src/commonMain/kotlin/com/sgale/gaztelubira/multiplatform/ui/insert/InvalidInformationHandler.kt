@@ -16,15 +16,12 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.insert
 
-abstract class InvalidInformationHandler {
-
-    protected abstract val reasons: List<InvalidInformationReason>
-
-    /**
-     * The first option that does not pass, or null once every one of them does.
-     */
+abstract class InvalidInformationHandler<S : InsertDataUiState>(
+    protected val state: S
+) {
+    protected abstract val requiredFields: List<InvalidInformationReason>
     val invalidReason: InvalidInformationReason?
-        get() = reasons.firstOrNull { !it.isValid() }
+        get() = requiredFields.firstOrNull { it.value.isBlank() }
 
     val isValid: Boolean
         get() = invalidReason == null

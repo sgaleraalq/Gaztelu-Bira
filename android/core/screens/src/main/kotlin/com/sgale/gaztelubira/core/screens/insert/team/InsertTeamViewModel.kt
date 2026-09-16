@@ -94,8 +94,6 @@ internal class InsertTeamViewModel @Inject constructor(
     ) {
         val team = _state.value
 
-        /* The button is disabled while the handler reports a pending option; this only guards
-           against an insert reaching here any other way. */
         if (!team.handler.isValid) return
 
         viewModelScope.launch {

@@ -27,7 +27,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerButton
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerDialogs
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.dialogs.InsertPlayerDialogs
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerImages
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.ui.InsertPlayerMainInformation
 
@@ -44,8 +44,6 @@ internal fun InsertPlayerViewUI(
             state = state,
             actions = actions
         )
-        /* The modifier carries the weight: the button lays it out as a Spacer above itself, so the
-           form keeps its natural height and the button sits at the bottom. */
         InsertPlayerButton(
             modifier = Modifier.weight(1f),
             state = state,
@@ -73,7 +71,9 @@ private fun InsertPlayerForm(
             state = state,
             actions = actions
         )
-        Spacer(Modifier.height(16.dp))
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
         InsertPlayerImages(
             state = state,
             actions = actions

@@ -18,5 +18,5 @@ package com.sgale.gaztelubira.multiplatform.ui.insert
 
 interface InsertDataUiState {
     val state: InsertingDataState
-    val handler: InvalidInformationHandler
+    val handler: InvalidInformationHandler<*>
 }

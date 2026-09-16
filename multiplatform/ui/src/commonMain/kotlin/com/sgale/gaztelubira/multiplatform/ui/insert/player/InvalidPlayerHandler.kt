@@ -18,20 +18,22 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationReason
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InvalidPlayerReason.MissingPosition
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InvalidPlayerReason.PlayerDorsal
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InvalidPlayerReason.PlayerName
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_player_dorsal
+import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_player_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_player_position
 
-/**
- * The order matters: the button reports the first reason that does not pass, so the user is walked
- * down the form in the order the fields appear.
- */
 internal class InvalidPlayerHandler(
     state: InsertPlayerUiState
-) : InvalidInformationHandler() {
-    override val reasons: List<InvalidInformationReason> = listOf(
-        PlayerName(state.playerName),
-        MissingPosition(state.position),
-        PlayerDorsal(state.dorsal, state.position)
+) : InvalidInformationHandler<InsertPlayerUiState>(state) {
+    override val requiredFields: List<InvalidInformationReason> = listOfNotNull(
+        InvalidInformationReason(state.playerName, Res.string.invalid_player_name),
+        InvalidInformationReason(state.playerPosition, Res.string.invalid_player_position),
+        /* A manager wears no number, and only the platform knows which position that is, so it is
+           the one that says whether the dorsal is being asked for at all. */
+        InvalidInformationReason(
+            value = state.playerDorsal.takeIf { it > 0 }?.toString().orEmpty(),
+            reason = Res.string.invalid_player_dorsal
+        ).takeIf { state.dorsalRequired }
     )
 }

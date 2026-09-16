@@ -43,15 +43,13 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companio
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isNotLoading
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Capture
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Dorsals
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Positions
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Dorsal
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Body
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Face
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Position
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Companion.emptyImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.SelectedPicture
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType.Body
-import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.PictureType.Face
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.body_image
 import com.sgale.gaztelubira.multiplatform.ui.resources.dorsal
@@ -60,7 +58,6 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.images
 import com.sgale.gaztelubira.multiplatform.ui.resources.information
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player
 import com.sgale.gaztelubira.multiplatform.ui.resources.player_name
-import com.sgale.gaztelubira.multiplatform.ui.resources.position
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -82,8 +79,13 @@ internal fun InsertPlayerMainInformation(
         firstCap = true,
         enabled = state.state.isNotLoading()
     )
-    Spacer(Modifier.height(8.dp))
-    DorsalAndPosition(state, actions)
+    Spacer(
+        modifier = Modifier.height(8.dp)
+    )
+    DorsalAndPosition(
+        state = state,
+        actions = actions
+    )
 }
 
 @Composable
@@ -91,7 +93,12 @@ private fun DorsalAndPosition(
     state: InsertPlayerUiState,
     actions: InsertPlayerActions
 ) {
-    val dorsalLabel = stringResource(Res.string.dorsal)
+    val loading = state.state.isLoading()
+    val dorsalText = if (state.playerDorsal == 0) {
+        stringResource(Res.string.dorsal)
+    } else {
+        state.playerDorsal.toString()
+    }
 
     Row(
         modifier = Modifier.fillMaxWidth().height(100.dp),
@@ -100,16 +107,17 @@ private fun DorsalAndPosition(
     ) {
         InformationComponent(
             modifier = Modifier.weight(1f),
-            informationText = if (state.dorsal == 0) dorsalLabel else "$dorsalLabel: ${state.dorsal}",
-            enabled = state.state.isNotLoading()
-        ) { actions.showDialog(Dorsals) }
+            informationText = dorsalText,
+            enabled = !loading,
+            onClick = { actions.onInsertPlayerAction(Dorsal) }
+        )
 
         InformationComponent(
             modifier = Modifier.weight(1f),
-            informationText = state.position?.let { stringResource(it.label) }
-                ?: stringResource(Res.string.position),
-            enabled = state.state.isNotLoading()
-        ) { actions.showDialog(Positions) }
+            informationText = state.playerPosition,
+            enabled = !loading,
+            onClick = { actions.onInsertPlayerAction(Position) }
+        )
     }
 }
 
@@ -147,46 +155,41 @@ internal fun InsertPlayerImages(
         alignment = Start
     )
     PlayerImageRow(
-        state = state,
+        image = state.faceImage,
         actions = actions,
-        type = Face,
+        action = Face,
         text = stringResource(Res.string.face_image)
     )
     PlayerImageRow(
-        state = state,
+        image = state.bodyImage,
         actions = actions,
-        type = Body,
+        action = Body,
         text = stringResource(Res.string.body_image)
     )
 }
 
 @Composable
 private fun PlayerImageRow(
-    state: InsertPlayerUiState,
+    image: String,
     actions: InsertPlayerActions,
-    type: PictureType,
+    action: Images,
     text: String
 ) {
+    val placeholder = when (action) {
+        Body -> AppImages.bodyPlayer
+        Face -> AppImages.facePlayer
+    }
+
     GBImageBoxRequester(
         modifier = Modifier.fillMaxWidth(),
         text = text,
-        imageUri = state.imageOf(type).takeIf { it.isNotBlank() },
-        placeholder = if (type == Face) AppImages.facePlayer else AppImages.bodyPlayer,
-        onClick = {
-            /* The box that was tapped is where the next picture lands, so it is recorded before
-               the source dialog opens. */
-            actions.updateField(SelectedPicture(type))
-            actions.showDialog(Capture)
-        },
-        removeImage = { actions.updateField(emptyImage(type)) }
+        imageUri = image,
+        placeholder = placeholder,
+        onClick = { actions.onInsertPlayerAction(action) },
+        removeImage = { actions.updateField(emptyImage()) }
     )
 }
 
-/**
- * The button stays clickable while the form is incomplete: pressing it reports the first field
- * that does not pass through [InsertPlayerActions.onMissingField], so the user is told what is
- * missing instead of being left with a dead button and no explanation.
- */
 @Composable
 internal fun InsertPlayerButton(
     modifier: Modifier,
