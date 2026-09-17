@@ -17,8 +17,8 @@
 package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.MatchEntity
-import com.sgale.gaztelubira.core.data.network.response.MatchResponse
 import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.network.response.match.MatchResponse
 
 object MatchMapper :
     Mapper<MatchResponse, Match, MatchEntity> {

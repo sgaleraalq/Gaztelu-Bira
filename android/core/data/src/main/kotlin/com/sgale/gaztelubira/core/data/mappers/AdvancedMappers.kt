@@ -20,10 +20,6 @@ import com.sgale.gaztelubira.core.data.db.entities.MatchEntity
 import com.sgale.gaztelubira.core.data.db.entities.MatchStatsEntity
 import com.sgale.gaztelubira.core.data.db.entities.PlayerStatsEntity
 import com.sgale.gaztelubira.core.data.db.entities.StatsMatchEntity
-import com.sgale.gaztelubira.core.data.network.response.MatchResponse
-import com.sgale.gaztelubira.core.data.network.response.MatchStatsResponse
-import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
-import com.sgale.gaztelubira.core.data.network.response.StatsResponse
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStats
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
@@ -38,6 +34,10 @@ import com.sgale.gaztelubira.core.domain.model.utils.ErrorTeam
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
+import com.sgale.gaztelubira.core.network.response.match.MatchResponse
+import com.sgale.gaztelubira.core.network.response.match.MatchStatsResponse
+import com.sgale.gaztelubira.core.network.response.player.PlayerStatsResponse
+import com.sgale.gaztelubira.core.network.response.stats.StatsResponse
 
 /**
  * Match Model

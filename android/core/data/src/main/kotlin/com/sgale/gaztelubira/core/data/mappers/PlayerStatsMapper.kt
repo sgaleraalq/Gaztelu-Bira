@@ -17,8 +17,8 @@
 package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.PlayerStatsEntity
-import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.network.response.player.PlayerStatsResponse
 
 object PlayerStatsMapper :
     Mapper<PlayerStatsResponse, PlayerStats, PlayerStatsEntity> {

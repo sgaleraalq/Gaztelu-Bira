@@ -17,9 +17,9 @@
 package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.UserEntity
-import com.sgale.gaztelubira.core.data.network.response.UserResponse
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.model.user.UserRole.Companion.asRole
+import com.sgale.gaztelubira.core.network.response.user.UserResponse
 
 object UserMapper: Mapper<UserResponse, UserModel, UserEntity> {
     override fun asResponse(domain: UserModel) =

@@ -14,6 +14,19 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.network.response
+plugins {
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.hilt)
+    alias(libs.plugins.convention.firebase)
+    alias(libs.plugins.kotlin.serialization)
+}
 
-typealias Keep = androidx.annotation.Keep
+android {
+    namespace = "com.sgale.gaztelubira.core.network"
+}
+
+dependencies {
+    implementation(libs.kotlinx.serialization)
+
+    implementation(project(":core:domain"))
+}

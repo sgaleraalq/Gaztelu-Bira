@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.network.firestore
+package com.sgale.gaztelubira.core.network.implementation
 
 import com.sgale.gaztelubira.core.data.mappers.asModel
 import com.sgale.gaztelubira.core.data.mappers.asResponse
-import com.sgale.gaztelubira.core.data.network.response.UserResponse
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.model.team.Team
@@ -27,6 +26,7 @@ import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.USERS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sgale.gaztelubira.core.network.response.user.UserResponse
 import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

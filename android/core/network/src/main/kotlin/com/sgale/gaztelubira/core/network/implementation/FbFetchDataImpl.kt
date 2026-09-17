@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.network.firestore
+package com.sgale.gaztelubira.core.network.implementation
 
 import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.data.db.implementations.AbstractGBDb
 import com.sgale.gaztelubira.core.data.mappers.asMatchModel
 import com.sgale.gaztelubira.core.data.mappers.asMatchStatsModel
 import com.sgale.gaztelubira.core.data.mappers.asPlayerModel
 import com.sgale.gaztelubira.core.data.mappers.asTeamModel
-import com.sgale.gaztelubira.core.data.network.response.MatchResponse
-import com.sgale.gaztelubira.core.data.network.response.MatchStatsResponse
-import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
-import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
-import com.sgale.gaztelubira.core.data.network.response.TeamResponse
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
@@ -47,10 +43,14 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
-import com.google.firebase.firestore.FirebaseFirestore
-import javax.inject.Inject
+import com.sgale.gaztelubira.core.network.response.match.MatchResponse
+import com.sgale.gaztelubira.core.network.response.match.MatchStatsResponse
+import com.sgale.gaztelubira.core.network.response.player.PlayerResponse
+import com.sgale.gaztelubira.core.network.response.player.PlayerStatsResponse
+import com.sgale.gaztelubira.core.network.response.team.TeamResponse
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 class FbFetchDataImpl @Inject constructor(
     private val firestore: FirebaseFirestore,

@@ -29,12 +29,6 @@ import javax.inject.Singleton
 class ImageValidator @Inject constructor(
     @param:ApplicationContext private val context: Context
 ) : IImageValidator {
-
-    /**
-     * Opening the stream is the only answer that holds for every scheme the app produces —
-     * `content://` from the gallery and `file://` from the camera — and it also catches a path
-     * that resolves but can no longer be read.
-     */
     override suspend fun isValidImage(uri: String): Boolean =
         withContext(IO) {
             runCatching {

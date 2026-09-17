@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.network.firestore
+package com.sgale.gaztelubira.core.network.implementation
 
 import android.util.Log
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.storage
 import com.sgale.gaztelubira.core.data.db.implementations.AbstractGBDb
 import com.sgale.gaztelubira.core.data.mappers.PlayerMapper
 import com.sgale.gaztelubira.core.data.mappers.asPlayerModel
-import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
-import com.sgale.gaztelubira.core.data.network.response.PlayerStatsResponse
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer
@@ -34,12 +36,10 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbPlayers
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.storage
-import javax.inject.Inject
+import com.sgale.gaztelubira.core.network.response.player.PlayerResponse
+import com.sgale.gaztelubira.core.network.response.player.PlayerStatsResponse
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 class FbPlayer @Inject constructor(
     private val firestore: FirebaseFirestore,

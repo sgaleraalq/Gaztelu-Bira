@@ -17,9 +17,9 @@
 package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.PlayerEntity
-import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.Position.Companion.mapPosition
+import com.sgale.gaztelubira.core.network.response.player.PlayerResponse
 
 object PlayerMapper :
     Mapper<PlayerResponse, Player, PlayerEntity>
@@ -29,7 +29,7 @@ object PlayerMapper :
             id = domain.id,
             name = domain.name,
             dorsal = domain.dorsal,
-            position = domain.position?.name ?: "",
+            position = domain.position.name,
             faceImage = domain.faceImage ?: "",
             bodyImage = domain.bodyImage ?: ""
         )

@@ -49,4 +49,5 @@ dependencies {
      * Project
      */
     implementation(project(":core:domain"))
+    implementation(project(":core:network"))
 }

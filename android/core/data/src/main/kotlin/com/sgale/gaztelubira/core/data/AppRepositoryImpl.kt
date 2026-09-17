@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.data
 
 import android.content.Context
-import com.sgale.gaztelubira.core.data.network.firestore.FbRemoteConfigManager
+import com.sgale.gaztelubira.core.network.implementation.FbRemoteConfigManager
 import com.sgale.gaztelubira.core.domain.repository.IAppRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

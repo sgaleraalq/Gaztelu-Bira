@@ -23,7 +23,6 @@ import com.sgale.gaztelubira.core.domain.auth.usecase.IsUserAuthenticated
 import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.usecase.users.GetUser
-import com.sgale.gaztelubira.core.domain.utils.IToastManager
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
@@ -47,7 +46,6 @@ class MainViewModel @Inject constructor(
     private val splashController: SplashController,
     private val preferences: IGBPreferences,
     private val initAppHandler: InitAppHandler,
-    private val toastManager: IToastManager
 ) : ViewModel() {
     private var defaultHomeTab = DEFAULT_TAB
 
@@ -132,7 +130,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun manageInitAppError() {
-        toastManager.showToast("There was a problem joining the app, try again.")
+//        toastManager.showToast("There was a problem joining the app, try again.")
         splashController.complete(Welcome)
     }
 

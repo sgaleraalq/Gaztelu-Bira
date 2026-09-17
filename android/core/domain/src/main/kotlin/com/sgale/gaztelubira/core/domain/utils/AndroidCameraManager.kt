@@ -71,7 +71,7 @@ fun CameraManagerCompose(
     GBCamera(
         controller = controller,
         changeCamera = { changeCamera() },
-        navigateBack = { navigateBack },
+        navigateBack = { navigateBack() },
         navigateToReview = { uri ->
             val image = if (isBackCamera()) {
                 FromBackCamera(uri.toString())

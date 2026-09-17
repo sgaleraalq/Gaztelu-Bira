@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.network.response
+package com.sgale.gaztelubira.core.network.response.player
 
+import androidx.annotation.Keep
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import kotlinx.serialization.Serializable
 

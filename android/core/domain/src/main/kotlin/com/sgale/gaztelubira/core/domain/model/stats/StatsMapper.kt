@@ -52,7 +52,7 @@ object StatsMapper {
         dorsal = player.dorsal,
         faceImage = player.faceImage,
         bodyImage = player.bodyImage,
-        position = player.position?.toGBPosition(),
+        position = player.position.toGBPosition(),
         value = displayValue(selectedStat, stat),
         changedPosition = changedPosition
     )

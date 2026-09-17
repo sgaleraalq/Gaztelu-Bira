@@ -17,8 +17,8 @@
 package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.TeamEntity
-import com.sgale.gaztelubira.core.data.network.response.TeamResponse
 import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.network.response.team.TeamResponse
 
 object TeamMapper :
     Mapper<TeamResponse, Team, TeamEntity> {

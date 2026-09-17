@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.network.response
+package com.sgale.gaztelubira.core.network.response.match
 
+import androidx.annotation.Keep
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.serialization.Serializable
 
 @Keep
 @Serializable
-data class PlayerResponse(
-    val id: String = "",
-    val name: String = "",
-    val dorsal: Int? = null,
-    val position: String = "",
-    val faceImage: String = "",
-    val bodyImage: String = ""
+data class MatchResponse(
+    val id: FirebaseId = "",
+    val date: Long = 0L,
+    val matchName: String = "",
+    val matchType: String = "",
+    val localTeam: FirebaseId = "",
+    val visitorTeam: FirebaseId = "",
+    val localGoals: Int = 0,
+    val visitorGoals: Int = 0
 )

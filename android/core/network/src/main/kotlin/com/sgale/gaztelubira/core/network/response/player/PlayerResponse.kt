@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.utils
+package com.sgale.gaztelubira.core.network.response.player
 
-import com.sgale.gaztelubira.core.domain.utils.IToastManager.ToastDurationType.SHORT
+import androidx.annotation.Keep
+import kotlinx.serialization.Serializable
 
-interface IToastManager {
-    enum class ToastDurationType {
-        SHORT, LONG
-    }
-
-    fun showToast(
-        msg: String,
-        onFinish: () -> Unit = {},
-        duration: ToastDurationType = SHORT
-    )
-}
+@Keep
+@Serializable
+data class PlayerResponse(
+    val id: String = "",
+    val name: String = "",
+    val dorsal: Int? = null,
+    val position: String = "",
+    val faceImage: String = "",
+    val bodyImage: String = ""
+)

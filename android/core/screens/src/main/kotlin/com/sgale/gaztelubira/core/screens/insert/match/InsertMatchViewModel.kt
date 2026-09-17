@@ -37,7 +37,6 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.Fi
 import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
 import com.sgale.gaztelubira.core.domain.usecase.db.GetTeams
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewMatch
-import com.sgale.gaztelubira.core.domain.utils.IToastManager
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First
@@ -70,7 +69,6 @@ import javax.inject.Inject
 class InsertMatchViewModel @Inject constructor(
     private val getPlayers: GetPlayers,
     private val getTeams: GetTeams,
-    private val toastManager: IToastManager,
     private val insertNewMatch: InsertNewMatch
 ) : ViewModel() {
     data class InsertMatchPosition(val position: Int = 0)
@@ -415,10 +413,10 @@ class InsertMatchViewModel @Inject constructor(
     }
 
     private fun showErrorToast() {
-        toastManager.showToast("Error inserting match")
+//        toastManager.showToast("Error inserting match")
     }
 
     private fun showToast() {
-        toastManager.showToast("Please fill in all the fields")
+//        toastManager.showToast("Please fill in all the fields")
     }
 }

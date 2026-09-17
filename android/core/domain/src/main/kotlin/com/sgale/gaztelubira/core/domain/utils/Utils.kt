@@ -26,9 +26,6 @@ import java.util.UUID
 
 const val DATE_FORMAT = "dd/MM/yyyy"
 
-typealias Email = String
-typealias Password = String
-
 fun formatDecimal(value: Double?, pattern: String = "#.##"): String =
     DecimalFormat(pattern).format(value)
 

@@ -18,15 +18,15 @@ package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.PlayerEntity
 import com.sgale.gaztelubira.core.data.db.entities.TeamEntity
-import com.sgale.gaztelubira.core.data.network.response.PlayerResponse
-import com.sgale.gaztelubira.core.data.network.response.TeamResponse
-import com.sgale.gaztelubira.core.data.network.response.UserResponse
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
+import com.sgale.gaztelubira.core.network.response.player.PlayerResponse
+import com.sgale.gaztelubira.core.network.response.team.TeamResponse
+import com.sgale.gaztelubira.core.network.response.user.UserResponse
 
 /**
  * Match Model
