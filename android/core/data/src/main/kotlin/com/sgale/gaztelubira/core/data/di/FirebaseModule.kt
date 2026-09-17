@@ -22,7 +22,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
 import com.sgale.gaztelubira.core.data.R
-import com.sgale.gaztelubira.core.network.implementation.FbRemoteConfigManager.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbRemoteConfigManager.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

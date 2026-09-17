@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.implementation
+package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
@@ -43,14 +43,15 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
-import com.sgale.gaztelubira.core.network.response.match.MatchResponse
-import com.sgale.gaztelubira.core.network.response.match.MatchStatsResponse
-import com.sgale.gaztelubira.core.network.response.player.PlayerResponse
-import com.sgale.gaztelubira.core.network.response.player.PlayerStatsResponse
-import com.sgale.gaztelubira.core.network.response.team.TeamResponse
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchResponse
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsResponse
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerResponse
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
+import com.sgale.gaztelubira.core.network.firebase.response.team.TeamResponse
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import kotlin.text.get
 
 class FbFetchDataImpl @Inject constructor(
     private val firestore: FirebaseFirestore,

@@ -24,9 +24,9 @@ import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
-import com.sgale.gaztelubira.core.network.response.player.PlayerResponse
-import com.sgale.gaztelubira.core.network.response.team.TeamResponse
-import com.sgale.gaztelubira.core.network.response.user.UserResponse
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerResponse
+import com.sgale.gaztelubira.core.network.firebase.response.team.TeamResponse
+import com.sgale.gaztelubira.core.network.firebase.response.user.UserResponse
 
 /**
  * Match Model

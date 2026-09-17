@@ -24,11 +24,11 @@ import com.sgale.gaztelubira.core.data.db.implementations.GBMatchesStatsDb
 import com.sgale.gaztelubira.core.data.db.implementations.GBPlayerStatsDb
 import com.sgale.gaztelubira.core.data.db.implementations.GBPlayersDb
 import com.sgale.gaztelubira.core.data.db.implementations.GBTeamsDb
-import com.sgale.gaztelubira.core.network.implementation.FbFetchDataImpl
-import com.sgale.gaztelubira.core.network.implementation.FbFireStorageImpl
-import com.sgale.gaztelubira.core.network.implementation.FbInsertDataImpl
-import com.sgale.gaztelubira.core.network.implementation.FbPlayer
-import com.sgale.gaztelubira.core.network.implementation.FbUsers
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbFetchDataImpl
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbFireStorageImpl
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbInsertDataImpl
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbPlayer
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbUsers
 import com.sgale.gaztelubira.core.data.preferences.GBSettings
 import com.sgale.gaztelubira.core.domain.repository.IAppRepository
 import com.sgale.gaztelubira.core.domain.repository.InitAppHandler

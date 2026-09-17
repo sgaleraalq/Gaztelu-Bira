@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.implementation
+package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import android.util.Log
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig

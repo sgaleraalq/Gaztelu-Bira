@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.data.mappers
 import com.sgale.gaztelubira.core.data.db.entities.PlayerEntity
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.Position.Companion.mapPosition
-import com.sgale.gaztelubira.core.network.response.player.PlayerResponse
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerResponse
 
 object PlayerMapper :
     Mapper<PlayerResponse, Player, PlayerEntity>

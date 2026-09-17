@@ -34,10 +34,10 @@ import com.sgale.gaztelubira.core.domain.model.utils.ErrorTeam
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
-import com.sgale.gaztelubira.core.network.response.match.MatchResponse
-import com.sgale.gaztelubira.core.network.response.match.MatchStatsResponse
-import com.sgale.gaztelubira.core.network.response.player.PlayerStatsResponse
-import com.sgale.gaztelubira.core.network.response.stats.StatsResponse
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchResponse
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsResponse
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
+import com.sgale.gaztelubira.core.network.firebase.response.stats.StatsResponse
 
 /**
  * Match Model

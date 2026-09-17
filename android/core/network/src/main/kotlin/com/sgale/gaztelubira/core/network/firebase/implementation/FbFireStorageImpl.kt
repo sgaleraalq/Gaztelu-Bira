@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.implementation
+package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import android.net.Uri
 import androidx.core.net.toUri

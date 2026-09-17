@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.response.player
+package com.sgale.gaztelubira.core.network.firebase.response.player
 
 import androidx.annotation.Keep
 import com.sgale.gaztelubira.core.domain.model.stats.Stats

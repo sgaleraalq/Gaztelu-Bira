@@ -1,4 +1,4 @@
-package com.sgale.gaztelubira.core.network.response.team
+package com.sgale.gaztelubira.core.network.firebase.response.team
 
 import androidx.annotation.Keep
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId

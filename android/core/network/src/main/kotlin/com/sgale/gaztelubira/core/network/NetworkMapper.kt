@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.response.match
+package com.sgale.gaztelubira.core.network
 
-import androidx.annotation.Keep
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import kotlinx.serialization.Serializable
-
-@Keep
-@Serializable
-data class MatchResponse(
-    val id: FirebaseId = "",
-    val date: Long = 0L,
-    val matchName: String = "",
-    val matchType: String = "",
-    val localTeam: FirebaseId = "",
-    val visitorTeam: FirebaseId = "",
-    val localGoals: Int = 0,
-    val visitorGoals: Int = 0
-)
+/**
+ * Maps every object to each layer of the application
+ * @param Response Data layer representation
+ * @param Domain Domain layer representation
+ */
+internal interface NetworkMapper <Response, Domain> {
+    fun asResponse(domain: Domain): Response
+    fun asModel(response: Response): Domain
+}

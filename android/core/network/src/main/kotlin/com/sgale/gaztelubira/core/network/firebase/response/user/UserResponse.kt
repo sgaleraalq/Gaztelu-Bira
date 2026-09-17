@@ -1,4 +1,4 @@
-package com.sgale.gaztelubira.core.network.response.user
+package com.sgale.gaztelubira.core.network.firebase.response.user
 
 import androidx.annotation.Keep
 import com.sgale.gaztelubira.core.domain.model.utils.UserSessionId
