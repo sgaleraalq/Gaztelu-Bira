@@ -18,13 +18,10 @@ package com.sgale.gaztelubira.core.data.mappers
 
 /**
  * Maps every object to each layer of the application
- * @param Response Data layer representation
- * @param Domain Domain layer representation
+ * @param Model Domain layer representation
  * @param Entity Cache layer representation
  */
-interface Mapper <Response, Domain, Entity> {
-    fun asResponse(domain: Domain): Response
-    fun asEntity(domain: Domain): Entity?
-    fun entityAsDomain(entity: Entity): Domain?
-    fun responseAsModel(response: Response): Domain?
+interface DatabaseMapper <Model, Entity> {
+    fun Model.asEntity(): Entity
+    fun Entity.asModel(): Model
 }

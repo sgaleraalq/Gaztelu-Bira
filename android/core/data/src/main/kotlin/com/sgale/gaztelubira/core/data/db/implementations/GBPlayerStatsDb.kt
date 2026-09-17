@@ -18,14 +18,14 @@ package com.sgale.gaztelubira.core.data.db.implementations
 
 import com.sgale.gaztelubira.core.data.db.GBDatabase
 import com.sgale.gaztelubira.core.data.db.entities.PlayerStatsEntity
-import com.sgale.gaztelubira.core.data.mappers.asPlayerStatsEntity
-import com.sgale.gaztelubira.core.data.mappers.asPlayerStatsModel
+import com.sgale.gaztelubira.core.data.mappers.PlayerStatsMapper.asEntity
+import com.sgale.gaztelubira.core.data.mappers.PlayerStatsMapper.asModel
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class GBPlayerStatsDb @Inject constructor(
     db: GBDatabase
@@ -38,10 +38,10 @@ class GBPlayerStatsDb @Inject constructor(
     }
 
     override suspend fun getPlayerStats(id: FirebaseId): PlayerStats? =
-        playersStatsDao.getItem(id)?.asPlayerStatsModel(getPlayersMap())
+        playersStatsDao.getItem(id)?.asModel()
 
     override suspend fun insertPlayer(player: PlayerStats) {
-        playersStatsDao.insert(player.asPlayerStatsEntity())
+        playersStatsDao.insert(player.asEntity())
     }
 
     override suspend fun insertStats(
@@ -58,9 +58,9 @@ class GBPlayerStatsDb @Inject constructor(
                 )
                 playersStatsDao.insert(newPlayer)
             } else {
-                val playersMap = getPlayersMap()
-                val playerName = playersMap[player.id]?.name ?: "Unknown"
-                println("Inserting player $playerName")
+                // TODO
+//                val playersMap = getPlayersMap()
+//                val playerName = playersMap[player.id]?.name ?: "Unknown"
                 val newPlayerStats = player.copy(
                     stats = player.stats + (matchId to stats)
                 )
@@ -74,7 +74,7 @@ class GBPlayerStatsDb @Inject constructor(
     ) {
         insertList(
             items = stats,
-            mapper = { it.asPlayerStatsEntity() },
+            mapper = { it.asEntity() },
             dao = playersStatsDao
         )
     }
@@ -82,7 +82,7 @@ class GBPlayerStatsDb @Inject constructor(
     override fun getPlayersStatsListAsFlow(): Flow<List<PlayerStats>> =
         getFlow(
             source = playersStatsDao.getListAsFlow(),
-            mapper = { it.asPlayerStatsModel(getPlayersMap()) },
+            mapper = { it.asModel() },
             keySelector = { it.percentage }
         )
 }

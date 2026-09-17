@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.domain.auth
 
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.model.user.UserRole.Admin
+import com.sgale.gaztelubira.core.domain.model.user.UserRole.ADMIN
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 data class UserSession(
@@ -26,5 +26,5 @@ data class UserSession(
     val team: Team,
     val player: FirebaseId? = null
 ) {
-    fun isAdmin(): Boolean = session.role == Admin
+    fun isAdmin(): Boolean = session.role == ADMIN
 }

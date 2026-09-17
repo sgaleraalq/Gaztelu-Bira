@@ -17,11 +17,11 @@
 package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import android.util.Log
-import com.sgale.gaztelubira.core.data.mappers.asMatchResponse
-import com.sgale.gaztelubira.core.data.mappers.asMatchStatsResponse
-import com.sgale.gaztelubira.core.data.mappers.asPlayerResponse
-import com.sgale.gaztelubira.core.data.mappers.asStatsResponse
-import com.sgale.gaztelubira.core.data.mappers.asTeamResponse
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.SetOptions.merge
+import com.google.firebase.firestore.firestore
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
@@ -49,14 +49,14 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.Fi
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.PlayerInserted
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.StatsInserted
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.TeamInserted
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.SetOptions.merge
-import com.google.firebase.firestore.firestore
-import javax.inject.Inject
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchMapper.asResponse
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsMapper.asResponse
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asResponse
+import com.sgale.gaztelubira.core.network.firebase.response.stats.StatsMapper.asResponse
+import com.sgale.gaztelubira.core.network.firebase.response.team.TeamMapper.asResponse
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
 class FbInsertDataImpl @Inject constructor(
@@ -75,7 +75,7 @@ class FbInsertDataImpl @Inject constructor(
                 .document(INFORMATION)
                 .collection(PLAYERS)
                 .document(player.id)
-                .set(player.asPlayerResponse())
+                .set(player.asResponse())
                 .addOnSuccessListener {
                     gbSettings.setTimestamp(timestamp.playersInsertion, PLAYERS_INSERTION)
                     continuation.resume(PlayerInserted)
@@ -98,7 +98,7 @@ class FbInsertDataImpl @Inject constructor(
                 .document(INFORMATION)
                 .collection(TEAMS)
                 .document(team.id)
-                .set(team.asTeamResponse())
+                .set(team.asResponse())
                 .addOnSuccessListener {
                     gbSettings.setTimestamp(timestamp.teamsInsertion, TEAMS_INSERTION)
                     continuation.resume(TeamInserted)
@@ -128,8 +128,8 @@ class FbInsertDataImpl @Inject constructor(
             val matchDocRef = getMatchDocRef(false, matchId)
             val matchStatsDocRef = getMatchDocRef(true, matchId)
 
-            batch.set(matchDocRef, match.copy(id = matchId).asMatchResponse())
-            batch.set(matchStatsDocRef, matchStats.copy(id = matchId).asMatchStatsResponse())
+            batch.set(matchDocRef, match.copy(id = matchId).asResponse())
+            batch.set(matchStatsDocRef, matchStats.copy(id = matchId).asResponse())
 
             playerStats.forEach { (id, stats) ->
                 val playerDocRef = firestore
@@ -143,7 +143,7 @@ class FbInsertDataImpl @Inject constructor(
                     .document(matchId)
 
                 batch.set(playerDocRef, mapOf("id" to id), merge())
-                batch.set(playerStatsDocRef, stats.asStatsResponse())
+                batch.set(playerStatsDocRef, stats.asResponse())
             }
 
             batch.set(matchStampRef, matchesTimestamp, merge())

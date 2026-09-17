@@ -43,7 +43,6 @@ dependencies {
      * than in the Firebase convention plugin.
      */
     implementation(libs.firebase.auth)
-    implementation(libs.firebase.storage)
 
     /**
      * Project

@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.mappers
+package com.sgale.gaztelubira.core.network.firebase.response.player
 
-import com.sgale.gaztelubira.core.data.db.entities.PlayerEntity
 import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Position
+import com.sgale.gaztelubira.core.network.NetworkMapper
 
-internal object PlayerMapper : DatabaseMapper<Player, PlayerEntity> {
-
-    override fun Player.asEntity() =
-        PlayerEntity(
+internal object PlayerMapper: NetworkMapper<Player, PlayerResponse> {
+    override fun Player.asResponse() = 
+        PlayerResponse(
             id = id,
             name = name,
             dorsal = dorsal,
-            position = position,
+            position = position.name,
             faceImage = faceImage.orEmpty(),
             bodyImage = bodyImage.orEmpty()
         )
 
-    override fun PlayerEntity.asModel() =
+    override fun PlayerResponse.asModel() =
         Player(
             id = id,
             name = name,
             dorsal = dorsal,
-            position = position,
+            position = Position.valueOf(position),
             faceImage = faceImage.ifBlank { null },
             bodyImage = bodyImage.ifBlank { null }
         )

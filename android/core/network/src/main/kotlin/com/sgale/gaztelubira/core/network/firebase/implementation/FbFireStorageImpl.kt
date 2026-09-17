@@ -25,10 +25,14 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.Ima
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class FbFireStorageImpl @Inject constructor(): IGBFireStorage {
-    private val fireStorage by lazy { Firebase.storage }
+class FbFireStorageImpl @Inject constructor() : IGBFireStorage {
 
-    override suspend fun insertImage(path: String, image: String): ImageInsertionResult {
+    private val fireStorage = Firebase.storage
+
+    override suspend fun insertImage(
+        path: String,
+        image: String
+    ): ImageInsertionResult {
         return try {
             val ref = fireStorage.reference.child(path)
             ref.putFile(image.toUri()).await()

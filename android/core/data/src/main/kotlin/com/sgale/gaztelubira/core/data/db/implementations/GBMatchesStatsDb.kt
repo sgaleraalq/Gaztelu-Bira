@@ -17,14 +17,13 @@
 package com.sgale.gaztelubira.core.data.db.implementations
 
 import com.sgale.gaztelubira.core.data.db.GBDatabase
-import com.sgale.gaztelubira.core.data.mappers.MatchStatsMapper
-import com.sgale.gaztelubira.core.data.mappers.asMatchStatsEntity
-import com.sgale.gaztelubira.core.data.mappers.asMatchStatsModel
+import com.sgale.gaztelubira.core.data.mappers.MatchStatsMapper.asEntity
+import com.sgale.gaztelubira.core.data.mappers.MatchStatsMapper.asModel
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesStatsDb
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class GBMatchesStatsDb @Inject constructor(
     db: GBDatabase
@@ -36,19 +35,16 @@ class GBMatchesStatsDb @Inject constructor(
     }
 
     override suspend fun getMatchStats(id: FirebaseId) =
-        matchesStatsDao.getItem(id)?.asMatchStatsModel(
-            playersMap = getPlayersMap(),
-            matchesMap = getMatchesMap()
-        )
+        matchesStatsDao.getItem(id)?.asModel()
 
     override suspend fun insertMatch(match: MatchStatsModel) {
-        matchesStatsDao.insert(match.asMatchStatsEntity())
+        matchesStatsDao.insert(match.asEntity())
     }
 
     override suspend fun insertMatchesStatsFromFB(matches: List<MatchStatsModel>) {
         insertList(
             items = matches,
-            mapper = MatchStatsMapper::asEntity,
+            mapper = { it.asEntity() },
             dao = matchesStatsDao
         )
     }
@@ -56,7 +52,7 @@ class GBMatchesStatsDb @Inject constructor(
     override fun getMatchesStatsListAsFlow(): Flow<List<MatchStatsModel>> =
         getFlow(
             source = matchesStatsDao.getListAsFlow(),
-            mapper = { it.asMatchStatsModel(getMatchesMap(), getPlayersMap()) },
+            mapper = { it.asModel() },
             keySelector = { it.id }
         )
 }

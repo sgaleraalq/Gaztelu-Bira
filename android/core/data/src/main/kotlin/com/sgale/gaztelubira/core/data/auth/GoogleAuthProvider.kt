@@ -22,7 +22,7 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.model.user.UserRole.Guest
+import com.sgale.gaztelubira.core.domain.model.user.UserRole.GUEST
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.createFrom
@@ -68,7 +68,7 @@ class GoogleAuthProvider @Inject constructor(
                         name = fbUser.displayName,
                         email = fbUser.email,
                         img = googleIdTokenCredential.profilePictureUri.toString(),
-                        role = Guest
+                        role = GUEST
                     )
                 } ?: run {
                     Log.e("sgalera", "Error uploading to Firebase")

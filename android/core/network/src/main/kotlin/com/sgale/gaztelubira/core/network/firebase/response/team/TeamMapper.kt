@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.mappers
+package com.sgale.gaztelubira.core.network.firebase.response.team
 
-import com.sgale.gaztelubira.core.data.db.entities.UserEntity
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.network.NetworkMapper
 
-object UserMapper: DatabaseMapper<UserModel, UserEntity> {
-    override fun UserModel.asEntity() =
-        UserEntity(
-            id = uid,
-            name = name.orEmpty(),
-            email = email.orEmpty(),
-            img = img,
-            role = role,
+internal object TeamMapper : NetworkMapper<Team, TeamResponse> {
+    override fun Team.asResponse() =
+        TeamResponse(
+            id = id,
+            name = name,
+            logo = logo.orEmpty()
         )
 
-    override fun UserEntity.asModel() =
-        UserModel(
-            uid = id,
+    override fun TeamResponse.asModel() =
+        Team(
+            id = id,
             name = name,
-            email = email,
-            img = img,
-            role = role
+            logo = logo
         )
 }

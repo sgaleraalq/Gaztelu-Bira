@@ -18,10 +18,10 @@ package com.sgale.gaztelubira.core.network
 
 /**
  * Maps every object to each layer of the application
- * @param Response Data layer representation
- * @param Domain Domain layer representation
+ * @param Model Domain layer representation
+ * @param Response Data Response layer representation
  */
-internal interface NetworkMapper <Response, Domain> {
-    fun asResponse(domain: Domain): Response
-    fun asModel(response: Response): Domain
+internal interface NetworkMapper <Model, Response> {
+    fun Model.asResponse(): Response
+    fun Response.asModel(): Model
 }

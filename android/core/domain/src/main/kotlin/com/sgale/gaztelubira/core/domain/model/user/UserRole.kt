@@ -17,11 +17,13 @@
 package com.sgale.gaztelubira.core.domain.model.user
 
 enum class UserRole {
-    Guest, Admin;
+    GUEST,
+    ADMIN;
 
     companion object {
-        fun asRole(value: String): UserRole =
-            entries.firstOrNull { it.name.equals(value, ignoreCase = true) }
-                ?: Guest
+        fun userRoleOf(value: String): UserRole =
+            UserRole.entries
+                .firstOrNull { it.name.equals(value, ignoreCase = true) }
+                ?: GUEST
     }
 }

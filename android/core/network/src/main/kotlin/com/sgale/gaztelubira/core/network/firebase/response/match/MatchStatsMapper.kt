@@ -14,28 +14,31 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.mappers
+package com.sgale.gaztelubira.core.network.firebase.response.match
 
-import com.sgale.gaztelubira.core.data.db.entities.MatchStatsEntity
-import com.sgale.gaztelubira.core.data.db.entities.StatsMatchEntity
 import com.sgale.gaztelubira.core.domain.model.match.Match.Companion.ERROR_MATCH
+import com.sgale.gaztelubira.core.domain.model.match.MatchStats
 import com.sgale.gaztelubira.core.domain.model.match.MatchStats.Companion.EMPTY_MATCH_STATS
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.network.NetworkMapper
+import com.sgale.gaztelubira.core.network.firebase.response.stats.StatsResponse
 
-internal object MatchStatsMapper : DatabaseMapper<MatchStatsModel, MatchStatsEntity> {
-    override fun MatchStatsModel.asEntity() =
-        MatchStatsEntity(
+internal object MatchStatsMapper : NetworkMapper<MatchStatsModel, MatchStatsResponse> {
+    override fun MatchStatsModel.asResponse() =
+        MatchStatsResponse(
             id = id,
             location = location,
             description = description,
             formation = formation,
-            lineUpPlayers = lineUpPlayers.mapValues { it.value?.id.orEmpty() },
+            lineUpPlayers = lineUpPlayers
+                .mapKeys { it.key.toString() }
+                .mapValues { it.value?.id ?: "" },
             benchPlayers = benchPlayers.map { it.id },
             managers = managers.map { it.id },
-            stats = StatsMatchEntity() // TODO
+            stats = stats.asStatsMatchResponse()
         )
 
-    override fun MatchStatsEntity.asModel() =
+    override fun MatchStatsResponse.asModel() =
         MatchStatsModel(
             id = id,
             location = location,
@@ -46,5 +49,18 @@ internal object MatchStatsMapper : DatabaseMapper<MatchStatsModel, MatchStatsEnt
             benchPlayers = emptyList(), // TODO benchPlayers,
             managers = emptyList(), // TODO managers,
             stats = EMPTY_MATCH_STATS // TODO stats
+        )
+
+    private fun MatchStats.asStatsMatchResponse() =
+        StatsResponse(
+            assists = assists.map { it.id },
+            cleanSheets = cleanSheets.map { it.id },
+            fails = fails.map { it.id },
+            goals = goals.map { it.id },
+            goalsProvoked = goalsProvoked.map { it.id },
+            penaltiesProvoked = penaltiesProvoked.map { it.id },
+            redCards = redCards.map { it.id },
+            saves = saves.map { it.id },
+            yellowCards = yellowCards.map { it.id }
         )
 }

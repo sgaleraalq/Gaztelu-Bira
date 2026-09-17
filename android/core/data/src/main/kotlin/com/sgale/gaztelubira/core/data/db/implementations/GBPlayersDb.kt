@@ -17,14 +17,13 @@
 package com.sgale.gaztelubira.core.data.db.implementations
 
 import com.sgale.gaztelubira.core.data.db.GBDatabase
-import com.sgale.gaztelubira.core.data.mappers.PlayerMapper
-import com.sgale.gaztelubira.core.data.mappers.asPlayerDomain
-import com.sgale.gaztelubira.core.data.mappers.asPlayerEntity
+import com.sgale.gaztelubira.core.data.mappers.PlayerMapper.asEntity
+import com.sgale.gaztelubira.core.data.mappers.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class GBPlayersDb @Inject constructor(
     db: GBDatabase
@@ -36,17 +35,17 @@ class GBPlayersDb @Inject constructor(
     }
 
     override suspend fun insertPlayer(player: Player) =
-        playersDao.insert(player.asPlayerEntity())
+        playersDao.insert(player.asEntity())
 
     override suspend fun insertPlayers(players: List<Player>) =
         insertList(
             items = players,
-            mapper = PlayerMapper::asEntity,
+            mapper = { it.asEntity() },
             dao = playersDao
         )
 
     override suspend fun getPlayer(id: FirebaseId): Player? =
-        playersDao.getItem(id)?.asPlayerDomain()
+        playersDao.getItem(id)?.asModel()
 
     override suspend fun getNumberOfPlayers(): Int =
         playersDao.getDorsals().size
@@ -57,12 +56,12 @@ class GBPlayersDb @Inject constructor(
     }
 
     override suspend fun getPlayers(): List<Player> =
-        playersDao.getPlayers().map { it.asPlayerDomain() }
+        playersDao.getPlayers().map { it.asModel() }
 
     override fun getPlayersListAsFlow(): Flow<List<Player>> =
         getFlow(
             source = playersDao.getListAsFlow(),
-            mapper = { it.asPlayerDomain() },
+            mapper = { it.asModel() },
             keySelector = { it.id }
         )
 }

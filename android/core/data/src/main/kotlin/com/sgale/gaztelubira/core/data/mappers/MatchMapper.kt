@@ -18,37 +18,31 @@ package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.MatchEntity
 import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.network.firebase.response.match.MatchResponse
+import com.sgale.gaztelubira.core.domain.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.model.team.Team.Companion.ERROR_TEAM
 
-object MatchMapper :
-    Mapper<MatchResponse, Match, MatchEntity> {
-    override fun asEntity(domain: Match) =
+internal object MatchMapper : DatabaseMapper<Match, MatchEntity> {
+    override fun Match.asEntity() =
         MatchEntity(
-            id = domain.id,
-            date = domain.date,
-            matchName = domain.matchName,
-            matchType = domain.matchType.name,
-            localTeam = domain.localTeam.id,
-            localGoals = domain.localGoals,
-            visitorTeam = domain.visitorTeam.id,
-            visitorGoals = domain.visitorGoals
+            id = id,
+            date = date,
+            matchName = matchName,
+            matchType = matchType.name,
+            localTeam = localTeam.id,
+            localGoals = localGoals,
+            visitorTeam = visitorTeam.id,
+            visitorGoals = visitorGoals
         )
 
-    override fun asResponse(domain: Match) =
-        MatchResponse(
-            id = domain.id,
-            date = domain.date,
-            matchName = domain.matchName,
-            matchType = domain.matchType.name,
-            localTeam = domain.localTeam.id,
-            localGoals = domain.localGoals,
-            visitorTeam = domain.visitorTeam.id,
-            visitorGoals = domain.visitorGoals
+    override fun MatchEntity.asModel() =
+        Match(
+            id = id,
+            date = date,
+            matchName = matchName,
+            matchType = MatchType.valueOf(matchType),
+            localTeam = ERROR_TEAM, // TODO
+            localGoals = localGoals,
+            visitorTeam = ERROR_TEAM, // TODO
+            visitorGoals = visitorGoals
         )
-
-    override fun entityAsDomain(entity: MatchEntity): Match? =
-        null
-
-    override fun responseAsModel(response: MatchResponse): Match? =
-        null
 }

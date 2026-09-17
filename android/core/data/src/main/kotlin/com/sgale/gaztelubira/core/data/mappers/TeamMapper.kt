@@ -18,34 +18,19 @@ package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.TeamEntity
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.network.firebase.response.team.TeamResponse
 
-object TeamMapper :
-    Mapper<TeamResponse, Team, TeamEntity> {
-    override fun asResponse(domain: Team) =
-        TeamResponse(
-            id = domain.id,
-            name = domain.name,
-            logo = domain.logo ?: ""
-        )
-
-    override fun asEntity(domain: Team) =
+internal object TeamMapper : DatabaseMapper<Team, TeamEntity> {
+    override fun Team.asEntity() =
         TeamEntity(
-            id = domain.id,
-            name = domain.name,
-            logo = domain.logo ?: ""
+            id = id,
+            name = name,
+            logo = logo.orEmpty()
         )
 
-    override fun entityAsDomain(entity: TeamEntity) =
+    override fun TeamEntity.asModel() =
         Team(
-            id = entity.id,
-            name = entity.name,
-            logo = entity.logo
-        )
-    override fun responseAsModel(response: TeamResponse) =
-        Team(
-            id = response.id,
-            name = response.name,
-            logo = response.logo
+            id = id,
+            name = name,
+            logo = logo
         )
 }

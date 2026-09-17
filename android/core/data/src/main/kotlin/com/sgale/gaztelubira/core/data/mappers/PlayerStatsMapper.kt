@@ -18,26 +18,17 @@ package com.sgale.gaztelubira.core.data.mappers
 
 import com.sgale.gaztelubira.core.data.db.entities.PlayerStatsEntity
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats.Companion.ERROR_PLAYER_STATS
 
 object PlayerStatsMapper :
-    Mapper<PlayerStatsResponse, PlayerStats, PlayerStatsEntity> {
-    override fun asResponse(
-        domain: PlayerStats
-    ) = PlayerStatsResponse() // <- Not in use
+    DatabaseMapper<PlayerStats, PlayerStatsEntity> {
 
-    override fun asEntity(
-        domain: PlayerStats
-    ) = PlayerStatsEntity(
-        id = domain.id,
-        stats = domain.stats
-    )
+    override fun PlayerStats.asEntity() =
+        PlayerStatsEntity(
+            id = id,
+            stats = stats
+        )
 
-    override fun entityAsDomain(
-        entity: PlayerStatsEntity
-    ): PlayerStats? = null
-
-    override fun responseAsModel(
-        response: PlayerStatsResponse
-    ): PlayerStats? = null
+    override fun PlayerStatsEntity.asModel() =
+        ERROR_PLAYER_STATS // TODO
 }

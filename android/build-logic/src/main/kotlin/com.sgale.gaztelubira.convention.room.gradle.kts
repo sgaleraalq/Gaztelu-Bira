@@ -29,7 +29,7 @@ import extensions.getVersionCatalog
  *
  * The schema directory is not set here — a module that exports its schema declares it with
  * `ksp { arg("room.schemaLocation", ...) }`, so only the modules that own a database carry
- * a schemas folder.
+ * a schemas' folder.
  */
 
 val libs = getVersionCatalog()

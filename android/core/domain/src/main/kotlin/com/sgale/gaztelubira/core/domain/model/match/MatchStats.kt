@@ -28,4 +28,18 @@ data class MatchStats(
     val redCards: List<Player>,
     val saves: List<Player>,
     val yellowCards: List<Player>
-)
+) {
+    companion object {
+        val EMPTY_MATCH_STATS = MatchStats(
+            assists = emptyList(),
+            cleanSheets = emptyList(),
+            fails = emptyList(),
+            goals = emptyList(),
+            goalsProvoked = emptyList(),
+            penaltiesProvoked = emptyList(),
+            redCards = emptyList(),
+            saves = emptyList(),
+            yellowCards = emptyList()
+        )
+    }
+}

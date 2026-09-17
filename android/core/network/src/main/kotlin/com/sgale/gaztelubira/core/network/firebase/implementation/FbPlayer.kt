@@ -21,12 +21,9 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
-import com.sgale.gaztelubira.core.data.db.implementations.AbstractGBDb
-import com.sgale.gaztelubira.core.data.mappers.PlayerMapper
-import com.sgale.gaztelubira.core.data.mappers.asPlayerModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Player.Companion.ERROR_PLAYER
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.BODY
@@ -36,15 +33,15 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbPlayers
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerResponse
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-import kotlin.text.get
 
 class FbPlayer @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val abstractDb: AbstractGBDb,
     private val gbSettings: IGBPreferences
 ) : IFbPlayers {
     private val storage: FirebaseStorage = Firebase.storage
@@ -58,7 +55,7 @@ class FbPlayer @Inject constructor(
                 .get()
                 .await()
                 .toObject(PlayerResponse::class.java)
-                ?.asPlayerModel()
+                ?.asModel()
         } catch (e: Exception) {
             Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
             null
@@ -67,7 +64,7 @@ class FbPlayer @Inject constructor(
 
     override suspend fun fetchPlayerStats(playerId: String): PlayerStats? {
         return try {
-            val playersMap = abstractDb.getPlayersMap()
+//            val playersMap = abstractDb.getPlayersMap()
 
             val matches = firestore
                 .collection(gbSettings.getSeason())
@@ -85,7 +82,7 @@ class FbPlayer @Inject constructor(
 
             PlayerStats(
                 id = playerId,
-                player = playersMap[playerId] ?: ErrorPlayer,
+                player = ERROR_PLAYER, // TODO playersMap[playerId] ?: ErrorPlayer,
                 stats = statsByMatch,
                 percentage = 0.0
             )
@@ -96,14 +93,13 @@ class FbPlayer @Inject constructor(
     }
 
     override suspend fun insertNewPlayer(player: Player): Boolean {
-        val playerResponse = PlayerMapper.asResponse(player)
         return try {
             firestore
                 .collection(gbSettings.getSeason())
                 .document(PLAYERS)
                 .collection(INFORMATION)
-                .document(playerResponse.id)
-                .set(playerResponse)
+                .document(player.id)
+                .set(player.asResponse())
                 .await()
             true
         } catch (e: Exception) {

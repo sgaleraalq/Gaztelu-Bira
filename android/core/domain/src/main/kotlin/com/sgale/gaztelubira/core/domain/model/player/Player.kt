@@ -17,6 +17,7 @@
 package com.sgale.gaztelubira.core.domain.model.player
 
 import androidx.compose.runtime.Immutable
+import com.sgale.gaztelubira.core.domain.model.player.Position.GOALKEEPER
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 @Immutable
@@ -27,4 +28,15 @@ data class Player(
     val faceImage: String?,
     val bodyImage: String?,
     val dorsal: Int?
-)
+) {
+    companion object {
+        val ERROR_PLAYER = Player(
+            id = "error_player",
+            name = "Error Player",
+            faceImage = null,
+            bodyImage = null,
+            dorsal = 0,
+            position = GOALKEEPER
+        )
+    }
+}

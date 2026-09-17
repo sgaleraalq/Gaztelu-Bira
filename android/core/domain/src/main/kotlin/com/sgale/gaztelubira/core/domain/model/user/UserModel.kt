@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.model.user
 
+import com.sgale.gaztelubira.core.domain.model.user.UserRole.GUEST
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 data class UserModel(
@@ -23,5 +24,5 @@ data class UserModel(
     val name: String?,
     val email: String?,
     val img: String? = null,
-    val role: UserRole = UserRole.Guest
+    val role: UserRole = GUEST
 )

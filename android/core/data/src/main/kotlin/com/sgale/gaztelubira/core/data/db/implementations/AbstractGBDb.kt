@@ -18,13 +18,6 @@ package com.sgale.gaztelubira.core.data.db.implementations
 
 import com.sgale.gaztelubira.core.data.db.GBDatabase
 import com.sgale.gaztelubira.core.data.db.dao.BaseDao
-import com.sgale.gaztelubira.core.data.mappers.asMatchModel
-import com.sgale.gaztelubira.core.data.mappers.asPlayerDomain
-import com.sgale.gaztelubira.core.data.mappers.asTeamModel
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
@@ -32,16 +25,16 @@ import kotlinx.coroutines.flow.mapLatest
 abstract class AbstractGBDb(
     protected val db: GBDatabase
 ) {
-    private val matchesDao = db.getMatchesDao()
-    private val playersDao = db.getPlayersDao()
-    private val teamsDao = db.getTeamsDao()
-
-    suspend fun getMatchesMap(): Map<FirebaseId, Match> =
-        matchesDao.getMatches().map { it.asMatchModel(getTeamsMap()) }.associateBy { it.id }
-    suspend fun getPlayersMap(): Map<FirebaseId, Player> =
-        playersDao.getPlayers().map { it.asPlayerDomain() }.associateBy { it.id }
-    suspend fun getTeamsMap(): Map<FirebaseId, Team> =
-        teamsDao.getTeams().map { it.asTeamModel() }.associateBy { it.id }
+//    private val matchesDao = db.getMatchesDao()
+//    private val playersDao = db.getPlayersDao()
+//    private val teamsDao = db.getTeamsDao()
+//
+//    suspend fun getMatchesMap(): Map<FirebaseId, Match> =
+//        matchesDao.getMatches().map { it.asModel() }.associateBy { it.id }
+//    suspend fun getPlayersMap(): Map<FirebaseId, Player> =
+//        playersDao.getPlayers().map { it.asModel() }.associateBy { it.id }
+//    suspend fun getTeamsMap(): Map<FirebaseId, Team> =
+//        teamsDao.getTeams().map { it.asModel() }.associateBy { it.id }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     protected fun <Entity, Model, K : Comparable<K>> getFlow(

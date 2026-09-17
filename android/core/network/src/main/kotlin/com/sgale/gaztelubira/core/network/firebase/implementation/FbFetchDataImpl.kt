@@ -18,18 +18,13 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.data.db.implementations.AbstractGBDb
-import com.sgale.gaztelubira.core.data.mappers.asMatchModel
-import com.sgale.gaztelubira.core.data.mappers.asMatchStatsModel
-import com.sgale.gaztelubira.core.data.mappers.asPlayerModel
-import com.sgale.gaztelubira.core.data.mappers.asTeamModel
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Player.Companion.ERROR_PLAYER
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.model.utils.ErrorPlayer
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
 import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_INSERTION
@@ -43,19 +38,22 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.match.MatchResponse
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsResponse
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerResponse
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
+import com.sgale.gaztelubira.core.network.firebase.response.team.TeamMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.team.TeamResponse
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-import kotlin.text.get
 
 class FbFetchDataImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val abstractDb: AbstractGBDb,
+//    private val abstractDb: AbstractGBDb,
     private val gbSettings: IGBPreferences
 ) : IGBFetchDataFb {
 
@@ -73,7 +71,7 @@ class FbFetchDataImpl @Inject constructor(
 
     override suspend fun fetchMatches(): List<Match> {
         return try {
-            val teamsMap = abstractDb.getTeamsMap()
+//            val teamsMap = abstractDb.getTeamsMap()
             getTimestampAndSet(INFORMATION, MATCHES_INSERTION)
             firestore.collection(season)
                 .document(INFORMATION)
@@ -81,7 +79,7 @@ class FbFetchDataImpl @Inject constructor(
                 .get()
                 .await()
                 .toObjects(MatchResponse::class.java)
-                .asMatchModel(teamsMap)
+                .map { it.asModel() }
         } catch (e: Exception) {
             Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
             emptyList()
@@ -90,8 +88,8 @@ class FbFetchDataImpl @Inject constructor(
 
     override suspend fun fetchMatchesStats(): List<MatchStatsModel> {
         return try {
-            val matchesMap = abstractDb.getMatchesMap()
-            val playersMap = abstractDb.getPlayersMap()
+//            val matchesMap = abstractDb.getMatchesMap()
+//            val playersMap = abstractDb.getPlayersMap()
 
             getTimestampAndSet(STATS, STATS_INSERTION)
             firestore.collection(season)
@@ -100,7 +98,7 @@ class FbFetchDataImpl @Inject constructor(
                 .get()
                 .await()
                 .toObjects(MatchStatsResponse::class.java)
-                .map { it.asMatchStatsModel(matchesMap, playersMap) }
+                .map { it.asModel() }
         } catch (e: Exception) {
             Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
             emptyList()
@@ -116,7 +114,7 @@ class FbFetchDataImpl @Inject constructor(
                 .get()
                 .await()
                 .toObjects(PlayerResponse::class.java)
-                .asPlayerModel()
+                .map { it.asModel() }
         } catch (e: Exception) {
             Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
             emptyList()
@@ -126,7 +124,7 @@ class FbFetchDataImpl @Inject constructor(
     override suspend fun fetchPlayersStats(): List<PlayerStats> {
         return try {
             getTimestampAndSet(STATS, STATS_INSERTION)
-            val playersMap = abstractDb.getPlayersMap()
+//            val playersMap = abstractDb.getPlayersMap()
             val seasonRef = firestore
                 .collection(season)
                 .document(STATS)
@@ -135,7 +133,6 @@ class FbFetchDataImpl @Inject constructor(
             val playersSnapshot = seasonRef.get().await()
 
             playersSnapshot.documents.mapNotNull { player ->
-                println("sgalera ${playersMap[player.id]?.name}")
                 val playerId = player.id
                 val matchesSnapshot = player.reference
                     .collection(MATCHES)
@@ -151,7 +148,7 @@ class FbFetchDataImpl @Inject constructor(
 
                 PlayerStats(
                     id = playerId,
-                    player = playersMap[playerId] ?: ErrorPlayer,
+                    player = ERROR_PLAYER, // TODO playersMap[playerId] ?: ERROR_PLAYER,
                     stats = statsByMatch,
                     percentage = 0.0
                 )
@@ -171,7 +168,7 @@ class FbFetchDataImpl @Inject constructor(
                 .get()
                 .await()
                 .toObjects(TeamResponse::class.java)
-                .asTeamModel()
+                .map { it.asModel() }
         } catch (e: Exception) {
             Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
             emptyList()
@@ -187,7 +184,7 @@ class FbFetchDataImpl @Inject constructor(
                 .get()
                 .await()
                 .toObject(TeamResponse::class.java)
-                ?.asTeamModel()
+                ?.asModel()
         } catch (e: Exception) {
             Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
             null

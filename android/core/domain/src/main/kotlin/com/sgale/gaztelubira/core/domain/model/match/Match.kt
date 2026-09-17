@@ -16,7 +16,9 @@
 
 package com.sgale.gaztelubira.core.domain.model.match
 
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.team.Team.Companion.ERROR_TEAM
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 data class Match(
@@ -28,4 +30,17 @@ data class Match(
     val visitorTeam: Team,
     val localGoals: Int,
     val visitorGoals: Int
-)
+) {
+    companion object {
+        val ERROR_MATCH = Match(
+            id = "error_team",
+            date = 0L,
+            matchName = "Error Match",
+            matchType = LEAGUE,
+            localTeam = ERROR_TEAM,
+            visitorTeam = ERROR_TEAM,
+            localGoals = 0,
+            visitorGoals = 0
+        )
+    }
+}

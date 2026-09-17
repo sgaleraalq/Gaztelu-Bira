@@ -17,14 +17,13 @@
 package com.sgale.gaztelubira.core.data.db.implementations
 
 import com.sgale.gaztelubira.core.data.db.GBDatabase
-import com.sgale.gaztelubira.core.data.mappers.TeamMapper
-import com.sgale.gaztelubira.core.data.mappers.asTeamEntity
-import com.sgale.gaztelubira.core.data.mappers.asTeamModel
+import com.sgale.gaztelubira.core.data.mappers.TeamMapper.asEntity
+import com.sgale.gaztelubira.core.data.mappers.TeamMapper.asModel
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class GBTeamsDb @Inject constructor(
     db: GBDatabase
@@ -35,23 +34,23 @@ class GBTeamsDb @Inject constructor(
         teamsDao.deleteItem(id)
     }
     override suspend fun insertTeam(team: Team) =
-        teamsDao.insert(team.asTeamEntity())
+        teamsDao.insert(team.asEntity())
 
     override suspend fun insertTeams(teams: List<Team>) =
         insertList(
             items = teams,
-            mapper = TeamMapper::asEntity,
+            mapper = { it.asEntity() },
             dao = teamsDao
         )
 
     override suspend fun getTeam(
         id: FirebaseId
-    ): Team? = teamsDao.getItem(id)?.asTeamModel()
+    ): Team? = teamsDao.getItem(id)?.asModel()
 
     override fun getTeamsList(): Flow<List<Team>> =
         getFlow(
             source = teamsDao.getListAsFlow(),
-            mapper = { it.asTeamModel() },
+            mapper = { it.asModel() },
             keySelector = { it.name }
         )
 }
