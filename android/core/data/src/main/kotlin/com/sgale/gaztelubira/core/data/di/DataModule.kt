@@ -24,11 +24,6 @@ import com.sgale.gaztelubira.core.data.db.implementations.GBMatchesStatsDb
 import com.sgale.gaztelubira.core.data.db.implementations.GBPlayerStatsDb
 import com.sgale.gaztelubira.core.data.db.implementations.GBPlayersDb
 import com.sgale.gaztelubira.core.data.db.implementations.GBTeamsDb
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbFetchDataImpl
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbFireStorageImpl
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbInsertDataImpl
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbPlayer
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbUsers
 import com.sgale.gaztelubira.core.data.preferences.GBSettings
 import com.sgale.gaztelubira.core.domain.repository.IAppRepository
 import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
@@ -40,9 +35,12 @@ import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbPlayers
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbFireStorageImpl
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbInsertDataImpl
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbPlayer
+import com.sgale.gaztelubira.core.network.firebase.implementation.FbUsers
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -90,10 +88,6 @@ internal interface DataModule {
     @Binds
     @Singleton
     fun bindAppRepository(appRepositoryImpl: AppRepositoryImpl): IAppRepository
-
-    @Binds
-    @Singleton
-    fun bindFetchDataFb(fbFetchDataImpl: FbFetchDataImpl): IGBFetchDataFb
 
     @Binds
     @Singleton

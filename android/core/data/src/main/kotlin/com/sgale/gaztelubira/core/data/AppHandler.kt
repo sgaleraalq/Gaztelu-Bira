@@ -33,14 +33,12 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
 import com.sgale.gaztelubira.core.domain.usecase.CanAccessApp
-import com.sgale.gaztelubira.core.domain.usecase.db.FetchMatches
-import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 class AppHandler @Inject constructor(
-    private val fetchMatches: FetchMatches,
     private val fireRepository: IGBFetchDataFb,
     private val canAccessApp: CanAccessApp,
     private val preferences: IGBPreferences,
@@ -91,7 +89,7 @@ class AppHandler @Inject constructor(
 
     private suspend fun fetchComplexInformation() = runCatching {
         coroutineScope {
-            val matchesDeferred = async { fetchMatches() }
+            val matchesDeferred = async { fireRepository.fetchMatches() }
             val matchesStatsDeferred = async { fireRepository.fetchMatchesStats() }
             val playerStatsDeferred = async { fireRepository.fetchPlayersStats() }
 
@@ -118,13 +116,13 @@ class AppHandler @Inject constructor(
 
     private suspend fun updateMatches() {
         val lastUpdate = preferences.getTimestamp(MATCHES_INSERTION)
-        val firebaseUpdate = fireRepository.getTimestamp(INFORMATION, MATCHES_INSERTION)
+        val firebaseUpdate = fireRepository.fetchTimestamp(INFORMATION, MATCHES_INSERTION)
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Matches need to update")
             preferences.setTimestamp(firebaseUpdate, MATCHES_INSERTION)
             syncItems(
-                fetchRemote = { fetchMatches() },
+                fetchRemote = { fireRepository.fetchMatches() },
                 fetchLocal = { matchesDb.getMatchesListAsFlow().first() },
                 deleteItem = { matchesDb.deleteMatch(it) },
                 insertItem = { matchesDb.insertMatch(it) },
@@ -137,7 +135,7 @@ class AppHandler @Inject constructor(
 
     private suspend fun updateMatchesStats() {
         val lastUpdate = preferences.getTimestamp(MATCHES_STATS_INSERTION)
-        val firebaseUpdate = fireRepository.getTimestamp(STATS, STATS_INSERTION)
+        val firebaseUpdate = fireRepository.fetchTimestamp(STATS, STATS_INSERTION)
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Matches stats need to update")
@@ -156,7 +154,7 @@ class AppHandler @Inject constructor(
 
     private suspend fun updatePlayers() {
         val lastUpdate = preferences.getTimestamp(PLAYERS_INSERTION)
-        val firebaseUpdate = fireRepository.getTimestamp(INFORMATION, PLAYERS_INSERTION)
+        val firebaseUpdate = fireRepository.fetchTimestamp(INFORMATION, PLAYERS_INSERTION)
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Players need to update")
@@ -175,7 +173,7 @@ class AppHandler @Inject constructor(
 
     private suspend fun updatePlayersStats() {
         val lastUpdate = preferences.getTimestamp(PLAYERS_STATS_INSERTION)
-        val firebaseUpdate = fireRepository.getTimestamp(STATS, STATS_INSERTION)
+        val firebaseUpdate = fireRepository.fetchTimestamp(STATS, STATS_INSERTION)
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Players stats need to update")
@@ -194,7 +192,7 @@ class AppHandler @Inject constructor(
 
     private suspend fun updateTeams() {
         val lastUpdate = preferences.getTimestamp(TEAMS_INSERTION)
-        val firebaseUpdate = fireRepository.getTimestamp(INFORMATION, TEAMS_INSERTION)
+        val firebaseUpdate = fireRepository.fetchTimestamp(INFORMATION, TEAMS_INSERTION)
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Teams need to update")

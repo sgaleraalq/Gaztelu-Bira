@@ -19,15 +19,13 @@ package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
 
-internal abstract class Fetch @Inject constructor(
+internal abstract class Fetch(
     protected val firestore: FirebaseFirestore,
     protected val gbSettings: IGBPreferences
 ) {
-    protected val season = gbSettings.getSeason()
+    protected val season get() = gbSettings.getSeason()
 
     private suspend fun getTimestamp(
         docName: String,
@@ -41,10 +39,10 @@ internal abstract class Fetch @Inject constructor(
         }
     }
 
-    protected fun getTimestampAndSet(
+    protected suspend fun getTimestampAndSet(
         docName: String,
         timestampName: String
-    ) = runBlocking {
+    ) {
         gbSettings.setTimestamp(getTimestamp(docName, timestampName), timestampName)
     }
 }

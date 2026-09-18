@@ -28,5 +28,6 @@ android {
 dependencies {
     implementation(libs.kotlinx.serialization)
 
+    implementation(project(":core:common"))
     implementation(project(":core:domain"))
 }

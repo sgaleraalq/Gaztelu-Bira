@@ -16,47 +16,33 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation
 
-import android.util.Log
-import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.player.Player.Companion.ERROR_PLAYER
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
-import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.PLAYERS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.STATS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.TEAMS_INSERTION
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.MATCHES
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
-import com.sgale.gaztelubira.core.network.firebase.response.match.MatchMapper.asModel
-import com.sgale.gaztelubira.core.network.firebase.response.match.MatchResponse
-import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsMapper.asModel
-import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsResponse
-import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asModel
-import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerResponse
-import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
-import com.sgale.gaztelubira.core.network.firebase.response.team.TeamMapper.asModel
-import com.sgale.gaztelubira.core.network.firebase.response.team.TeamResponse
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.tasks.await
+import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchMatches
+import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchMatchesStats
+import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchPlayerStats
+import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchPlayers
+import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTeam
+import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTeams
+import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTimestamp
 import javax.inject.Inject
 
-class FbFetchDataImpl @Inject constructor(
-    private val firestore: FirebaseFirestore,
-    private val gbSettings: IGBPreferences
+internal class FbFetchDataImpl @Inject constructor(
+    private val fetchMatches: FetchMatches,
+    private val fetchMatchesStats: FetchMatchesStats,
+    private val fetchPlayers: FetchPlayers,
+    private val fetchPlayerStats: FetchPlayerStats,
+    private val fetchTeams: FetchTeams,
+    private val fetchTeam: FetchTeam,
+    private val fetchTimestamp: FetchTimestamp,
 ) : IGBFetchDataFb {
-
-    private var season = gbSettings.getSeason()
+    private lateinit var season: String
 
     override fun getSeason(): String? {
         return try {
@@ -68,141 +54,24 @@ class FbFetchDataImpl @Inject constructor(
         }
     }
 
-//    override suspend fun fetchMatches(): List<Match> {
-//        return try {
-////            val teamsMap = abstractDb.getTeamsMap()
-//            getTimestampAndSet(INFORMATION, MATCHES_INSERTION)
-//            firestore.collection(season)
-//                .document(INFORMATION)
-//                .collection(MATCHES)
-//                .get()
-//                .await()
-//                .toObjects(MatchResponse::class.java)
-//                .map { it.asModel() }
-//        } catch (e: Exception) {
-//            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-//            emptyList()
-//        }
-//    }
+    override suspend fun fetchMatches(): List<Match> =
+        fetchMatches.invoke()
 
-    override suspend fun fetchMatchesStats(): List<MatchStatsModel> {
-        return try {
-//            val matchesMap = abstractDb.getMatchesMap()
-//            val playersMap = abstractDb.getPlayersMap()
+    override suspend fun fetchMatchesStats(): List<MatchStatsModel> =
+        fetchMatchesStats.invoke()
 
-            getTimestampAndSet(STATS, STATS_INSERTION)
-            firestore.collection(season)
-                .document(STATS)
-                .collection(MATCHES)
-                .get()
-                .await()
-                .toObjects(MatchStatsResponse::class.java)
-                .map { it.asModel() }
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            emptyList()
-        }
-    }
+    override suspend fun fetchPlayers(): List<Player> =
+        fetchPlayers.invoke()
 
-    override suspend fun fetchPlayers(): List<Player> {
-        return try {
-            getTimestampAndSet(INFORMATION, PLAYERS_INSERTION)
-            firestore.collection(season)
-                .document(INFORMATION)
-                .collection(PLAYERS)
-                .get()
-                .await()
-                .toObjects(PlayerResponse::class.java)
-                .map { it.asModel() }
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            emptyList()
-        }
-    }
+    override suspend fun fetchPlayersStats(): List<PlayerStats> =
+        fetchPlayerStats.invoke()
 
-    override suspend fun fetchPlayersStats(): List<PlayerStats> {
-        return try {
-            getTimestampAndSet(STATS, STATS_INSERTION)
-//            val playersMap = abstractDb.getPlayersMap()
-            val seasonRef = firestore
-                .collection(season)
-                .document(STATS)
-                .collection(PLAYERS)
+    override suspend fun fetchTeams(): List<Team> =
+        fetchTeams.invoke()
 
-            val playersSnapshot = seasonRef.get().await()
+    override suspend fun fetchTeam(id: FirebaseId): Team? =
+        fetchTeam.invoke(id)
 
-            playersSnapshot.documents.mapNotNull { player ->
-                val playerId = player.id
-                val matchesSnapshot = player.reference
-                    .collection(MATCHES)
-                    .get()
-                    .await()
-
-                val statsByMatch: Map<String, Stats> = matchesSnapshot
-                    .documents
-                    .mapNotNull { match ->
-                        val stats = match.toObject(PlayerStatsResponse::class.java)?.asStats()
-                        if (stats != null) match.id to stats else null
-                    }.toMap()
-
-                PlayerStats(
-                    id = playerId,
-                    player = ERROR_PLAYER, // TODO playersMap[playerId] ?: ERROR_PLAYER,
-                    stats = statsByMatch,
-                    percentage = 0.0
-                )
-            }
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            emptyList()
-        }
-    }
-
-    override suspend fun fetchTeams(): List<Team> {
-        return try {
-            getTimestampAndSet(INFORMATION, TEAMS_INSERTION)
-            firestore.collection(season)
-                .document(INFORMATION)
-                .collection(TEAMS)
-                .get()
-                .await()
-                .toObjects(TeamResponse::class.java)
-                .map { it.asModel() }
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            emptyList()
-        }
-    }
-
-    override suspend fun getTeam(id: FirebaseId): Team? {
-        return try {
-            firestore.collection(season)
-                .document(INFORMATION)
-                .collection(TEAMS)
-                .document(id)
-                .get()
-                .await()
-                .toObject(TeamResponse::class.java)
-                ?.asModel()
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            null
-        }
-    }
-
-    override suspend fun getTimestamp(docName: String, timestampName: String): FirebaseTimestamp {
-        return try {
-            val snapshot = firestore.collection(season).document(docName).get().await()
-            snapshot.getLong(timestampName) ?: 0L
-        } catch (e: Exception) {
-            0L
-        }
-    }
-
-    private fun getTimestampAndSet(
-        docName: String,
-        timestampName: String
-    ) = runBlocking {
-        gbSettings.setTimestamp(getTimestamp(docName, timestampName), timestampName)
-    }
+    override suspend fun fetchTimestamp(docName: String, timestampName: String): FirebaseTimestamp =
+        fetchTimestamp.invoke(docName, timestampName)
 }
