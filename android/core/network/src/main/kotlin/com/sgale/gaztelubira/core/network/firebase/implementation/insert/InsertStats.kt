@@ -16,9 +16,7 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.insert
 
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.SetOptions
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
@@ -30,17 +28,16 @@ import com.sgale.gaztelubira.core.domain.model.utils.MatchesTimestamp
 import com.sgale.gaztelubira.core.domain.model.utils.PLAYERS_STATS_INSERTION
 import com.sgale.gaztelubira.core.domain.model.utils.StatsTimestamp
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.MATCHES
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
 import com.sgale.gaztelubira.core.network.firebase.response.match.MatchMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.stats.StatsMapper.asResponse
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-import kotlin.collections.component1
-import kotlin.collections.component2
-import kotlin.collections.forEach
 
 internal class InsertStats @Inject constructor(
     firestore: FirebaseFirestore,
@@ -54,59 +51,38 @@ internal class InsertStats @Inject constructor(
         val matchId = match.id
         require(matchId.isNotBlank()) { "Match ID can't be blank" }
 
-        return runCatching {
-            val batch = firestore.batch()
+        val matchesTimestamp = MatchesTimestamp()
+        val statsTimestamp = StatsTimestamp()
 
-            val statsTimestamp = StatsTimestamp()
-            val matchesTimestamp = MatchesTimestamp()
-            val matchStampRef = firestore.collection(season).document(INFORMATION)
-            val statsStampRef = firestore.collection(season).document(FirebaseConstants.STATS)
+        val result = batchInsert(
+            success = StatsInserted,
+            writes = {
+                set(seasonCollection(INFORMATION, MATCHES).document(matchId), match.asResponse())
+                set(
+                    seasonCollection(STATS, MATCHES).document(matchId),
+                    matchStats.copy(id = matchId).asResponse() // the stats document is keyed by the match
+                )
 
-            val matchDocRef = getMatchDocRef(false, matchId)
-            val matchStatsDocRef = getMatchDocRef(true, matchId)
+                playerStats.forEach { (playerId, stats) ->
+                    val playerDoc = seasonCollection(STATS, PLAYERS).document(playerId)
+                    set(playerDoc, mapOf(ID to playerId), SetOptions.merge())
+                    set(playerDoc.collection(MATCHES).document(matchId), stats.asResponse())
+                }
 
-            batch.set(matchDocRef, match.copy(id = matchId).asResponse())
-            batch.set(matchStatsDocRef, matchStats.copy(id = matchId).asResponse())
-
-            playerStats.forEach { (id, stats) ->
-                val playerDocRef = firestore
-                    .collection(season)
-                    .document(FirebaseConstants.STATS)
-                    .collection(FirebaseConstants.PLAYERS)
-                    .document(id)
-
-                val playerStatsDocRef = playerDocRef
-                    .collection(FirebaseConstants.MATCHES)
-                    .document(matchId)
-
-                batch.set(playerDocRef, mapOf("id" to id), SetOptions.merge())
-                batch.set(playerStatsDocRef, stats.asResponse())
+                set(seasonDocument(INFORMATION), matchesTimestamp, SetOptions.merge())
+                set(seasonDocument(STATS), statsTimestamp)
             }
+        )
 
-            batch.set(matchStampRef, matchesTimestamp, SetOptions.merge())
-            batch.set(statsStampRef, statsTimestamp)
-            batch.commit().await()
-            gbSettings.setTimestamp(matchesTimestamp.matchesInsertion, MATCHES_INSERTION)
-            gbSettings.setTimestamp(statsTimestamp.statsInsertion, MATCHES_STATS_INSERTION)
-            gbSettings.setTimestamp(statsTimestamp.statsInsertion, PLAYERS_STATS_INSERTION)
-            FirebaseInsertResult.StatsInserted
-        }.getOrElse { t ->
-            val message = when (t) {
-                is FirebaseFirestoreException -> "FirebaseInsertion [${t.code}] ${t.message}"
-                else -> t.message
-            }
-            FirebaseInsertResult.ErrorInsert(message)
+        if (result == StatsInserted) {
+            setTimestamp(matchesTimestamp.matchesInsertion, MATCHES_INSERTION)
+            setTimestamp(statsTimestamp.statsInsertion, MATCHES_STATS_INSERTION)
+            setTimestamp(statsTimestamp.statsInsertion, PLAYERS_STATS_INSERTION)
         }
+        return result
     }
 
-    private fun getMatchDocRef(
-        isStats: Boolean,
-        matchId: FirebaseId
-    ): DocumentReference {
-        return firestore
-            .collection(season)
-            .document(if (isStats) FirebaseConstants.STATS else INFORMATION)
-            .collection(FirebaseConstants.MATCHES)
-            .document(matchId)
+    private companion object {
+        const val ID = "id"
     }
 }

@@ -16,43 +16,38 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.insert
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.utils.PLAYERS_INSERTION
 import com.sgale.gaztelubira.core.domain.model.utils.PlayerTimestamp
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.PlayerInserted
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asResponse
-import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
-import kotlin.coroutines.resume
 
 internal class InsertPlayer @Inject constructor(
     firestore: FirebaseFirestore,
     gbSettings: IGBPreferences
-): Insert(firestore, gbSettings) {
+) : Insert(firestore, gbSettings) {
     suspend operator fun invoke(player: Player): FirebaseInsertResult {
-        return suspendCancellableCoroutine { continuation ->
-            val timestamp = PlayerTimestamp()
-            firestore.collection("debug") // TODO
-                .document(INFORMATION)
-                .set(timestamp, SetOptions.merge())
-            firestore.collection("debug") // TODO
-                .document(INFORMATION)
-                .collection(FirebaseConstants.PLAYERS)
-                .document(player.id)
-                .set(player.asResponse())
-                .addOnSuccessListener {
-                    gbSettings.setTimestamp(timestamp.playersInsertion, PLAYERS_INSERTION)
-                    continuation.resume(FirebaseInsertResult.PlayerInserted)
-                }.addOnFailureListener { error ->
-                    Log.e("GBFirebase", "Error inserting player ${error.message}")
-                    continuation.resume(FirebaseInsertResult.ErrorInsert(error.message))
-                }
+        val timestamp = PlayerTimestamp()
+        val information = debugDocument(INFORMATION)
+
+        val result = batchInsert(
+            success = PlayerInserted,
+            writes = {
+                set(information, timestamp, SetOptions.merge())
+                set(information.collection(PLAYERS).document(player.id), player.asResponse())
+            }
+        )
+
+        if (result == PlayerInserted) {
+            setTimestamp(timestamp.playersInsertion, PLAYERS_INSERTION)
         }
+        return result
     }
 }

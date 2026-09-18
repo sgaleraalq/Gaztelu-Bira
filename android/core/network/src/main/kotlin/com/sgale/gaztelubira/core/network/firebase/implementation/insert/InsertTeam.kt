@@ -16,43 +16,38 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.insert
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.TEAMS_INSERTION
 import com.sgale.gaztelubira.core.domain.model.utils.TeamTimestamp
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.network.firebase.response.team.TeamMapper.asResponse
-import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
-import kotlin.coroutines.resume
 
 internal class InsertTeam @Inject constructor(
     firestore: FirebaseFirestore,
     gbSettings: IGBPreferences
 ) : Insert(firestore, gbSettings) {
     suspend operator fun invoke(team: Team): FirebaseInsertResult {
-        return suspendCancellableCoroutine { continuation ->
-            val timestamp = TeamTimestamp()
-            firestore.collection("debug") // TODO
-                .document(INFORMATION)
-                .set(timestamp, SetOptions.merge())
-            firestore.collection("debug") // TODO
-                .document(INFORMATION)
-                .collection(FirebaseConstants.TEAMS)
-                .document(team.id)
-                .set(team.asResponse())
-                .addOnSuccessListener {
-                    gbSettings.setTimestamp(timestamp.teamsInsertion, TEAMS_INSERTION)
-                    continuation.resume(FirebaseInsertResult.TeamInserted)
-                }.addOnFailureListener { error ->
-                    Log.e("GBFirebase", "Error inserting team ${error.message}")
-                    continuation.resume(FirebaseInsertResult.ErrorInsert(error.message))
-                }
+        val timestamp = TeamTimestamp()
+        val information = debugDocument(INFORMATION)
+
+        val result = batchInsert(
+            success = TeamInserted,
+            writes = {
+                set(information, timestamp, SetOptions.merge())
+                set(information.collection(TEAMS).document(team.id), team.asResponse())
+            }
+        )
+
+        if (result == TeamInserted) {
+            setTimestamp(timestamp.teamsInsertion, TEAMS_INSERTION)
         }
+        return result
     }
 }

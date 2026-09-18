@@ -23,7 +23,7 @@ import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
-interface IGBInsertDataFb {
+interface IInsert {
     interface FirebaseInsertResult {
         data object PlayerInserted: FirebaseInsertResult
         data object TeamInserted: FirebaseInsertResult

@@ -23,12 +23,12 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult.Success
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
 import javax.inject.Inject
 
 class InsertNewPlayer @Inject constructor(
-    private val firestore: IGBInsertDataFb,
+    private val firestore: IInsert,
     private val storage: IGBFireStorage,
     private val playersDb: IGBPlayersDb
 ) {

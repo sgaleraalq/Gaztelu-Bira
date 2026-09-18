@@ -20,7 +20,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.TeamInserted
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewTeam
 import com.sgale.gaztelubira.core.domain.utils.IImageValidator
 import com.sgale.gaztelubira.core.screens.showToast

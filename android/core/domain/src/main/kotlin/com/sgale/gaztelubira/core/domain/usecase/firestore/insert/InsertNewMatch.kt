@@ -25,15 +25,15 @@ import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
 import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesStatsDb
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.StatsInserted
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
 import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
 class InsertNewMatch @Inject constructor(
-    private val firestore: IGBInsertDataFb,
+    private val firestore: IInsert,
     private val matchesDb: IGBMatchesDb,
     private val playersDb: IGBPlayersDb,
     private val matchesStatsDb: IGBMatchesStatsDb,

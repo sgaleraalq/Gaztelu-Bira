@@ -22,7 +22,7 @@ import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.Position
 import com.sgale.gaztelubira.core.domain.model.utils.PictureType.BODY
 import com.sgale.gaztelubira.core.domain.model.utils.PictureType.FACE
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.PlayerInserted
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.PlayerInserted
 import com.sgale.gaztelubira.core.domain.usecase.db.GetAvailableDorsals
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewPlayer
 import com.sgale.gaztelubira.core.screens.insert.manager.gallery.Gallery

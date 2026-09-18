@@ -33,7 +33,7 @@ import com.sgale.gaztelubira.core.domain.model.stats.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Saves
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.YellowCards
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.StatsInserted
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
 import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
 import com.sgale.gaztelubira.core.domain.usecase.db.GetTeams
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewMatch

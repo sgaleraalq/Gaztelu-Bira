@@ -22,24 +22,26 @@ import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
 import javax.inject.Inject
 
 internal class FirebaseInsert @Inject constructor(
-    private val player: InsertPlayer,
-    private val stats: InsertStats,
-    private val team: InsertTeam
-) : IGBInsertDataFb {
+    private val insertPlayer: InsertPlayer,
+    private val insertStats: InsertStats,
+    private val insertTeam: InsertTeam
+) : IInsert {
+
     override suspend fun insertPlayer(player: Player): FirebaseInsertResult =
-        player(player)
+        insertPlayer.invoke(player)
 
     override suspend fun insertTeam(team: Team): FirebaseInsertResult =
-        team(team)
+        insertTeam.invoke(team)
 
     override suspend fun insertStats(
         match: Match,
         matchStats: MatchStatsModel,
         playerStats: Map<FirebaseId, Stats>
-    ): FirebaseInsertResult = stats(match, matchStats, playerStats)
+    ): FirebaseInsertResult =
+        insertStats.invoke(match, matchStats, playerStats)
 }

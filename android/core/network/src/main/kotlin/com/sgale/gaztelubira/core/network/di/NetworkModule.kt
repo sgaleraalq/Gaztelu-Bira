@@ -22,9 +22,11 @@ import com.google.firebase.remoteconfig.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
+import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
 import com.sgale.gaztelubira.core.network.R
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseRemoteConfig.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FirebaseFetch
+import com.sgale.gaztelubira.core.network.firebase.implementation.insert.FirebaseInsert
 import com.sgale.gaztelubira.core.network.firebase.implementation.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
@@ -39,6 +41,11 @@ internal object NetworkModule {
     @Singleton
     fun provideFirebaseFetch(firebaseFetch: FirebaseFetch): IFetch =
         firebaseFetch
+
+    @Provides
+    @Singleton
+    fun provideFirebaseInsert(firebaseInsert: FirebaseInsert): IInsert =
+        firebaseInsert
 
     @Provides
     @Singleton
