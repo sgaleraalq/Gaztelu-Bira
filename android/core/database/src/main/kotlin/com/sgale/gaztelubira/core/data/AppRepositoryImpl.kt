@@ -17,13 +17,13 @@
 package com.sgale.gaztelubira.core.data
 
 import android.content.Context
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbRemoteConfigManager
 import com.sgale.gaztelubira.core.domain.repository.IAppRepository
+import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseRemoteConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor(
-    private val remoteConfigManager: FbRemoteConfigManager,
+    private val remoteConfigManager: FirebaseRemoteConfig,
     @param:ApplicationContext private val context: Context
 ) : IAppRepository {
     override suspend fun updateAvailable(): Boolean {

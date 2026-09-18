@@ -16,13 +16,7 @@
 
 package com.sgale.gaztelubira.core.data.di
 
-import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.remoteConfig
-import com.google.firebase.remoteconfig.remoteConfigSettings
-import com.sgale.gaztelubira.core.data.R
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbRemoteConfigManager.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,16 +30,4 @@ internal object FirebaseModule {
     @Provides
     @Singleton
     fun provideFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
-
-    @Provides
-    @Singleton
-    fun provideRemoteConfig(): FirebaseRemoteConfig =
-        Firebase.remoteConfig.apply {
-            setConfigSettingsAsync(
-                remoteConfigSettings {
-                    minimumFetchIntervalInSeconds = MINIMUM_FETCH_INTERVAL_SECONDS
-                }
-            )
-            setDefaultsAsync(R.xml.remote_config_defaults)
-        }
 }

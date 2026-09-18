@@ -45,7 +45,7 @@ include(":gaztelu_bira")
  * Android Only
  */
 include(":core:common")
-include(":core:data")
+include(":core:database")
 include(":core:domain")
 include(":core:navigation")
 include(":core:preview")

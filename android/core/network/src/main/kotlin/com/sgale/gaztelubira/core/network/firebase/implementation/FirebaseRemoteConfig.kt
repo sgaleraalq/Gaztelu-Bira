@@ -18,11 +18,10 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import android.util.Log
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import javax.inject.Inject
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-@Suppress(names = ["EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING"])
-class FbRemoteConfigManager @Inject constructor(
+class FirebaseRemoteConfig @Inject constructor(
     private val remoteConfig: FirebaseRemoteConfig
 ) {
     companion object {
@@ -35,7 +34,7 @@ class FbRemoteConfigManager @Inject constructor(
             remoteConfig.fetch(0).await()
             remoteConfig.activate().await()
         } catch (e: Exception) {
-            Log.w(FbRemoteConfigManager::class.simpleName, "Fetch failed or throttled", e)
+            Log.w(FirebaseRemoteConfig::class.simpleName, "Fetch failed or throttled", e)
             null
         }
     }

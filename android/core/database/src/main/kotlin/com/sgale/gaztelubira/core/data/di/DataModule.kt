@@ -38,7 +38,7 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb
 import com.sgale.gaztelubira.core.network.firebase.implementation.insert.FirebaseInsert
 import com.sgale.gaztelubira.core.network.firebase.implementation.FbPlayer
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbUsers
+import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseUsers
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -97,7 +97,7 @@ internal interface DataModule {
 
     @Binds
     @Singleton
-    fun bindFbUsers(fbUsers: FbUsers): IFbUsers
+    fun bindFbUsers(fbUsers: FirebaseUsers): IFbUsers
 
     /**
      * App

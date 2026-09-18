@@ -16,11 +16,16 @@
 
 package com.sgale.gaztelubira.core.network.di
 
+import com.google.firebase.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.remoteConfig
+import com.google.firebase.remoteconfig.remoteConfigSettings
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
+import com.sgale.gaztelubira.core.network.R
+import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseRemoteConfig.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FirebaseFetch
 import com.sgale.gaztelubira.core.network.firebase.implementation.storage.FirebaseStorage
-import com.sgale.gaztelubira.core.network.firebase.implementation.storage.InsertImage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,8 +42,18 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseStorage(): IGBFireStorage =
-        FirebaseStorage(
-            insertImage = InsertImage()
-        )
+    fun provideFirebaseStorage(firebaseStorage: FirebaseStorage): IGBFireStorage =
+        firebaseStorage
+
+    @Provides
+    @Singleton
+    fun provideRemoteConfig(): FirebaseRemoteConfig =
+        Firebase.remoteConfig.apply {
+            setConfigSettingsAsync(
+                remoteConfigSettings {
+                    minimumFetchIntervalInSeconds = MINIMUM_FETCH_INTERVAL_SECONDS
+                }
+            )
+            setDefaultsAsync(R.xml.remote_config_defaults)
+        }
 }

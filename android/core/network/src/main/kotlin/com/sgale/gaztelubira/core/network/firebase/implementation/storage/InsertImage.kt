@@ -22,8 +22,9 @@ import com.google.firebase.Firebase
 import com.google.firebase.storage.storage
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-internal class InsertImage {
+internal class InsertImage @Inject constructor() {
     private val fireStorage = Firebase.storage
 
     suspend operator fun invoke(

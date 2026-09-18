@@ -33,7 +33,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class FbUsers @Inject constructor(
+class FirebaseUsers @Inject constructor(
     private val firestore: FirebaseFirestore
 ) : IFbUsers {
 
