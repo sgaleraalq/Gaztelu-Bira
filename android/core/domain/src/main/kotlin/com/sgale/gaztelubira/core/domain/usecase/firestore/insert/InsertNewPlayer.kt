@@ -59,7 +59,7 @@ class InsertNewPlayer @Inject constructor(
             )
 
             playersDb.insertPlayer(player)
-            result = firestore.insertNewPlayer(player)
+            result = firestore.insertPlayer(player)
         } else {
             result = FirebaseInsertResult.ErrorInsert("")
         }

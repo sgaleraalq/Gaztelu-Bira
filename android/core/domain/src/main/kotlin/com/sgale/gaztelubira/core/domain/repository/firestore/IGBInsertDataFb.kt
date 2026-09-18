@@ -31,8 +31,8 @@ interface IGBInsertDataFb {
         data class ErrorInsert(val msg: String?): FirebaseInsertResult
     }
 
-    suspend fun insertNewPlayer(player: Player): FirebaseInsertResult
-    suspend fun insertNewTeam(team: Team): FirebaseInsertResult
+    suspend fun insertPlayer(player: Player): FirebaseInsertResult
+    suspend fun insertTeam(team: Team): FirebaseInsertResult
     suspend fun insertStats(
         match: Match,
         matchStats: MatchStatsModel,

@@ -54,7 +54,7 @@ class InsertNewTeam @Inject constructor(
             )
 
             teamsDb.insertTeam(team)
-            result = firestore.insertNewTeam(team)
+            result = firestore.insertTeam(team)
         } else {
             onFailure()
             result = FirebaseInsertResult.ErrorInsert("")
