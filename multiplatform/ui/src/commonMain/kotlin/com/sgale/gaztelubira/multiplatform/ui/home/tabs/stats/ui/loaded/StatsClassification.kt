@@ -64,8 +64,7 @@ internal fun StatsClassification(
         modifier = modifier
     ) {
         itemsIndexed(
-            items = players.drop(3).filter { it.dorsal != null },
-            key = { _, player -> player.id }
+            items = players.drop(3).filter { it.dorsal != null }
         ) { index, player ->
             ClassificationCard(
                 player = player,
@@ -76,8 +75,7 @@ internal fun StatsClassification(
         }
 
         itemsIndexed(
-            items = players.filter { it.dorsal == null },
-            key = { _, player -> player.id }
+            items = players.filter { it.dorsal == null }
         ) { _, player ->
             UnrankedPlayer(player, onImgLoadingError)
         }

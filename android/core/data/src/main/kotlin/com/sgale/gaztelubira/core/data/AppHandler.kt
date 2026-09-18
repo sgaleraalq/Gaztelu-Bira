@@ -33,12 +33,14 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
 import com.sgale.gaztelubira.core.domain.usecase.CanAccessApp
+import com.sgale.gaztelubira.core.domain.usecase.db.FetchMatches
 import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 
 class AppHandler @Inject constructor(
+    private val fetchMatches: FetchMatches,
     private val fireRepository: IGBFetchDataFb,
     private val canAccessApp: CanAccessApp,
     private val preferences: IGBPreferences,
@@ -89,7 +91,7 @@ class AppHandler @Inject constructor(
 
     private suspend fun fetchComplexInformation() = runCatching {
         coroutineScope {
-            val matchesDeferred = async { fireRepository.fetchMatches() }
+            val matchesDeferred = async { fetchMatches() }
             val matchesStatsDeferred = async { fireRepository.fetchMatchesStats() }
             val playerStatsDeferred = async { fireRepository.fetchPlayersStats() }
 
@@ -122,7 +124,7 @@ class AppHandler @Inject constructor(
             println("GazteluBiraFetch: Matches need to update")
             preferences.setTimestamp(firebaseUpdate, MATCHES_INSERTION)
             syncItems(
-                fetchRemote = { fireRepository.fetchMatches() },
+                fetchRemote = { fetchMatches() },
                 fetchLocal = { matchesDb.getMatchesListAsFlow().first() },
                 deleteItem = { matchesDb.deleteMatch(it) },
                 insertItem = { matchesDb.insertMatch(it) },

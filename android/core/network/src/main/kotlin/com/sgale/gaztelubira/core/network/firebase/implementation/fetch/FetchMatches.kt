@@ -16,5 +16,36 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
-class FetchMatches {
+import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_INSERTION
+import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.MATCHES
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.response.match.MatchResponse
+import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
+
+internal class FetchMatches @Inject constructor(
+    firestore: FirebaseFirestore,
+    gbSettings: IGBPreferences
+) : Fetch(firestore, gbSettings) {
+    suspend fun fetchMatches(): List<Match> {
+        return try {
+//            val teamsMap = abstractDb.getTeamsMap()
+            getTimestampAndSet(INFORMATION, MATCHES_INSERTION)
+            firestore.collection(season)
+                .document(INFORMATION)
+                .collection(MATCHES)
+                .get()
+                .await()
+                .toObjects(MatchResponse::class.java)
+                .map { it.asModel() }
+        } catch (e: Exception) {
+            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
+            emptyList()
+        }
+    }
 }

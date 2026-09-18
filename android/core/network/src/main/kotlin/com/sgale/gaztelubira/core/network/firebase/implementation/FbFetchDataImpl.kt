@@ -53,7 +53,6 @@ import javax.inject.Inject
 
 class FbFetchDataImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
-//    private val abstractDb: AbstractGBDb,
     private val gbSettings: IGBPreferences
 ) : IGBFetchDataFb {
 
@@ -69,22 +68,22 @@ class FbFetchDataImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchMatches(): List<Match> {
-        return try {
-//            val teamsMap = abstractDb.getTeamsMap()
-            getTimestampAndSet(INFORMATION, MATCHES_INSERTION)
-            firestore.collection(season)
-                .document(INFORMATION)
-                .collection(MATCHES)
-                .get()
-                .await()
-                .toObjects(MatchResponse::class.java)
-                .map { it.asModel() }
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            emptyList()
-        }
-    }
+//    override suspend fun fetchMatches(): List<Match> {
+//        return try {
+////            val teamsMap = abstractDb.getTeamsMap()
+//            getTimestampAndSet(INFORMATION, MATCHES_INSERTION)
+//            firestore.collection(season)
+//                .document(INFORMATION)
+//                .collection(MATCHES)
+//                .get()
+//                .await()
+//                .toObjects(MatchResponse::class.java)
+//                .map { it.asModel() }
+//        } catch (e: Exception) {
+//            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
+//            emptyList()
+//        }
+//    }
 
     override suspend fun fetchMatchesStats(): List<MatchStatsModel> {
         return try {

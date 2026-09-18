@@ -22,5 +22,6 @@ import javax.inject.Inject
 class FetchMatches @Inject constructor(
     private val matchesDb: IGBMatchesDb
 ) {
-    suspend operator fun invoke() = matchesDb.fetchMatches()
+    suspend operator fun invoke() =
+        matchesDb.fetchMatches()
 }
