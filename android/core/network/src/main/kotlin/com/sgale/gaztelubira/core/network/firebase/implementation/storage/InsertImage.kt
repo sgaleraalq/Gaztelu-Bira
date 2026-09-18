@@ -14,26 +14,23 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.implementation
+package com.sgale.gaztelubira.core.network.firebase.implementation.storage
 
 import android.net.Uri
 import androidx.core.net.toUri
 import com.google.firebase.Firebase
 import com.google.firebase.storage.storage
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
 
-class FbFireStorageImpl @Inject constructor() : IGBFireStorage {
-
+internal class InsertImage {
     private val fireStorage = Firebase.storage
 
-    override suspend fun insertImage(
+    suspend operator fun invoke(
         path: String,
         image: String
-    ): ImageInsertionResult {
-        return try {
+    ): ImageInsertionResult =
+        try {
             val ref = fireStorage.reference.child(path)
             ref.putFile(image.toUri()).await()
 
@@ -42,5 +39,4 @@ class FbFireStorageImpl @Inject constructor() : IGBFireStorage {
         } catch (t: Throwable) {
             ImageInsertionResult.Error(t.message)
         }
-    }
 }

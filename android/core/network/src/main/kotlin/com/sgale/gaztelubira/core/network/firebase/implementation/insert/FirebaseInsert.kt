@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.implementation
+package com.sgale.gaztelubira.core.network.firebase.implementation.insert
 
 import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.SetOptions.merge
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestore
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
@@ -38,17 +38,8 @@ import com.sgale.gaztelubira.core.domain.model.utils.StatsTimestamp
 import com.sgale.gaztelubira.core.domain.model.utils.TEAMS_INSERTION
 import com.sgale.gaztelubira.core.domain.model.utils.TeamTimestamp
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.MATCHES
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.ErrorInsert
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.PlayerInserted
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.StatsInserted
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBInsertDataFb.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.network.firebase.response.match.MatchMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asResponse
@@ -59,52 +50,52 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class FbInsertDataImpl @Inject constructor(
+class FirebaseInsert @Inject constructor(
     private val gbSettings: IGBPreferences
 ) : IGBInsertDataFb {
     private val firestore = Firebase.firestore
     private var season = gbSettings.getSeason()
 
-    override suspend fun insertNewPlayer(player: Player): FirebaseInsertResult {
+    override suspend fun insertNewPlayer(player: Player): IGBInsertDataFb.FirebaseInsertResult {
         return suspendCancellableCoroutine { continuation ->
             val timestamp = PlayerTimestamp()
             firestore.collection("debug") // TODO
-                .document(INFORMATION)
-                .set(timestamp, merge())
+                .document(FirebaseConstants.INFORMATION)
+                .set(timestamp, SetOptions.merge())
             firestore.collection("debug") // TODO
-                .document(INFORMATION)
-                .collection(PLAYERS)
+                .document(FirebaseConstants.INFORMATION)
+                .collection(FirebaseConstants.PLAYERS)
                 .document(player.id)
                 .set(player.asResponse())
                 .addOnSuccessListener {
                     gbSettings.setTimestamp(timestamp.playersInsertion, PLAYERS_INSERTION)
-                    continuation.resume(PlayerInserted)
+                    continuation.resume(IGBInsertDataFb.FirebaseInsertResult.PlayerInserted)
                 }.addOnFailureListener { error ->
                     Log.e("GBFirebase", "Error inserting player ${error.message}")
-                    continuation.resume(ErrorInsert(error.message))
+                    continuation.resume(IGBInsertDataFb.FirebaseInsertResult.ErrorInsert(error.message))
                 }
         }
     }
 
     override suspend fun insertNewTeam(
         team: Team
-    ): FirebaseInsertResult {
+    ): IGBInsertDataFb.FirebaseInsertResult {
         return suspendCancellableCoroutine { continuation ->
             val timestamp = TeamTimestamp()
             firestore.collection("debug") // TODO
-                .document(INFORMATION)
-                .set(timestamp, merge())
+                .document(FirebaseConstants.INFORMATION)
+                .set(timestamp, SetOptions.merge())
             firestore.collection("debug") // TODO
-                .document(INFORMATION)
-                .collection(TEAMS)
+                .document(FirebaseConstants.INFORMATION)
+                .collection(FirebaseConstants.TEAMS)
                 .document(team.id)
                 .set(team.asResponse())
                 .addOnSuccessListener {
                     gbSettings.setTimestamp(timestamp.teamsInsertion, TEAMS_INSERTION)
-                    continuation.resume(TeamInserted)
+                    continuation.resume(IGBInsertDataFb.FirebaseInsertResult.TeamInserted)
                 }.addOnFailureListener { error ->
                     Log.e("GBFirebase", "Error inserting team ${error.message}")
-                    continuation.resume(ErrorInsert(error.message))
+                    continuation.resume(IGBInsertDataFb.FirebaseInsertResult.ErrorInsert(error.message))
                 }
         }
     }
@@ -113,7 +104,7 @@ class FbInsertDataImpl @Inject constructor(
         match: Match,
         matchStats: MatchStatsModel,
         playerStats: Map<FirebaseId, Stats>
-    ): FirebaseInsertResult {
+    ): IGBInsertDataFb.FirebaseInsertResult {
         val matchId = match.id
         require(matchId.isNotBlank()) { "Match ID can't be blank" }
 
@@ -122,8 +113,8 @@ class FbInsertDataImpl @Inject constructor(
 
             val statsTimestamp = StatsTimestamp()
             val matchesTimestamp = MatchesTimestamp()
-            val matchStampRef = firestore.collection(season).document(INFORMATION)
-            val statsStampRef = firestore.collection(season).document(STATS)
+            val matchStampRef = firestore.collection(season).document(FirebaseConstants.INFORMATION)
+            val statsStampRef = firestore.collection(season).document(FirebaseConstants.STATS)
 
             val matchDocRef = getMatchDocRef(false, matchId)
             val matchStatsDocRef = getMatchDocRef(true, matchId)
@@ -134,31 +125,31 @@ class FbInsertDataImpl @Inject constructor(
             playerStats.forEach { (id, stats) ->
                 val playerDocRef = firestore
                     .collection(season)
-                    .document(STATS)
-                    .collection(PLAYERS)
+                    .document(FirebaseConstants.STATS)
+                    .collection(FirebaseConstants.PLAYERS)
                     .document(id)
 
                 val playerStatsDocRef = playerDocRef
-                    .collection(MATCHES)
+                    .collection(FirebaseConstants.MATCHES)
                     .document(matchId)
 
-                batch.set(playerDocRef, mapOf("id" to id), merge())
+                batch.set(playerDocRef, mapOf("id" to id), SetOptions.merge())
                 batch.set(playerStatsDocRef, stats.asResponse())
             }
 
-            batch.set(matchStampRef, matchesTimestamp, merge())
+            batch.set(matchStampRef, matchesTimestamp, SetOptions.merge())
             batch.set(statsStampRef, statsTimestamp)
             batch.commit().await()
             gbSettings.setTimestamp(matchesTimestamp.matchesInsertion, MATCHES_INSERTION)
             gbSettings.setTimestamp(statsTimestamp.statsInsertion, MATCHES_STATS_INSERTION)
             gbSettings.setTimestamp(statsTimestamp.statsInsertion, PLAYERS_STATS_INSERTION)
-            StatsInserted
+            IGBInsertDataFb.FirebaseInsertResult.StatsInserted
         }.getOrElse { t ->
             val message = when (t) {
                 is FirebaseFirestoreException -> "FirebaseInsertion [${t.code}] ${t.message}"
                 else -> t.message
             }
-            ErrorInsert(message)
+            IGBInsertDataFb.FirebaseInsertResult.ErrorInsert(message)
         }
     }
 
@@ -168,8 +159,8 @@ class FbInsertDataImpl @Inject constructor(
     ): DocumentReference {
         return firestore
             .collection(season)
-            .document(if (isStats) STATS else INFORMATION)
-            .collection(MATCHES)
+            .document(if (isStats) FirebaseConstants.STATS else FirebaseConstants.INFORMATION)
+            .collection(FirebaseConstants.MATCHES)
             .document(matchId)
     }
 }

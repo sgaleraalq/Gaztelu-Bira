@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.network.di
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
-import com.sgale.gaztelubira.core.network.firebase.implementation.FbFetchDataImpl
+import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchMatches
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchMatchesStats
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchPlayerStats
@@ -27,6 +27,9 @@ import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchPla
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTeam
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTeams
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTimestamp
+import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FirebaseFetch
+import com.sgale.gaztelubira.core.network.firebase.implementation.storage.FirebaseStorage
+import com.sgale.gaztelubira.core.network.firebase.implementation.storage.InsertImage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,14 +39,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
-
     @Provides
     @Singleton
     fun provideFirebaseFetch(
         firestore: FirebaseFirestore,
         gbSettings: IGBPreferences
     ): IGBFetchDataFb =
-        FbFetchDataImpl(
+        FirebaseFetch(
             fetchMatches = FetchMatches(firestore, gbSettings),
             fetchMatchesStats = FetchMatchesStats(firestore, gbSettings),
             fetchPlayers = FetchPlayers(firestore, gbSettings),
@@ -51,5 +53,12 @@ internal object NetworkModule {
             fetchTeams = FetchTeams(firestore, gbSettings),
             fetchTeam = FetchTeam(firestore, gbSettings),
             fetchTimestamp = FetchTimestamp(firestore, gbSettings)
+        )
+
+    @Provides
+    @Singleton
+    fun provideFirebaseStorage(): IGBFireStorage =
+        FirebaseStorage(
+            insertImage = InsertImage()
         )
 }

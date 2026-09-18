@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.implementation
+package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
@@ -24,16 +24,9 @@ import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
-import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchMatches
-import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchMatchesStats
-import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchPlayerStats
-import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchPlayers
-import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTeam
-import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTeams
-import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FetchTimestamp
-import javax.inject.Inject
+import jakarta.inject.Inject
 
-internal class FbFetchDataImpl @Inject constructor(
+internal class FirebaseFetch @Inject constructor(
     private val fetchMatches: FetchMatches,
     private val fetchMatchesStats: FetchMatchesStats,
     private val fetchPlayers: FetchPlayers,
