@@ -16,16 +16,13 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.model.utils.TEAMS_INSERTION
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.network.firebase.response.team.TeamMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.team.TeamResponse
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 internal class FetchTeams @Inject constructor(
@@ -33,18 +30,5 @@ internal class FetchTeams @Inject constructor(
     gbSettings: IGBPreferences
 ) : Fetch(firestore, gbSettings) {
     suspend operator fun invoke(): List<Team> =
-        try {
-            getTimestampAndSet(INFORMATION, TEAMS_INSERTION)
-            firestore.collection(season)
-                .document(INFORMATION)
-                .collection(TEAMS)
-                .get()
-                .await()
-                .toObjects(TeamResponse::class.java)
-                .map { it.asModel() }
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            emptyList()
-
-        }
+        fetchList(INFORMATION, TEAMS, TeamResponse::class.java) { it.asModel() }
 }

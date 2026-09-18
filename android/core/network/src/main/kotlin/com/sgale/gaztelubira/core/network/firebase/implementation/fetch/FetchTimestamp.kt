@@ -16,9 +16,7 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import kotlinx.coroutines.tasks.await
@@ -28,20 +26,16 @@ internal class FetchTimestamp @Inject constructor(
     firestore: FirebaseFirestore,
     gbSettings: IGBPreferences
 ) : Fetch(firestore, gbSettings) {
+    /**
+     * @return 0 when the document carries no such timestamp, which reads as
+     * "never updated" and triggers a first sync.
+     */
     suspend operator fun invoke(
         docName: String,
         timestampName: String
-    ): FirebaseTimestamp {
-        return try {
-            val snapshot = firestore
-                .collection(season)
-                .document(docName)
-                .get()
-                .await()
-            snapshot.getLong(timestampName) ?: 0L
-        } catch (e: Exception) {
-            Log.e(TAG, "Error fetching firebaseTimestamp: ${e.message}")
-            0L
-        }
-    }
+    ): FirebaseTimestamp =
+        seasonDocument(docName)
+            .get()
+            .await()
+            .getLong(timestampName) ?: 0L
 }

@@ -33,9 +33,7 @@ import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbPlayers
-import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asResponse
-import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerResponse
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -45,22 +43,6 @@ class FbPlayer @Inject constructor(
     private val gbSettings: IGBPreferences
 ) : IFbPlayers {
     private val storage: FirebaseStorage = Firebase.storage
-
-    override suspend fun fetchPlayerInformation(playerId: FirebaseId): Player? {
-        return try {
-            firestore.collection(gbSettings.getSeason())
-                .document(INFORMATION)
-                .collection(PLAYERS)
-                .document(playerId)
-                .get()
-                .await()
-                .toObject(PlayerResponse::class.java)
-                ?.asModel()
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            null
-        }
-    }
 
     override suspend fun fetchPlayerStats(playerId: String): PlayerStats? {
         return try {

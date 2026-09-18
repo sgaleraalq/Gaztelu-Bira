@@ -16,7 +16,6 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
@@ -33,17 +32,10 @@ internal class FetchTeam @Inject constructor(
     gbSettings: IGBPreferences
 ) : Fetch(firestore, gbSettings) {
     suspend operator fun invoke(id: FirebaseId): Team? =
-        try {
-            firestore.collection(season)
-                .document(INFORMATION)
-                .collection(TEAMS)
-                .document(id)
-                .get()
-                .await()
-                .toObject(TeamResponse::class.java)
-                ?.asModel()
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            null
-        }
+        seasonCollection(INFORMATION, TEAMS)
+            .document(id)
+            .get()
+            .await()
+            .toObject(TeamResponse::class.java)
+            ?.asModel()
 }

@@ -21,7 +21,6 @@ import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
 interface IFbPlayers {
-    suspend fun fetchPlayerInformation(playerId: String): Player?
     suspend fun fetchPlayerStats(playerId: String): PlayerStats?
     suspend fun insertNewPlayer(player: Player): Boolean
     suspend fun insertPlayerImage(playerId: FirebaseId, image: ByteArray?, isFace: Boolean): String

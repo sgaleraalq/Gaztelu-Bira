@@ -24,17 +24,27 @@ import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
 
-interface IGBFetchDataFb {
+interface IFetch {
     fun getSeason(): String?
+
+    /**
+     * Individual
+     */
+    suspend fun fetchPlayer(id: FirebaseId): Player?
+    suspend fun fetchTeam(id: FirebaseId): Team?
+
+    /**
+     * Lists
+     */
     suspend fun fetchMatches(): List<Match>
     suspend fun fetchMatchesStats(): List<MatchStatsModel>
     suspend fun fetchPlayers(): List<Player>
     suspend fun fetchPlayersStats(): List<PlayerStats>
     suspend fun fetchTeams(): List<Team>
 
+
     /**
-     * Individual
+     * Other
      */
-    suspend fun fetchTeam(id: FirebaseId): Team?
     suspend fun fetchTimestamp(docName: String, timestampName: String): FirebaseTimestamp
 }

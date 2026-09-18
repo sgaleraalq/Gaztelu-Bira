@@ -14,21 +14,29 @@
  * limitations under the License.
  */
 
+
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerResponse
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-internal class FetchPlayers @Inject constructor(
+internal class FetchPlayer @Inject constructor(
     firestore: FirebaseFirestore,
     gbSettings: IGBPreferences
 ) : Fetch(firestore, gbSettings) {
-    suspend operator fun invoke(): List<Player> =
-        fetchList(INFORMATION, PLAYERS, PlayerResponse::class.java) { it.asModel() }
+    suspend operator fun invoke(id: FirebaseId): Player? =
+        seasonCollection(INFORMATION, PLAYERS)
+            .document(id)
+            .get()
+            .await()
+            .toObject(PlayerResponse::class.java)
+            ?.asModel()
 }

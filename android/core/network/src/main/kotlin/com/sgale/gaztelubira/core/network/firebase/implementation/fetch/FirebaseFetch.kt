@@ -23,48 +23,56 @@ import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
-import jakarta.inject.Inject
+import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
+import javax.inject.Inject
 
 internal class FirebaseFetch @Inject constructor(
-    private val fetchMatches: FetchMatches,
-    private val fetchMatchesStats: FetchMatchesStats,
-    private val fetchPlayers: FetchPlayers,
-    private val fetchPlayerStats: FetchPlayerStats,
-    private val fetchTeams: FetchTeams,
-    private val fetchTeam: FetchTeam,
-    private val fetchTimestamp: FetchTimestamp,
-) : IGBFetchDataFb {
-    private lateinit var season: String
+    private val matches: FetchMatches,
+    private val matchesStats: FetchMatchesStats,
+    private val player: FetchPlayer,
+    private val players: FetchPlayers,
+    private val playersStats: FetchPlayersStats,
+    private val team: FetchTeam,
+    private val teams: FetchTeams,
+    private val timestamp: FetchTimestamp
+) : IFetch {
 
-    override fun getSeason(): String? {
-        return try {
-            val season = "2024_2025" // TODO
-            this.season = season
-            season
-        } catch (e: Exception) {
-            null
-        }
-    }
+    override fun getSeason(): String = CURRENT_SEASON // TODO read it from remote config
 
+    /**
+     * Individual
+     */
+    override suspend fun fetchTeam(id: FirebaseId): Team? =
+        team(id)
+
+    override suspend fun fetchPlayer(id: FirebaseId): Player? =
+        player(id)
+
+    /**
+     * Lists
+     */
     override suspend fun fetchMatches(): List<Match> =
-        fetchMatches.invoke()
+        matches()
 
     override suspend fun fetchMatchesStats(): List<MatchStatsModel> =
-        fetchMatchesStats.invoke()
+        matchesStats()
 
     override suspend fun fetchPlayers(): List<Player> =
-        fetchPlayers.invoke()
+        players()
 
     override suspend fun fetchPlayersStats(): List<PlayerStats> =
-        fetchPlayerStats.invoke()
+        playersStats()
 
     override suspend fun fetchTeams(): List<Team> =
-        fetchTeams.invoke()
+        teams()
 
-    override suspend fun fetchTeam(id: FirebaseId): Team? =
-        fetchTeam.invoke(id)
-
+    /**
+     * Other
+     */
     override suspend fun fetchTimestamp(docName: String, timestampName: String): FirebaseTimestamp =
-        fetchTimestamp.invoke(docName, timestampName)
+        timestamp(docName, timestampName)
+
+    private companion object {
+        const val CURRENT_SEASON = "2024_2025"
+    }
 }

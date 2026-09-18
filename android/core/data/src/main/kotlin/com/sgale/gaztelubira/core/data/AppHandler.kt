@@ -31,15 +31,16 @@ import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFetchDataFb
+import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
 import com.sgale.gaztelubira.core.domain.usecase.CanAccessApp
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class AppHandler @Inject constructor(
-    private val fireRepository: IGBFetchDataFb,
+    private val fireRepository: IFetch,
     private val canAccessApp: CanAccessApp,
     private val preferences: IGBPreferences,
     private val matchesDb: IGBMatchesDb,
@@ -84,6 +85,8 @@ class AppHandler @Inject constructor(
             val teams = teamsDeferred.await()
             playersDb.insertPlayers(players)
             teamsDb.insertTeams(teams)
+            markSynced(INFORMATION, PLAYERS_INSERTION)
+            markSynced(INFORMATION, TEAMS_INSERTION)
         }
     }
 
@@ -100,17 +103,20 @@ class AppHandler @Inject constructor(
             matchesDb.insertMatches(matches)
             matchesStatsDb.insertMatchesStatsFromFB(matchesStats)
             playersStatsDb.insertStatsFromFB(playerStats)
+            markSynced(INFORMATION, MATCHES_INSERTION)
+            markSynced(STATS, STATS_INSERTION, MATCHES_STATS_INSERTION)
+            markSynced(STATS, STATS_INSERTION, PLAYERS_STATS_INSERTION)
         }
     }
 
     private suspend fun notFirstTimeInit() = runCatching {
         println("App Handler: Not first time joining app")
         coroutineScope {
-            updateMatches()
-            updateMatchesStats()
-            updatePlayers()
-            updatePlayersStats()
-            updateTeams()
+            update("Matches") { updateMatches() }
+            update("Matches stats") { updateMatchesStats() }
+            update("Players") { updatePlayers() }
+            update("Players stats") { updatePlayersStats() }
+            update("Teams") { updateTeams() }
         }
     }
 
@@ -120,7 +126,6 @@ class AppHandler @Inject constructor(
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Matches need to update")
-            preferences.setTimestamp(firebaseUpdate, MATCHES_INSERTION)
             syncItems(
                 fetchRemote = { fireRepository.fetchMatches() },
                 fetchLocal = { matchesDb.getMatchesListAsFlow().first() },
@@ -128,6 +133,7 @@ class AppHandler @Inject constructor(
                 insertItem = { matchesDb.insertMatch(it) },
                 getId = { it.id }
             )
+            preferences.setTimestamp(firebaseUpdate, MATCHES_INSERTION)
         } else {
             println("GazteluBiraFetch: Matches no need to update")
         }
@@ -139,7 +145,6 @@ class AppHandler @Inject constructor(
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Matches stats need to update")
-            preferences.setTimestamp(firebaseUpdate, MATCHES_STATS_INSERTION)
             syncItems(
                 fetchRemote = { fireRepository.fetchMatchesStats() },
                 fetchLocal = { matchesStatsDb.getMatchesStatsListAsFlow().first() },
@@ -147,6 +152,7 @@ class AppHandler @Inject constructor(
                 insertItem = { matchesStatsDb.insertMatch(it) },
                 getId = { it.id }
             )
+            preferences.setTimestamp(firebaseUpdate, MATCHES_STATS_INSERTION)
         } else {
             println("GazteluBiraFetch: Matches stats no need to update")
         }
@@ -158,7 +164,6 @@ class AppHandler @Inject constructor(
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Players need to update")
-            preferences.setTimestamp(firebaseUpdate, PLAYERS_INSERTION)
             syncItems(
                 fetchRemote = { fireRepository.fetchPlayers() },
                 fetchLocal = { playersDb.getPlayersListAsFlow().first() },
@@ -166,6 +171,7 @@ class AppHandler @Inject constructor(
                 insertItem = { playersDb.insertPlayer(it) },
                 getId = { it.id }
             )
+            preferences.setTimestamp(firebaseUpdate, PLAYERS_INSERTION)
         } else {
             println("GazteluBiraFetch: Players no need to update")
         }
@@ -177,7 +183,6 @@ class AppHandler @Inject constructor(
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Players stats need to update")
-            preferences.setTimestamp(firebaseUpdate, PLAYERS_STATS_INSERTION)
             syncItems(
                 fetchRemote = { fireRepository.fetchPlayersStats() },
                 fetchLocal = { playersStatsDb.getPlayersStatsListAsFlow().first() },
@@ -185,6 +190,7 @@ class AppHandler @Inject constructor(
                 insertItem = { playersStatsDb.insertPlayer(it) },
                 getId = { it.id }
             )
+            preferences.setTimestamp(firebaseUpdate, PLAYERS_STATS_INSERTION)
         } else {
             println("GazteluBiraFetch: Players stats no need to update")
         }
@@ -196,7 +202,6 @@ class AppHandler @Inject constructor(
 
         if (lastUpdate < firebaseUpdate) {
             println("GazteluBiraFetch: Teams need to update")
-            preferences.setTimestamp(firebaseUpdate, TEAMS_INSERTION)
             syncItems(
                 fetchRemote = { fireRepository.fetchTeams() },
                 fetchLocal = { teamsDb.getTeamsList().first() },
@@ -204,10 +209,38 @@ class AppHandler @Inject constructor(
                 insertItem = { teamsDb.insertTeam(it) },
                 getId = { it.id }
             )
+            preferences.setTimestamp(firebaseUpdate, TEAMS_INSERTION)
         } else {
             println("GazteluBiraFetch: Teams no need to update")
         }
     }
+
+    /**
+     * One entity failing must not stop the others: each fetch reaches the
+     * network on its own and an error there is not a reason to skip the rest.
+     */
+    private suspend fun update(name: String, block: suspend () -> Unit) {
+        try {
+            block()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            println("GazteluBiraFetch: $name update failed, error: ${e.message}")
+        }
+    }
+
+    /**
+     * Remembers which remote version the local copy matches. It runs once the
+     * data is stored: marking it before would claim a failed fetch as synced.
+     */
+    private suspend fun markSynced(
+        document: String,
+        remoteTimestamp: String,
+        localTimestamp: String = remoteTimestamp
+    ) = preferences.setTimestamp(
+        fireRepository.fetchTimestamp(document, remoteTimestamp),
+        localTimestamp
+    )
 
     private suspend fun <T> syncItems(
         fetchRemote: suspend () -> List<T>,

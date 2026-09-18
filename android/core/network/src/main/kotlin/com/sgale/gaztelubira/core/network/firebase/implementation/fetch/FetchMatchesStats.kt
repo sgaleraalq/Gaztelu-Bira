@@ -16,16 +16,13 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.utils.STATS_INSERTION
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.match.MatchStatsResponse
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 internal class FetchMatchesStats @Inject constructor(
@@ -33,17 +30,5 @@ internal class FetchMatchesStats @Inject constructor(
     gbSettings: IGBPreferences
 ) : Fetch(firestore, gbSettings) {
     suspend operator fun invoke(): List<MatchStatsModel> =
-        try {
-            getTimestampAndSet(STATS, STATS_INSERTION)
-            firestore.collection(season)
-                .document(STATS)
-                .collection(MATCHES)
-                .get()
-                .await()
-                .toObjects(MatchStatsResponse::class.java)
-                .map { it.asModel() }
-        } catch (e: Exception) {
-            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-            emptyList()
-        }
+        fetchList(STATS, MATCHES, MatchStatsResponse::class.java) { it.asModel() }
 }

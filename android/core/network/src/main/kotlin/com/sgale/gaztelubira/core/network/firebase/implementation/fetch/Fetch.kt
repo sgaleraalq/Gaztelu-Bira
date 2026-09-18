@@ -16,33 +16,38 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import kotlinx.coroutines.tasks.await
 
 internal abstract class Fetch(
-    protected val firestore: FirebaseFirestore,
-    protected val gbSettings: IGBPreferences
+    private val firestore: FirebaseFirestore,
+    private val gbSettings: IGBPreferences
 ) {
-    protected val season get() = gbSettings.getSeason()
-
-    private suspend fun getTimestamp(
-        docName: String,
-        timestampName: String
-    ): FirebaseTimestamp {
-        return try {
-            val snapshot = firestore.collection(season).document(docName).get().await()
-            snapshot.getLong(timestampName) ?: 0L
-        } catch (e: Exception) {
-            0L
-        }
+    protected fun seasonDocument(
+        document: String
+    ): DocumentReference {
+        val season = gbSettings.getSeason()
+        require(season.isNotBlank()) { "Season is not set yet, cannot reach $document" }
+        return firestore.collection(season).document(document)
     }
 
-    protected suspend fun getTimestampAndSet(
-        docName: String,
-        timestampName: String
-    ) {
-        gbSettings.setTimestamp(getTimestamp(docName, timestampName), timestampName)
-    }
+    protected fun seasonCollection(
+        document: String,
+        collection: String
+    ): CollectionReference =
+        seasonDocument(document).collection(collection)
+
+    protected suspend fun <R : Any, M> fetchList(
+        document: String,
+        collection: String,
+        type: Class<R>,
+        asModel: (R) -> M
+    ): List<M> = seasonCollection(document, collection)
+        .get()
+        .await()
+        .toObjects(type)
+        .map(asModel)
 }
