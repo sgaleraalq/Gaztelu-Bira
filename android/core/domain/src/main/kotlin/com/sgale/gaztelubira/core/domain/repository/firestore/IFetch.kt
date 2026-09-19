@@ -31,6 +31,7 @@ interface IFetch {
      * Individual
      */
     suspend fun fetchPlayer(id: FirebaseId): Player?
+    suspend fun fetchPlayerStats(id: FirebaseId): PlayerStats?
     suspend fun fetchTeam(id: FirebaseId): Team?
 
     /**

@@ -31,6 +31,7 @@ internal class FirebaseFetch @Inject constructor(
     private val matchesStats: FetchMatchesStats,
     private val player: FetchPlayer,
     private val players: FetchPlayers,
+    private val playerStats: FetchPlayerStats,
     private val playersStats: FetchPlayersStats,
     private val team: FetchTeam,
     private val teams: FetchTeams,
@@ -42,11 +43,14 @@ internal class FirebaseFetch @Inject constructor(
     /**
      * Individual
      */
-    override suspend fun fetchTeam(id: FirebaseId): Team? =
-        team(id)
-
     override suspend fun fetchPlayer(id: FirebaseId): Player? =
         player(id)
+
+    override suspend fun fetchPlayerStats(id: FirebaseId): PlayerStats? =
+        playerStats(id)
+
+    override suspend fun fetchTeam(id: FirebaseId): Team? =
+        team(id)
 
     /**
      * Lists

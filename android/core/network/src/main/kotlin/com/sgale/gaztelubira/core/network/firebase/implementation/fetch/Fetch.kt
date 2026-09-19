@@ -23,8 +23,8 @@ import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import kotlinx.coroutines.tasks.await
 
 internal abstract class Fetch(
-    private val firestore: FirebaseFirestore,
-    private val gbSettings: IGBPreferences
+    protected val firestore: FirebaseFirestore,
+    protected val gbSettings: IGBPreferences
 ) {
     protected fun seasonDocument(
         document: String

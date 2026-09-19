@@ -16,39 +16,48 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sgale.gaztelubira.core.domain.model.player.Player.Companion.ERROR_PLAYER
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.MATCHES
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
+import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
+import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 internal class FetchPlayerStats @Inject constructor(
     firestore: FirebaseFirestore,
     gbSettings: IGBPreferences
 ) : Fetch(firestore, gbSettings) {
-//    suspend operator fun invoke(): PlayerStats? {
-//        return try {
-//            val matches = firestore
-//                .collection(gbSettings.getSeason())
-//                .document(STATS)
-//                .collection(PLAYERS)
-//                .document(playerId)
-//                .collection(MATCHES)
-//                .get()
-//                .await()
-//
-//            val statsByMatch = matches.documents.mapNotNull { match ->
-//                val stats = match.toObject(PlayerStatsResponse::class.java)?.asStats()
-//                if (stats != null) match.id to stats else null
-//            }.toMap()
-//
-//            PlayerStats(
-//                id = playerId,
-//                player = ERROR_PLAYER, // TODO playersMap[playerId] ?: ErrorPlayer,
-//                stats = statsByMatch,
-//                percentage = 0.0
-//            )
-//        } catch (e: Exception) {
-//            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
-//            null
-//        }
-//    }
+    suspend operator fun invoke(id: FirebaseId): PlayerStats? {
+        return try {
+            val matches = firestore
+                .collection(gbSettings.getSeason())
+                .document(STATS)
+                .collection(PLAYERS)
+                .document(id)
+                .collection(MATCHES)
+                .get()
+                .await()
+
+            val statsByMatch = matches.documents.mapNotNull { match ->
+                val stats = match.toObject(PlayerStatsResponse::class.java)?.asStats()
+                if (stats != null) match.id to stats else null
+            }.toMap()
+
+            PlayerStats(
+                id = id,
+                player = ERROR_PLAYER, // TODO playersMap[playerId] ?: ErrorPlayer,
+                stats = statsByMatch,
+                percentage = 0.0
+            )
+        } catch (e: Exception) {
+            Log.e("GBFirebase", "Couldn't get data, error: ${e.message}")
+            null
+        }
+    }
 }
