@@ -21,7 +21,7 @@ import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils
+import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.USERS
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
 import com.sgale.gaztelubira.core.network.firebase.response.user.UserMapper.asModel
@@ -87,11 +87,9 @@ class FirebaseUsers @Inject constructor(
         }
     }
 
-    private suspend fun getPlayerId(uid: String): FirebaseId {
+    private fun getPlayerId(uid: String): FirebaseId {
         return "TODO"
     }
 
-    private fun getUserTeam(): Team {
-        return GazteluBiraUtils.GAZTELU_BIRA
-    }
+    private fun getUserTeam(): Team = GAZTELU_BIRA
 }

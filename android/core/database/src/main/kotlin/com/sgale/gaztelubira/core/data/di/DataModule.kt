@@ -33,8 +33,6 @@ import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
-import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
-import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseUsers
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -82,10 +80,6 @@ internal interface DataModule {
     @Binds
     @Singleton
     fun bindAppRepository(appRepositoryImpl: AppRepositoryImpl): IAppRepository
-
-    @Binds
-    @Singleton
-    fun bindFbUsers(fbUsers: FirebaseUsers): IFbUsers
 
     /**
      * App

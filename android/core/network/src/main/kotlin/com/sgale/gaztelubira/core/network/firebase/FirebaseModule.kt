@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.data.di
+package com.sgale.gaztelubira.core.network.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
