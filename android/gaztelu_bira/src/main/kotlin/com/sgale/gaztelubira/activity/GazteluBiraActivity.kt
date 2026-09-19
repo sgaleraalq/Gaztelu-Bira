@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.sgale.gaztelubira.core.data.auth.ActivityBridge
+import com.sgale.gaztelubira.core.database.auth.ActivityBridge
 import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.core.screens.MainScreen
 import dagger.hilt.android.AndroidEntryPoint

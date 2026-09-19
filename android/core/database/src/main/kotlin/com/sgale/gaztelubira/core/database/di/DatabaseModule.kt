@@ -14,26 +14,34 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.di
+package com.sgale.gaztelubira.core.database.di
 
-import com.sgale.gaztelubira.BuildConfig.GOOGLE_CLIENT_ID
-import com.sgale.gaztelubira.core.database.auth.GoogleClientId
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import com.sgale.gaztelubira.core.database.db.GBDatabase
+import com.sgale.gaztelubira.core.database.db.getRoomDatabase
+import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences.Companion.SHARED_PREFS_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object AppModule {
+internal object DatabaseModule {
 
-    /**
-     * Only the app module has the BuildConfig that carries the value, so the id is handed to
-     * the graph from here rather than read where it is used.
-     */
     @Provides
     @Singleton
-    @GoogleClientId
-    fun provideGoogleClientId(): String = GOOGLE_CLIENT_ID
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ): GBDatabase = getRoomDatabase(context)
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(
+        @ApplicationContext context: Context
+    ): SharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE)
 }

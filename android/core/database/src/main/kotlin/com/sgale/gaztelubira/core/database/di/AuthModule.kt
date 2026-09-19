@@ -14,26 +14,36 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.di
+package com.sgale.gaztelubira.core.database.di
 
-import com.sgale.gaztelubira.BuildConfig.GOOGLE_CLIENT_ID
-import com.sgale.gaztelubira.core.database.auth.GoogleClientId
+import android.content.Context
+import androidx.credentials.CredentialManager
+import com.sgale.gaztelubira.core.database.auth.AuthRepositoryImpl
+import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object AppModule {
+internal interface AuthModule {
 
-    /**
-     * Only the app module has the BuildConfig that carries the value, so the id is handed to
-     * the graph from here rather than read where it is used.
-     */
+    @Binds
+    @Singleton
+    fun bindAuthRepository(authRepositoryImpl: AuthRepositoryImpl): IAuthRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal object CredentialManagerModule {
+
     @Provides
     @Singleton
-    @GoogleClientId
-    fun provideGoogleClientId(): String = GOOGLE_CLIENT_ID
+    fun provideCredentialManager(
+        @ApplicationContext context: Context
+    ): CredentialManager = CredentialManager.create(context)
 }

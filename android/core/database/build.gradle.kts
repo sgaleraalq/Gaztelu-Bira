@@ -23,7 +23,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sgale.gaztelubira.core.data"
+    namespace = "com.sgale.gaztelubira.core.database"
 }
 
 ksp {
