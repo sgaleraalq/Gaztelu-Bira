@@ -51,7 +51,12 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
+            resValue("string", "app_name", "[DEBUG] Gaztelu")
         }
+    }
+
+    buildFeatures {
+        resValues = true
     }
 }
 
