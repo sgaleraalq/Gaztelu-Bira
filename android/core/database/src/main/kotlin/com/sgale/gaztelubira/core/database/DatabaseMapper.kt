@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.mappers
+package com.sgale.gaztelubira.core.database
 
 /**
  * Maps every object to each layer of the application

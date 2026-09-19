@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.core.database.mappers
 
+import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.db.entities.PlayerEntity
 import com.sgale.gaztelubira.core.domain.model.player.Player
 

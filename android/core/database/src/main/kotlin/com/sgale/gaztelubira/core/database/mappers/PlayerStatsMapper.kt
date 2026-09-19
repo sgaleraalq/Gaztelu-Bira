@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.core.database.mappers
 
+import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.db.entities.PlayerStatsEntity
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats.Companion.ERROR_PLAYER_STATS

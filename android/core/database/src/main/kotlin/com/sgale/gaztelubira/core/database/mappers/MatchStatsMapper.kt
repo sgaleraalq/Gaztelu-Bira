@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.core.database.mappers
 
+import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.db.entities.MatchStatsEntity
 import com.sgale.gaztelubira.core.database.db.entities.StatsMatchEntity
 import com.sgale.gaztelubira.core.domain.model.match.Match.Companion.ERROR_MATCH
