@@ -20,16 +20,13 @@ package com.sgale.gaztelubira.core.screens.review_photo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.domain.utils.SharedImagesBridge
 import com.sgale.gaztelubira.multiplatform.ui.review_image.ReviewImageUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -41,24 +38,27 @@ private const val PREVIEW_QUALITY = 85
 
 @HiltViewModel
 internal class ReviewImageViewModel @Inject constructor(
-    private val imageLoader: SharedImagesBridge
+//    private val imageLoader: SharedImagesBridge
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ReviewImageUiState())
     internal val state: StateFlow<ReviewImageUiState> = _state.asStateFlow()
 
-    internal fun loadImage(commonImage: CommonImage, isFrontCamera: Boolean) {
+    internal fun loadImage(
+        commonImage: CommonImage,
+        isFrontCamera: Boolean
+    ) {
         viewModelScope.launch {
-            val image = withContext(Dispatchers.IO) {
-                imageLoader.loadImage(
-                    uri = commonImage.uri,
-                    maxWidth = MAX_PREVIEW_SIZE_PX,
-                    maxHeight = MAX_PREVIEW_SIZE_PX,
-                    quality = PREVIEW_QUALITY,
-                    isFrontCamera = isFrontCamera
-                )
-            }
-            _state.update { it.copy(image = image) }
+//            val image = withContext(Dispatchers.IO) {
+//                imageLoader.loadImage(
+//                    uri = commonImage.uri,
+//                    maxWidth = MAX_PREVIEW_SIZE_PX,
+//                    maxHeight = MAX_PREVIEW_SIZE_PX,
+//                    quality = PREVIEW_QUALITY,
+//                    isFrontCamera = isFrontCamera
+//                )
+//            }
+            _state.update { it.copy(image = null) }
         }
     }
 }

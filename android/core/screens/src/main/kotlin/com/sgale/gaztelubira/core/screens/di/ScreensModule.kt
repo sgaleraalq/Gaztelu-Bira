@@ -16,13 +16,10 @@
 
 package com.sgale.gaztelubira.core.screens.di
 
-import com.sgale.gaztelubira.core.domain.utils.PermissionBridge
-import com.sgale.gaztelubira.core.domain.utils.SharedImagesBridge
 import com.sgale.gaztelubira.core.screens.splash.SplashController
 import com.sgale.gaztelubira.core.screens.splash.SplashState
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -34,17 +31,4 @@ internal interface ScreensModule {
     @Binds
     @Singleton
     fun bindSplashController(splashState: SplashState): SplashController
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-internal object ScreensProvidersModule {
-
-    @Provides
-    @Singleton
-    fun providePermissionBridge(): PermissionBridge = PermissionBridge()
-
-    @Provides
-    @Singleton
-    fun provideSharedImagesBridge(): SharedImagesBridge = SharedImagesBridge()
 }

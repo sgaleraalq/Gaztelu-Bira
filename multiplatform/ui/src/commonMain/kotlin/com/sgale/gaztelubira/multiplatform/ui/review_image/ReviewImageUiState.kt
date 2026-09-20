@@ -17,11 +17,6 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.review_image
 
-/**
- * [image] holds the decoded bytes, and stays null until they arrive. Equality on a [ByteArray] is
- * by identity, which is what we want here: the bytes are produced once and never rewritten, so a
- * new array always means a new image.
- */
 data class ReviewImageUiState(
     val image: ByteArray? = null
 )

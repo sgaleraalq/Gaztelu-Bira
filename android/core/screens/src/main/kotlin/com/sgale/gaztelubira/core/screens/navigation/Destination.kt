@@ -19,7 +19,6 @@ package com.sgale.gaztelubira.core.screens.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.utils.CameraManagerCompose
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromFrontCamera
 import com.sgale.gaztelubira.core.screens.auth.login.LoginScreen
@@ -163,27 +162,6 @@ interface Destination {
         @Composable
         override fun Content(state: NavigationState) {
             InsertTeamScreen(state)
-        }
-    }
-
-    /**
-     * Camera
-     */
-    @Serializable
-    data class Camera(
-        val key: String
-    ) : Destination {
-        override val routeName = "camera"
-
-        @Composable
-        override fun Content(state: NavigationState) {
-            CameraManagerCompose(
-                key = key,
-                navigateToReview = { commonImage ->
-                    state.navigateTo(ReviewPhoto(key, commonImage))
-                },
-                navigateBack = { state.navigateBack() }
-            )
         }
     }
 

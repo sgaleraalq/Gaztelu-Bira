@@ -23,7 +23,6 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import com.sgale.gaztelubira.core.domain.utils.CameraResults
 import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Camera
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.Destination.InsertMatch
 import com.sgale.gaztelubira.core.screens.navigation.Destination.InsertPlayer
@@ -152,6 +151,5 @@ val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
      */
     MatchDetail::class.configuration(),
     PlayerDetail::class.configuration(),
-    Camera::class.configuration(),
     ReviewPhoto::class.configuration()
 )

@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-
 package com.sgale.gaztelubira.multiplatform.ui.review_image
 
 import androidx.compose.runtime.Composable
 
-/**
- * Shared entry point for the review screen: state in, actions out, nothing platform-specific.
- */
 @Composable
 fun ReviewImageView(
     state: ReviewImageUiState,
