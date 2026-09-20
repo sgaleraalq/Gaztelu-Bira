@@ -16,13 +16,7 @@
 
 package com.sgale.gaztelubira.core.screens.navigation
 
-import androidx.compose.animation.Crossfade
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.key
-import androidx.compose.runtime.saveable.SaveableStateHolder
-import com.sgale.gaztelubira.core.domain.utils.CameraResults
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.Destination.InsertMatch
 import com.sgale.gaztelubira.core.screens.navigation.Destination.InsertPlayer
@@ -43,43 +37,6 @@ interface NavigationState {
     fun navigateTo(destination: Destination, clearStack: Boolean = false)
     fun popUpTo(destination: Destination)
     fun navigateBack()
-}
-
-suspend inline fun <reified T> NavigationState.navigateForResult(
-    destination: Destination,
-    resultKey: String
-): T {
-    navigateTo(destination)
-    return CameraResults.awaitResult(resultKey)
-}
-
-suspend fun NavigationState.launchAndDeliver(key: String, value: CommonImage) {
-    CameraResults.deliver(key, value)
-    popUpTo(InsertPlayer)
-}
-
-interface MultiplatformNavigationState : NavigationState {
-    override val currentDestination: State<Destination>
-    val stateHolder: SaveableStateHolder
-}
-
-@Composable
-fun MultiplatformMainNavigation(
-    state: NavigationState,
-    enabled: Boolean
-) {
-    state as MultiplatformNavigationState
-
-    MultiplatformBackHandler(enabled) { state.navigateBack() }
-
-    Crossfade(
-        targetState = state.currentDestination.value
-    ) { destination ->
-        state.stateHolder.SaveableStateProvider(destination.toString()) {
-            key(destination) { destination.Content(state) }
-        }
-    }
-
 }
 
 sealed interface DestinationConfiguration<T : Destination> {

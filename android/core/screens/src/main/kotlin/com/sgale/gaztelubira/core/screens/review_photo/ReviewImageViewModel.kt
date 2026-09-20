@@ -19,7 +19,6 @@ package com.sgale.gaztelubira.core.screens.review_photo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.multiplatform.ui.review_image.ReviewImageUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,8 +44,8 @@ internal class ReviewImageViewModel @Inject constructor(
     internal val state: StateFlow<ReviewImageUiState> = _state.asStateFlow()
 
     internal fun loadImage(
-        commonImage: CommonImage,
-        isFrontCamera: Boolean
+//        commonImage: CommonImage,
+//        isFrontCamera: Boolean
     ) {
         viewModelScope.launch {
 //            val image = withContext(Dispatchers.IO) {

@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.core.screens.insert.match.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -24,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Default
-import com.sgale.gaztelubira.core.screens.navigation.MultiplatformBackHandler
 
 @Composable
 internal fun InsertMatchScaffold(
@@ -33,9 +33,10 @@ internal fun InsertMatchScaffold(
     button: @Composable () -> Unit,
     content: @Composable (Modifier) -> Unit
 ) {
-    MultiplatformBackHandler(true) {
+    BackHandler(true) {
         changeState(Default)
     }
+
     Column(
         modifier = modifier.padding(horizontal = 16.dp).padding(bottom = 16.dp),
         horizontalAlignment = CenterHorizontally

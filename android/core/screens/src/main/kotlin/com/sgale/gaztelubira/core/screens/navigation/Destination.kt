@@ -17,10 +17,7 @@
 package com.sgale.gaztelubira.core.screens.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
-import com.sgale.gaztelubira.core.domain.utils.CommonImage.FromFrontCamera
 import com.sgale.gaztelubira.core.screens.auth.login.LoginScreen
 import com.sgale.gaztelubira.core.screens.auth.signup.SignUpScreen
 import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailScreen
@@ -29,7 +26,6 @@ import com.sgale.gaztelubira.core.screens.home.HomeScreen
 import com.sgale.gaztelubira.core.screens.insert.match.InsertMatchScreen
 import com.sgale.gaztelubira.core.screens.insert.player.InsertPlayerScreen
 import com.sgale.gaztelubira.core.screens.insert.team.InsertTeamScreen
-import com.sgale.gaztelubira.core.screens.review_photo.ReviewImageScreen
 import com.sgale.gaztelubira.core.screens.splash.SplashScreen
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.Back
@@ -38,7 +34,6 @@ import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromLogin
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromMatchesTab
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab
 import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.WelcomeView
-import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 interface Destination {
@@ -166,25 +161,17 @@ interface Destination {
     }
 
     @Serializable
-    data class ReviewPhoto(
-        val key: String,
-        val commonImage: CommonImage
-    ) : Destination {
+    data object ReviewPhoto : Destination {
         override val routeName = "review_photo"
 
         @Composable
         override fun Content(state: NavigationState) {
-            val scope = rememberCoroutineScope()
-            ReviewImageScreen(
-                commonImage = commonImage,
-                isFrontCamera = commonImage is FromFrontCamera,
-                onRepeat = { state.navigateBack() },
-                onAccept = {
-                    scope.launch {
-                        state.launchAndDeliver(key, commonImage)
-                    }
-                }
-            )
+//            ReviewImageScreen(
+//                commonImage = commonImage,
+//                isFrontCamera = commonImage is FromFrontCamera,
+//                onRepeat = { state.navigateBack() },
+//                onAccept = { /* TODO */ }
+//            )
         }
     }
 

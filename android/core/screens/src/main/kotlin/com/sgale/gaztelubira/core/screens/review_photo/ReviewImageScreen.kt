@@ -18,28 +18,24 @@
 package com.sgale.gaztelubira.core.screens.review_photo
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.domain.utils.CommonImage
 import com.sgale.gaztelubira.multiplatform.ui.review_image.ReviewImageActions
 import com.sgale.gaztelubira.multiplatform.ui.review_image.ReviewImageView
 
 @Composable
 internal fun ReviewImageScreen(
-    commonImage: CommonImage,
-    isFrontCamera: Boolean,
     onRepeat: () -> Unit,
     onAccept: () -> Unit,
     viewModel: ReviewImageViewModel = hiltViewModel<ReviewImageViewModel>()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(viewModel, commonImage, isFrontCamera) {
-        viewModel.loadImage(commonImage, isFrontCamera)
-    }
+//    LaunchedEffect(viewModel, commonImage, isFrontCamera) {
+//        viewModel.loadImage(commonImage, isFrontCamera)
+//    }
 
     val actions = remember(onRepeat, onAccept) {
         ReviewImageActions(
