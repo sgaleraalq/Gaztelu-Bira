@@ -15,3 +15,8 @@ gaztelu_bira/build/
 gaztelu_bira/google-services.json
 
 **/build/
+
+# Signing keys never travel with the code
+keystore/
+*.jks
+*.keystore

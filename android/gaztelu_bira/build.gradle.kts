@@ -48,6 +48,27 @@ android {
         buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$googleClientId\"")
     }
 
+    /**
+     * A shared debug keystore lets every machine sign with the same key, so
+     * Firebase needs a single SHA-1 registered instead of one per developer.
+     *
+     * It is deliberately NOT in the repo: this one is public, and a key anyone
+     * can download signs APKs that Google attests as ours. When the file is
+     * missing the build falls back to the machine's own ~/.android/debug.keystore,
+     * so a fresh clone still compiles.
+     */
+    signingConfigs {
+        getByName("debug") {
+            val shared = file("../keystore/debug.keystore")
+            if (shared.exists()) {
+                storeFile = shared
+                storePassword = "android"
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+            }
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
