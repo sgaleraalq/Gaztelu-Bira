@@ -1,0 +1,41 @@
+/*
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sgale.gaztelubira.core.domain.migration.model.season.match.lineup
+
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.SeasonId
+import com.sgale.gaztelubira.core.domain.model.stats.Stats
+
+/**
+ * One player in one match. Whoever was not called up has no entry at all, which
+ * is what tells "played and did nothing" apart from "was not there".
+ *
+ * It repeats [seasonId] and [playerId] so a single collection group query can
+ * answer both "the whole season" and "this player's season".
+ */
+data class MatchPlayer(
+    val playerId: PlayerId,
+    val matchId: MatchId,
+    val seasonId: SeasonId,
+    val role: PlayerRole,
+    val stats: Stats,
+    /** Shirt slot in the formation, only for those who started. */
+    val slot: Int?
+) {
+    val playedMatch: Boolean get() = role.countsAsPlayed
+}

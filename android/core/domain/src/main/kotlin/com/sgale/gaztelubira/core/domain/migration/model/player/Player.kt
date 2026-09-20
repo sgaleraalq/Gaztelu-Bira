@@ -1,0 +1,30 @@
+/*
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sgale.gaztelubira.core.domain.migration.model.player
+
+import com.sgale.gaztelubira.core.domain.migration.model.PlayerId
+
+/**
+ * Who the player is. Lives outside any season, so the same person keeps their
+ * history when the next one starts.
+ */
+data class Player(
+    val id: PlayerId,
+    val name: String,
+    val faceImage: String?,
+    val bodyImage: String?
+)
