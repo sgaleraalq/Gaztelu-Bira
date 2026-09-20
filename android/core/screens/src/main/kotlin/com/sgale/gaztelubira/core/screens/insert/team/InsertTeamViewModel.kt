@@ -22,7 +22,6 @@ import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewTeam
-import com.sgale.gaztelubira.core.domain.utils.IImageValidator
 import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
@@ -43,7 +42,6 @@ import javax.inject.Inject
 @HiltViewModel
 internal class InsertTeamViewModel @Inject constructor(
     private val insertNewTeam: InsertNewTeam,
-    private val imageValidator: IImageValidator
 ) : ViewModel() {
 
     private val initialState = InsertTeamUiState(teamId = getCurrentTimeId())
@@ -68,10 +66,10 @@ internal class InsertTeamViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            val validImage = imageValidator.isValidImage(newImage)
-            if (validImage) {
-                _state.update { it.copy(teamImage = newImage) }
-            }
+//            val validImage = imageValidator.isValidImage(newImage)
+//            if (validImage) {
+//            }
+            _state.update { it.copy(teamImage = newImage) } // TODO
         }
     }
 
@@ -114,7 +112,9 @@ internal class InsertTeamViewModel @Inject constructor(
         resetUiState()
     }
 
-    private fun resetUiState() { _state.update { initialState } }
+    private fun resetUiState() {
+        _state.update { initialState }
+    }
 
     private fun InsertTeamUiState.toTeamModel() =
         Team(

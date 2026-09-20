@@ -1,0 +1,46 @@
+rules_version = '2';
+
+/*
+ * Everyone who is logged in can read the season; only an admin writes it.
+ *
+ * "Admin" is a custom claim on the token, not a field in users/{uid}: a claim
+ * travels with the request, while a field would cost an extra read on every
+ * single operation.
+ *
+ * The seed and the dump scripts go through the Admin SDK, which bypasses these
+ * rules — deploying them does not get in the way of loading test data.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // seasons/{season} and everything under it: matches, lineup, teams, squad
+    match /seasons/{season}/{document=**} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /players/{playerId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /users/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow create, update: if request.auth.uid == uid;
+      allow delete: if false;
+    }
+
+    // Anything not named above stays closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

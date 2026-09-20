@@ -1,0 +1,29 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "lineup",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        { "fieldPath": "seasonId", "order": "ASCENDING" },
+        { "fieldPath": "playerId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "lineup",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        { "fieldPath": "seasonId", "order": "ASCENDING" },
+        { "fieldPath": "updatedAt", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "matches",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "competition.type", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

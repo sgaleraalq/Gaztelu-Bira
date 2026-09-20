@@ -1,0 +1,17 @@
+{
+  "name": "gaztelu-bira-firestore-seed",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sample season for the seasons/{season} Firestore layout",
+  "main": "seed.js",
+  "scripts": {
+    "dry-run": "node seed.js --dry-run",
+    "seed": "node seed.js",
+    "reseed": "node seed.js --clean",
+    "dump": "node dump.js",
+    "restore": "node restore.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.2"
+  }
+}

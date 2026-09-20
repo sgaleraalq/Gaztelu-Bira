@@ -1,1 +1,3 @@
 **/build
+client/firestore-seed/node_modules
+client/firestore-seed/gaztelu-bira-firebase-adminsdk-fbsvc-a63ed5c71e.json
