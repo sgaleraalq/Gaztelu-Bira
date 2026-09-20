@@ -15,6 +15,7 @@
  */
 
 import common.Constants.FIREBASE_ANALYTICS
+import common.Constants.FIREBASE_AUTH
 import common.Constants.FIREBASE_BOM
 import common.Constants.FIREBASE_CONFIG
 import common.Constants.FIREBASE_CRASHLYTICS
@@ -28,6 +29,7 @@ val libs = getVersionCatalog()
 
 val firebaseDependencies = listOf(
     FIREBASE_ANALYTICS,
+    FIREBASE_AUTH,
     FIREBASE_CRASHLYTICS,
     FIREBASE_CONFIG,
     FIREBASE_FIRESTORE,

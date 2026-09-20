@@ -17,18 +17,19 @@
 package com.sgale.gaztelubira.core.network.di
 
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
+import com.sgale.gaztelubira.core.domain.repository.IAppVersion
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
 import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
 import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
 import com.sgale.gaztelubira.core.network.R
-import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseRemoteConfig.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
+import com.sgale.gaztelubira.core.network.firebase.implementation.remote_config.RemoteConfigManager.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseUsers
 import com.sgale.gaztelubira.core.network.firebase.implementation.fetch.FirebaseFetch
+import com.sgale.gaztelubira.core.network.firebase.implementation.remote_config.RemoteConfigAppVersion
 import com.sgale.gaztelubira.core.network.firebase.implementation.insert.FirebaseInsert
 import com.sgale.gaztelubira.core.network.firebase.implementation.storage.FirebaseStorage
 import dagger.Module
@@ -59,6 +60,11 @@ internal object NetworkModule {
     @Singleton
     fun provideFirebaseUsers(firebaseUsers: FirebaseUsers): IFbUsers =
         firebaseUsers
+
+    @Provides
+    @Singleton
+    fun provideAppVersion(remoteConfigAppVersion: RemoteConfigAppVersion): IAppVersion =
+        remoteConfigAppVersion
 
     @Provides
     @Singleton

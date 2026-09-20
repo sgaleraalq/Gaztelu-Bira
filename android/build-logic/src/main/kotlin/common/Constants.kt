@@ -49,6 +49,7 @@ internal object Constants {
      */
     internal const val FIREBASE_BOM = "firebase-bom"
     internal const val FIREBASE_ANALYTICS = "firebase-analytics"
+    internal const val FIREBASE_AUTH = "firebase-auth"
     internal const val FIREBASE_CRASHLYTICS = "firebase-crashlytics"
     internal const val FIREBASE_CONFIG = "firebase-config"
     internal const val FIREBASE_FIRESTORE = "firebase-firestore"

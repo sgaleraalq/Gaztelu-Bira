@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.implementation
+
+package com.sgale.gaztelubira.core.network.firebase.implementation.remote_config
 
 import android.util.Log
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.sgale.gaztelubira.core.common.utils.TAG
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class FirebaseRemoteConfig @Inject constructor(
+internal class RemoteConfigManager @Inject constructor(
     private val remoteConfig: FirebaseRemoteConfig
 ) {
     companion object {
@@ -34,7 +36,7 @@ class FirebaseRemoteConfig @Inject constructor(
             remoteConfig.fetch(0).await()
             remoteConfig.activate().await()
         } catch (e: Exception) {
-            Log.w(FirebaseRemoteConfig::class.simpleName, "Fetch failed or throttled", e)
+            Log.w(TAG, "Fetch failed or throttled", e)
             null
         }
     }

@@ -51,7 +51,7 @@ class AppHandler @Inject constructor(
 ) : InitAppHandler {
 
     override suspend fun updateAvailable(): Boolean =
-        canAccessApp()
+        !canAccessApp()
 
     override suspend fun firstTimeInit(): Result<Boolean> =
         initAppFirstTime()

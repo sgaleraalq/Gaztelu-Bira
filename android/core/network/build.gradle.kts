@@ -32,12 +32,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.kotlinx.serialization)
 
-    /**
-     * Firebase SDKs that are only useful when called, so they are declared here rather
-     * than in the Firebase convention plugin.
-     */
-    implementation(libs.firebase.auth)
-
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
 }

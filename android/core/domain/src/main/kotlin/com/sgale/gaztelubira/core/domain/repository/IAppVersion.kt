@@ -16,6 +16,6 @@
 
 package com.sgale.gaztelubira.core.domain.repository
 
-interface IAppRepository {
-    suspend fun updateAvailable(): Boolean
+interface IAppVersion {
+    suspend fun isSupported(): Boolean
 }

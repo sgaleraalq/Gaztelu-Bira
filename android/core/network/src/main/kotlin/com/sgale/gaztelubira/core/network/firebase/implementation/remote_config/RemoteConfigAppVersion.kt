@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database
+package com.sgale.gaztelubira.core.network.firebase.implementation.remote_config
 
 import android.content.Context
-import com.sgale.gaztelubira.core.domain.repository.IAppRepository
-import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseRemoteConfig
+import com.sgale.gaztelubira.core.domain.repository.IAppVersion
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class AppRepositoryImpl @Inject constructor(
-    private val remoteConfigManager: FirebaseRemoteConfig,
+internal class RemoteConfigAppVersion @Inject constructor(
+    private val remoteConfigManager: RemoteConfigManager,
     @param:ApplicationContext private val context: Context
-) : IAppRepository {
-    override suspend fun updateAvailable(): Boolean {
+) : IAppVersion {
+    override suspend fun isSupported(): Boolean {
         remoteConfigManager.fetchAndActivate() ?: return true
 
         return getLocalVersion().zip(remoteConfigManager.getMinAppVersion())

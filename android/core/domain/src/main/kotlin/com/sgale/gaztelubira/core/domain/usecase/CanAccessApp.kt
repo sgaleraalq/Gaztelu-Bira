@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.domain.usecase
 
-import com.sgale.gaztelubira.core.domain.repository.IAppRepository
+import com.sgale.gaztelubira.core.domain.repository.IAppVersion
 import javax.inject.Inject
 
 class CanAccessApp @Inject constructor(
-    private val appRepository: IAppRepository
+    private val appVersion: IAppVersion
 ) {
-    suspend operator fun invoke() = !appRepository.updateAvailable()
+    suspend operator fun invoke() = appVersion.isSupported()
 }
