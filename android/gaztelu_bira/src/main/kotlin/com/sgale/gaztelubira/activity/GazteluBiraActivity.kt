@@ -19,31 +19,18 @@ package com.sgale.gaztelubira.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.sgale.gaztelubira.core.network.auth.ActivityBridge
-import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.core.screens.MainScreen
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class GazteluBiraActivity : ComponentActivity() {
-
-    @Inject
-    lateinit var activityBridge: ActivityBridge
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityBridge.register(this)
-
         setContent {
             GBTheme {
                 MainScreen()
             }
         }
-    }
-
-    override fun onDestroy() {
-        activityBridge.unregister(this)
-        super.onDestroy()
     }
 }

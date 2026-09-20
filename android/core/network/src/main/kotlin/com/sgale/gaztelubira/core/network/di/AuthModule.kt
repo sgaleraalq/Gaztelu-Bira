@@ -22,6 +22,7 @@ import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
 import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
 import com.sgale.gaztelubira.core.network.auth.AndroidGoogleSignIn
 import com.sgale.gaztelubira.core.network.auth.AuthRepositoryImpl
+import com.sgale.gaztelubira.core.network.auth.GoogleClientId
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,13 +36,17 @@ internal object AuthModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepository(authRepositoryImpl: AuthRepositoryImpl): IAuthRepository =
-        authRepositoryImpl
+    fun provideAuthRepository(
+        authRepositoryImpl: AuthRepositoryImpl
+    ): IAuthRepository = authRepositoryImpl
 
     @Provides
     @Singleton
-    fun provideGoogleSignIn(androidGoogleSignIn: AndroidGoogleSignIn): IGoogleSignIn =
-        androidGoogleSignIn
+    fun provideGoogleSignIn(
+        @ApplicationContext context: Context,
+        @GoogleClientId clientId: String,
+        credentialManager: CredentialManager,
+    ): IGoogleSignIn = AndroidGoogleSignIn(context, credentialManager, clientId)
 
     @Provides
     @Singleton

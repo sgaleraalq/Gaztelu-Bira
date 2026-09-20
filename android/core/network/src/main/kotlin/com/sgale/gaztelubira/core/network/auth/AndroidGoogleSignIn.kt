@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.core.network.auth
 
+import android.content.Context
 import android.util.Log
 import androidx.credentials.Credential
 import androidx.credentials.CredentialManager
@@ -40,23 +41,16 @@ import javax.inject.Inject
  * account and Firebase turns the resulting id token into a session.
  */
 internal class AndroidGoogleSignIn @Inject constructor(
-    private val activityBridge: ActivityBridge,
+    private val context: Context,
     private val credentialManager: CredentialManager,
     @param:GoogleClientId private val googleClientId: String
 ) : IGoogleSignIn {
-
     private val firebaseAuth = Firebase.auth
 
     override suspend fun signIn(): UserModel? {
-        val activity = activityBridge.current()
-        if (activity == null) {
-            Log.e(TAG, "No activity available to host the Google sign in")
-            return null
-        }
-
         return try {
             credentialManager
-                .getCredential(context = activity, request = credentialRequest())
+                .getCredential(context = context, request = credentialRequest())
                 .credential
                 .asGoogleId()
                 ?.let { googleId -> authenticate(googleId) }
