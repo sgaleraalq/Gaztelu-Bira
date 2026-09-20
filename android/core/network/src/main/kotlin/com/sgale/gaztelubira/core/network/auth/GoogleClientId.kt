@@ -14,29 +14,15 @@
  * limitations under the License.
  */
 
-plugins {
-    alias(libs.plugins.convention.library)
-    alias(libs.plugins.convention.firebase)
-    alias(libs.plugins.convention.hilt)
-    alias(libs.plugins.convention.room)
-    alias(libs.plugins.kotlin.serialization)
-}
+package com.sgale.gaztelubira.core.network.auth
 
-android {
-    namespace = "com.sgale.gaztelubira.core.database"
-}
+import javax.inject.Qualifier
+import kotlin.annotation.AnnotationRetention.BINARY
 
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-}
-
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-
-    /**
-     * Project
-     */
-    implementation(project(":core:domain"))
-    implementation(project(":core:network"))
-}
+/**
+ * The Google OAuth web client id, read from `local.properties` and surfaced through the app
+ * module's BuildConfig — this module has no BuildConfig of the app to read it from.
+ */
+@Qualifier
+@Retention(BINARY)
+annotation class GoogleClientId

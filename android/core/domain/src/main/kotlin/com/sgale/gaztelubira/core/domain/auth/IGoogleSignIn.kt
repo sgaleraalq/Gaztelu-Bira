@@ -14,29 +14,18 @@
  * limitations under the License.
  */
 
-plugins {
-    alias(libs.plugins.convention.library)
-    alias(libs.plugins.convention.firebase)
-    alias(libs.plugins.convention.hilt)
-    alias(libs.plugins.convention.room)
-    alias(libs.plugins.kotlin.serialization)
-}
+package com.sgale.gaztelubira.core.domain.auth
 
-android {
-    namespace = "com.sgale.gaztelubira.core.database"
-}
+import com.sgale.gaztelubira.core.domain.model.user.UserModel
 
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-}
-
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-
+/**
+ * Opens the platform's Google sign-in flow. Each platform brings its own way of
+ * asking the user for an account; what comes back is always a [UserModel].
+ */
+interface IGoogleSignIn {
     /**
-     * Project
+     * @return the signed-in user, or null when the user backs out or the platform
+     * cannot complete the flow.
      */
-    implementation(project(":core:domain"))
-    implementation(project(":core:network"))
+    suspend fun signIn(): UserModel?
 }

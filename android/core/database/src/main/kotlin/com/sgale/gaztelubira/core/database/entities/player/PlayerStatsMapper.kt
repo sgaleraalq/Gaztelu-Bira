@@ -14,29 +14,21 @@
  * limitations under the License.
  */
 
-plugins {
-    alias(libs.plugins.convention.library)
-    alias(libs.plugins.convention.firebase)
-    alias(libs.plugins.convention.hilt)
-    alias(libs.plugins.convention.room)
-    alias(libs.plugins.kotlin.serialization)
-}
+package com.sgale.gaztelubira.core.database.entities.player
 
-android {
-    namespace = "com.sgale.gaztelubira.core.database"
-}
+import com.sgale.gaztelubira.core.database.DatabaseMapper
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats.Companion.ERROR_PLAYER_STATS
 
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-}
+object PlayerStatsMapper :
+    DatabaseMapper<PlayerStats, PlayerStatsEntity> {
 
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
+    override fun PlayerStats.asEntity() =
+        PlayerStatsEntity(
+            id = id,
+            stats = stats
+        )
 
-    /**
-     * Project
-     */
-    implementation(project(":core:domain"))
-    implementation(project(":core:network"))
+    override fun PlayerStatsEntity.asModel() =
+        ERROR_PLAYER_STATS // TODO
 }

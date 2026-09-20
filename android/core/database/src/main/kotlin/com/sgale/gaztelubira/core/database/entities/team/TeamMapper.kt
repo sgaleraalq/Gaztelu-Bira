@@ -14,29 +14,23 @@
  * limitations under the License.
  */
 
-plugins {
-    alias(libs.plugins.convention.library)
-    alias(libs.plugins.convention.firebase)
-    alias(libs.plugins.convention.hilt)
-    alias(libs.plugins.convention.room)
-    alias(libs.plugins.kotlin.serialization)
-}
+package com.sgale.gaztelubira.core.database.entities.team
 
-android {
-    namespace = "com.sgale.gaztelubira.core.database"
-}
+import com.sgale.gaztelubira.core.database.DatabaseMapper
+import com.sgale.gaztelubira.core.domain.model.team.Team
 
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-}
+internal object TeamMapper : DatabaseMapper<Team, TeamEntity> {
+    override fun Team.asEntity() =
+        TeamEntity(
+            id = id,
+            name = name,
+            logo = logo.orEmpty()
+        )
 
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-
-    /**
-     * Project
-     */
-    implementation(project(":core:domain"))
-    implementation(project(":core:network"))
+    override fun TeamEntity.asModel() =
+        Team(
+            id = id,
+            name = name,
+            logo = logo
+        )
 }

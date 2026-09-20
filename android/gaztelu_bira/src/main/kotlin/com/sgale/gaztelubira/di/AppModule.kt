@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.di
 
 import com.sgale.gaztelubira.BuildConfig.GOOGLE_CLIENT_ID
-import com.sgale.gaztelubira.core.database.auth.GoogleClientId
+import com.sgale.gaztelubira.core.network.auth.GoogleClientId
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,10 +28,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 internal object AppModule {
 
-    /**
-     * Only the app module has the BuildConfig that carries the value, so the id is handed to
-     * the graph from here rather than read where it is used.
-     */
     @Provides
     @Singleton
     @GoogleClientId

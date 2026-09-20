@@ -14,29 +14,16 @@
  * limitations under the License.
  */
 
-plugins {
-    alias(libs.plugins.convention.library)
-    alias(libs.plugins.convention.firebase)
-    alias(libs.plugins.convention.hilt)
-    alias(libs.plugins.convention.room)
-    alias(libs.plugins.kotlin.serialization)
-}
+package com.sgale.gaztelubira.core.database.entities.team
 
-android {
-    namespace = "com.sgale.gaztelubira.core.database"
-}
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-}
-
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-
-    /**
-     * Project
-     */
-    implementation(project(":core:domain"))
-    implementation(project(":core:network"))
-}
+@Entity
+data class TeamEntity(
+    @PrimaryKey
+    val id: FirebaseId,
+    val name: String,
+    val logo: String
+)

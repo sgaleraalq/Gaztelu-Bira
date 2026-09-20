@@ -14,29 +14,14 @@
  * limitations under the License.
  */
 
-plugins {
-    alias(libs.plugins.convention.library)
-    alias(libs.plugins.convention.firebase)
-    alias(libs.plugins.convention.hilt)
-    alias(libs.plugins.convention.room)
-    alias(libs.plugins.kotlin.serialization)
-}
+package com.sgale.gaztelubira.core.database.dao
 
-android {
-    namespace = "com.sgale.gaztelubira.core.database"
-}
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import kotlinx.coroutines.flow.Flow
 
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-}
-
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-
-    /**
-     * Project
-     */
-    implementation(project(":core:domain"))
-    implementation(project(":core:network"))
+interface BaseDao <E> {
+    suspend fun insert(entity: E)
+    fun getListAsFlow(): Flow<List<E>>
+    suspend fun getItem(id: FirebaseId): E?
+    suspend fun deleteItem(id: FirebaseId)
 }

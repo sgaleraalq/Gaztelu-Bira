@@ -14,29 +14,19 @@
  * limitations under the License.
  */
 
-plugins {
-    alias(libs.plugins.convention.library)
-    alias(libs.plugins.convention.firebase)
-    alias(libs.plugins.convention.hilt)
-    alias(libs.plugins.convention.room)
-    alias(libs.plugins.kotlin.serialization)
-}
+package com.sgale.gaztelubira.core.database
 
-android {
-    namespace = "com.sgale.gaztelubira.core.database"
-}
+import android.content.Context
+import androidx.room.Room
+import kotlinx.coroutines.Dispatchers
 
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
-}
+internal const val DB_FILE_NAME = "gaztelubira.db"
 
-dependencies {
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-
-    /**
-     * Project
-     */
-    implementation(project(":core:domain"))
-    implementation(project(":core:network"))
-}
+internal fun getRoomDatabase(context: Context): GBDatabase =
+    Room.databaseBuilder(
+        context = context.applicationContext,
+        klass = GBDatabase::class.java,
+        name = DB_FILE_NAME
+    )
+        .setQueryCoroutineContext(Dispatchers.IO)
+        .build()

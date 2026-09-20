@@ -18,12 +18,12 @@ package com.sgale.gaztelubira.core.database.di
 
 import com.sgale.gaztelubira.core.database.AppHandler
 import com.sgale.gaztelubira.core.database.AppRepositoryImpl
-import com.sgale.gaztelubira.core.database.db.implementations.AbstractGBDb
-import com.sgale.gaztelubira.core.database.db.implementations.GBMatchesDb
-import com.sgale.gaztelubira.core.database.db.implementations.GBMatchesStatsDb
-import com.sgale.gaztelubira.core.database.db.implementations.GBPlayerStatsDb
-import com.sgale.gaztelubira.core.database.db.implementations.GBPlayersDb
-import com.sgale.gaztelubira.core.database.db.implementations.GBTeamsDb
+import com.sgale.gaztelubira.core.database.implementations.AbstractGBDb
+import com.sgale.gaztelubira.core.database.implementations.GBMatchesDb
+import com.sgale.gaztelubira.core.database.implementations.GBMatchesStatsDb
+import com.sgale.gaztelubira.core.database.implementations.GBPlayerStatsDb
+import com.sgale.gaztelubira.core.database.implementations.GBPlayersDb
+import com.sgale.gaztelubira.core.database.implementations.GBTeamsDb
 import com.sgale.gaztelubira.core.database.preferences.GBSettings
 import com.sgale.gaztelubira.core.domain.repository.IAppRepository
 import com.sgale.gaztelubira.core.domain.repository.InitAppHandler

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.di
+package com.sgale.gaztelubira.core.network.di
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
-import com.sgale.gaztelubira.core.database.GBDatabase
-import com.sgale.gaztelubira.core.database.getRoomDatabase
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences.Companion.SHARED_PREFS_NAME
+import androidx.credentials.CredentialManager
+import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
+import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
+import com.sgale.gaztelubira.core.network.auth.AndroidGoogleSignIn
+import com.sgale.gaztelubira.core.network.auth.AuthRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,17 +31,21 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object DatabaseModule {
+internal object AuthModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(
-        @ApplicationContext context: Context
-    ): GBDatabase = getRoomDatabase(context)
+    fun provideAuthRepository(authRepositoryImpl: AuthRepositoryImpl): IAuthRepository =
+        authRepositoryImpl
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(
+    fun provideGoogleSignIn(androidGoogleSignIn: AndroidGoogleSignIn): IGoogleSignIn =
+        androidGoogleSignIn
+
+    @Provides
+    @Singleton
+    fun provideCredentialManager(
         @ApplicationContext context: Context
-    ): SharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE)
+    ): CredentialManager = CredentialManager.create(context)
 }

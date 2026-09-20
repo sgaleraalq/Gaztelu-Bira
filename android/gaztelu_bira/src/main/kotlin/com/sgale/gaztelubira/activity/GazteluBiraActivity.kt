@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.sgale.gaztelubira.core.database.auth.ActivityBridge
+import com.sgale.gaztelubira.core.network.auth.ActivityBridge
 import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.core.screens.MainScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +33,7 @@ class GazteluBiraActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityBridge.setActivity(this)
+        activityBridge.register(this)
 
         setContent {
             GBTheme {
@@ -43,7 +43,7 @@ class GazteluBiraActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
-        activityBridge.clear()
+        activityBridge.unregister(this)
         super.onDestroy()
     }
 }
