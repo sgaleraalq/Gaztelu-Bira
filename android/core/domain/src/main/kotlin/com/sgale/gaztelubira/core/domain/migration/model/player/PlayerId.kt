@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.season.squad
+package com.sgale.gaztelubira.core.domain.migration.model.player
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.FirebaseId
 
-data class SeasonPlayer(
-    val id: PlayerId,
-    val dorsal: Int?,
-    val position: Position
-)
+@JvmInline
+value class PlayerId(
+    override val value: String
+) : FirebaseId {
+    override fun toString() = value
+}

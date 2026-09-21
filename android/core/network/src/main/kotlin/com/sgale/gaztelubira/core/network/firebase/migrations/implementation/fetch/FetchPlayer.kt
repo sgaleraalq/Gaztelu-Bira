@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.response.migrations
+package com.sgale.gaztelubira.core.network.firebase.migrations.implementation.fetch
 
-import com.sgale.gaztelubira.core.domain.migration.model.FirebaseId
-
-/**
- * Maps every object to each layer of the application
- * @param Model Domain layer representation
- * @param Response Data Response layer representation
- */
-internal interface NetworkMapper <Model, Response> {
-    fun Model.asResponse(): Response
-    fun Response.asModel(id: FirebaseId): Model
-}
+internal class FetchPlayer

@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.season.squad
+package com.sgale.gaztelubira.core.network.firebase.migrations.response
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.FirebaseId
 
-data class SeasonPlayer(
-    val id: PlayerId,
-    val dorsal: Int?,
-    val position: Position
-)
+/**
+ * Maps every object to each layer of the application
+ * @param Model Domain layer representation
+ * @param Response Data Response layer representation
+ * @param Id The id of that model, so each mapper takes its own and no one has
+ * to turn a general [FirebaseId] into the one it actually needs
+ */
+internal interface NetworkMapper <Model, Response, Id: FirebaseId> {
+    fun Model.asResponse(): Response
+    fun Response.asModel(id: Id): Model
+}

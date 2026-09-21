@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.response.migrations.user
+package com.sgale.gaztelubira.core.network.firebase.migrations
 
-internal data class UserResponse(
-    val id: String = "",
-    val email: String = "",
-    val img: String? = null,
-    val name: String = "",
-    val role: String = ""
-)
+internal object FirebaseConstants {
+    internal const val PLAYERS = "players"
+}

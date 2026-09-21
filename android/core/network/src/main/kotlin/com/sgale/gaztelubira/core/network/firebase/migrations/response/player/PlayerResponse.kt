@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.response.migrations.player
+package com.sgale.gaztelubira.core.network.firebase.migrations.response.player
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
 
+@Keep
 internal data class PlayerResponse(
-    val bodyImage: String = "",
-    val faceImage: String = "",
     val name: String = "",
-    val updatedAt: Timestamp? = null
+    val faceImage: String? = null,
+    val bodyImage: String? = null,
+    @ServerTimestamp val updatedAt: Timestamp? = null
 )

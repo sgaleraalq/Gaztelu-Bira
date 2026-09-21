@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.season.squad
+package com.sgale.gaztelubira.core.network.firebase.migrations.response.user
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.model.player.Position
-
-data class SeasonPlayer(
-    val id: PlayerId,
-    val dorsal: Int?,
-    val position: Position
+internal data class UserResponse(
+    val id: String = "",
+    val email: String = "",
+    val img: String? = null,
+    val name: String = "",
+    val role: String = ""
 )

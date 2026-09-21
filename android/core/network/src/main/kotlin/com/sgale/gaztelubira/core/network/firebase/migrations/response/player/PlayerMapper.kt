@@ -14,28 +14,25 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.response.migrations.player
+package com.sgale.gaztelubira.core.network.firebase.migrations.response.player
 
-import com.google.firebase.Timestamp
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.network.firebase.response.migrations.NetworkMapper
-import java.util.Date
+import com.sgale.gaztelubira.core.network.firebase.migrations.response.NetworkMapper
 
-internal object PlayerMapper: NetworkMapper<Player, PlayerResponse> {
+internal object PlayerMapper : NetworkMapper<Player, PlayerResponse, PlayerId> {
     override fun Player.asResponse() =
         PlayerResponse(
             name = name,
-            bodyImage = bodyImage.orEmpty(),
-            faceImage = faceImage.orEmpty(),
-            updatedAt = Timestamp(Date())
+            faceImage = faceImage,
+            bodyImage = bodyImage
         )
 
     override fun PlayerResponse.asModel(id: PlayerId) =
         Player(
             id = id,
             name = name,
-            bodyImage = bodyImage,
-            faceImage = faceImage
+            faceImage = faceImage,
+            bodyImage = bodyImage
         )
 }
