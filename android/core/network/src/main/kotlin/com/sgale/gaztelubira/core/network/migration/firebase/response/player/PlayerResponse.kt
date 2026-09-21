@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.migrations
+package com.sgale.gaztelubira.core.network.migration.firebase.response.player
 
-internal object FirebaseConstants {
-    internal const val PLAYERS = "players"
-}
+import androidx.annotation.Keep
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
+
+@Keep
+internal data class PlayerResponse(
+    val name: String = "",
+    val faceImage: String? = null,
+    val bodyImage: String? = null,
+    @ServerTimestamp val updatedAt: Timestamp? = null
+)

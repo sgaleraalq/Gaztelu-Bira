@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.migrations.response
+package com.sgale.gaztelubira.core.network.migration.firebase.response.user
 
-import com.sgale.gaztelubira.core.domain.migration.model.FirebaseId
-
-/**
- * Maps every object to each layer of the application
- * @param Model Domain layer representation
- * @param Response Data Response layer representation
- * @param Id The id of that model, so each mapper takes its own and no one has
- * to turn a general [FirebaseId] into the one it actually needs
- */
-internal interface NetworkMapper <Model, Response, Id: FirebaseId> {
-    fun Model.asResponse(): Response
-    fun Response.asModel(id: Id): Model
-}
+internal data class UserResponse(
+    val id: String = "",
+    val email: String = "",
+    val img: String? = null,
+    val name: String = "",
+    val role: String = ""
+)

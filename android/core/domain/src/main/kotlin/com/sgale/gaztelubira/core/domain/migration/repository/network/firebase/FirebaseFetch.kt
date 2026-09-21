@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.migrations.implementation.fetch
+package com.sgale.gaztelubira.core.domain.migration.repository.network.firebase
 
-internal class FetchPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+
+interface FirebaseFetch {
+    suspend fun fetchPlayer(id: PlayerId): Player?
+    suspend fun fetchPlayers(): List<Player>
+}

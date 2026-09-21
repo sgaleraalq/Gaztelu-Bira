@@ -14,22 +14,24 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.migrations.implementation.fetch
+package com.sgale.gaztelubira.core.network.migration.firebase.implementation.fetch
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.network.firebase.migrations.FirebaseConstants.PLAYERS
-import com.sgale.gaztelubira.core.network.firebase.migrations.response.player.PlayerMapper.asModel
-import com.sgale.gaztelubira.core.network.firebase.migrations.response.player.PlayerResponse
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants
+import com.sgale.gaztelubira.core.network.migration.firebase.response.player.PlayerMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.response.player.PlayerResponse
 import kotlinx.coroutines.tasks.await
 
-internal class FetchPlayers(
+internal class FetchPlayer(
     private val firestore: FirebaseFirestore
 ) {
-    suspend operator fun invoke(): List<Player> =
-        firestore.collectionGroup(PLAYERS)
+    suspend operator fun invoke(id: PlayerId): Player? =
+        firestore.collection(FirebaseConstants.PLAYERS)
+            .document(id.value)
             .get()
             .await()
-            .toObjects(PlayerResponse::class.java)
-            .map { it.asModel() }
+            .toObject(PlayerResponse::class.java)
+            ?.asModel(id)
 }

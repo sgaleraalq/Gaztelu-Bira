@@ -16,7 +16,6 @@
 
 package com.sgale.gaztelubira.core.database.di
 
-import com.sgale.gaztelubira.core.database.AppHandler
 import com.sgale.gaztelubira.core.database.implementations.AbstractGBDb
 import com.sgale.gaztelubira.core.database.implementations.GBMatchesDb
 import com.sgale.gaztelubira.core.database.implementations.GBMatchesStatsDb
@@ -24,7 +23,6 @@ import com.sgale.gaztelubira.core.database.implementations.GBPlayerStatsDb
 import com.sgale.gaztelubira.core.database.implementations.GBPlayersDb
 import com.sgale.gaztelubira.core.database.implementations.GBTeamsDb
 import com.sgale.gaztelubira.core.database.preferences.GBSettings
-import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
 import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesStatsDb
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
@@ -72,10 +70,10 @@ internal interface DataModule {
     @Singleton
     fun bindPreferences(gbSettings: GBSettings): IGBPreferences
 
-    /**
-     * App
-     */
-    @Binds
-    @Singleton
-    fun bindInitAppHandler(appHandler: AppHandler): InitAppHandler
+//    /**
+//     * App
+//     */
+//    @Binds
+//    @Singleton
+//    fun bindInitAppHandler(appHandler: AppHandler): InitAppHandler
 }

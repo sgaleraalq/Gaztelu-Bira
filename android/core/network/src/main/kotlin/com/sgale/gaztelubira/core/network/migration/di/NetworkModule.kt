@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.di
+package com.sgale.gaztelubira.core.network.migration.di
 
-import com.sgale.gaztelubira.BuildConfig.GOOGLE_CLIENT_ID
-import com.sgale.gaztelubira.activity.FirstTime
-import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
-import com.sgale.gaztelubira.core.network.auth.GoogleClientId
+import com.google.firebase.sessions.dagger.Provides
+import com.sgale.gaztelubira.core.domain.migration.repository.network.firebase.FirebaseFetch
+import com.sgale.gaztelubira.core.network.migration.firebase.implementation.fetch.FetchImplementation
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object AppModule {
-
+internal object NetworkModule {
     @Provides
     @Singleton
-    @GoogleClientId
-    fun provideGoogleClientId(): String = GOOGLE_CLIENT_ID
-
-    @Provides
-    @Singleton
-    fun provideAppHandler(firstTime: FirstTime): InitAppHandler = firstTime
+    internal fun provideFirebaseFetch(
+        fetchImplementation: FetchImplementation
+    ): FirebaseFetch = fetchImplementation
 }

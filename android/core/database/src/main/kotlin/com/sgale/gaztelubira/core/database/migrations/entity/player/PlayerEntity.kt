@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.migrations.response.user
+package com.sgale.gaztelubira.core.database.migrations.entity.player
 
-internal data class UserResponse(
-    val id: String = "",
-    val email: String = "",
-    val img: String? = null,
-    val name: String = "",
-    val role: String = ""
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+
+@Entity
+data class PlayerEntity(
+    @PrimaryKey
+    val id: PlayerId,
+    val name: String,
+    val faceImage: String?,
+    val bodyImage: String?
 )

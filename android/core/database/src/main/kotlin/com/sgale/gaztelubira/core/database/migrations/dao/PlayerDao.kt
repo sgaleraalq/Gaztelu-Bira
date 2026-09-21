@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.firebase.migrations.response.player
+package com.sgale.gaztelubira.core.database.migrations.dao
 
-import androidx.annotation.Keep
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.ServerTimestamp
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy.Companion.REPLACE
+import com.sgale.gaztelubira.core.database.migrations.entity.player.PlayerEntity
 
-@Keep
-internal data class PlayerResponse(
-    val name: String = "",
-    val faceImage: String? = null,
-    val bodyImage: String? = null,
-    @ServerTimestamp val updatedAt: Timestamp? = null
-)
+@Dao
+internal interface PlayerDao {
+    @Insert(onConflict = REPLACE)
+    suspend fun insertPlayer(entity: PlayerEntity)
+
+    @Insert
+    suspend fun insertPlayers(entity: List<PlayerEntity>)
+}
