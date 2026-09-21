@@ -25,6 +25,6 @@ import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerEntity
     entities = [PlayerEntity::class],
     version = 1
 )
-internal abstract class Database : RoomDatabase() {
+internal abstract class GazteluDatabase : RoomDatabase() {
     abstract fun getPlayerDao(): PlayerDao
 }

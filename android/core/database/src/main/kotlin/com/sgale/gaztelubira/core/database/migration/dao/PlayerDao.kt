@@ -26,6 +26,6 @@ internal interface PlayerDao {
     @Insert(onConflict = REPLACE)
     suspend fun insertPlayer(entity: PlayerEntity)
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     suspend fun insertPlayers(entity: List<PlayerEntity>)
 }
