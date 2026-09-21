@@ -1,12 +1,12 @@
 /*
- * Designed and developed by 2026 sgaleraalq (Sergio Galera)
- *
+ * Designed and developed by 2026 sgale (Sergio Galera)
+ *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ *  
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ *  
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.sgale.gaztelubira.core.database.migration.player.PlayerDao
 import com.sgale.gaztelubira.core.database.migration.player.PlayerEntity
+import com.sgale.gaztelubira.core.database.migration.season.SeasonDao
 
 @Database(
     entities = [PlayerEntity::class],
@@ -27,4 +28,5 @@ import com.sgale.gaztelubira.core.database.migration.player.PlayerEntity
 )
 internal abstract class GazteluDatabase : RoomDatabase() {
     abstract fun getPlayerDao(): PlayerDao
+    abstract fun getSeasonDao(): SeasonDao
 }

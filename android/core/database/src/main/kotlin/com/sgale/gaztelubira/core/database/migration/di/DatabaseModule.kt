@@ -1,12 +1,12 @@
 /*
- * Designed and developed by 2026 sgaleraalq (Sergio Galera)
- *
+ * Designed and developed by 2026 sgale (Sergio Galera)
+ *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ *  
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ *  
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,9 +20,10 @@ import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.sgale.gaztelubira.core.database.migration.GazteluDatabase
-import com.sgale.gaztelubira.core.database.migration.player.PlayerDao
 import com.sgale.gaztelubira.core.database.migration.player.RoomPlayers
+import com.sgale.gaztelubira.core.database.migration.season.RoomSeasons
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,7 +36,6 @@ private const val GAZTELU_DB = "gaztelu_bira_database"
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DatabaseModule {
-
     @Provides
     @Singleton
     fun provideDatabase(
@@ -47,13 +47,13 @@ internal object DatabaseModule {
 
     @Provides
     @Singleton
-    fun providePlayerDao(
-        database: GazteluDatabase
-    ): PlayerDao = database.getPlayerDao()
-
-    @Provides
-    @Singleton
     fun providePlayerLocal(
         roomPlayers: RoomPlayers
     ): PlayerLocal = roomPlayers
+
+    @Provides
+    @Singleton
+    fun provideSeasonLocal(
+        roomSeasons: RoomSeasons
+    ): SeasonLocal = roomSeasons
 }

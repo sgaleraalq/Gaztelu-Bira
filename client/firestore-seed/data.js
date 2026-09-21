@@ -5,12 +5,12 @@
  * checked without touching Firebase at all. `seed.js` is what writes it.
  */
 
-var SEASON_ID = '2026_2027'
+var SEASON_ID = '2027_2028'
 var APP_TEAM = 'gaztelu_bira'
 
 var SEASON = {
-  name: 'Temporada 2026-2027',
-  startsAt: new Date('2026-08-01T00:00:00Z'),
+  name: 'Temporada 2027-2028',
+  startsAt: new Date('2027-08-01T00:00:00Z'),
   endsAt: new Date('2027-06-30T00:00:00Z'),
   isCurrent: true
 }
