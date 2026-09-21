@@ -18,13 +18,24 @@ package com.sgale.gaztelubira.core.database.migration.implementation
 
 import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
 import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerMapper.asEntity
+import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
 import javax.inject.Inject
 
 internal class DatabaseImplementation @Inject constructor(
     private val playerDao: PlayerDao
 ) : GBDatabase {
+    override suspend fun getPlayer(player: PlayerId): Player =
+        playerDao.getPlayer(player).asModel()
+
+    override suspend fun getPlayers(): List<Player> =
+        playerDao.getPlayers().map { it.asModel() }
+
+    override suspend fun insertPlayer(player: Player) =
+        playerDao.insertPlayer(player.asEntity())
+
     override suspend fun insertPlayers(players: List<Player>) =
         playerDao.insertPlayers(players.map { it.asEntity() })
 }

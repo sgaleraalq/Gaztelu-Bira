@@ -18,28 +18,23 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
-import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
-import com.sgale.gaztelubira.core.preview.PlayerProvider.providePlayerInformationList
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 internal class TeamViewModel @Inject constructor(
-    private val getPlayers: GetPlayers
+    private val database: GBDatabase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TeamUiState())
@@ -47,31 +42,21 @@ internal class TeamViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val testFlow =
-                if (TESTING) flowOf(providePlayerInformationList()) else flowOf(emptyList())
-
-            getPlayers()
-                .combine(testFlow) { real, test -> real + test }
-                .flowOn(Dispatchers.IO)
-                .collect { squad -> _state.update { it.withSquad(squad) } }
+            val players = withContext(Dispatchers.IO) {
+                database.getPlayers().map { it.asGBPlayer() }
+            }
+            _state.update { it.copy(players = players) }
         }
     }
 
     internal fun onAdminChanged(isAdmin: Boolean) {
         _state.update { it.copy(isAdmin = isAdmin) }
     }
-}
 
-private fun TeamUiState.withSquad(squad: List<Player>): TeamUiState {
-    val (managers, players) = squad.partition { it.position == MANAGER }
-
-    return copy(
-        players = players
-            .filter { it.dorsal != null }
-            .sortedBy { it.dorsal }
-            .map { player -> player.toGBPlayer() },
-        managers = managers
-            .sortedBy { it.name }
-            .map { player -> player.toGBPlayer() }
-    )
+    private fun Player.asGBPlayer() =
+        GBPlayer(
+            id = id.value,
+            name = name,
+            image = faceImage
+        )
 }

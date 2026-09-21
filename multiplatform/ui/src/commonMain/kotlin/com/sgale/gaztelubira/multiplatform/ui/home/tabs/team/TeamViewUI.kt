@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab.InsertPlayer
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab.PlayerDetail
@@ -81,6 +82,7 @@ fun TeamPlayerList(
             GBPlayerCard(
                 modifier = Modifier.size(100.dp),
                 player = player,
+                placeholder = AppImages.facePlayer,
                 onPlayerClicked = { onPlayerClicked(player.id) }
             )
         }

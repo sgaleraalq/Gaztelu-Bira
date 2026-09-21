@@ -17,7 +17,11 @@
 package com.sgale.gaztelubira.core.domain.migration.repository.database
 
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
 interface GBDatabase {
+    suspend fun getPlayer(player: PlayerId): Player
+    suspend fun getPlayers(): List<Player>
+    suspend fun insertPlayer(player: Player)
     suspend fun insertPlayers(players: List<Player>)
 }
