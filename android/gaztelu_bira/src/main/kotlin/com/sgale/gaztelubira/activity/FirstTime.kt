@@ -32,6 +32,7 @@ internal class FirstTime @Inject constructor(
 
     override suspend fun firstTimeInit(): Result<Boolean> = runCatching {
         val players = firebaseFetch.fetchPlayers()
+        gbDatabase.insertPlayers(players)
         Log.i(TAG, "These are the players: $players")
         true
     }

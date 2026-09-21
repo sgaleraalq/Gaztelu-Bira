@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.network.migration.di
 
-import com.google.firebase.sessions.dagger.Provides
 import com.sgale.gaztelubira.core.domain.migration.repository.network.firebase.FirebaseFetch
 import com.sgale.gaztelubira.core.network.migration.firebase.implementation.fetch.FetchImplementation
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton

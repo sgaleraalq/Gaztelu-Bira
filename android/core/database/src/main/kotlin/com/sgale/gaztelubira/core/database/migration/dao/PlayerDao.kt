@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migrations
+package com.sgale.gaztelubira.core.database.migration.dao
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.sgale.gaztelubira.core.database.migrations.dao.PlayerDao
-import com.sgale.gaztelubira.core.database.migrations.entity.player.PlayerEntity
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy.Companion.REPLACE
+import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerEntity
 
-@Database(
-    entities = [PlayerEntity::class],
-    version = 1
-)
-internal abstract class Database : RoomDatabase() {
-    abstract fun getPlayerDao(): PlayerDao
+@Dao
+internal interface PlayerDao {
+    @Insert(onConflict = REPLACE)
+    suspend fun insertPlayer(entity: PlayerEntity)
+
+    @Insert
+    suspend fun insertPlayers(entity: List<PlayerEntity>)
 }

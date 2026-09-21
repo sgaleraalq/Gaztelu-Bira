@@ -14,10 +14,25 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.database
+package com.sgale.gaztelubira.core.database.migration.entity.player
 
+import com.sgale.gaztelubira.core.database.migration.DatabaseMapper
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 
-interface GBDatabase {
-    suspend fun insertPlayers(players: List<Player>)
+internal object PlayerMapper : DatabaseMapper<Player, PlayerEntity> {
+    override fun Player.asEntity() =
+        PlayerEntity(
+            id = id,
+            name = name,
+            faceImage = faceImage,
+            bodyImage = bodyImage
+        )
+
+    override fun PlayerEntity.asModel() =
+        Player(
+            id = id,
+            name = name,
+            faceImage = faceImage,
+            bodyImage = bodyImage
+        )
 }

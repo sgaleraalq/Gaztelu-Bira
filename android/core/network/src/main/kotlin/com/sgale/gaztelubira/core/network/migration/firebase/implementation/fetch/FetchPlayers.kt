@@ -23,8 +23,9 @@ import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants
 import com.sgale.gaztelubira.core.network.migration.firebase.response.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.response.player.PlayerResponse
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-internal class FetchPlayers(
+internal class FetchPlayers @Inject constructor(
     private val firestore: FirebaseFirestore
 ) {
     suspend operator fun invoke(): List<Player> =

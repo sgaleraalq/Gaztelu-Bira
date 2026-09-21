@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migrations.dao
+package com.sgale.gaztelubira.core.database.migration.entity.player
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.Companion.REPLACE
-import com.sgale.gaztelubira.core.database.migrations.entity.player.PlayerEntity
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
-@Dao
-internal interface PlayerDao {
-    @Insert(onConflict = REPLACE)
-    suspend fun insertPlayer(entity: PlayerEntity)
-
-    @Insert
-    suspend fun insertPlayers(entity: List<PlayerEntity>)
-}
+@Entity
+data class PlayerEntity(
+    @PrimaryKey
+    val id: PlayerId,
+    val name: String,
+    val faceImage: String?,
+    val bodyImage: String?
+)

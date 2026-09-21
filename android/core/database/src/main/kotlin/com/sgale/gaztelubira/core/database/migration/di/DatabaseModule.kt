@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migrations.di
+package com.sgale.gaztelubira.core.database.migration.di
 
 import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
-import com.sgale.gaztelubira.core.database.migrations.Database
-import com.sgale.gaztelubira.core.database.migrations.implementation.DatabaseImplementation
+import com.sgale.gaztelubira.core.database.migration.Database
+import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
+import com.sgale.gaztelubira.core.database.migration.implementation.DatabaseImplementation
 import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
 import dagger.Module
 import dagger.Provides
@@ -42,6 +43,16 @@ internal object DatabaseModule {
         Room.databaseBuilder<Database>(context, GAZTELU_DB)
             .setDriver(AndroidSQLiteDriver())
             .build()
+
+    /**
+     * A Room DAO has no constructor of its own: it only exists as part of the
+     * database, so the graph has to be told where to ask for it.
+     */
+    @Provides
+    @Singleton
+    internal fun providePlayerDao(
+        database: Database
+    ): PlayerDao = database.getPlayerDao()
 
     @Provides
     @Singleton

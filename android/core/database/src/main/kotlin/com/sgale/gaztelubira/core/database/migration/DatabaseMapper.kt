@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migrations.entity.player
+package com.sgale.gaztelubira.core.database.migration
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-
-@Entity
-data class PlayerEntity(
-    @PrimaryKey
-    val id: PlayerId,
-    val name: String,
-    val faceImage: String?,
-    val bodyImage: String?
-)
+/**
+ * Maps every object to each layer of the application
+ * @param Model Domain layer representation
+ * @param Entity Cache layer representation
+ */
+internal interface DatabaseMapper <Model, Entity> {
+    fun Model.asEntity(): Entity
+    fun Entity.asModel(): Model
+}

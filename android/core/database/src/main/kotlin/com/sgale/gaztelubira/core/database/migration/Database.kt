@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migrations.implementation
+package com.sgale.gaztelubira.core.database.migration
 
-import com.sgale.gaztelubira.core.database.migrations.Database
-import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
-import javax.inject.Inject
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
+import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerEntity
 
-internal class DatabaseImplementation @Inject constructor(
-    private val db: Database
-): GBDatabase {
-    override suspend fun insertPlayers() = Unit // TODO
+@Database(
+    entities = [PlayerEntity::class],
+    version = 1
+)
+internal abstract class Database : RoomDatabase() {
+    abstract fun getPlayerDao(): PlayerDao
 }

@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.database
+package com.sgale.gaztelubira.core.database.migration.implementation
 
+import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
+import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerMapper.asEntity
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
+import javax.inject.Inject
 
-interface GBDatabase {
-    suspend fun insertPlayers(players: List<Player>)
+internal class DatabaseImplementation @Inject constructor(
+    private val playerDao: PlayerDao
+) : GBDatabase {
+    override suspend fun insertPlayers(players: List<Player>) =
+        playerDao.insertPlayers(players.map { it.asEntity() })
 }
