@@ -18,21 +18,21 @@ package com.sgale.gaztelubira.activity
 
 import android.util.Log
 import com.sgale.gaztelubira.core.common.utils.TAG
-import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
-import com.sgale.gaztelubira.core.domain.migration.repository.network.firebase.FirebaseFetch
+import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
 import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
 import javax.inject.Inject
 
 internal class FirstTime @Inject constructor(
-    private val gbDatabase: GBDatabase,
-    private val firebaseFetch: FirebaseFetch
+    private val playerRemote: PlayerRemote,
+    private val playerLocal: PlayerLocal
 ): InitAppHandler {
     override suspend fun updateAvailable(): Boolean =
         false
 
     override suspend fun firstTimeInit(): Result<Boolean> = runCatching {
-        val players = firebaseFetch.fetchPlayers()
-        gbDatabase.insertPlayers(players)
+        val players = playerRemote.fetchPlayers()
+        playerLocal.insertPlayers(players)
         Log.i(TAG, "These are the players: $players")
         true
     }

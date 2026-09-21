@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migration.entity.player
+package com.sgale.gaztelubira.core.domain.migration.repository.player
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
-@Entity
-data class PlayerEntity(
-    @PrimaryKey
-    val id: PlayerId,
-    val name: String,
-    val faceImage: String?,
-    val bodyImage: String?
-)
+interface PlayerLocal {
+    /** @return null when that player has not been stored yet. */
+    suspend fun getPlayer(id: PlayerId): Player?
+
+    suspend fun getPlayers(): List<Player>
+
+    suspend fun insertPlayer(player: Player)
+
+    suspend fun insertPlayers(players: List<Player>)
+}

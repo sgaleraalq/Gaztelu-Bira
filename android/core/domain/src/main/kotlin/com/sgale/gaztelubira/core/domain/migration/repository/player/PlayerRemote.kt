@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.implementation.fetch
+package com.sgale.gaztelubira.core.domain.migration.repository.player
 
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.repository.network.firebase.FirebaseFetch
-import javax.inject.Inject
 
-internal class FetchImplementation @Inject constructor(
-    private val player: FetchPlayer,
-    private val players: FetchPlayers
-): FirebaseFetch {
-    override suspend fun fetchPlayer(id: PlayerId): Player? =
-        player(id)
+/**
+ * Players as they live in the remote source. Kept apart from [PlayerLocal]
+ * because a local-first app decides on purpose where it reads and where it
+ * writes — that decision belongs to the use case, not to a repository that
+ * hides both.
+ */
+interface PlayerRemote {
+    /** @return null when no player has that id. */
+    suspend fun fetchPlayer(id: PlayerId): Player?
 
-    override suspend fun fetchPlayers(): List<Player> =
-        players()
+    suspend fun fetchPlayers(): List<Player>
 }

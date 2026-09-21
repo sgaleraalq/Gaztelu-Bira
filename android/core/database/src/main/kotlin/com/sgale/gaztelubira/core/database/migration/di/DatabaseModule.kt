@@ -20,9 +20,9 @@ import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.sgale.gaztelubira.core.database.migration.GazteluDatabase
-import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
-import com.sgale.gaztelubira.core.database.migration.implementation.DatabaseImplementation
-import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
+import com.sgale.gaztelubira.core.database.migration.player.PlayerDao
+import com.sgale.gaztelubira.core.database.migration.player.RoomPlayers
+import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,9 +35,10 @@ private const val GAZTELU_DB = "gaztelu_bira_database"
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DatabaseModule {
+
     @Provides
     @Singleton
-    internal fun provideDatabase(
+    fun provideDatabase(
         @ApplicationContext context: Context
     ): GazteluDatabase =
         Room.databaseBuilder<GazteluDatabase>(context, GAZTELU_DB)
@@ -46,13 +47,13 @@ internal object DatabaseModule {
 
     @Provides
     @Singleton
-    internal fun providePlayerDao(
+    fun providePlayerDao(
         database: GazteluDatabase
     ): PlayerDao = database.getPlayerDao()
 
     @Provides
     @Singleton
-    internal fun provideGBDatabase(
-        dbImplementation: DatabaseImplementation
-    ): GBDatabase = dbImplementation
+    fun providePlayerLocal(
+        roomPlayers: RoomPlayers
+    ): PlayerLocal = roomPlayers
 }

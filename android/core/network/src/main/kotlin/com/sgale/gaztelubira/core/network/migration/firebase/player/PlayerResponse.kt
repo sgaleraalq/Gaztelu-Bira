@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.network.firebase
+package com.sgale.gaztelubira.core.network.migration.firebase.player
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import androidx.annotation.Keep
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
 
-interface FirebaseFetch {
-    suspend fun fetchPlayer(id: PlayerId): Player?
-    suspend fun fetchPlayers(): List<Player>
-}
+@Keep
+internal data class PlayerResponse(
+    val name: String = "",
+    val faceImage: String? = null,
+    val bodyImage: String? = null,
+    @ServerTimestamp val updatedAt: Timestamp? = null
+)

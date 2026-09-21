@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migration.implementation
+package com.sgale.gaztelubira.core.database.migration.player
 
-import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
-import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerMapper.asEntity
-import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerMapper.asModel
+import com.sgale.gaztelubira.core.database.migration.player.PlayerMapper.asEntity
+import com.sgale.gaztelubira.core.database.migration.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
+import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
 import javax.inject.Inject
 
-internal class DatabaseImplementation @Inject constructor(
+internal class RoomPlayers @Inject constructor(
     private val playerDao: PlayerDao
-) : GBDatabase {
-    override suspend fun getPlayer(player: PlayerId): Player =
-        playerDao.getPlayer(player).asModel()
+) : PlayerLocal {
+
+    override suspend fun getPlayer(id: PlayerId): Player? =
+        playerDao.getPlayer(id)?.asModel()
 
     override suspend fun getPlayers(): List<Player> =
         playerDao.getPlayers().map { it.asModel() }

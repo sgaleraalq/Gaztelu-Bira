@@ -14,14 +14,25 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.database
+package com.sgale.gaztelubira.core.database.migration.player
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy.Companion.REPLACE
+import androidx.room.Query
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
-interface GBDatabase {
-    suspend fun getPlayer(player: PlayerId): Player
-    suspend fun getPlayers(): List<Player>
-    suspend fun insertPlayer(player: Player)
-    suspend fun insertPlayers(players: List<Player>)
+@Dao
+internal interface PlayerDao {
+    @Query("SELECT * FROM PlayerEntity WHERE id = :id")
+    suspend fun getPlayer(id: PlayerId): PlayerEntity?
+
+    @Query("SELECT * FROM PlayerEntity")
+    suspend fun getPlayers(): List<PlayerEntity>
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertPlayer(entity: PlayerEntity)
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertPlayers(entity: List<PlayerEntity>)
 }

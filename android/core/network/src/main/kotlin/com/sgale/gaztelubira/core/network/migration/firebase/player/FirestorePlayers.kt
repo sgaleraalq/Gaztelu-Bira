@@ -14,25 +14,39 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.implementation.fetch
+package com.sgale.gaztelubira.core.network.migration.firebase.player
 
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants
-import com.sgale.gaztelubira.core.network.migration.firebase.response.player.PlayerMapper.asModel
-import com.sgale.gaztelubira.core.network.migration.firebase.response.player.PlayerResponse
+import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
+import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.PLAYERS
+import com.sgale.gaztelubira.core.network.migration.firebase.player.PlayerMapper.asModel
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-internal class FetchPlayer @Inject constructor(
+internal class FirestorePlayers @Inject constructor(
     private val firestore: FirebaseFirestore
-) {
-    suspend operator fun invoke(id: PlayerId): Player? =
-        firestore.collection(FirebaseConstants.PLAYERS)
+) : PlayerRemote {
+
+    override suspend fun fetchPlayer(id: PlayerId): Player? =
+        players()
             .document(id.value)
             .get()
             .await()
             .toObject(PlayerResponse::class.java)
             ?.asModel(id)
+
+    override suspend fun fetchPlayers(): List<Player> =
+        players()
+            .get()
+            .await()
+            .documents
+            .mapNotNull { document ->
+                document.toObject(PlayerResponse::class.java)
+                    ?.asModel(PlayerId(document.id))
+            }
+
+    private fun players(): CollectionReference = firestore.collection(PLAYERS)
 }

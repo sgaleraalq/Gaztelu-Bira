@@ -19,22 +19,20 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.repository.database.GBDatabase
+import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 internal class TeamViewModel @Inject constructor(
-    private val database: GBDatabase
+    private val playerLocal: PlayerLocal
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TeamUiState())
@@ -42,9 +40,7 @@ internal class TeamViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val players = withContext(Dispatchers.IO) {
-                database.getPlayers().map { it.asGBPlayer() }
-            }
+            val players = playerLocal.getPlayers().map { it.asGBPlayer() }
             _state.update { it.copy(players = players) }
         }
     }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migration.entity.player
+package com.sgale.gaztelubira.core.database.migration.player
 
 import com.sgale.gaztelubira.core.database.migration.DatabaseMapper
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player

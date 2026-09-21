@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.network.migration.di
 
-import com.sgale.gaztelubira.core.domain.migration.repository.network.firebase.FirebaseFetch
-import com.sgale.gaztelubira.core.network.migration.firebase.implementation.fetch.FetchImplementation
+import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
+import com.sgale.gaztelubira.core.network.migration.firebase.player.FirestorePlayers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,9 +27,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
+
     @Provides
     @Singleton
-    internal fun provideFirebaseFetch(
-        fetchImplementation: FetchImplementation
-    ): FirebaseFetch = fetchImplementation
+    fun providePlayerRemote(
+        firestorePlayers: FirestorePlayers
+    ): PlayerRemote = firestorePlayers
 }

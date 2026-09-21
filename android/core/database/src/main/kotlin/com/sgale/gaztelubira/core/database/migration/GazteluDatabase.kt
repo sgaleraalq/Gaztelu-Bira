@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.database.migration
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
-import com.sgale.gaztelubira.core.database.migration.entity.player.PlayerEntity
+import com.sgale.gaztelubira.core.database.migration.player.PlayerDao
+import com.sgale.gaztelubira.core.database.migration.player.PlayerEntity
 
 @Database(
     entities = [PlayerEntity::class],
