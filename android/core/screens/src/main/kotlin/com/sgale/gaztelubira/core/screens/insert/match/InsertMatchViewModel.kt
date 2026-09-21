@@ -18,6 +18,10 @@ package com.sgale.gaztelubira.core.screens.insert.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayers
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetTeams
+import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewMatch
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stat
@@ -33,10 +37,6 @@ import com.sgale.gaztelubira.core.domain.model.stats.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.Saves
 import com.sgale.gaztelubira.core.domain.model.stats.Stat.YellowCards
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
-import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayers
-import com.sgale.gaztelubira.core.domain.usecase.db.GetTeams
-import com.sgale.gaztelubira.core.domain.usecase.firestore.insert.InsertNewMatch
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First

@@ -21,7 +21,7 @@ import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerMapper.a
 import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

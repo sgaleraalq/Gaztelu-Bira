@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.db
+package com.sgale.gaztelubira.core.domain.legacy.repository.db
 
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseCollection
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp

@@ -22,7 +22,7 @@ import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
-import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
+import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
 import javax.inject.Inject
 
 internal class FirstTime @Inject constructor(

@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersStatsDb
 import javax.inject.Inject
 
 class GetPlayersStats @Inject constructor(

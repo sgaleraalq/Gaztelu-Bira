@@ -20,10 +20,10 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.player.Player.Companion.ERROR_PLAYER
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.MATCHES
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.STATS
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.MATCHES
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.PLAYERS
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

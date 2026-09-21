@@ -23,7 +23,7 @@ import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerStatsMap
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersStatsDb
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

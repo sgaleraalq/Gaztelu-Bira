@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase
 
-import com.sgale.gaztelubira.core.domain.repository.IAppVersion
+import com.sgale.gaztelubira.core.domain.legacy.repository.IAppVersion
 import javax.inject.Inject
 
 class CanAccessApp @Inject constructor(

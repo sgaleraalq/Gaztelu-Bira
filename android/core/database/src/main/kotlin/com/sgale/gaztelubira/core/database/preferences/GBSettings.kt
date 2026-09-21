@@ -20,9 +20,9 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseCollection
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences.Companion.IS_FIRST_TIME
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences.Companion.SEASON
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences.Companion.IS_FIRST_TIME
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences.Companion.SEASON
 import javax.inject.Inject
 
 class GBSettings @Inject constructor(

@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBTeamsDb
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 

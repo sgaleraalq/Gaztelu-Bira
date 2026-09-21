@@ -22,8 +22,8 @@ import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.USERS
-import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.USERS
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
 import com.sgale.gaztelubira.core.network.firebase.response.user.UserMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.user.UserMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.user.UserResponse

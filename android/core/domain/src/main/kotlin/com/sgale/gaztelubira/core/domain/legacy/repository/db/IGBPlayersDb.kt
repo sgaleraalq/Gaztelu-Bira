@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.db
+package com.sgale.gaztelubira.core.domain.legacy.repository.db
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
-interface IGBPlayersStatsDb {
+interface IGBPlayersDb {
     suspend fun deletePlayer(id: FirebaseId)
-    suspend fun getPlayerStats(id: FirebaseId): PlayerStats?
-    suspend fun insertPlayer(player: PlayerStats)
-    suspend fun insertStats(matchId: FirebaseId, stats: Map<FirebaseId, Stats>)
-    suspend fun insertStatsFromFB(stats: List<PlayerStats>)
-    fun getPlayersStatsListAsFlow(): Flow<List<PlayerStats>>
+    suspend fun insertPlayer(player: Player)
+    suspend fun insertPlayers(players: List<Player>)
+    suspend fun getPlayer(id: FirebaseId): Player?
+    suspend fun getNumberOfPlayers(): Int
+    suspend fun getAvailableDorsals(): List<Int>
+    suspend fun getPlayers(): List<Player>
+    fun getPlayersListAsFlow(): Flow<List<Player>>
 }

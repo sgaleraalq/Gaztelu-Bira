@@ -18,13 +18,13 @@ package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetTeams
 import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeam
 import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeamSummary
-import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
-import com.sgale.gaztelubira.core.domain.usecase.db.GetMatches
-import com.sgale.gaztelubira.core.domain.usecase.db.GetTeams
 import com.sgale.gaztelubira.core.preview.MatchProvider.provideMatchesList
 import com.sgale.gaztelubira.core.preview.TeamProvider.provideRandomTeams
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraUiState

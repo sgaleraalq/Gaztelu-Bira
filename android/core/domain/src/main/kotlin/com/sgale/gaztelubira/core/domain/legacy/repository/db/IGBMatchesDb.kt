@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.db
+package com.sgale.gaztelubira.core.domain.legacy.repository.db
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
-interface IGBMatchesStatsDb {
+interface IGBMatchesDb {
     suspend fun deleteMatch(id: FirebaseId)
-    suspend fun getMatchStats(id: FirebaseId): MatchStatsModel?
-    suspend fun insertMatch(match: MatchStatsModel)
-    suspend fun insertMatchesStatsFromFB(matches: List<MatchStatsModel>)
-    fun getMatchesStatsListAsFlow(): Flow<List<MatchStatsModel>>
+    suspend fun fetchMatches(): List<Match>
+    suspend fun insertMatch(match: Match)
+    suspend fun insertMatches(matches: List<Match>)
+    suspend fun getNumberOfJourneys(): Int
+    fun getMatchesListAsFlow(): Flow<List<Match>>
 }

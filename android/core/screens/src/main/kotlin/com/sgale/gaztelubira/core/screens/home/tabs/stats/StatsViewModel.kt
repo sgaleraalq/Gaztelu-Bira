@@ -18,19 +18,20 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayersStats
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toDetail
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toGBPlayerStat
 import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toStat
-import com.sgale.gaztelubira.core.domain.usecase.db.GetMatches
-import com.sgale.gaztelubira.core.domain.usecase.db.GetPlayersStats
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.*
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.ShowPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Companion.computing
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded

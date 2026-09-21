@@ -20,7 +20,7 @@ import android.net.Uri
 import androidx.core.net.toUri
 import com.google.firebase.Firebase
 import com.google.firebase.storage.storage
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage.ImageInsertionResult
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

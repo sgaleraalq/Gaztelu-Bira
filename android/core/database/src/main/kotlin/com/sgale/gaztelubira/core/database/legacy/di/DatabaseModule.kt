@@ -21,7 +21,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.sgale.gaztelubira.core.database.legacy.GBDatabase
 import com.sgale.gaztelubira.core.database.legacy.getRoomDatabase
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences.Companion.SHARED_PREFS_NAME
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences.Companion.SHARED_PREFS_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

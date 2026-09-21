@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.firestore
+package com.sgale.gaztelubira.core.domain.legacy.repository
 
-object FirebaseConstants {
-    const val BODY = "body"
-    const val FACE = "face"
-    const val INFORMATION = "information"
-    const val MATCHES = "matches"
-    const val PLAYERS = "players"
-    const val STATS = "stats"
-    const val TEAMS = "teams"
-    const val USERS = "users"
+interface InitAppHandler {
+    suspend fun updateAvailable(): Boolean
+    suspend fun firstTimeInit(): Result<Boolean>
+    suspend fun initApp()
 }

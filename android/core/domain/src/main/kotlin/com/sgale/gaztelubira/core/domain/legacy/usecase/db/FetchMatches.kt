@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesDb
 import javax.inject.Inject
 
 class FetchMatches @Inject constructor(

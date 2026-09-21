@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.network.firebase.implementation.remote_config
 
 import android.content.Context
-import com.sgale.gaztelubira.core.domain.repository.IAppVersion
+import com.sgale.gaztelubira.core.domain.legacy.repository.IAppVersion
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

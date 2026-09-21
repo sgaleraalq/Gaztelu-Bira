@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.INFORMATION
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.network.firebase.response.team.TeamMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.team.TeamResponse
 import javax.inject.Inject

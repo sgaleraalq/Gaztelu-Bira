@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.network.firebase.implementation.storage
 
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage.ImageInsertionResult
 import jakarta.inject.Inject
 
 internal class FirebaseStorage @Inject constructor(

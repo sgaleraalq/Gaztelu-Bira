@@ -21,11 +21,11 @@ import com.google.firebase.firestore.SetOptions
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.TEAMS_INSERTION
 import com.sgale.gaztelubira.core.domain.model.utils.TeamTimestamp
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.INFORMATION
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.TeamInserted
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.INFORMATION
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.TEAMS
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.network.firebase.response.team.TeamMapper.asResponse
 import javax.inject.Inject
 

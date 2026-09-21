@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
 import javax.inject.Inject
 
 class GetAvailableDorsals @Inject constructor(

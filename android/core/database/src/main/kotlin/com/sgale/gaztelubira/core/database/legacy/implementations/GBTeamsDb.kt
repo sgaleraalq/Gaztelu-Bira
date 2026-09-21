@@ -21,7 +21,7 @@ import com.sgale.gaztelubira.core.database.legacy.entities.team.TeamMapper.asEnt
 import com.sgale.gaztelubira.core.database.legacy.entities.team.TeamMapper.asModel
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBTeamsDb
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

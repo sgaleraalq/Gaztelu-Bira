@@ -17,13 +17,13 @@
 package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert
 
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.TEAMS
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult.Success
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBTeamsDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.TEAMS
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage.ImageInsertionResult
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage.ImageInsertionResult.Success
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult
 import javax.inject.Inject
 
 class InsertNewTeam @Inject constructor(

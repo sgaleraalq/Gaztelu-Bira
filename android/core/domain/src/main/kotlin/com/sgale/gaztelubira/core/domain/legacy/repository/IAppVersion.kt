@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.firestore
+package com.sgale.gaztelubira.core.domain.legacy.repository
 
-interface IGBFireStorage {
-    interface ImageInsertionResult {
-        data class Success(val url: String?) : ImageInsertionResult
-        data class Error(val message: String?) : ImageInsertionResult
-    }
-    suspend fun insertImage(path: String, image: String): ImageInsertionResult
+interface IAppVersion {
+    suspend fun isSupported(): Boolean
 }

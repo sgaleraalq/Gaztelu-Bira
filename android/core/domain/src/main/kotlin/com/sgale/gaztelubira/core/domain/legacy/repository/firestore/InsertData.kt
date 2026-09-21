@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.firestore
+package com.sgale.gaztelubira.core.domain.legacy.repository.firestore
 
-import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-
-interface IFbUsers {
-    suspend fun getUser(uid: FirebaseId): UserSession?
-    suspend fun insertUser(user: UserModel): Boolean
-    suspend fun isUserInserted(uid: FirebaseId): UserModel?
+sealed interface InsertData {
+    data class Error(val error: String): InsertData
+    sealed interface Success {
+        data object TeamInserted: Success
+    }
 }

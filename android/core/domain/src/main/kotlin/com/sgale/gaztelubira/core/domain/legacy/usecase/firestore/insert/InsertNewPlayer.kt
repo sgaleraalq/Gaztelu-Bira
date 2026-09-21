@@ -17,14 +17,14 @@
 package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert
 
 import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.BODY
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.FACE
-import com.sgale.gaztelubira.core.domain.repository.firestore.FirebaseConstants.PLAYERS
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage.ImageInsertionResult.Success
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.BODY
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.FACE
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.PLAYERS
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage.ImageInsertionResult.Success
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult
 import javax.inject.Inject
 
 class InsertNewPlayer @Inject constructor(

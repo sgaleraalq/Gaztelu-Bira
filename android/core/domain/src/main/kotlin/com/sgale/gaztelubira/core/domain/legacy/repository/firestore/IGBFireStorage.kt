@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.db
+package com.sgale.gaztelubira.core.domain.legacy.repository.firestore
 
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import kotlinx.coroutines.flow.Flow
-
-interface IGBPlayersDb {
-    suspend fun deletePlayer(id: FirebaseId)
-    suspend fun insertPlayer(player: Player)
-    suspend fun insertPlayers(players: List<Player>)
-    suspend fun getPlayer(id: FirebaseId): Player?
-    suspend fun getNumberOfPlayers(): Int
-    suspend fun getAvailableDorsals(): List<Int>
-    suspend fun getPlayers(): List<Player>
-    fun getPlayersListAsFlow(): Flow<List<Player>>
+interface IGBFireStorage {
+    interface ImageInsertionResult {
+        data class Success(val url: String?) : ImageInsertionResult
+        data class Error(val message: String?) : ImageInsertionResult
+    }
+    suspend fun insertImage(path: String, image: String): ImageInsertionResult
 }

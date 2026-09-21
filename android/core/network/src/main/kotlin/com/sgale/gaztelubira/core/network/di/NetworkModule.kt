@@ -20,11 +20,11 @@ import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
-import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
-import com.sgale.gaztelubira.core.domain.repository.IAppVersion
-import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
-import com.sgale.gaztelubira.core.domain.repository.firestore.IGBFireStorage
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
+import com.sgale.gaztelubira.core.domain.legacy.repository.IAppVersion
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFetch
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert
 import com.sgale.gaztelubira.core.network.R
 import com.sgale.gaztelubira.core.network.firebase.implementation.remote_config.RemoteConfigManager.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseUsers

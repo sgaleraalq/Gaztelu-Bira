@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.firestore
+package com.sgale.gaztelubira.core.domain.legacy.repository.db
 
-sealed interface InsertData {
-    data class Error(val error: String): InsertData
-    sealed interface Success {
-        data object TeamInserted: Success
-    }
+import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import kotlinx.coroutines.flow.Flow
+
+interface IGBMatchesStatsDb {
+    suspend fun deleteMatch(id: FirebaseId)
+    suspend fun getMatchStats(id: FirebaseId): MatchStatsModel?
+    suspend fun insertMatch(match: MatchStatsModel)
+    suspend fun insertMatchesStatsFromFB(matches: List<MatchStatsModel>)
+    fun getMatchesStatsListAsFlow(): Flow<List<MatchStatsModel>>
 }

@@ -18,6 +18,8 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchMapper.toGBMatch
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult
@@ -26,8 +28,6 @@ import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
 import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.TESTING
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
-import com.sgale.gaztelubira.core.domain.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.preview.MatchProvider.provideMatchesList
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

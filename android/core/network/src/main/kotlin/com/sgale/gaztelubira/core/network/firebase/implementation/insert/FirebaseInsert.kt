@@ -22,8 +22,8 @@ import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult
 import javax.inject.Inject
 
 internal class FirebaseInsert @Inject constructor(

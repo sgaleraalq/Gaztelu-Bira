@@ -18,14 +18,14 @@ package com.sgale.gaztelubira.core.screens.detail.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.FetchMatches
+import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.FetchPlayer
+import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.FetchPlayerStats
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.domain.usecase.db.FetchMatches
-import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayer
-import com.sgale.gaztelubira.core.domain.usecase.firestore.FetchPlayerStats
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState.PlayerWinRate
 import dagger.hilt.android.lifecycle.HiltViewModel

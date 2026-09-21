@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.repository.firestore
+package com.sgale.gaztelubira.core.domain.legacy.repository.firestore
 
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel

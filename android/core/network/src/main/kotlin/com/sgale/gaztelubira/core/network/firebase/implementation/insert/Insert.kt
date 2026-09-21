@@ -25,9 +25,9 @@ import com.google.firebase.firestore.WriteBatch
 import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseCollection
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.repository.firestore.IInsert.FirebaseInsertResult.ErrorInsert
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.ErrorInsert
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 

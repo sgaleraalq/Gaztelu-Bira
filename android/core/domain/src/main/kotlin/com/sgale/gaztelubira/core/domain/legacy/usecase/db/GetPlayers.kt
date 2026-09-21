@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
 import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
+import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 

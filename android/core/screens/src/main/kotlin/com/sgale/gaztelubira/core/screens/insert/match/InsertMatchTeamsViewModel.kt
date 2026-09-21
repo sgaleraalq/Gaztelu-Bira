@@ -18,12 +18,12 @@ package com.sgale.gaztelubira.core.screens.insert.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetNumberOfJourneys
 import com.sgale.gaztelubira.core.domain.model.match.MatchSide
 import com.sgale.gaztelubira.core.domain.model.match.MatchSide.LOCAL
 import com.sgale.gaztelubira.core.domain.model.match.MatchType.CUP
 import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.usecase.db.GetNumberOfJourneys
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

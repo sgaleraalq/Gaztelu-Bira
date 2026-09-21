@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.di
 
 import com.sgale.gaztelubira.BuildConfig.GOOGLE_CLIENT_ID
 import com.sgale.gaztelubira.activity.FirstTime
-import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
+import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
 import com.sgale.gaztelubira.core.network.auth.GoogleClientId
 import dagger.Module
 import dagger.Provides
