@@ -16,12 +16,10 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.player
 
-import com.sgale.gaztelubira.core.domain.migration.model.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.FirebaseId
 
-/**
- * Who the player is. Lives outside any season, so the same person keeps their
- * history when the next one starts.
- */
+typealias PlayerId = FirebaseId
+
 data class Player(
     val id: PlayerId,
     val name: String,

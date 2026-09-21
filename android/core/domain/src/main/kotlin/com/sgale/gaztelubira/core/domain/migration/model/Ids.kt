@@ -16,28 +16,23 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model
 
-/**
- * The ids the app moves around, each one with its own type.
- *
- * They all hold a String, but `matchesDb.deleteMatch(player.id)` stops compiling,
- * and so does a timestamp key handed to a collection name.
- */
 @JvmInline
-value class SeasonId(val value: String) {
+value class SeasonId(
+    override val value: String
+): FirebaseId {
     override fun toString() = value
 }
 
 @JvmInline
-value class TeamId(val value: String) {
+value class TeamId(
+    override val value: String
+): FirebaseId {
     override fun toString() = value
 }
 
 @JvmInline
-value class PlayerId(val value: String) {
-    override fun toString() = value
-}
-
-@JvmInline
-value class MatchId(val value: String) {
+value class MatchId(
+    override val value: String
+): FirebaseId {
     override fun toString() = value
 }

@@ -14,20 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.season.match.lineup
+package com.sgale.gaztelubira.core.network.firebase.response.migrations
 
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.SeasonId
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.migration.model.FirebaseId
 
-data class MatchPlayer(
-    val playerId: PlayerId,
-    val matchId: MatchId,
-    val seasonId: SeasonId,
-    val role: PlayerRole,
-    val stats: Stats,
-    val slot: Int?
-) {
-    val playedMatch: Boolean get() = role.countsAsPlayed
+/**
+ * Maps every object to each layer of the application
+ * @param Model Domain layer representation
+ * @param Response Data Response layer representation
+ */
+internal interface NetworkMapper <Model, Response> {
+    fun Model.asResponse(): Response
+    fun Response.asModel(id: FirebaseId): Model
 }

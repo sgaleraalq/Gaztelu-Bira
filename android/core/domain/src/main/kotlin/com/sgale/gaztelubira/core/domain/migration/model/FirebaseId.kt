@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.season.match.lineup
+package com.sgale.gaztelubira.core.domain.migration.model
 
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.SeasonId
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
-
-data class MatchPlayer(
-    val playerId: PlayerId,
-    val matchId: MatchId,
-    val seasonId: SeasonId,
-    val role: PlayerRole,
-    val stats: Stats,
-    val slot: Int?
-) {
-    val playedMatch: Boolean get() = role.countsAsPlayed
+interface FirebaseId {
+    val value: String
 }
