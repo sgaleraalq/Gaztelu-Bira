@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.db
+package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
+import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
 import javax.inject.Inject
 
-class FetchMatches @Inject constructor(
-    private val matchesDb: IGBMatchesDb
+class GetPlayersStats @Inject constructor(
+    private val playerStatsDb: IGBPlayersStatsDb
 ) {
-    suspend operator fun invoke() =
-        matchesDb.fetchMatches()
+    operator fun invoke() =
+        playerStatsDb.getPlayersStatsListAsFlow()
 }

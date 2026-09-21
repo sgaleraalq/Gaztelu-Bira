@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.db
+package com.sgale.gaztelubira.core.domain.legacy.usecase.users
 
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
+import com.sgale.gaztelubira.core.domain.auth.UserSession
+import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 
-class GetMatches @Inject constructor(
-    private val matchesDb: IGBMatchesDb
+class GetUser @Inject constructor(
+    private val repository: IFbUsers
 ) {
-    operator fun invoke(): Flow<List<Match>> = matchesDb.getMatchesListAsFlow()
+    suspend operator fun invoke(uid: String): UserSession? =
+        repository.getUser(uid)
 }

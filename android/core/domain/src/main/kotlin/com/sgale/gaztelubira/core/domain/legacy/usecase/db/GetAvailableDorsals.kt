@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.firestore
+package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesStatsDb
+import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
 import javax.inject.Inject
 
-class FetchMatchStats @Inject constructor(
-    private val matchesStatsDb: IGBMatchesStatsDb,
-//    private val repository: IFbMatches
+class GetAvailableDorsals @Inject constructor(
+    private val playersDb: IGBPlayersDb
 ) {
-    suspend operator fun invoke(
-        matchId: FirebaseId
-    ): MatchStatsModel? {
-        val dbMatchStats = matchesStatsDb.getMatchStats(matchId)
-        return dbMatchStats
-    }
+    suspend operator fun invoke(): List<Int> =
+        playersDb.getAvailableDorsals()
 }

@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.users
+package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
+import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
 import javax.inject.Inject
 
-class IsUserInserted @Inject constructor(
-    private val repository: IFbUsers
+class GetNumberOfJourneys @Inject constructor(
+    private val matchesDb: IGBMatchesDb
 ) {
-    suspend operator fun invoke(uid: FirebaseId): UserModel? =
-        repository.isUserInserted(uid)
+    suspend operator fun invoke(): Int =
+        matchesDb.getNumberOfJourneys()
 }

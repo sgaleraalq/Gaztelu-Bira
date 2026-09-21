@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.db
+package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore
 
-import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
+import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 
-class GetTeams @Inject constructor(
-    private val teamsDb: IGBTeamsDb
+class FetchPlayer @Inject constructor(
+    private val playersDb: IGBPlayersDb,
+    private val repository: IFetch
 ) {
-    operator fun invoke(): Flow<List<Team>> =
-        teamsDb.getTeamsList()
+    suspend operator fun invoke(playerId: FirebaseId): Player? {
+        val dbPlayer = playersDb.getPlayer(playerId)
+        return dbPlayer ?: repository.fetchPlayer(playerId)
+    }
 }

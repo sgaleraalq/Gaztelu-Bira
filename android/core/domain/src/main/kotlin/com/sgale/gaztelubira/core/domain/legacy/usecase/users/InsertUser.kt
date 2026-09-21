@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.users
+package com.sgale.gaztelubira.core.domain.legacy.usecase.users
 
-import com.sgale.gaztelubira.core.domain.auth.UserSession
+import com.sgale.gaztelubira.core.domain.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
 import javax.inject.Inject
 
-class GetUser @Inject constructor(
+class InsertUser @Inject constructor(
     private val repository: IFbUsers
 ) {
-    suspend operator fun invoke(uid: String): UserSession? =
-        repository.getUser(uid)
+    suspend operator fun invoke(user: UserModel): Boolean =
+        repository.insertUser(user)
 }

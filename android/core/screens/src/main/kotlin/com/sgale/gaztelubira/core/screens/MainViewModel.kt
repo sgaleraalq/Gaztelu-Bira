@@ -22,7 +22,7 @@ import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.auth.usecase.IsUserAuthenticated
 import com.sgale.gaztelubira.core.domain.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.usecase.users.GetUser
+import com.sgale.gaztelubira.core.domain.legacy.usecase.users.GetUser
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState

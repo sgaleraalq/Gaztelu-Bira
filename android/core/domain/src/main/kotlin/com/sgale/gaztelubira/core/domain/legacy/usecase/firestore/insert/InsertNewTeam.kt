@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.firestore.insert
+package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert
 
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.repository.db.IGBTeamsDb

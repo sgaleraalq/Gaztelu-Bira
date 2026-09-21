@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.domain.auth.AuthResult
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
-import com.sgale.gaztelubira.core.domain.usecase.users.InsertUser
+import com.sgale.gaztelubira.core.domain.legacy.usecase.users.InsertUser
 import javax.inject.Inject
 
 /**

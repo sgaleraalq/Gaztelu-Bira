@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.db
+package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
-class GetPlayers @Inject constructor(
-    private val playersDb: IGBPlayersDb
+class GetMatches @Inject constructor(
+    private val matchesDb: IGBMatchesDb
 ) {
-    operator fun invoke(): Flow<List<Player>> =
-        playersDb.getPlayersListAsFlow()
+    operator fun invoke(): Flow<List<Match>> = matchesDb.getMatchesListAsFlow()
 }

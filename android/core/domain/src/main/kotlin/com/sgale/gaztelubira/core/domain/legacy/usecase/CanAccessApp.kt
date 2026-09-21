@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.firestore
+package com.sgale.gaztelubira.core.domain.legacy.usecase
 
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersDb
-import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
+import com.sgale.gaztelubira.core.domain.repository.IAppVersion
 import javax.inject.Inject
 
-class FetchPlayer @Inject constructor(
-    private val playersDb: IGBPlayersDb,
-    private val repository: IFetch
+class CanAccessApp @Inject constructor(
+    private val appVersion: IAppVersion
 ) {
-    suspend operator fun invoke(playerId: FirebaseId): Player? {
-        val dbPlayer = playersDb.getPlayer(playerId)
-        return dbPlayer ?: repository.fetchPlayer(playerId)
-    }
+    suspend operator fun invoke() = appVersion.isSupported()
 }

@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase
+package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.repository.IAppVersion
+import com.sgale.gaztelubira.core.domain.repository.db.IGBMatchesDb
 import javax.inject.Inject
 
-class CanAccessApp @Inject constructor(
-    private val appVersion: IAppVersion
+class FetchMatches @Inject constructor(
+    private val matchesDb: IGBMatchesDb
 ) {
-    suspend operator fun invoke() = appVersion.isSupported()
+    suspend operator fun invoke() =
+        matchesDb.fetchMatches()
 }

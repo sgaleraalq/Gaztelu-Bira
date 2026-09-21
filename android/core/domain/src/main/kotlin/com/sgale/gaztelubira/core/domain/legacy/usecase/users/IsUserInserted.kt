@@ -14,20 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.usecase.firestore
+package com.sgale.gaztelubira.core.domain.legacy.usecase.users
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.repository.db.IGBPlayersStatsDb
-import com.sgale.gaztelubira.core.domain.repository.firestore.IFetch
+import com.sgale.gaztelubira.core.domain.repository.firestore.IFbUsers
 import javax.inject.Inject
 
-class FetchPlayerStats @Inject constructor(
-    private val playerStatsDb: IGBPlayersStatsDb,
-    private val repository: IFetch
+class IsUserInserted @Inject constructor(
+    private val repository: IFbUsers
 ) {
-    suspend operator fun invoke(playerId: FirebaseId): PlayerStats? {
-        val dbPlayer = playerStatsDb.getPlayerStats(playerId)
-        return dbPlayer ?: repository.fetchPlayerStats(playerId)
-    }
+    suspend operator fun invoke(uid: FirebaseId): UserModel? =
+        repository.isUserInserted(uid)
 }
