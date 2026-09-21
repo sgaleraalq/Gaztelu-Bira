@@ -16,6 +16,9 @@
 
 package com.sgale.gaztelubira.core.domain.migration.repository.season
 
-interface SeasonLocal {
+import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 
+interface SeasonLocal {
+    suspend fun getSeasons(): List<Season>
+    suspend fun insertSeasons(seasons: List<Season>)
 }

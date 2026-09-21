@@ -21,7 +21,7 @@ import androidx.room.PrimaryKey
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
 @Entity
-data class PlayerEntity(
+internal data class PlayerEntity(
     @PrimaryKey
     val id: PlayerId,
     val name: String,

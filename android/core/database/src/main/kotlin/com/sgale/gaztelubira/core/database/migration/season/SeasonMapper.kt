@@ -16,5 +16,25 @@
 
 package com.sgale.gaztelubira.core.database.migration.season
 
-object PlayerMapper {
+import com.sgale.gaztelubira.core.database.DatabaseMapper
+import com.sgale.gaztelubira.core.domain.migration.model.season.Season
+
+internal object SeasonMapper: DatabaseMapper<Season, SeasonEntity> {
+    override fun Season.asEntity() =
+        SeasonEntity(
+            id = id,
+            name = name,
+            isCurrent = isCurrent,
+            startsAt = startsAt,
+            endsAt = endsAt
+        )
+
+    override fun SeasonEntity.asModel() =
+        Season(
+            id = id,
+            name = name,
+            isCurrent = isCurrent,
+            startsAt = startsAt,
+            endsAt = endsAt
+        )
 }

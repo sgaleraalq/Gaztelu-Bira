@@ -21,10 +21,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
 interface PlayerLocal {
     suspend fun getPlayer(id: PlayerId): Player?
-
     suspend fun getPlayers(): List<Player>
-
     suspend fun insertPlayer(player: Player)
-
     suspend fun insertPlayers(players: List<Player>)
 }

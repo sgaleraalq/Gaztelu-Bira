@@ -16,9 +16,18 @@
 
 package com.sgale.gaztelubira.core.database.migration.season
 
+import com.sgale.gaztelubira.core.database.migration.season.SeasonMapper.asEntity
+import com.sgale.gaztelubira.core.database.migration.season.SeasonMapper.asModel
+import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
 import javax.inject.Inject
 
 internal class RoomSeasons @Inject constructor(
     private val seasonDao: SeasonDao
-): SeasonLocal
+): SeasonLocal {
+    override suspend fun getSeasons(): List<Season> =
+        seasonDao.getSeasons().map { it.asModel() }
+
+    override suspend fun insertSeasons(seasons: List<Season>) =
+        seasonDao.insertSeasons(seasons.map { it.asEntity() })
+}

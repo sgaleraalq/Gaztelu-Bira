@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.domain.migration.model.season
 data class Season(
     val id: SeasonId,
     val name: String,
+    val isCurrent: Boolean,
     val startsAt: Long,
-    val endsAt: Long,
-    val isCurrent: Boolean
+    val endsAt: Long
 )

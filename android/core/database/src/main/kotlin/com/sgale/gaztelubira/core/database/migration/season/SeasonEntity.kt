@@ -18,9 +18,14 @@ package com.sgale.gaztelubira.core.database.migration.season
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 @Entity
-data class SeasonEntity(
+internal data class SeasonEntity(
     @PrimaryKey
-    val id: String
+    val id: SeasonId,
+    val name: String,
+    val isCurrent: Boolean,
+    val startsAt: Long,
+    val endsAt: Long
 )

@@ -39,9 +39,10 @@ internal class FirstTime @Inject constructor(
         playerLocal.insertPlayers(players)
 
         val seasons = seasonRemote.fetchSeasons()
-
+        seasonLocal.insertSeasons(seasons)
 
         Log.i(TAG, "These are the players: $players")
+        Log.i(TAG, "These are the seasons: $seasons")
         true
     }
 

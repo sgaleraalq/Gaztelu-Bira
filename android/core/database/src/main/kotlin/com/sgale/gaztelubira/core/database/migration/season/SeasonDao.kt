@@ -17,6 +17,14 @@
 package com.sgale.gaztelubira.core.database.migration.season
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy.Companion.REPLACE
+import androidx.room.Query
 
 @Dao
-interface SeasonDao
+internal interface SeasonDao {
+    @Query("SELECT * FROM SeasonEntity")
+    suspend fun getSeasons(): List<SeasonEntity>
+    @Insert(onConflict = REPLACE)
+    suspend fun insertSeasons(entity: List<SeasonEntity>)
+}
