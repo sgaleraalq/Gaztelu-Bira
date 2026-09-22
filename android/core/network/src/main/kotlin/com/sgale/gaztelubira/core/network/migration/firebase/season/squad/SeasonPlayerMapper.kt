@@ -14,13 +14,26 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.season
+package com.sgale.gaztelubira.core.network.migration.firebase.season.squad
 
-import com.sgale.gaztelubira.core.domain.migration.model.season.Season
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
 
-interface SeasonRemote {
-    suspend fun fetchSeasons(): List<Season>
-    suspend fun fetchSquad(season: SeasonId): List<SeasonPlayer>
+/**
+ * This one does not implement [com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper]:
+ * a squad row is identified by two ids, the season it belongs to and the player it is about,
+ * and both come from the path rather than from the document.
+ */
+internal object SeasonPlayerMapper {
+    fun SeasonPlayerResponse.asModel(
+        seasonId: SeasonId,
+        playerId: PlayerId
+    ) = SeasonPlayer(
+        seasonId = seasonId,
+        id = playerId,
+        dorsal = dorsal,
+        position = Position.mapPosition(position)
+    )
 }

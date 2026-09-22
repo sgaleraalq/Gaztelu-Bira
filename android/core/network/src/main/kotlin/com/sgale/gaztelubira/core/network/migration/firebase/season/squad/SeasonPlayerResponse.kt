@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.season
+package com.sgale.gaztelubira.core.network.migration.firebase.season.squad
 
-import com.sgale.gaztelubira.core.domain.migration.model.season.Season
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
+import androidx.annotation.Keep
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
 
-interface SeasonRemote {
-    suspend fun fetchSeasons(): List<Season>
-    suspend fun fetchSquad(season: SeasonId): List<SeasonPlayer>
-}
+@Keep
+internal data class SeasonPlayerResponse(
+    val playerId: String = "",
+    val dorsal: Int? = null,
+    val position: String = "",
+    @ServerTimestamp val updatedAt: Timestamp? = null
+)

@@ -41,6 +41,10 @@ internal class FirstTime @Inject constructor(
         val seasons = seasonRemote.fetchSeasons()
         seasonLocal.insertSeasons(seasons)
 
+        seasons.forEach { season ->
+            seasonLocal.insertSeasonPlayers(seasonRemote.fetchSquad(season.id))
+        }
+
         Log.i(TAG, "These are the players: $players")
         Log.i(TAG, "These are the seasons: $seasons")
         true

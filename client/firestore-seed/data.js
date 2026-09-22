@@ -5,13 +5,13 @@
  * checked without touching Firebase at all. `seed.js` is what writes it.
  */
 
-var SEASON_ID = '2026_2027'
+var SEASON_ID = '2025_2026'
 var APP_TEAM = 'gaztelu_bira'
 
 var SEASON = {
-  name: '26/27',
-  startsAt: new Date('2026-08-01T00:00:00Z'),
-  endsAt: new Date('2026-06-30T00:00:00Z'),
+  name: '25/26',
+  startsAt: new Date('2025-08-01T00:00:00Z'),
+  endsAt: new Date('2025-06-30T00:00:00Z'),
   isCurrent: true
 }
 
@@ -81,7 +81,7 @@ var MATCHES = [
   {
     id: 'l01',
     competition: { type: 'LEAGUE', journey: 1 },
-    date: '2026-08-16T10:00:00Z',
+    date: '2025-08-16T10:00:00Z',
     local: APP_TEAM, visitor: 'lakua',
     score: { local: 3, visitor: 1 },
     events: {
@@ -94,7 +94,7 @@ var MATCHES = [
   {
     id: 'l02',
     competition: { type: 'LEAGUE', journey: 2 },
-    date: '2026-08-23T12:00:00Z',
+    date: '2025-08-23T12:00:00Z',
     local: 'zaramaga', visitor: APP_TEAM,
     score: { local: 0, visitor: 2 },
     events: {
@@ -108,7 +108,7 @@ var MATCHES = [
   {
     id: 'l03',
     competition: { type: 'LEAGUE', journey: 3 },
-    date: '2026-08-30T10:00:00Z',
+    date: '2025-08-30T10:00:00Z',
     local: APP_TEAM, visitor: 'abetxuko',
     score: { local: 1, visitor: 1 },
     events: {
@@ -122,7 +122,7 @@ var MATCHES = [
   {
     id: 'l04',
     competition: { type: 'LEAGUE', journey: 4 },
-    date: '2026-09-06T12:00:00Z',
+    date: '2025-09-06T12:00:00Z',
     local: 'judimendi', visitor: APP_TEAM,
     score: { local: 4, visitor: 2 },
     events: {
@@ -138,7 +138,7 @@ var MATCHES = [
   {
     id: 'l05',
     competition: { type: 'LEAGUE', journey: 5 },
-    date: '2026-09-13T10:00:00Z',
+    date: '2025-09-13T10:00:00Z',
     local: APP_TEAM, visitor: 'salburua',
     score: { local: 2, visitor: 0 },
     events: {
@@ -150,7 +150,7 @@ var MATCHES = [
   {
     id: 'cup01',
     competition: { type: 'CUP', name: 'Copa Gasteiz', round: 'Cuartos' },
-    date: '2026-09-16T19:00:00Z',
+    date: '2025-09-16T19:00:00Z',
     local: APP_TEAM, visitor: 'lakua',
     score: { local: 1, visitor: 0 },
     events: {
@@ -169,7 +169,7 @@ var MATCHES = [
   {
     id: 'l06',
     competition: { type: 'LEAGUE', journey: 6 },
-    date: '2026-09-27T10:00:00Z',
+    date: '2025-09-27T10:00:00Z',
     local: APP_TEAM, visitor: 'zaramaga',
     score: null // not played yet: no score, no lineup
   }
@@ -267,15 +267,15 @@ function buildDocuments() {
   docs.push({ path: seasonPath, data: SEASON })
 
   PLAYERS.forEach(function (player) {
-    docs.push({
-      path: 'players/' + player.id,
-      data: {
-        name: player.name,
-        nickname: player.nickname,
-        faceImage: null,
-        bodyImage: null
-      }
-    })
+    // docs.push({
+    //   path: 'players/' + player.id,
+    //   data: {
+    //     name: player.name,
+    //     nickname: player.nickname,
+    //     faceImage: null,
+    //     bodyImage: null
+    //   }
+    // })
     docs.push({
       path: seasonPath + '/squad/' + player.id,
       data: { playerId: player.id, dorsal: player.dorsal, position: player.position }

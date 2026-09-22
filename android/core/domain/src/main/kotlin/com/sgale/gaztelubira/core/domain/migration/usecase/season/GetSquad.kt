@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.season
+package com.sgale.gaztelubira.core.domain.migration.usecase.season
 
-import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
+import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
+import javax.inject.Inject
 
-interface SeasonRemote {
-    suspend fun fetchSeasons(): List<Season>
-    suspend fun fetchSquad(season: SeasonId): List<SeasonPlayer>
+class GetSquad @Inject constructor(
+    private val seasons: SeasonLocal
+) {
+    suspend operator fun invoke(season: SeasonId): List<SquadPlayer> =
+        seasons.getSquad(season)
 }

@@ -18,7 +18,13 @@ package com.sgale.gaztelubira.core.database.migration.season
 
 import com.sgale.gaztelubira.core.database.migration.season.SeasonMapper.asEntity
 import com.sgale.gaztelubira.core.database.migration.season.SeasonMapper.asModel
+import com.sgale.gaztelubira.core.database.migration.season.entity.SeasonPlayerMapper.asEntity
+import com.sgale.gaztelubira.core.database.migration.season.entity.SeasonPlayerMapper.asModel
+import com.sgale.gaztelubira.core.database.migration.season.entity.SquadPlayerMapper.asModel
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
+import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
 import javax.inject.Inject
 
@@ -28,6 +34,15 @@ internal class RoomSeasons @Inject constructor(
     override suspend fun getSeasons(): List<Season> =
         seasonDao.getSeasons().map { it.asModel() }
 
+    override suspend fun getSeasonPlayers(season: SeasonId): List<SeasonPlayer> =
+        seasonDao.getSeasonPlayers(season).map { it.asModel() }
+
+    override suspend fun getSquad(season: SeasonId): List<SquadPlayer> =
+        seasonDao.getSquad(season).map { it.asModel() }
+
     override suspend fun insertSeasons(seasons: List<Season>) =
         seasonDao.insertSeasons(seasons.map { it.asEntity() })
+
+    override suspend fun insertSeasonPlayers(players: List<SeasonPlayer>) =
+        seasonDao.insertSeasonPlayers(players.map { it.asEntity() })
 }

@@ -20,9 +20,14 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
+import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SQUAD
 import com.sgale.gaztelubira.core.network.migration.firebase.season.SeasonMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.season.squad.SeasonPlayerMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.season.squad.SeasonPlayerResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -37,6 +42,18 @@ internal class FirestoreSeason @Inject constructor(
             .mapNotNull { season ->
                 season.toObject(SeasonResponse::class.java)
                     ?.asModel(SeasonId(season.id))
+            }
+
+    override suspend fun fetchSquad(season: SeasonId): List<SeasonPlayer> =
+        seasons()
+            .document(season.value)
+            .collection(SQUAD)
+            .get()
+            .await()
+            .documents
+            .mapNotNull { player ->
+                player.toObject(SeasonPlayerResponse::class.java)
+                    ?.asModel(season, PlayerId(player.id))
             }
 
     private fun seasons(): CollectionReference = firestore.collection(SEASONS)

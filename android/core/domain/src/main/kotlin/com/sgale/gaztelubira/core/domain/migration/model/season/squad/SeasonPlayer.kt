@@ -18,9 +18,11 @@ package com.sgale.gaztelubira.core.domain.migration.model.season.squad
 
 import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 data class SeasonPlayer(
     val id: PlayerId,
+    val seasonId: SeasonId,
     val dorsal: Int?,
     val position: Position
 )

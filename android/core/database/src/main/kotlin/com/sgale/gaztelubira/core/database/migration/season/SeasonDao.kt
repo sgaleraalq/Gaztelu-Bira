@@ -20,11 +20,32 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
+import com.sgale.gaztelubira.core.database.migration.season.entity.SeasonPlayerEntity
+import com.sgale.gaztelubira.core.database.migration.season.entity.SquadPlayerView
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 @Dao
 internal interface SeasonDao {
     @Query("SELECT * FROM SeasonEntity")
     suspend fun getSeasons(): List<SeasonEntity>
+
+    @Query("SELECT * FROM SeasonPlayerEntity WHERE seasonId = :seasonId ORDER BY dorsal IS NULL, dorsal")
+    suspend fun getSeasonPlayers(seasonId: SeasonId): List<SeasonPlayerEntity>
+
+    @Query(
+        """
+        SELECT p.*, s.dorsal, s.position
+        FROM SeasonPlayerEntity s
+        INNER JOIN PlayerEntity p ON p.id = s.playerId
+        WHERE s.seasonId = :seasonId
+        ORDER BY s.dorsal IS NULL, s.dorsal
+        """
+    )
+    suspend fun getSquad(seasonId: SeasonId): List<SquadPlayerView>
+
     @Insert(onConflict = REPLACE)
     suspend fun insertSeasons(entity: List<SeasonEntity>)
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertSeasonPlayers(entity: List<SeasonPlayerEntity>)
 }

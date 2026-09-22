@@ -18,41 +18,60 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
+import com.sgale.gaztelubira.core.domain.migration.usecase.season.GetSquad
+import com.sgale.gaztelubira.core.domain.migration.usecase.season.SelectedSeason
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+
+private const val KEEP_ALIVE_MILLIS = 5_000L
 
 @HiltViewModel
 internal class TeamViewModel @Inject constructor(
-    private val playerLocal: PlayerLocal
+    selectedSeason: SelectedSeason,
+    getSquad: GetSquad
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(TeamUiState())
-    internal val state: StateFlow<TeamUiState> = _state.asStateFlow()
+    private val isAdmin = MutableStateFlow(false)
 
-    init {
-        viewModelScope.launch {
-            val players = playerLocal.getPlayers().map { it.asGBPlayer() }
-            _state.update { it.copy(players = players) }
-        }
+    private val squad = selectedSeason().map { season ->
+        season?.let { getSquad(it) }.orEmpty()
     }
+
+    internal val state: StateFlow<TeamUiState> =
+        combine(
+            squad,
+            isAdmin
+        ) { squad, admin ->
+            TeamUiState(
+                players = squad.filterNot { it.position == MANAGER }.map { it.asGBPlayer() },
+                managers = squad.filter { it.position == MANAGER }.map { it.asGBPlayer() },
+                isAdmin = admin
+            )
+        }.stateIn(
+            scope = viewModelScope,
+            started = WhileSubscribed(KEEP_ALIVE_MILLIS),
+            initialValue = TeamUiState()
+        )
 
     internal fun onAdminChanged(isAdmin: Boolean) {
-        _state.update { it.copy(isAdmin = isAdmin) }
+        this.isAdmin.value = isAdmin
     }
 
-    private fun Player.asGBPlayer() =
+    private fun SquadPlayer.asGBPlayer() =
         GBPlayer(
-            id = id.value,
-            name = name,
-            image = faceImage
+            id = player.id.value,
+            name = player.nickname ?: player.name,
+            image = player.faceImage,
+            dorsal = dorsal
         )
 }

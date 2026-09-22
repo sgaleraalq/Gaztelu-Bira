@@ -16,9 +16,17 @@
 
 package com.sgale.gaztelubira.core.domain.migration.repository.season
 
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
+import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
 
 interface SeasonLocal {
     suspend fun getSeasons(): List<Season>
+    suspend fun getSeasonPlayers(season: SeasonId): List<SeasonPlayer>
+    /** The squad of a season with the name and photo of each player already joined. */
+    suspend fun getSquad(season: SeasonId): List<SquadPlayer>
+
     suspend fun insertSeasons(seasons: List<Season>)
+    suspend fun insertSeasonPlayers(players: List<SeasonPlayer>)
 }

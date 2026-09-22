@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.season
+package com.sgale.gaztelubira.core.database.migration.season.entity
 
-import com.sgale.gaztelubira.core.domain.migration.model.season.Season
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
+import androidx.room.Embedded
+import com.sgale.gaztelubira.core.database.migration.player.PlayerEntity
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
 
-interface SeasonRemote {
-    suspend fun fetchSeasons(): List<Season>
-    suspend fun fetchSquad(season: SeasonId): List<SeasonPlayer>
-}
+internal data class SquadPlayerView(
+    @Embedded val player: PlayerEntity,
+    val dorsal: Int?,
+    val position: Position
+)
