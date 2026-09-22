@@ -16,9 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.user
 
-import com.sgale.gaztelubira.core.domain.model.user.UserRole
-import com.sgale.gaztelubira.core.domain.model.user.UserRole.GUEST
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserRole
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserRole.GUEST
 
 data class User(
     val uid: UserId,

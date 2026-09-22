@@ -16,21 +16,21 @@
 
 package com.sgale.gaztelubira.core.network.auth
 
-import com.sgale.gaztelubira.core.domain.auth.AuthResult
-import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
-import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
-import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.LOGIN_ERROR
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.SIGN_UP_ERROR
-import com.sgale.gaztelubira.core.domain.auth.usecase.LoginGoogle
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.userProfileChangeRequest
-import javax.inject.Inject
+import com.sgale.gaztelubira.core.domain.auth.AuthResult
+import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
+import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
+import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
+import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.LOGIN_ERROR
+import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.SIGN_UP_ERROR
+import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
+import com.sgale.gaztelubira.core.domain.auth.usecase.LoginGoogle
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 internal class AuthRepositoryImpl @Inject constructor(
     private val googleSignIn: IGoogleSignIn,

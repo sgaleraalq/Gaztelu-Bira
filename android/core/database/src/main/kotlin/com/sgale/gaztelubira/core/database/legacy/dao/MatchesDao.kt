@@ -21,8 +21,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchEntity
-import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.database.legacy.entities.player
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.model.player.Position
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 
 @Entity
 data class PlayerEntity(

@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.database.legacy.entities
 
 import androidx.room.TypeConverter
 import com.sgale.gaztelubira.core.database.legacy.entities.stats.StatsMatchEntity
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.nullable

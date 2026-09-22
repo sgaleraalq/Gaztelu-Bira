@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response.team
 
-import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.network.NetworkMapper
 
 internal object TeamMapper : NetworkMapper<Team, TeamResponse> {

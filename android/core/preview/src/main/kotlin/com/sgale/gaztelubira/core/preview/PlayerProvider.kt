@@ -16,17 +16,17 @@
 
 package com.sgale.gaztelubira.core.preview
 
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
+import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.DEFENDER
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.FORWARD
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.GOALKEEPER
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MIDFIELDER
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.utils.generateRandomUUID
 import com.sgale.gaztelubira.core.preview.RandomValues.RANDOM_IMAGES
 import com.sgale.gaztelubira.core.preview.RandomValues.RANDOM_NAMES
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.model.player.Position.DEFENDER
-import com.sgale.gaztelubira.core.domain.model.player.Position.FORWARD
-import com.sgale.gaztelubira.core.domain.model.player.Position.GOALKEEPER
-import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.model.player.Position.MIDFIELDER
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.utils.generateRandomUUID
 
 object PlayerProvider {
 

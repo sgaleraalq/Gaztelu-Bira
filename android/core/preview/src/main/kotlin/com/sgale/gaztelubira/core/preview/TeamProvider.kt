@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.preview
 
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
+import com.sgale.gaztelubira.core.domain.utils.generateRandomUUID
 import com.sgale.gaztelubira.core.preview.RandomValues.RANDOM_TEAM_LOGOS
 import com.sgale.gaztelubira.core.preview.RandomValues.RANDOM_TEAM_NAMES
-import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.utils.generateRandomUUID
 
 object TeamProvider {
     fun provideRandomTeam() = Team(

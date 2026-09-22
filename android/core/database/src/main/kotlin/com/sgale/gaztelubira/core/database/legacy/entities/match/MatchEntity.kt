@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.database.legacy.entities.match
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 
 @Entity
 data class MatchEntity(

@@ -18,13 +18,13 @@ package com.sgale.gaztelubira.core.screens.insert.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.PictureType.BODY
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.PictureType.FACE
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.PlayerInserted
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetAvailableDorsals
 import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewPlayer
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.player.Position
-import com.sgale.gaztelubira.core.domain.model.utils.PictureType.BODY
-import com.sgale.gaztelubira.core.domain.model.utils.PictureType.FACE
 import com.sgale.gaztelubira.core.screens.insert.manager.gallery.Gallery
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState

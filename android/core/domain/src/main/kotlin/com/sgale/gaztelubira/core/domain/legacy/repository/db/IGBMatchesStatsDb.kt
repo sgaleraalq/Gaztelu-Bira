@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.repository.db
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
 interface IGBMatchesStatsDb {

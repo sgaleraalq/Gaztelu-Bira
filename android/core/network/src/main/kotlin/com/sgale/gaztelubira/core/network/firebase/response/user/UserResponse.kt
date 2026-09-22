@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.network.firebase.response.user
 
 import androidx.annotation.Keep
-import com.sgale.gaztelubira.core.domain.model.utils.UserSessionId
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.UserSessionId
 import kotlinx.serialization.Serializable
 
 @Keep

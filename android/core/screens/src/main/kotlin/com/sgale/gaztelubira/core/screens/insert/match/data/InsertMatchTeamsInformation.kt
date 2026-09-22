@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.screens.insert.match.data
 
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.match.MatchType
-import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
-import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.utils.getActualTimeAsLong
 
 data class InsertMatchTeamsInformation(

@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response.user
 
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.model.user.UserRole.Companion.userRoleOf
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserRole.Companion.userRoleOf
 import com.sgale.gaztelubira.core.network.NetworkMapper
 
 internal object UserMapper: NetworkMapper<UserModel, UserResponse> {

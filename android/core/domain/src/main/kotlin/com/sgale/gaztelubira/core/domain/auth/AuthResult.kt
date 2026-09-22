@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.auth
 
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
 
 sealed interface AuthResult {
     data class Success(

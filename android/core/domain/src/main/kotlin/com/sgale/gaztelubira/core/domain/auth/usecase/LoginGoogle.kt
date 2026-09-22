@@ -22,10 +22,10 @@ import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult.GoogleLogin
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult.GoogleSignUp
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.usecase.users.InsertUser
 import com.sgale.gaztelubira.core.domain.legacy.usecase.users.IsUserInserted
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
 import javax.inject.Inject
 
 class LoginGoogle @Inject constructor(
@@ -33,14 +33,13 @@ class LoginGoogle @Inject constructor(
     private val insertUser: InsertUser
 ) {
     suspend operator fun invoke(user: UserModel?): AuthResult {
-        if (user != null) {
-            val googleResult = resolveGoogleUser(user.uid)
-            return when (googleResult) {
+        return if (user != null) {
+            when (val googleResult = resolveGoogleUser(user.uid)) {
                 is GoogleLogin -> { loginGoogle(googleResult.user) }
                 is GoogleSignUp -> { signupGoogle(user) }
             }
         } else {
-            return Error()
+            Error()
         }
     }
 

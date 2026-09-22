@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response.stats
 
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
 import com.sgale.gaztelubira.core.network.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.player.PlayerStatsResponse
 

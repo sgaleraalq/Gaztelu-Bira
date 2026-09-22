@@ -16,12 +16,12 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.season.match
 
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DEFEAT
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.model.match.MatchSide
-import com.sgale.gaztelubira.core.domain.model.match.MatchSide.LOCAL
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.VICTORY
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.LOCAL
 
 data class Score(
     val local: Int,

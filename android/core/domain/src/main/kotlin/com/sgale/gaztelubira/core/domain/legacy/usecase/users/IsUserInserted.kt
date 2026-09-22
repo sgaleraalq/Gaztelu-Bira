@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.users
 
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
 import javax.inject.Inject
 

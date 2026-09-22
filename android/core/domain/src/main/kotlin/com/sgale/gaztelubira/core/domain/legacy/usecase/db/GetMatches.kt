@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.db
 
-import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesDb
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class GetMatches @Inject constructor(
     private val matchesDb: IGBMatchesDb

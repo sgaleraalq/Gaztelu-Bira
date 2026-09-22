@@ -16,13 +16,13 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.season.match
 
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.LOCAL
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.VISITOR
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.model.match.MatchSide
-import com.sgale.gaztelubira.core.domain.model.match.MatchSide.LOCAL
-import com.sgale.gaztelubira.core.domain.model.match.MatchSide.VISITOR
 
 data class Match(
     val id: MatchId,

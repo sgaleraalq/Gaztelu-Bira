@@ -18,15 +18,15 @@ package com.sgale.gaztelubira.core.network.firebase.implementation.insert
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_STATS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.MatchesTimestamp
-import com.sgale.gaztelubira.core.domain.model.utils.PLAYERS_STATS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.StatsTimestamp
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.MATCHES_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.MATCHES_STATS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.MatchesTimestamp
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.PLAYERS_STATS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.StatsTimestamp
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.INFORMATION
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.MATCHES

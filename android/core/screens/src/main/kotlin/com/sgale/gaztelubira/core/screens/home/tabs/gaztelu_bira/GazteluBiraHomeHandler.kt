@@ -16,17 +16,17 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
 
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DEFEAT
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.model.match.MatchSide
-import com.sgale.gaztelubira.core.domain.model.match.MatchSide.LOCAL
-import com.sgale.gaztelubira.core.domain.model.match.MatchSide.VISITOR
-import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.model.team.TeamSeason
-import com.sgale.gaztelubira.core.domain.model.team.TeamStreak
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.VICTORY
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.LOCAL
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.VISITOR
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
+import com.sgale.gaztelubira.core.domain.legacy.model.team.TeamSeason
+import com.sgale.gaztelubira.core.domain.legacy.model.team.TeamStreak
 
 internal class GazteluBiraHomeHandler(
     private val appTeam: Team,

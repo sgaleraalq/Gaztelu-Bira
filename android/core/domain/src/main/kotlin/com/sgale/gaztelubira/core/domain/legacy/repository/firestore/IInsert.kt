@@ -16,12 +16,12 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.repository.firestore
 
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 
 interface IInsert {
     interface FirebaseInsertResult {

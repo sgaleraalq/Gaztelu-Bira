@@ -18,13 +18,13 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toDetail
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toGBPlayerStat
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toStat
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayersStats
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toDetail
-import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toGBPlayerStat
-import com.sgale.gaztelubira.core.domain.model.stats.StatsMapper.toStat
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE

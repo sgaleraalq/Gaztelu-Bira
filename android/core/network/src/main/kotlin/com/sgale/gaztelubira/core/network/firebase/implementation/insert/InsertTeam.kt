@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.network.firebase.implementation.insert
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.domain.model.utils.TEAMS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.TeamTimestamp
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.TEAMS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.TeamTimestamp
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.INFORMATION
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.TEAMS

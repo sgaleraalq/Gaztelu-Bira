@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseTimestamp
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject

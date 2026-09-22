@@ -18,12 +18,12 @@ package com.sgale.gaztelubira.core.screens.detail.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerMapper.toGBPlayer
+import com.sgale.gaztelubira.core.domain.legacy.model.team.TeamMapper.toGBTeam
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.FetchMatchStats
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.model.team.TeamMapper.toGBTeam
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation

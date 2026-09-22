@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.repository.db
 
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseCollection
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseTimestamp
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseCollection
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseTimestamp
 
 interface IGBPreferences {
     companion object {

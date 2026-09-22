@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert
 
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesStatsDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
@@ -28,9 +28,9 @@ import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersStatsDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
-import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import javax.inject.Inject
 
 class InsertNewMatch @Inject constructor(
     private val firestore: IInsert,

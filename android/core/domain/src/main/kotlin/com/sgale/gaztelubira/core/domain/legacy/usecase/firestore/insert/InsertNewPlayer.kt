@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert
 
-import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.BODY
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.FACE

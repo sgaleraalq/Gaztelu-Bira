@@ -17,8 +17,8 @@
 package com.sgale.gaztelubira.core.database.legacy.entities.player
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStats.Companion.ERROR_PLAYER_STATS
+import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats.Companion.ERROR_PLAYER_STATS
 
 object PlayerStatsMapper :
     DatabaseMapper<PlayerStats, PlayerStatsEntity> {

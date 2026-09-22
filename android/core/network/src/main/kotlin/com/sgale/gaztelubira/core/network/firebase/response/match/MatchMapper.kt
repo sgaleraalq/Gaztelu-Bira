@@ -16,9 +16,9 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response.match
 
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.match.MatchType
-import com.sgale.gaztelubira.core.domain.model.team.Team.Companion.ERROR_TEAM
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team.Companion.ERROR_TEAM
 import com.sgale.gaztelubira.core.network.NetworkMapper
 
 internal object MatchMapper : NetworkMapper<Match, MatchResponse> {

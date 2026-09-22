@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.database.legacy.entities.player
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
-import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
 
 internal object PlayerMapper : DatabaseMapper<Player, PlayerEntity> {
 

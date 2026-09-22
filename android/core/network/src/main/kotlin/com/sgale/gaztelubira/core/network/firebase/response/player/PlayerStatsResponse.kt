@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.network.firebase.response.player
 
 import androidx.annotation.Keep
-import com.sgale.gaztelubira.core.domain.model.stats.Stats
+import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
 import kotlinx.serialization.Serializable
 
 @Keep

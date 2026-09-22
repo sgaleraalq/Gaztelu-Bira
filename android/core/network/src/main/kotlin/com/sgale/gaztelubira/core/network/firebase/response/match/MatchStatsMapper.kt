@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response.match
 
-import com.sgale.gaztelubira.core.domain.model.match.Match.Companion.ERROR_MATCH
-import com.sgale.gaztelubira.core.domain.model.match.MatchStats
-import com.sgale.gaztelubira.core.domain.model.match.MatchStats.Companion.EMPTY_MATCH_STATS
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match.Companion.ERROR_MATCH
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStats
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStats.Companion.EMPTY_MATCH_STATS
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.network.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.stats.StatsResponse
 

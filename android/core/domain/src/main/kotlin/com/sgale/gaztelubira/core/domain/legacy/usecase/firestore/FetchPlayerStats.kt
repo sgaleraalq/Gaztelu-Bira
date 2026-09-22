@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore
 
-import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersStatsDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFetch
 import javax.inject.Inject

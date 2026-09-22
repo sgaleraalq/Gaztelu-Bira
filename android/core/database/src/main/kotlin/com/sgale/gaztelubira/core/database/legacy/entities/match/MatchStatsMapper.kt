@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.database.legacy.entities.match
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.legacy.entities.stats.StatsMatchEntity
-import com.sgale.gaztelubira.core.domain.model.match.Match.Companion.ERROR_MATCH
-import com.sgale.gaztelubira.core.domain.model.match.MatchStats.Companion.EMPTY_MATCH_STATS
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match.Companion.ERROR_MATCH
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStats.Companion.EMPTY_MATCH_STATS
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
 
 internal object MatchStatsMapper : DatabaseMapper<MatchStatsModel, MatchStatsEntity> {
     override fun MatchStatsModel.asEntity() =

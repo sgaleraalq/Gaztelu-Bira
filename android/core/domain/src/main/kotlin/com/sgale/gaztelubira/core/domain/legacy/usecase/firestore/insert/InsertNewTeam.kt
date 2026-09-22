@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert
 
-import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBTeamsDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage

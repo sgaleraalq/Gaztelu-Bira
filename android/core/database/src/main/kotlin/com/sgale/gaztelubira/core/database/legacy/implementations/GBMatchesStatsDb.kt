@@ -19,8 +19,8 @@ package com.sgale.gaztelubira.core.database.legacy.implementations
 import com.sgale.gaztelubira.core.database.legacy.GBDatabase
 import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchStatsMapper.asEntity
 import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchStatsMapper.asModel
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesStatsDb
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

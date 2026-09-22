@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.auth
 
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
 
 /**
  * Opens the platform's Google sign-in flow. Each platform brings its own way of

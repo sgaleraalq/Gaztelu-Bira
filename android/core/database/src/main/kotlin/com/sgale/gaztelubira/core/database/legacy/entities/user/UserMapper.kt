@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.database.legacy.entities.user
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
-import com.sgale.gaztelubira.core.domain.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
 
 object UserMapper: DatabaseMapper<UserModel, UserEntity> {
     override fun UserModel.asEntity() =

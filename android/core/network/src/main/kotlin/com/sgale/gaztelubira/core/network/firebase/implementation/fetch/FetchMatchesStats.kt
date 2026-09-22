@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.domain.model.match.MatchStatsModel
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.STATS

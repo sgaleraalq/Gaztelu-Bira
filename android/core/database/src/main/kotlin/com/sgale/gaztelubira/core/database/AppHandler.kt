@@ -16,13 +16,12 @@
 
 package com.sgale.gaztelubira.core.database
 
-import com.sgale.gaztelubira.core.domain.legacy.usecase.CanAccessApp
-import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.MATCHES_STATS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.PLAYERS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.PLAYERS_STATS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.STATS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.TEAMS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.MATCHES_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.MATCHES_STATS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.PLAYERS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.PLAYERS_STATS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.STATS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.TEAMS_INSERTION
 import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesStatsDb
@@ -33,6 +32,7 @@ import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBTeamsDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.INFORMATION
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.STATS
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFetch
+import com.sgale.gaztelubira.core.domain.legacy.usecase.CanAccessApp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.network.firebase.implementation.fetch
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.INFORMATION
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.PLAYERS

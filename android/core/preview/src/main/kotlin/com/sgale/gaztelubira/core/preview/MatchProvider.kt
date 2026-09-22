@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.preview
 
-import com.sgale.gaztelubira.core.domain.model.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.preview.TeamProvider.provideRandomTeam
-import com.sgale.gaztelubira.core.domain.model.match.Match
-import com.sgale.gaztelubira.core.domain.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.utils.generateRandomUUID
+import com.sgale.gaztelubira.core.preview.TeamProvider.provideRandomTeam
 import kotlin.random.Random
 
 object MatchProvider {

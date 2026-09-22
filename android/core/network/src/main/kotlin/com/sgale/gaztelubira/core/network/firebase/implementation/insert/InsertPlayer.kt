@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.network.firebase.implementation.insert
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.utils.PLAYERS_INSERTION
-import com.sgale.gaztelubira.core.domain.model.utils.PlayerTimestamp
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.PLAYERS_INSERTION
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.PlayerTimestamp
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.INFORMATION
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.PLAYERS

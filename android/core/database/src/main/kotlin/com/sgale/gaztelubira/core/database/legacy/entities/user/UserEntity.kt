@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.database.legacy.entities.user
 
-import com.sgale.gaztelubira.core.domain.model.user.UserRole
-import com.sgale.gaztelubira.core.domain.model.utils.UserSessionId
+import com.sgale.gaztelubira.core.domain.legacy.model.user.UserRole
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.UserSessionId
 
 data class UserEntity(
     val id: UserSessionId,

@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.screens.navigation
 
 import androidx.compose.runtime.Composable
-import com.sgale.gaztelubira.core.domain.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.screens.auth.login.LoginScreen
 import com.sgale.gaztelubira.core.screens.auth.signup.SignUpScreen
 import com.sgale.gaztelubira.core.screens.detail.match.MatchDetailScreen
