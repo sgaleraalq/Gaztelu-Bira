@@ -43,6 +43,7 @@ internal object DatabaseModule {
     ): GazteluDatabase =
         Room.databaseBuilder<GazteluDatabase>(context, GAZTELU_DB)
             .setDriver(AndroidSQLiteDriver())
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
 
     @Provides

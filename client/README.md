@@ -61,14 +61,18 @@ puede estar en otra categoría.
 
 ## Jugadores — `players/{playerId}`
 
-| campo | tipo |
-|---|---|
-| `name` | String |
-| `faceImage` | String? (URL de Storage) |
-| `bodyImage` | String? |
-| `updatedAt` | Timestamp |
+| campo | tipo | qué es |
+|---|---|---|
+| `name` | String | nombre completo |
+| `nickname` | String? | cómo le llama el equipo; es lo que pinta la UI cuando existe |
+| `faceImage` | String? | URL de Storage |
+| `bodyImage` | String? | |
+| `updatedAt` | Timestamp | |
 
-**Id**: `iker_mendiola`, estable para siempre.
+**Id**: `pedro_garces`, estable para siempre.
+
+El `nickname` está aquí y no en `squad/` a propósito: el apodo es de la persona y no
+cambia de temporada, igual que el nombre. Lo que cambia cada año es el dorsal.
 
 **Cómo se crean**: una vez, cuando la persona entra en el club. No se duplica cada
 temporada.

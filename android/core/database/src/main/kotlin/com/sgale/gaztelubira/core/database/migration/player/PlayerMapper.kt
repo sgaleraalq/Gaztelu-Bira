@@ -24,6 +24,7 @@ internal object PlayerMapper : DatabaseMapper<Player, PlayerEntity> {
         PlayerEntity(
             id = id,
             name = name,
+            nickname = nickname,
             faceImage = faceImage,
             bodyImage = bodyImage
         )
@@ -32,6 +33,7 @@ internal object PlayerMapper : DatabaseMapper<Player, PlayerEntity> {
         Player(
             id = id,
             name = name,
+            nickname = nickname,
             faceImage = faceImage,
             bodyImage = bodyImage
         )

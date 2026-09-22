@@ -25,6 +25,7 @@ internal data class PlayerEntity(
     @PrimaryKey
     val id: PlayerId,
     val name: String,
+    val nickname: String?,
     val faceImage: String?,
     val bodyImage: String?
 )

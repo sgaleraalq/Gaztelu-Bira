@@ -24,6 +24,7 @@ internal object PlayerMapper : NetworkMapper<Player, PlayerResponse, PlayerId> {
     override fun Player.asResponse() =
         PlayerResponse(
             name = name,
+            nickname = nickname,
             faceImage = faceImage,
             bodyImage = bodyImage
         )
@@ -32,6 +33,7 @@ internal object PlayerMapper : NetworkMapper<Player, PlayerResponse, PlayerId> {
         Player(
             id = id,
             name = name,
+            nickname = nickname,
             faceImage = faceImage,
             bodyImage = bodyImage
         )

@@ -19,6 +19,7 @@ package com.sgale.gaztelubira.core.domain.migration.model.player
 data class Player(
     val id: PlayerId,
     val name: String,
+    val nickname: String?,
     val faceImage: String?,
     val bodyImage: String?
 )

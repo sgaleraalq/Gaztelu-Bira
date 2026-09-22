@@ -20,3 +20,5 @@ gaztelu_bira/google-services.json
 keystore/
 *.jks
 *.keystore
+
+core/database/schemas/*

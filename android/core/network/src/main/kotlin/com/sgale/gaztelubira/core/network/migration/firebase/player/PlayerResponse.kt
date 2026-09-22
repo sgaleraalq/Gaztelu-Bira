@@ -23,6 +23,7 @@ import com.google.firebase.firestore.ServerTimestamp
 @Keep
 internal data class PlayerResponse(
     val name: String = "",
+    val nickname: String? = null,
     val faceImage: String? = null,
     val bodyImage: String? = null,
     @ServerTimestamp val updatedAt: Timestamp? = null

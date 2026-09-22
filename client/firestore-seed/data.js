@@ -30,30 +30,47 @@ var TEAMS = [
  * person can change dorsal or position without becoming a new player.
  */
 var PLAYERS = [
-  { id: 'iker_mendiola',    name: 'Iker Mendiola',    dorsal: 1,    position: 'GOALKEEPER' },
-  { id: 'unai_larrea',      name: 'Unai Larrea',      dorsal: 2,    position: 'DEFENDER' },
-  { id: 'mikel_otxoa',      name: 'Mikel Otxoa',      dorsal: 3,    position: 'DEFENDER' },
-  { id: 'jon_zabala',       name: 'Jon Zabala',       dorsal: 4,    position: 'DEFENDER' },
-  { id: 'benat_uriarte',    name: 'Beñat Uriarte',    dorsal: 5,    position: 'DEFENDER' },
-  { id: 'oier_agirre',      name: 'Oier Agirre',      dorsal: 6,    position: 'DEFENDER' },
-  { id: 'ander_etxeberria', name: 'Ander Etxeberria', dorsal: 7,    position: 'MIDFIELDER' },
-  { id: 'julen_arrieta',    name: 'Julen Arrieta',    dorsal: 8,    position: 'MIDFIELDER' },
-  { id: 'eneko_garmendia',  name: 'Eneko Garmendia',  dorsal: 9,    position: 'FORWARD' },
-  { id: 'xabi_lasa',        name: 'Xabi Lasa',        dorsal: 10,   position: 'MIDFIELDER' },
-  { id: 'gorka_ibarra',     name: 'Gorka Ibarra',     dorsal: 11,   position: 'FORWARD' },
-  { id: 'asier_goitia',     name: 'Asier Goitia',     dorsal: 13,   position: 'GOALKEEPER' },
-  { id: 'markel_bilbao',    name: 'Markel Bilbao',    dorsal: 14,   position: 'MIDFIELDER' },
-  { id: 'inigo_munoa',      name: 'Iñigo Muñoa',      dorsal: 15,   position: 'DEFENDER' },
-  { id: 'aitor_salaberria', name: 'Aitor Salaberria', dorsal: 17,   position: 'FORWARD' },
-  { id: 'patxi_elorza',     name: 'Patxi Elorza',     dorsal: null, position: 'MANAGER' }
+  { id: 'pedro_garces',          name: 'Pedro Garces',             nickname: 'Pedro',       dorsal: 1,    position: 'GOALKEEPER' },
+  { id: 'jon_ortiz_de_urbina',   name: 'Jon Ortiz de Urbina',      nickname: 'Joni',        dorsal: 2,    position: 'UNDEFINED' },
+  { id: 'asier_huarte',          name: 'Asier Huarte',             nickname: 'Asiertxi',    dorsal: 3,    position: 'UNDEFINED' },
+  { id: 'carlos_cuesta',         name: 'Carlos Cuesta',            nickname: 'Carlos',      dorsal: 4,    position: 'UNDEFINED' },
+  { id: 'emilio_galera',         name: 'Emilio Galera',            nickname: 'Emilio',      dorsal: 5,    position: 'UNDEFINED' },
+  { id: 'adrian_perujo',         name: 'Adrián Perujo',            nickname: 'Perujo',      dorsal: 6,    position: 'UNDEFINED' },
+  { id: 'fernando_ayala',        name: 'Fernando Javier Ayala',    nickname: 'Nando',       dorsal: 7,    position: 'UNDEFINED' },
+  { id: 'julen_galera',          name: 'Julen Galera',             nickname: 'Julen',       dorsal: 8,    position: 'UNDEFINED' },
+  { id: 'diego_morales',         name: 'Diego Morales',            nickname: 'Diego',       dorsal: 9,    position: 'UNDEFINED' },
+  { id: 'mikel_agustino',        name: 'Mikel Agustino',           nickname: 'Mikel',       dorsal: 10,   position: 'UNDEFINED' },
+  { id: 'gorka_arizpeleta',      name: 'Gorka Arizpeleta',         nickname: 'Gorka',       dorsal: 11,   position: 'UNDEFINED' },
+  { id: 'dame_gueye',            name: 'Dame Gueye',               nickname: 'Dame',        dorsal: 12,   position: 'UNDEFINED' },
+  { id: 'guille',                name: 'Guille',                   nickname: 'Guille',      dorsal: 13,   position: 'GOALKEEPER' },
+  { id: 'aratz',                 name: 'Aratz',                    nickname: 'Aratz',       dorsal: 14,   position: 'UNDEFINED' },
+  { id: 'sergio_galera',         name: 'Sergio Galera',            nickname: 'Haaland',     dorsal: 15,   position: 'UNDEFINED' },
+  { id: 'dani_galera',           name: 'Dani Galera',              nickname: 'Dani',        dorsal: 16,   position: 'UNDEFINED' },
+  { id: 'pablo_arrondo',         name: 'Pablo Arrondo',            nickname: 'Garru',       dorsal: 17,   position: 'UNDEFINED' },
+  { id: 'xabi_galera',           name: 'Xabi Galera',              nickname: 'Xabi',        dorsal: 18,   position: 'UNDEFINED' },
+  { id: 'david_sadaba',          name: 'David Sádaba',             nickname: 'Sádaba',      dorsal: 19,   position: 'UNDEFINED' },
+  { id: 'alvaro_galera',         name: 'Alvaro Galera',            nickname: 'Alvaro',      dorsal: 20,   position: 'UNDEFINED' },
+  { id: 'iker_vergara',          name: 'Iker Vergara',             nickname: 'Iker.',       dorsal: 21,   position: 'UNDEFINED' },
+  { id: 'jon_huarte',            name: 'Jon Huarte',               nickname: 'Jon',         dorsal: 22,   position: 'UNDEFINED' },
+  { id: 'adrian_orta',           name: 'Adrián Orta',              nickname: 'Adrián',      dorsal: 23,   position: 'UNDEFINED' },
+
+  // sin dorsal
+  { id: 'juan_carlos_huarte',    name: 'Juan Carlos Huarte',       nickname: 'Juan Carlos', dorsal: null, position: 'MANAGER' },
+  { id: 'jose_angel_galera',     name: 'José Ángel Galera Balboa', nickname: 'José Ángel',  dorsal: null, position: 'UNDEFINED' },
+  { id: 'joseba_ortiz_de_urbina', name: 'Joseba Ortiz de Urbina',  nickname: 'Joseba',      dorsal: null, position: 'UNDEFINED' },
+  { id: 'juan_jose_medina',      name: 'Juan José Medina',         nickname: 'Juan José',   dorsal: null, position: 'UNDEFINED' },
+  { id: 'unai_mugica',           name: 'Unai Múgica',              nickname: 'Unai',        dorsal: null, position: 'UNDEFINED' },
+  { id: 'alexis_yanac',          name: 'Alexis Antonio Yañac',     nickname: 'Alexis',      dorsal: null, position: 'UNDEFINED' },
+  { id: 'julen_maeztu',          name: 'Julen Maeztu',             nickname: 'Maeztu',      dorsal: null, position: 'UNDEFINED' },
+  { id: 'xabier_lasaga',         name: 'Xabier Lasaga',            nickname: 'Lasaga',      dorsal: null, position: 'UNDEFINED' }
 ]
 
 var STARTING_XI = [
-  'iker_mendiola', 'unai_larrea', 'mikel_otxoa', 'jon_zabala', 'benat_uriarte',
-  'oier_agirre', 'ander_etxeberria', 'julen_arrieta', 'eneko_garmendia',
-  'xabi_lasa', 'gorka_ibarra'
+  'pedro_garces', 'jon_ortiz_de_urbina', 'asier_huarte', 'carlos_cuesta', 'emilio_galera',
+  'adrian_perujo', 'fernando_ayala', 'julen_galera', 'diego_morales',
+  'mikel_agustino', 'gorka_arizpeleta'
 ]
-var USUAL_BENCH = ['asier_goitia', 'markel_bilbao', 'inigo_munoa', 'aitor_salaberria']
+var USUAL_BENCH = ['guille', 'aratz', 'sergio_galera', 'pablo_arrondo']
 
 /*
  * A match declares what happened, not what each player ends up with: the per
@@ -68,10 +85,10 @@ var MATCHES = [
     local: APP_TEAM, visitor: 'lakua',
     score: { local: 3, visitor: 1 },
     events: {
-      goals: { eneko_garmendia: 2, gorka_ibarra: 1 },
-      assists: { xabi_lasa: 2, ander_etxeberria: 1 },
-      yellowCards: { jon_zabala: 1 },
-      saves: { iker_mendiola: 4 }
+      goals: { diego_morales: 2, gorka_arizpeleta: 1 },
+      assists: { mikel_agustino: 2, fernando_ayala: 1 },
+      yellowCards: { carlos_cuesta: 1 },
+      saves: { pedro_garces: 4 }
     }
   },
   {
@@ -81,11 +98,11 @@ var MATCHES = [
     local: 'zaramaga', visitor: APP_TEAM,
     score: { local: 0, visitor: 2 },
     events: {
-      goals: { xabi_lasa: 1, aitor_salaberria: 1 },
-      assists: { gorka_ibarra: 1 },
-      penaltiesProvoked: { gorka_ibarra: 1 },
-      saves: { iker_mendiola: 6 },
-      bench: ['asier_goitia', 'markel_bilbao', 'aitor_salaberria']
+      goals: { mikel_agustino: 1, pablo_arrondo: 1 },
+      assists: { gorka_arizpeleta: 1 },
+      penaltiesProvoked: { gorka_arizpeleta: 1 },
+      saves: { pedro_garces: 6 },
+      bench: ['guille', 'aratz', 'pablo_arrondo']
     }
   },
   {
@@ -95,11 +112,11 @@ var MATCHES = [
     local: APP_TEAM, visitor: 'abetxuko',
     score: { local: 1, visitor: 1 },
     events: {
-      goals: { ander_etxeberria: 1 },
-      assists: { unai_larrea: 1 },
-      yellowCards: { julen_arrieta: 1, oier_agirre: 1 },
-      fails: { eneko_garmendia: 1 },
-      saves: { iker_mendiola: 3 }
+      goals: { fernando_ayala: 1 },
+      assists: { jon_ortiz_de_urbina: 1 },
+      yellowCards: { julen_galera: 1, adrian_perujo: 1 },
+      fails: { diego_morales: 1 },
+      saves: { pedro_garces: 3 }
     }
   },
   {
@@ -109,13 +126,13 @@ var MATCHES = [
     local: 'judimendi', visitor: APP_TEAM,
     score: { local: 4, visitor: 2 },
     events: {
-      goals: { eneko_garmendia: 1, markel_bilbao: 1 },
-      assists: { ander_etxeberria: 1 },
-      goalsProvoked: { mikel_otxoa: 1 },
-      yellowCards: { benat_uriarte: 1, mikel_otxoa: 1 },
-      redCards: { mikel_otxoa: 1 },
-      saves: { iker_mendiola: 2 },
-      fails: { jon_zabala: 2 }
+      goals: { diego_morales: 1, aratz: 1 },
+      assists: { fernando_ayala: 1 },
+      goalsProvoked: { asier_huarte: 1 },
+      yellowCards: { emilio_galera: 1, asier_huarte: 1 },
+      redCards: { asier_huarte: 1 },
+      saves: { pedro_garces: 2 },
+      fails: { carlos_cuesta: 2 }
     }
   },
   {
@@ -125,9 +142,9 @@ var MATCHES = [
     local: APP_TEAM, visitor: 'salburua',
     score: { local: 2, visitor: 0 },
     events: {
-      goals: { gorka_ibarra: 2 },
-      assists: { eneko_garmendia: 1, julen_arrieta: 1 },
-      saves: { iker_mendiola: 5 }
+      goals: { gorka_arizpeleta: 2 },
+      assists: { diego_morales: 1, julen_galera: 1 },
+      saves: { pedro_garces: 5 }
     }
   },
   {
@@ -139,14 +156,14 @@ var MATCHES = [
     events: {
       // the cup gives minutes to the second goalkeeper: he keeps the clean sheet
       startersOverride: [
-        'asier_goitia', 'unai_larrea', 'inigo_munoa', 'jon_zabala', 'benat_uriarte',
-        'oier_agirre', 'ander_etxeberria', 'markel_bilbao', 'aitor_salaberria',
-        'xabi_lasa', 'gorka_ibarra'
+        'guille', 'jon_ortiz_de_urbina', 'sergio_galera', 'carlos_cuesta', 'emilio_galera',
+        'adrian_perujo', 'fernando_ayala', 'aratz', 'pablo_arrondo',
+        'mikel_agustino', 'gorka_arizpeleta'
       ],
-      bench: ['iker_mendiola', 'mikel_otxoa', 'eneko_garmendia'],
-      goals: { aitor_salaberria: 1 },
-      assists: { xabi_lasa: 1 },
-      saves: { asier_goitia: 7 }
+      bench: ['pedro_garces', 'asier_huarte', 'diego_morales'],
+      goals: { pablo_arrondo: 1 },
+      assists: { mikel_agustino: 1 },
+      saves: { guille: 7 }
     }
   },
   {
@@ -197,7 +214,7 @@ function lineupOf(match) {
   var events = match.events || {}
   var starters = events.startersOverride || STARTING_XI
   var bench = events.bench || USUAL_BENCH
-  var manager = 'patxi_elorza'
+  var manager = 'juan_carlos_huarte'
 
   var docs = []
 
@@ -252,7 +269,12 @@ function buildDocuments() {
   PLAYERS.forEach(function (player) {
     docs.push({
       path: 'players/' + player.id,
-      data: { name: player.name, faceImage: null, bodyImage: null }
+      data: {
+        name: player.name,
+        nickname: player.nickname,
+        faceImage: null,
+        bodyImage: null
+      }
     })
     docs.push({
       path: seasonPath + '/squad/' + player.id,
