@@ -122,12 +122,18 @@ Dos detalles que vienen de haberse quemado antes:
 
 Un documento por jugador **que estuvo en la convocatoria**.
 
+`cleanSheets` es el único contador con decimales, porque se reparte por medias
+partes: quien solo jugó la segunda y no encajó se lleva 0.5. Firestore guardará
+un `1` como entero y un `0.5` como decimal —no hay forma de forzar el tipo desde
+el cliente—, así que el campo se lee siempre como `Double`, nunca como `Int`.
+
 | campo | tipo | qué es |
 |---|---|---|
 | `playerId`, `matchId`, `seasonId` | String | repetidos a propósito, ver abajo |
 | `role` | String | `STARTER`, `BENCH`, `MANAGER` |
 | `slot` | Int? | puesto en la alineación, solo titulares |
-| `goals`, `assists`, `goalsProvoked`, `penaltiesProvoked`, `cleanSheets`, `saves`, `fails`, `yellowCards`, `redCards` | Int | lo que hizo ese día |
+| `goals`, `assists`, `goalsProvoked`, `penaltiesProvoked`, `saves`, `fails`, `yellowCards`, `redCards` | Int | lo que hizo ese día |
+| `cleanSheets` | Double | **medias partes**: 0.5 por cada una sin encajar, 1 el partido entero |
 | `updatedAt` | Timestamp | |
 
 **Id**: el `playerId`. Así un jugador no puede aparecer dos veces en el mismo

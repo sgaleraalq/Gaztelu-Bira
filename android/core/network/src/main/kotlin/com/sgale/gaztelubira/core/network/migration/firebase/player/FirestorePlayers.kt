@@ -48,5 +48,6 @@ internal class FirestorePlayers @Inject constructor(
                     ?.asModel(PlayerId(document.id))
             }
 
-    private fun players(): CollectionReference = firestore.collection(PLAYERS)
+    private fun players(): CollectionReference =
+        firestore.collection(PLAYERS)
 }

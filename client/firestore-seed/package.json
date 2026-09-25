@@ -8,8 +8,11 @@
     "dry-run": "node seed.js --dry-run",
     "seed": "node seed.js",
     "reseed": "node seed.js --clean",
-    "dump": "node dump.js",
-    "restore": "node restore.js"
+    "download": "node backup/players/download.js",
+    "upload": "node upload.js",
+    "upload:check": "node upload.js --dry-run",
+    "upload:new": "node upload.js --only-missing",
+    "upload:new:check": "node upload.js --only-missing --dry-run"
   },
   "dependencies": {
     "firebase-admin": "^13.0.2"

@@ -175,9 +175,12 @@ var MATCHES = [
   }
 ]
 
+/* a clean sheet is counted by halves: 0.5 each, 1 for a whole match kept */
+var HALF = 0.5
+
 var EMPTY_STATS = {
   assists: 0,
-  cleanSheets: 0,
+  cleanSheets: 0.0,
   fails: 0,
   goals: 0,
   goalsProvoked: 0,
@@ -226,12 +229,13 @@ function lineupOf(match) {
   })
   docs.push(lineupDoc(match, manager, 'MANAGER', null))
 
-  // the goalkeeper who started keeps the clean sheet when nobody scored
+  // the goalkeeper who started keeps the clean sheet when nobody scored; a
+  // keeper who only played one half would get HALF instead
   if (goalsAgainst(match) === 0) {
     var keeper = docs.filter(function (doc) {
       return doc.role === 'STARTER' && playerById(doc.playerId).position === 'GOALKEEPER'
     })[0]
-    if (keeper) keeper.cleanSheets = 1
+    if (keeper) keeper.cleanSheets = HALF * 2
   }
 
   return docs
