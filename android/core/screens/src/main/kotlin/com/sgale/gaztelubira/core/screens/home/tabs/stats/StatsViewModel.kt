@@ -25,6 +25,7 @@ import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toGBPlay
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toStat
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayersStats
+import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
@@ -36,7 +37,7 @@ import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSetti
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Companion.computing
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -44,12 +45,14 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 internal class StatsViewModel @Inject constructor(
     private val getPlayerStats: GetPlayersStats,
-    private val getMatches: GetMatches
+    private val getMatches: GetMatches,
+    private val seasonLocal: SeasonLocal
 ) : ViewModel() {
     private val _state = MutableStateFlow(StatsUiState())
     internal val state: StateFlow<StatsUiState> = _state.asStateFlow()
@@ -68,13 +71,13 @@ internal class StatsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getPlayerStats()
-                .flowOn(Dispatchers.IO)
+                .flowOn(IO)
                 .collect { playersStats.value = it }
         }
 
         viewModelScope.launch {
             getMatches()
-                .flowOn(Dispatchers.IO)
+                .flowOn(IO)
                 .collect { matches.value = it }
         }
 
@@ -96,6 +99,14 @@ internal class StatsViewModel @Inject constructor(
                     state.copy(state = computing(state.players.isEmpty()))
                 }
             }
+        }
+
+        viewModelScope.launch {
+            val seasons = withContext(IO) {
+                seasonLocal.getSeasons()
+            }
+
+            _state.update { it.copy(seasons = seasons.map { season -> season.name }) }
         }
     }
 

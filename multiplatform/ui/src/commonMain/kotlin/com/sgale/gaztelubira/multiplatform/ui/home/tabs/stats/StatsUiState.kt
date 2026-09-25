@@ -32,5 +32,6 @@ data class StatsUiState(
     val players: List<GBPlayerStat> = emptyList(),
     val punctuation: GBPunctuation = GBPunctuation(),
     val selectedPlayer: GBPlayerStatsDetail? = null,
+    val seasons: List<String> = emptyList(),
     val settings: GBStatsSettings = Hidden
 )

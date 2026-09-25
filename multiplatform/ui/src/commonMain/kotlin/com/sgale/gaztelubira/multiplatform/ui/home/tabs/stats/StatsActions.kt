@@ -22,6 +22,7 @@ import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlaye
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
 
 data class StatsActions(
+    val changeSelectedSeason: (String) -> Unit,
     val onPlayerAction: (GBStatsPlayerModal) -> Unit,
     val onSettingsChanged: (GBStatsSettings) -> Unit,
     val onStatSelected: (GBStat) -> Unit,

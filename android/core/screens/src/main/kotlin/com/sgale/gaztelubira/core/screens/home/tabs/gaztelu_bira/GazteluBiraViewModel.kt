@@ -18,18 +18,18 @@ package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetTeams
 import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
 import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.model.team.TeamMapper.toGBTeam
 import com.sgale.gaztelubira.core.domain.legacy.model.team.TeamMapper.toGBTeamSummary
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.TESTING
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
+import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetTeams
 import com.sgale.gaztelubira.core.preview.MatchProvider.provideMatchesList
 import com.sgale.gaztelubira.core.preview.TeamProvider.provideRandomTeams
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -43,7 +43,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class GazteluBiraViewModel @Inject constructor(
     private val getTeams: GetTeams,
-    private val getMatches: GetMatches
+    private val getMatches: GetMatches,
 ) : ViewModel() {
     private val _state = MutableStateFlow(GazteluBiraUiState())
     internal val state: StateFlow<GazteluBiraUiState> = _state.asStateFlow()
@@ -59,7 +59,7 @@ internal class GazteluBiraViewModel @Inject constructor(
             launch {
                 getTeams()
                     .combine(testTeams) { real, test -> real + test }
-                    .flowOn(Dispatchers.IO)
+                    .flowOn(IO)
                     .collect { teams ->
                         _state.update { it.copy(teams = teams.map { team -> team.toGBTeam() }) }
                     }
@@ -68,7 +68,7 @@ internal class GazteluBiraViewModel @Inject constructor(
             launch {
                 getMatches()
                     .combine(testMatches) { real, test -> real + test }
-                    .flowOn(Dispatchers.IO)
+                    .flowOn(IO)
                     .collect { played ->
                         matches = played
                         renderSummary()

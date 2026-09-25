@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira
 
-import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.model.GBSeason
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
 
 data class GazteluBiraUiState(
     val season: GBSeason? = null,
