@@ -24,19 +24,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-/**
- * The season every screen should be looking at: the one the user picked, or the
- * current one while they have picked none.
- *
- * It lives here and not in a ViewModel so the rule is written once — otherwise
- * every screen repeats it and they drift apart.
- *
- * The choice is checked against what is stored, so a season that was picked once
- * and no longer exists falls back to the current one instead of leaving the app
- * pointing at nothing.
- *
- * @return null only while nothing has been downloaded yet.
- */
 class SelectedSeason @Inject constructor(
     private val seasons: SeasonLocal,
     private val preferences: Preferences

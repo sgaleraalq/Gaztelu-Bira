@@ -21,6 +21,7 @@ import com.sgale.gaztelubira.core.database.migration.season.SeasonMapper.asModel
 import com.sgale.gaztelubira.core.database.migration.season.entity.SeasonPlayerMapper.asEntity
 import com.sgale.gaztelubira.core.database.migration.season.entity.SeasonPlayerMapper.asModel
 import com.sgale.gaztelubira.core.database.migration.season.entity.SquadPlayerMapper.asModel
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
@@ -33,6 +34,9 @@ internal class RoomSeasons @Inject constructor(
 ): SeasonLocal {
     override suspend fun getSeasons(): List<Season> =
         seasonDao.getSeasons().map { it.asModel() }
+
+    override suspend fun getSeasonPlayer(playerId: PlayerId, seasonId: SeasonId): SeasonPlayer =
+        seasonDao.getSeasonPlayer(playerId, seasonId).asModel()
 
     override suspend fun getSeasonPlayers(season: SeasonId): List<SeasonPlayer> =
         seasonDao.getSeasonPlayers(season).map { it.asModel() }

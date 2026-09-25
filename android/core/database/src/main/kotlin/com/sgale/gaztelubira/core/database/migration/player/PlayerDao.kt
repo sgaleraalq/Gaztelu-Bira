@@ -25,7 +25,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 @Dao
 internal interface PlayerDao {
     @Query("SELECT * FROM PlayerEntity WHERE id = :id")
-    suspend fun getPlayer(id: PlayerId): PlayerEntity?
+    suspend fun getPlayer(id: PlayerId): PlayerEntity
 
     @Query("SELECT * FROM PlayerEntity")
     suspend fun getPlayers(): List<PlayerEntity>

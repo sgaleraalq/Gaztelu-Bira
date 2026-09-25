@@ -302,8 +302,7 @@ function buildDocuments() {
         date: new Date(match.date),
         localTeam: match.local,
         visitorTeam: match.visitor,
-        score: match.score,
-        deletedAt: null
+        score: match.score
       }
     })
 

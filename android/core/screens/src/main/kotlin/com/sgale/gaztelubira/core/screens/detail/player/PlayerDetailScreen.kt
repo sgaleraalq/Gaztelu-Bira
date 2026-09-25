@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.showToast
@@ -43,11 +44,10 @@ internal fun PlayerDetailScreen(
     val notAvailableYetMsg = stringResource(Res.string.not_yet_available)
 
     LaunchedEffect(true) {
-        viewModel.updateState(playerId, isManager)
+        viewModel.updateState(PlayerId(playerId), isManager)
     }
 
     val state by viewModel.state.collectAsStateWithLifecycle()
-
 
     val actions = remember(
         viewModel,

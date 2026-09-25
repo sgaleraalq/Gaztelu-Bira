@@ -19,13 +19,9 @@ package com.sgale.gaztelubira.core.screens.detail.player
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
-import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerMapper.toGBPlayer
 import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.FetchMatches
-import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.FetchPlayer
-import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.FetchPlayerStats
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState.PlayerWinRate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,9 +35,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class PlayerDetailViewModel @Inject constructor(
-    private val fetchPlayerInformation: FetchPlayer,
-    private val fetchPlayerStats: FetchPlayerStats,
-    private val fetchMatches: FetchMatches
+    private val getPlayerDetailInformation: GetPlayerDetailInformation
 ) : ViewModel() {
     private val _state = MutableStateFlow(PlayerDetailUiState())
     internal val state: StateFlow<PlayerDetailUiState> = _state
@@ -87,26 +81,15 @@ internal class PlayerDetailViewModel @Inject constructor(
     }
 
     internal fun updateState(
-        playerId: String,
+        playerId: PlayerId,
         isManager: Boolean
     ) {
         viewModelScope.launch {
             val playerInfo = withContext(Dispatchers.IO) {
-                fetchPlayerInformation(playerId)
+                getPlayerDetailInformation(playerId)
             }
 
-            val playerStats = withContext(Dispatchers.IO) {
-                fetchPlayerStats(playerId)
-            }
-            val matches = withContext(Dispatchers.IO) {
-                fetchMatches()
-            }
-
-            playerStats?.let {
-                calculateMatchesStats(GAZTELU_BIRA, matches, playerStats)
-            }
-
-            playerInfo?.let {
+            if (playerInfo != null) {
                 _state.update {
                     it.copy(
                         isManager = isManager,
@@ -114,6 +97,30 @@ internal class PlayerDetailViewModel @Inject constructor(
                     )
                 }
             }
+
+//            val playerInfo = withContext(Dispatchers.IO) {
+//                fetchPlayerInformation(playerId)
+//            }
+//
+//            val playerStats = withContext(Dispatchers.IO) {
+//                fetchPlayerStats(playerId)
+//            }
+//            val matches = withContext(Dispatchers.IO) {
+//                fetchMatches()
+//            }
+//
+//            playerStats?.let {
+//                calculateMatchesStats(GAZTELU_BIRA, matches, playerStats)
+//            }
+//
+//            playerInfo?.let {
+//                _state.update {
+//                    it.copy(
+//                        isManager = isManager,
+//                        player = playerInfo.toGBPlayer()
+//                    )
+//                }
+//            }
         }
     }
 }

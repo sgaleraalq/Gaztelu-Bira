@@ -16,21 +16,28 @@
 
 package com.sgale.gaztelubira.core.network.migration.firebase.season
 
+import com.google.firebase.Timestamp
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
+import java.util.Date
 
 internal object SeasonMapper: NetworkMapper<Season, SeasonResponse, SeasonId> {
     override fun Season.asResponse() =
-        SeasonResponse()
+        SeasonResponse(
+            name = name,
+            startsAt = Timestamp(Date(startsAt)),
+            endsAt = Timestamp(Date(endsAt)),
+            current = true // TODO
+        )
 
     override fun SeasonResponse.asModel(
         id: SeasonId
     ) = Season(
         id = id,
         name = name,
-        startsAt = startsAt?.seconds ?: 0L, // TODO
-        endsAt = endsAt?.seconds ?: 0L, // TODO
-        isCurrent = isCurrent
+        startsAt = startsAt.seconds,
+        endsAt = endsAt.seconds,
+        isCurrent = current
     )
 }

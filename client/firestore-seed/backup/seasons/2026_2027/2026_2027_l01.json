@@ -1,77 +1,66 @@
 {
-  "path": "seasons/2026_2027/matches/2026_2027_l02",
+  "path": "seasons/2026_2027/matches/2026_2027_l01",
   "data": {
     "competition": {
       "type": "LEAGUE",
-      "journey": 2
+      "journey": 1
     },
     "match": {
       "localTeam": "gaztelu_bira",
-      "visitorTeam": "san_cristobal",
+      "visitorTeam": "gruas_transporte_inaki_lima",
       "score": {
         "local": 3,
         "visitor": 0
       },
-      "formation": "5-3-2"
+      "formation": "4-4-2"
     },
     "information": {
-      "date": "2026-09-20T08:30:00.000Z",
-      "location": "Amigó",
-      "description": "Buen partido de Gaztelu Bira"
+      "date": "2026-09-13T08:00:00.000Z",
+      "location": "Lezkairu",
+      "description": "Buen inicio de Liga de Gaztelu"
     },
     "updatedAt": "2026-09-25T21:33:53.738Z"
   },
   "subcollections": {
-    "events": {
+    "events": { 
       "e01": {
         "order": 1,
-        "matchId": "2026_2027_l02",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "type": "GOAL",
         "scoredFor": "gaztelu_bira",
-        "scorer": null,
+        "scorer": "asier_huarte",
         "assist": null,
-        "ownGoal": true,
+        "ownGoal": false,
         "updatedAt": "2026-09-25T21:33:53.738Z"
       },
       "e02": {
         "order": 2,
-        "matchId": "2026_2027_l02",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "type": "GOAL",
         "scoredFor": "gaztelu_bira",
-        "scorer": "david_sadaba",
-        "assist": null,
+        "scorer": "mikel_agustino",
+        "assist": "daniel_galera",
         "ownGoal": false,
         "updatedAt": "2026-09-25T21:33:53.738Z"
       },
       "e03": {
         "order": 3,
-        "matchId": "2026_2027_l02",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "type": "GOAL",
         "scoredFor": "gaztelu_bira",
-        "scorer": "david_sadaba",
-        "assist": "xabier_galera",
+        "scorer": "diego_morales",
+        "assist": null,
         "ownGoal": false,
-        "updatedAt": "2026-09-25T21:33:53.738Z"
-      },
-      "e04": {
-        "order": 4,
-        "matchId": "2026_2027_l02",
-        "seasonId": "2026_2027",
-        "type": "PENALTY",
-        "taker": "fernando_ayala",
-        "scored": false,
-        "provokedBy": "jon_ortiz_de_urbina",
-        "scoredFor": null,
         "updatedAt": "2026-09-25T21:33:53.738Z"
       }
     },
     "lineup": {
       "guillermo_tallens": {
         "playerId": "guillermo_tallens",
-        "matchId": "2026_2027_l02",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 1,
@@ -85,29 +74,29 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "jon_ortiz_de_urbina": {
-        "playerId": "jon_ortiz_de_urbina",
-        "matchId": "2026_2027_l02",
+      "asier_huarte": {
+        "playerId": "asier_huarte",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 2,
-        "goals": 0,
+        "goals": 1,
         "assists": 0,
         "goalsProvoked": 0,
-        "penaltiesProvoked": 1,
+        "penaltiesProvoked": 0,
         "saves": 0,
         "fails": 0,
         "cleanSheets": 1.0,
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
       "dame_gueye": {
         "playerId": "dame_gueye",
-        "matchId": "2026_2027_l02",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 3,
@@ -121,11 +110,11 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "adrian_perujo": {
-        "playerId": "adrian_perujo",
-        "matchId": "2026_2027_l02",
+      "carlos_cuesta": {
+        "playerId": "carlos_cuesta",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 4,
@@ -139,11 +128,11 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "asier_huarte": {
-        "playerId": "asier_huarte",
-        "matchId": "2026_2027_l02",
+      "fernando_ayala": {
+        "playerId": "fernando_ayala",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 5,
@@ -157,11 +146,11 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "fernando_ayala": {
-        "playerId": "fernando_ayala",
-        "matchId": "2026_2027_l02",
+      "jon_ortiz_de_urbina": {
+        "playerId": "jon_ortiz_de_urbina",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 6,
@@ -170,16 +159,16 @@
         "goalsProvoked": 0,
         "penaltiesProvoked": 0,
         "saves": 0,
-        "fails": 1,
-        "cleanSheets": 1.0,
+        "fails": 0,
+        "cleanSheets": 0.0,
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "mikel_agustino": {
-        "playerId": "mikel_agustino",
-        "matchId": "2026_2027_l02",
+      "alvaro_galera": {
+        "playerId": "alvaro_galera",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 7,
@@ -193,33 +182,15 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "xabier_galera": {
-        "playerId": "xabier_galera",
-        "matchId": "2026_2027_l02",
+      "mikel_agustino": {
+        "playerId": "mikel_agustino",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 8,
-        "goals": 0,
-        "assists": 1,
-        "goalsProvoked": 0,
-        "penaltiesProvoked": 0,
-        "saves": 0,
-        "fails": 0,
-        "cleanSheets": 0.0,
-        "yellowCards": 0,
-        "redCards": 0,
-        "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
-      },
-      "david_sadaba": {
-        "playerId": "david_sadaba",
-        "matchId": "2026_2027_l02",
-        "seasonId": "2026_2027",
-        "role": "STARTER",
-        "formationPosition": 9,
-        "goals": 2,
+        "goals": 1,
         "assists": 0,
         "goalsProvoked": 0,
         "penaltiesProvoked": 0,
@@ -229,11 +200,29 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "sergio_galera": {
-        "playerId": "sergio_galera",
-        "matchId": "2026_2027_l02",
+      "xabier_galera": {
+        "playerId": "xabier_galera",
+        "matchId": "2026_2027_l01",
+        "seasonId": "2026_2027",
+        "role": "STARTER",
+        "formationPosition": 9,
+        "goals": 0,
+        "assists": 0,
+        "goalsProvoked": 0,
+        "penaltiesProvoked": 0,
+        "saves": 0,
+        "fails": 0,
+        "cleanSheets": 0.0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "blueCards": 0,
+        "updatedAt": "2026-09-25T21:33:53.738Z"
+      },
+      "gorka_arizpeleta": {
+        "playerId": "gorka_arizpeleta",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 10,
@@ -247,15 +236,15 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "gorka_arizpeleta": {
-        "playerId": "gorka_arizpeleta",
-        "matchId": "2026_2027_l02",
+      "diego_morales": {
+        "playerId": "diego_morales",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "STARTER",
         "formationPosition": 11,
-        "goals": 0,
+        "goals": 1,
         "assists": 0,
         "goalsProvoked": 0,
         "penaltiesProvoked": 0,
@@ -265,11 +254,29 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       },
-      "aratz_arratibel": {
-        "playerId": "aratz_arratibel",
-        "matchId": "2026_2027_l02",
+      "daniel_galera": {
+        "playerId": "daniel_galera",
+        "matchId": "2026_2027_l01",
+        "seasonId": "2026_2027",
+        "role": "BENCH",
+        "formationPosition": null,
+        "goals": 0,
+        "assists": 1,
+        "goalsProvoked": 0,
+        "penaltiesProvoked": 0,
+        "saves": 0,
+        "fails": 0,
+        "cleanSheets": 0.0,
+        "yellowCards": 0,
+        "redCards": 0,
+        "blueCards": 0,
+        "updatedAt": "2026-09-25T21:33:53.738Z"
+      },
+      "emilio_galera": {
+        "playerId": "emilio_galera",
+        "matchId": "2026_2027_l01",
         "seasonId": "2026_2027",
         "role": "BENCH",
         "formationPosition": null,
@@ -283,25 +290,7 @@
         "yellowCards": 0,
         "redCards": 0,
         "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
-      },
-      "julen_galera": {
-        "playerId": "julen_galera",
-        "matchId": "2026_2027_l02",
-        "seasonId": "2026_2027",
-        "role": "BENCH",
-        "formationPosition": null,
-        "goals": 0,
-        "assists": 0,
-        "goalsProvoked": 0,
-        "penaltiesProvoked": 0,
-        "saves": 0,
-        "fails": 0,
-        "cleanSheets": 0.0,
-        "yellowCards": 0,
-        "redCards": 0,
-        "blueCards": 0,
-        "updatedAt": "2026-09-25T08:29:51.852Z"
+        "updatedAt": "2026-09-25T21:33:53.738Z"
       }
     }
   }

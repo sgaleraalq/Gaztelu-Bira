@@ -27,8 +27,8 @@ internal class RoomPlayers @Inject constructor(
     private val playerDao: PlayerDao
 ) : PlayerLocal {
 
-    override suspend fun getPlayer(id: PlayerId): Player? =
-        playerDao.getPlayer(id)?.asModel()
+    override suspend fun getPlayer(id: PlayerId): Player =
+        playerDao.getPlayer(id).asModel()
 
     override suspend fun getPlayers(): List<Player> =
         playerDao.getPlayers().map { it.asModel() }

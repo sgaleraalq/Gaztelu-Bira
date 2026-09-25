@@ -23,9 +23,11 @@ import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemot
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
 import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
+import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
 import javax.inject.Inject
 
 internal class FirstTime @Inject constructor(
+    private val preferences: Preferences,
     private val playerRemote: PlayerRemote,
     private val playerLocal: PlayerLocal,
     private val seasonRemote: SeasonRemote,
@@ -39,11 +41,18 @@ internal class FirstTime @Inject constructor(
         playerLocal.insertPlayers(players)
 
         val seasons = seasonRemote.fetchSeasons()
+        val currentSeason = seasons.firstOrNull { it.isCurrent }
+
+        currentSeason?.let {
+            preferences.selectSeason(it.id)
+        }
+
         seasonLocal.insertSeasons(seasons)
 
         seasons.forEach { season ->
             seasonLocal.insertSeasonPlayers(seasonRemote.fetchSquad(season.id))
         }
+
 
         Log.i(TAG, "These are the players: $players")
         Log.i(TAG, "These are the seasons: $seasons")
