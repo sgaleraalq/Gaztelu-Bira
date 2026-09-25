@@ -1,0 +1,10 @@
+{
+  "path": "players/dame_gueye",
+  "data": {
+    "name": "Dame Gueye",
+    "nickname": "Dame",
+    "faceImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Fdame_gueye%2Fface.jpg?alt=media&token=9eaa37a3-e011-48f8-928e-edabb7c40853",
+    "bodyImage": null,
+    "updatedAt": "2026-09-22T21:33:53.738Z"
+  }
+}

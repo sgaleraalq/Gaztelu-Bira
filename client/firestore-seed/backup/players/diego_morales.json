@@ -1,0 +1,10 @@
+{
+  "path": "players/diego_morales",
+  "data": {
+    "name": "Diego Morales",
+    "nickname": "Diego",
+    "faceImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Fdiego_morales%2Fface.jpg?alt=media&token=0f630851-a078-4438-9ced-593731294ec4",
+    "bodyImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Fdiego_morales%2Fbody.jpg?alt=media&token=bcadaeb1-50f5-469e-a699-3a7aa6d1e79f",
+    "updatedAt": "2026-09-22T21:33:53.738Z"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "path": "players/daniel_galera",
+  "data": {
+    "name": "Daniel Galera",
+    "nickname": "Dani",
+    "faceImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Fdaniel_galera%2Fface.jpg?alt=media&token=d9c706d1-4a30-4969-9f99-be18c0080140",
+    "bodyImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Fdaniel_galera%2Fbody.jpg?alt=media&token=f9762698-a36f-44d7-9775-80951d41410c",
+    "updatedAt": "2026-09-22T21:33:53.738Z"
+  }
+}

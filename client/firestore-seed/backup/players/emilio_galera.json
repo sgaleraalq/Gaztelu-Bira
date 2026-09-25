@@ -1,0 +1,10 @@
+{
+  "path": "players/emilio_galera",
+  "data": {
+    "name": "Emilio Galera",
+    "nickname": "Emilio",
+    "faceImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Femilio_galera%2Fface.jpg?alt=media&token=3bc86ede-23ca-4767-837d-2e22e6f9e480",
+    "bodyImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Femilio_galera%2Fbody.jpg?alt=media&token=154d098c-420e-4761-aca2-c6439aba3a8a",
+    "updatedAt": "2026-09-22T21:33:53.738Z"
+  }
+}

@@ -180,7 +180,8 @@ async function commit(firestore, writes, removed) {
 
 function connect() {
   if (production) {
-    if (!has('--yes')) {
+    // a dry run writes nothing, so it does not need the blessing
+    if (!has('--yes') && !dryRun) {
       throw new Error(
         (onlyMissing
           ? 'This writes the documents missing from the real project ' + projectId + '.\n'
