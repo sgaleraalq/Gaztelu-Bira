@@ -18,6 +18,7 @@ package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,18 +41,42 @@ import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.Fit
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
+import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAsyncImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
+import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 private val PLAYER_CLASSIFICATION_SIZE = 36.dp
+
+@Composable
+internal fun SelectedStatTitle(
+    stat: GBStat
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 12.dp),
+        verticalAlignment = CenterVertically,
+        horizontalArrangement = Arrangement.Absolute.spacedBy(16.dp)
+    ) {
+        GBIcon(
+            modifier = Modifier.size(24.dp),
+            icon = painterResource(stat.icon)
+        )
+        GBText(
+            text = stringResource(stat.label),
+            style = gBTypography().bodyLarge.copy(fontWeight = Normal)
+        )
+    }
+}
 
 @Composable
 internal fun StatsClassification(

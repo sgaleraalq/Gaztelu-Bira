@@ -25,6 +25,8 @@ import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toGBPlay
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toStat
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayersStats
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
@@ -34,8 +36,10 @@ import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlaye
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.ShowPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Companion.computing
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Default
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -52,7 +56,8 @@ import javax.inject.Inject
 internal class StatsViewModel @Inject constructor(
     private val getPlayerStats: GetPlayersStats,
     private val getMatches: GetMatches,
-    private val seasonLocal: SeasonLocal
+    private val seasonLocal: SeasonLocal,
+    private val preferences: Preferences
 ) : ViewModel() {
     private val _state = MutableStateFlow(StatsUiState())
     internal val state: StateFlow<StatsUiState> = _state.asStateFlow()
@@ -85,7 +90,7 @@ internal class StatsViewModel @Inject constructor(
             handler.statsDisplayed.filterNotNull().collect { ranking ->
                 _state.update { state ->
                     state.copy(
-                        state = Loaded,
+                        state = Default,
                         players = ranking.map { it.toGBPlayerStat(state.selectedStat) }
                     )
                 }
@@ -106,8 +111,19 @@ internal class StatsViewModel @Inject constructor(
                 seasonLocal.getSeasons()
             }
 
-            _state.update { it.copy(seasons = seasons.map { season -> season.name }) }
+            _state.update { it.copy(seasons = seasons.map { season -> StatsSeason(season.id.value, season.name) }) }
         }
+    }
+
+    internal fun onChangeSeason(newSeason: String) {
+        onChangeState(Default)
+        viewModelScope.launch {
+            withContext(IO) { preferences.selectSeason(SeasonId(newSeason)) }
+        }
+    }
+
+    internal fun onChangeState(newState: GBStatsState) {
+        _state.update { it.copy(state = newState) }
     }
 
     internal fun onStatSelected(stat: GBStat) {

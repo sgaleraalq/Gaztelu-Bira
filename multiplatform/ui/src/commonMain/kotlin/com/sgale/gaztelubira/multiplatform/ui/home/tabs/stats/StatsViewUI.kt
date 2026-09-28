@@ -17,14 +17,16 @@
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
 
 import androidx.compose.runtime.Composable
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Default
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Seasons
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsLoaded
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsLoading
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.PlayerCard
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.SeasonsDialog
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.Settings
 
 @Composable
@@ -34,7 +36,7 @@ internal fun StatsViewUI(
 ) {
     when (state.state) {
         Loading -> StatsLoading()
-        Loaded -> StatsLoaded(state, actions)
+        is Loaded -> StatsLoaded(state, actions)
     }
 
     PlayerCard(
@@ -48,5 +50,11 @@ internal fun StatsViewUI(
         selectedStat = state.selectedStat,
         punctuation = state.punctuation,
         actions = actions
+    )
+
+    SeasonsDialog(
+        show = state.state is Seasons,
+        seasons = state.seasons,
+        onChangeSeason = { actions.onChangeSelectedSeason(it) }
     )
 }

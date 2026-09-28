@@ -20,9 +20,11 @@ import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState
 
 data class StatsActions(
-    val changeSelectedSeason: (String) -> Unit,
+    val onChangeSelectedSeason: (String) -> Unit,
+    val onChangeState: (GBStatsState) -> Unit,
     val onPlayerAction: (GBStatsPlayerModal) -> Unit,
     val onSettingsChanged: (GBStatsSettings) -> Unit,
     val onStatSelected: (GBStat) -> Unit,

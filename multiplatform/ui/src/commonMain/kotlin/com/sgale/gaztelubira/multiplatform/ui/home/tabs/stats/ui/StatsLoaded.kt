@@ -26,10 +26,11 @@ import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.ShowPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Menu
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Seasons
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.SelectedStatTitle
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.StatsClassification
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.StatsHeader
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.StatsLeaderboard
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded.StatsTitle
 
 @Composable
 internal fun StatsLoaded(
@@ -39,8 +40,9 @@ internal fun StatsLoaded(
     Column(
         modifier = Modifier.fillMaxSize().padding(12.dp)
     ) {
-        StatsTitle(
-            onSettingsClicked = { actions.onSettingsChanged(Menu) }
+        StatsHeader(
+            onSettingsClicked = { actions.onSettingsChanged(Menu) },
+            onShowSeasons = { actions.onChangeState(Seasons(state.seasons)) }
         )
         StatsLeaderboard(
             first = state.players.getOrNull(0),

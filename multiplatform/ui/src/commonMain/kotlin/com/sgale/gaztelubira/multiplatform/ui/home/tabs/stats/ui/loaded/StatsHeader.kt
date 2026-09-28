@@ -16,22 +16,23 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight.Companion.Normal
+import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_settings
 import com.sgale.gaztelubira.multiplatform.ui.resources.leaderboard
@@ -39,8 +40,9 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun StatsTitle(
-    onSettingsClicked: () -> Unit
+internal fun StatsHeader(
+    onSettingsClicked: () -> Unit,
+    onShowSeasons: () -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(12.dp),
@@ -52,6 +54,9 @@ internal fun StatsTitle(
             text = stringResource(Res.string.leaderboard),
             style = gBTypography().headlineSmall
         )
+        SettingsButton(
+            onShowSeasons = onShowSeasons
+        )
         GBIcon(
             modifier = Modifier.size(24.dp).clickable { onSettingsClicked() },
             icon = painterResource(Res.drawable.ic_settings),
@@ -61,21 +66,14 @@ internal fun StatsTitle(
 }
 
 @Composable
-internal fun SelectedStatTitle(
-    stat: GBStat
+private fun SettingsButton(
+    onShowSeasons: () -> Unit
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 12.dp),
-        verticalAlignment = CenterVertically,
-        horizontalArrangement = spacedBy(16.dp)
-    ) {
-        GBIcon(
-            modifier = Modifier.size(24.dp),
-            icon = painterResource(stat.icon)
-        )
-        GBText(
-            text = stringResource(stat.label),
-            style = gBTypography().bodyLarge.copy(fontWeight = Normal)
-        )
-    }
+    Text(
+        modifier = Modifier
+            .padding(12.dp)
+            .background(Blue)
+            .clickable { onShowSeasons() },
+        text = "26/27"
+    )
 }

@@ -34,7 +34,8 @@ internal fun StatsScreen(
 
     val actions = remember(viewModel) {
         StatsActions(
-            changeSelectedSeason = { /* TODO */ },
+            onChangeSelectedSeason = viewModel::onChangeSeason,
+            onChangeState = viewModel::onChangeState,
             onPlayerAction = viewModel::onPlayerAction,
             onSettingsChanged = viewModel::onSettingsChanged,
             onStatSelected = viewModel::onStatSelected,
