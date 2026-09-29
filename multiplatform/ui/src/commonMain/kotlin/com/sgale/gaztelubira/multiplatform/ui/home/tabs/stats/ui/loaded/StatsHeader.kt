@@ -16,24 +16,26 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.loaded
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.multiplatform.designsystem.components.DEFAULT_BORDER_COLOR
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBContainer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_down
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_settings
 import com.sgale.gaztelubira.multiplatform.ui.resources.leaderboard
 import org.jetbrains.compose.resources.painterResource
@@ -54,7 +56,7 @@ internal fun StatsHeader(
             text = stringResource(Res.string.leaderboard),
             style = gBTypography().headlineSmall
         )
-        SettingsButton(
+        SeasonsDropdown(
             onShowSeasons = onShowSeasons
         )
         GBIcon(
@@ -66,14 +68,25 @@ internal fun StatsHeader(
 }
 
 @Composable
-private fun SettingsButton(
+private fun SeasonsDropdown(
     onShowSeasons: () -> Unit
 ) {
-    Text(
-        modifier = Modifier
-            .padding(12.dp)
-            .background(Blue)
-            .clickable { onShowSeasons() },
-        text = "26/27"
-    )
+    GBContainer {
+        Row(
+            modifier = Modifier.widthIn(0.dp, 150.dp).width(200.dp),
+            verticalAlignment = CenterVertically,
+            horizontalArrangement = spacedBy(8.dp)
+        ) {
+            GBText(".")
+            GBText(
+                modifier = Modifier.weight(1f),
+                text = "26/27"
+            )
+            GBIcon(
+                modifier = Modifier.size(24.dp).padding(8.dp),
+                icon = painterResource(Res.drawable.ic_arrow_down),
+                tint = DEFAULT_BORDER_COLOR
+            )
+        }
+    }
 }

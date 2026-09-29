@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Default
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Seasons
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsLoaded

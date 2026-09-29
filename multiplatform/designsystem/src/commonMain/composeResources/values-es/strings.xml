@@ -163,4 +163,7 @@
     <string name="invalid_player_dorsal">Dorsal de jugador no valido</string>
     <string name="invalid_player_position">Posición de jugador no valida</string>
     <string name="error_inserting_team">Ha ocurrido un error mientras se insertaba un jugador</string>
+
+    <string name="seasons_dialog_title">Temporada</string>
+    <string name="seasons_dialog_subtitle">Selecciona o gestiona la edición de la competición</string>
 </resources>
