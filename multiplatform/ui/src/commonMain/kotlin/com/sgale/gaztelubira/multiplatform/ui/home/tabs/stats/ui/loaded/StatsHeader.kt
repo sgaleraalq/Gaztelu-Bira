@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -31,9 +30,11 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.DEFAULT_BORDER_COLOR
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBContainer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPulsingDot
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_down
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_settings
@@ -43,6 +44,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun StatsHeader(
+    selectedSeason: StatsSeason,
     onSettingsClicked: () -> Unit,
     onShowSeasons: () -> Unit
 ) {
@@ -57,33 +59,44 @@ internal fun StatsHeader(
             style = gBTypography().headlineSmall
         )
         SeasonsDropdown(
+            selectedSeason = selectedSeason,
             onShowSeasons = onShowSeasons
         )
-        GBIcon(
-            modifier = Modifier.size(24.dp).clickable { onSettingsClicked() },
-            icon = painterResource(Res.drawable.ic_settings),
-            tint = elevated_button_bg_not_selected
-        )
+        GBContainer(
+            onClick = { onSettingsClicked() }
+        ) {
+            GBIcon(
+                modifier = Modifier
+                    .size(20.dp)
+                    .clickable { onSettingsClicked() }
+                    .padding(2.dp),
+                icon = painterResource(Res.drawable.ic_settings),
+                tint = elevated_button_bg_not_selected
+            )
+        }
     }
 }
 
 @Composable
 private fun SeasonsDropdown(
+    selectedSeason: StatsSeason,
     onShowSeasons: () -> Unit
 ) {
-    GBContainer {
+    GBContainer(
+        onClick = { onShowSeasons() }
+    ) {
         Row(
-            modifier = Modifier.widthIn(0.dp, 150.dp).width(200.dp),
+            modifier = Modifier.widthIn(0.dp, 150.dp).padding(start = 8.dp),
             verticalAlignment = CenterVertically,
-            horizontalArrangement = spacedBy(8.dp)
+            horizontalArrangement = spacedBy(12.dp)
         ) {
-            GBText(".")
+            GBPulsingDot()
             GBText(
-                modifier = Modifier.weight(1f),
-                text = "26/27"
+                text = selectedSeason.name,
+                style = gBTypography().bodyMedium
             )
             GBIcon(
-                modifier = Modifier.size(24.dp).padding(8.dp),
+                modifier = Modifier.size(20.dp).padding(4.dp),
                 icon = painterResource(Res.drawable.ic_arrow_down),
                 tint = DEFAULT_BORDER_COLOR
             )

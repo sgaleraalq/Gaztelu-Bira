@@ -21,8 +21,8 @@ import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.auth.usecase.IsUserAuthenticated
 import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
-import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
 import com.sgale.gaztelubira.core.domain.legacy.usecase.users.GetUser
+import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
@@ -44,7 +44,7 @@ class MainViewModel @Inject constructor(
     private val getUserSession: GetUser,
     private val isUserAuthenticated: IsUserAuthenticated,
     private val splashController: SplashController,
-    private val preferences: IGBPreferences,
+    private val preferences: Preferences,
     private val initAppHandler: InitAppHandler,
 ) : ViewModel() {
     private var defaultHomeTab = DEFAULT_TAB
@@ -93,7 +93,7 @@ class MainViewModel @Inject constructor(
     private fun initApp() {
         viewModelScope.launch {
             println("User session: $userSession")
-            val isFirstTime = preferences.isFirstTime()
+            val isFirstTime = preferences.isFirstTime
 
             if (isFirstTime) {
                 val result = initAppHandler.firstTimeInit()

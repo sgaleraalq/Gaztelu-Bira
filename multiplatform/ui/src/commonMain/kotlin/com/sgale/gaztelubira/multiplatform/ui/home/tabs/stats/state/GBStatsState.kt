@@ -22,10 +22,9 @@ sealed interface GBStatsState {
     data object Loading : GBStatsState
 
     sealed interface Loaded : GBStatsState {
-        data object Default: Loaded
-        data class Seasons(
-            val season: List<StatsSeason>
-        ) : Loaded
+        data object Default : Loaded
+        data object Seasons : Loaded
+
         // TODO probably missing Settings
     }
 

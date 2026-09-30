@@ -38,14 +38,18 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
+import com.sgale.gaztelubira.multiplatform.designsystem.components.DEFAULT_BG_COLOR
+import com.sgale.gaztelubira.multiplatform.designsystem.components.DEFAULT_BORDER_COLOR
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBContainer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_close_unfill
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_date
 import com.sgale.gaztelubira.multiplatform.ui.resources.seasons_dialog_subtitle
 import com.sgale.gaztelubira.multiplatform.ui.resources.seasons_dialog_title
@@ -55,12 +59,14 @@ import org.jetbrains.compose.resources.stringResource
 private val seasonsDialogColor = Color(0xFF131722)
 private val seasonsBorderColor = Color(0xFF1D2738)
 private val seasonsTextColor = Color(0xFF94A4B8)
+private val seasonsRedColor = Color(0xFFEF4444)
 
 @Composable
 internal fun SeasonsDialog(
     show: Boolean,
-    seasons: List<StatsSeason>,
-    onChangeSeason: (String) -> Unit
+    seasons: GBSeason,
+    onChangeSeason: (String) -> Unit,
+    onCloseSeasonsPicker: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -73,7 +79,8 @@ internal fun SeasonsDialog(
         ) {
             SeasonsPicker(
                 seasons = seasons,
-                onSeasonClicked = onChangeSeason
+                onSeasonClicked = onChangeSeason,
+                onCloseSeasonsPicker = onCloseSeasonsPicker
             )
         }
     }
@@ -81,40 +88,55 @@ internal fun SeasonsDialog(
 
 @Composable
 private fun SeasonsPicker(
-    seasons: List<StatsSeason>,
-    onSeasonClicked: (String) -> Unit
+    seasons: GBSeason,
+    onSeasonClicked: (String) -> Unit,
+    onCloseSeasonsPicker: () -> Unit
 ) {
+    val shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+
     Column(
         modifier = Modifier
             .clip(
-                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+                shape = shape
             )
             .border(
                 width = 2.dp,
-                color = seasonsBorderColor
+                color = seasonsBorderColor,
+                shape = shape
             )
             .background(seasonsDialogColor)
+            .padding(bottom = 12.dp),
+        verticalArrangement = spacedBy(8.dp)
     ) {
-        SeasonsDialogHeader()
+        SeasonsDialogHeader( onCloseSeasonsPicker )
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth(),
             color = seasonsTextColor
         )
-        seasons.forEach { season ->
-            SeasonsDialogOption(season, onSeasonClicked)
+        seasons.seasons.forEach { season ->
+            SeasonsDialogOption(
+                isSelected = season.id == seasons.selectedSeason.id,
+                season = season,
+                onSeasonClicked = onSeasonClicked
+            )
         }
     }
 }
 
 @Composable
-private fun SeasonsDialogHeader() {
+private fun SeasonsDialogHeader(
+    onClose: () -> Unit
+) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(12.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 24.dp).padding(horizontal = 24.dp),
+        verticalAlignment = CenterVertically
     ) {
         SeasonsDialogTitle(
             modifier = Modifier.weight(1f)
         )
-        SeasonsDialogCloseButton()
+        SeasonsDialogCloseButton(onClose)
     }
 }
 
@@ -141,7 +163,7 @@ private fun SeasonsDialogTitle() {
         GBIcon(
             modifier = Modifier.size(24.dp),
             icon = painterResource(Res.drawable.ic_date),
-            tint = Red
+            tint = seasonsRedColor
         )
         GBText(
             text = stringResource(Res.string.seasons_dialog_title),
@@ -161,20 +183,53 @@ private fun SeasonsDialogSubtitle() {
 }
 
 @Composable
-private fun SeasonsDialogCloseButton() {
-
+private fun SeasonsDialogCloseButton(
+    onClose: () -> Unit
+) {
+    GBContainer(
+        borderColor = DEFAULT_BG_COLOR,
+        onClick = onClose
+    ) {
+        GBIcon(
+            modifier = Modifier.size(16.dp),
+            icon = painterResource(Res.drawable.ic_close_unfill),
+            tint = DEFAULT_BORDER_COLOR
+        )
+    }
 }
 
 @Composable
 private fun SeasonsDialogOption(
+    isSelected: Boolean,
     season: StatsSeason,
     onSeasonClicked: (String) -> Unit
 ) {
+    val borderColor = if (isSelected) {
+        seasonsRedColor
+    } else {
+        seasonsTextColor
+    }
+
+    val borderWidth = if (isSelected) {
+        1.dp
+    } else {
+        0.5.dp
+    }
+
+    val shape = RoundedCornerShape(12.dp)
+
     GBText(
         modifier = Modifier
+            .padding(horizontal = 12.dp, vertical = 4.dp)
             .clickable { onSeasonClicked(season.id) }
             .fillMaxWidth()
-            .padding(24.dp),
+            .clip(shape)
+            .border(
+                width = borderWidth,
+                shape = shape,
+                color = borderColor
+            )
+            .padding(12.dp),
         text = season.name,
         textColor = seasonsTextColor
     )

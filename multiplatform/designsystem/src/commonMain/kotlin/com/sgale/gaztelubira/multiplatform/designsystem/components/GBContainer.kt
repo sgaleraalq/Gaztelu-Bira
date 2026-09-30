@@ -18,6 +18,7 @@ package com.sgale.gaztelubira.multiplatform.designsystem.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,7 +38,8 @@ fun GBContainer(
     shape: RoundedCornerShape = RoundedCornerShape(DEFAULT_SHAPE),
     bgColor: Color = DEFAULT_BG_COLOR,
     borderColor: Color = DEFAULT_BORDER_COLOR,
-    content: @Composable () -> Unit = {}
+    onClick: () -> Unit,
+    content: @Composable () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -48,6 +50,7 @@ fun GBContainer(
                 color = borderColor,
                 shape = shape
             )
+            .clickable { onClick() }
             .padding(8.dp),
         contentAlignment = Center
     ) {

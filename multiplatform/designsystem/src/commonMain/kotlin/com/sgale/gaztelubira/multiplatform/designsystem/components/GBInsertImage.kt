@@ -47,7 +47,7 @@ import androidx.compose.ui.window.Dialog
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_camera
-import com.sgale.gaztelubira.multiplatform.ui.resources.ic_close
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_close_fill
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_garbage
 import org.jetbrains.compose.resources.painterResource
 
@@ -185,7 +185,7 @@ fun ExpandedImageButtons(
                 .padding(8.dp)
                 .size(32.dp)
                 .clickable { dismiss() },
-            icon = painterResource(Res.drawable.ic_close),
+            icon = painterResource(Res.drawable.ic_close_fill),
             size = 32.dp
         )
     }

@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.database.migration.preferences
 
 import android.content.SharedPreferences
-import android.content.SharedPreferences.*
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import androidx.core.content.edit
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
@@ -28,29 +28,41 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
-private const val SELECTED_SEASON = "gbmultiplatform.selectedSeason"
+private const val SP_FIRST_TIME = "gbmultiplatform.firstTime"
+private const val SP_SELECTED_SEASON = "gbmultiplatform.selectedSeason"
 
 internal class PreferencesImpl @Inject constructor(
     private val settings: SharedPreferences
 ) : Preferences {
-
     override val selectedSeason: Flow<SeasonId?> = callbackFlow {
         send(settings.readSelectedSeason())
 
         val listener = OnSharedPreferenceChangeListener { preferences, key ->
-            if (key == SELECTED_SEASON) trySend(preferences.readSelectedSeason())
+            if (key == SP_SELECTED_SEASON) trySend(preferences.readSelectedSeason())
         }
 
         settings.registerOnSharedPreferenceChangeListener(listener)
         awaitClose { settings.unregisterOnSharedPreferenceChangeListener(listener) }
     }.distinctUntilChanged()
 
+    override val isFirstTime: Boolean
+        get() = settings.readFirstTime()
+
+    override suspend fun resolveSelectedSeason(): SeasonId? = selectedSeason.first()
+
     override suspend fun selectSeason(season: SeasonId?) {
         settings.edit {
-            if (season == null) remove(SELECTED_SEASON) else putString(SELECTED_SEASON, season.value)
+            if (season == null) remove(SP_SELECTED_SEASON) else putString(SP_SELECTED_SEASON, season.value)
         }
     }
 
+    override suspend fun setFirstTime(enabled: Boolean) {
+        settings.edit { putBoolean(SP_FIRST_TIME, enabled) }
+    }
+
+    private fun SharedPreferences.readFirstTime(): Boolean =
+        getBoolean(SP_FIRST_TIME, true)
+
     private fun SharedPreferences.readSelectedSeason(): SeasonId? =
-        getString(SELECTED_SEASON, null)?.let(::SeasonId)
+        getString(SP_SELECTED_SEASON, null)?.let(::SeasonId)
 }

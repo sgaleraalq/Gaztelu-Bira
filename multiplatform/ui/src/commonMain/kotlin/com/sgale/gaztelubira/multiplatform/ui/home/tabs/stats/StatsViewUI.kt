@@ -16,10 +16,16 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Black
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Default
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Seasons
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.StatsLoaded
@@ -51,9 +57,18 @@ internal fun StatsViewUI(
         actions = actions
     )
 
+    if (state.state is Seasons) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Black)
+        )
+    }
+
     SeasonsDialog(
         show = state.state is Seasons,
         seasons = state.seasons,
-        onChangeSeason = { actions.onChangeSelectedSeason(it) }
+        onChangeSeason = { actions.onChangeSelectedSeason(it) },
+        onCloseSeasonsPicker = { actions.onChangeState(Default) }
     )
 }

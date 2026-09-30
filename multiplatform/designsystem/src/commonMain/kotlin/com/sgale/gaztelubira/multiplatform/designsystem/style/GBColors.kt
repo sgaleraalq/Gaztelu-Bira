@@ -46,6 +46,7 @@ val overlayColor = Color(0xBF000000) // 75% opacity black
 val lightGray = Color(0xFFD3D3D3) // Light gray color
 val softGreen = Color(0xFF67E75C) // Soft green color
 val softRed = Color(0xFFE34C56) // Soft red color
+val live_dot_color = Color(0xFF5AAA84) // Muted green for "live" indicators
 
 val primaryRed = Color(0xFFE50914)
 val primaryBlue = Color(0xFF2E3A7C)

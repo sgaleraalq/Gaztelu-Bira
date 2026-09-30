@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.preferences
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state
 
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import kotlinx.coroutines.flow.Flow
-
-interface Preferences {
-    val selectedSeason: Flow<SeasonId?>
-    val isFirstTime: Boolean
-    suspend fun resolveSelectedSeason(): SeasonId?
-    suspend fun selectSeason(season: SeasonId?)
-    suspend fun setFirstTime(enabled: Boolean)
+data class GBSeason(
+    val selectedSeason: StatsSeason,
+    val seasons: List<StatsSeason>
+) {
+    companion object {
+        val EMPTY_SEASONS = GBSeason(
+            selectedSeason = StatsSeason("", ""),
+            seasons = emptyList()
+        )
+    }
 }

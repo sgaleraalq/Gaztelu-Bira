@@ -18,12 +18,12 @@ package com.sgale.gaztelubira.activity
 
 import android.util.Log
 import com.sgale.gaztelubira.core.common.utils.TAG
+import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
-import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
-import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
 import javax.inject.Inject
 
 internal class FirstTime @Inject constructor(
@@ -41,18 +41,14 @@ internal class FirstTime @Inject constructor(
         playerLocal.insertPlayers(players)
 
         val seasons = seasonRemote.fetchSeasons()
-        val currentSeason = seasons.firstOrNull { it.isCurrent }
-
-        currentSeason?.let {
-            preferences.selectSeason(it.id)
-        }
-
         seasonLocal.insertSeasons(seasons)
 
         seasons.forEach { season ->
             seasonLocal.insertSeasonPlayers(seasonRemote.fetchSquad(season.id))
         }
 
+        seasons.firstOrNull { it.isCurrent }?.let { preferences.selectSeason(it.id) }
+        preferences.setFirstTime(false)
 
         Log.i(TAG, "These are the players: $players")
         Log.i(TAG, "These are the seasons: $seasons")

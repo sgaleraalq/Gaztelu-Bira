@@ -28,10 +28,12 @@ import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayersStats
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
+import com.sgale.gaztelubira.core.domain.migration.usecase.season.SelectedSeason
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.ShowPlayer
@@ -47,6 +49,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -57,6 +60,7 @@ internal class StatsViewModel @Inject constructor(
     private val getPlayerStats: GetPlayersStats,
     private val getMatches: GetMatches,
     private val seasonLocal: SeasonLocal,
+    private val selectedSeason: SelectedSeason,
     private val preferences: Preferences
 ) : ViewModel() {
     private val _state = MutableStateFlow(StatsUiState())
@@ -109,9 +113,16 @@ internal class StatsViewModel @Inject constructor(
         viewModelScope.launch {
             val seasons = withContext(IO) {
                 seasonLocal.getSeasons()
-            }
+            }.map { season -> StatsSeason(season.id.value, season.name) }
 
-            _state.update { it.copy(seasons = seasons.map { season -> StatsSeason(season.id.value, season.name) }) }
+            selectedSeason()
+                .flowOn(IO)
+                .mapNotNull { selectedId -> seasons.firstOrNull { it.id == selectedId?.value } }
+                .collect { selected ->
+                    _state.update {
+                        it.copy(seasons = GBSeason(selectedSeason = selected, seasons = seasons))
+                    }
+                }
         }
     }
 

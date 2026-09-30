@@ -41,8 +41,9 @@ internal fun StatsLoaded(
         modifier = Modifier.fillMaxSize().padding(12.dp)
     ) {
         StatsHeader(
+            selectedSeason = state.seasons.selectedSeason,
             onSettingsClicked = { actions.onSettingsChanged(Menu) },
-            onShowSeasons = { actions.onChangeState(Seasons(state.seasons)) }
+            onShowSeasons = { actions.onChangeState(Seasons) }
         )
         StatsLeaderboard(
             first = state.players.getOrNull(0),
