@@ -7,7 +7,7 @@ minSdk = "24"
 targetSdk = "37"
 
 # General dependencies
-agp = "9.4.0"
+agp = "9.4.1"
 kotlin = "2.4.20"
 
 composeActivity = "1.13.0"
