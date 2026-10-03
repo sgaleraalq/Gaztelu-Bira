@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
+package com.sgale.gaztelubira.core.domain.migration.model.match
 
-package com.sgale.gaztelubira.core.domain.migration.model.season.match.lineup
-
-/**
- * `countsAsPlayed` puts the rule in one place. The old code counted managers as
- * having played while the stats screen filtered them out: flipping this flag is
- * now the whole decision.
- */
-enum class PlayerRole(val countsAsPlayed: Boolean) {
-    STARTER(countsAsPlayed = true),
-    BENCH(countsAsPlayed = true),
-    MANAGER(countsAsPlayed = false)
-}
+data class Match(
+    val competition: MatchCompetition,
+    val information: MatchInformation,
+    val match: MatchScore
+)
