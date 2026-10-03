@@ -28,6 +28,7 @@ import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZ
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.TESTING
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
+import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.preview.MatchProvider.provideMatchesList
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,6 +48,8 @@ private const val MINIMUM_SQUAD = 11
 
 @HiltViewModel
 internal class MatchesViewModel @Inject constructor(
+    selectedSeason: SelectedSeason,
+    getMatchess: GetMatches,
     private val getMatches: GetMatches,
     private val playersDb: IGBPlayersDb
 ) : ViewModel() {

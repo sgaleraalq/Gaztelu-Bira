@@ -17,13 +17,18 @@
 package com.sgale.gaztelubira.core.database.migration.match
 
 import com.sgale.gaztelubira.core.database.migration.match.entity.MatchMapper.asEntity
+import com.sgale.gaztelubira.core.database.migration.season.SeasonMapper.asModel
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchLocal
 import javax.inject.Inject
 
 internal class RoomMatches @Inject constructor(
     private val matchDao: MatchDao
 ): MatchLocal {
+    override suspend fun getMatches(seasonId: SeasonId): List<Match> =
+        matchDao.getMatches(seasonId).map { it.asModel() }
+
     override suspend fun insertMatches(matches: List<Match>) {
         matchDao.insertMatches(matches.map { it.asEntity() })
     }

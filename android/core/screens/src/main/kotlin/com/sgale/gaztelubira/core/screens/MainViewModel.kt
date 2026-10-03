@@ -102,6 +102,7 @@ class MainViewModel @Inject constructor(
                     splashController.complete(Home)
                 }.onFailure {
                     println("GBError: $it")
+                    preferences.setFirstTime(true)
                     manageInitAppError()
                 }
             } else {

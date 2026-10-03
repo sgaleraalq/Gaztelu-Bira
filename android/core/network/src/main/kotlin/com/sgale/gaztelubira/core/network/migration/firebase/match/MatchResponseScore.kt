@@ -16,14 +16,10 @@
 
 package com.sgale.gaztelubira.core.network.migration.firebase.match
 
-import com.sgale.gaztelubira.core.domain.migration.model.TeamId
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.FOUR_FOUR_TWO
-
 internal data class MatchResponseScore(
-    val formation: TeamFormation = FOUR_FOUR_TWO,
-    val localTeam: TeamId = TeamId(""),
-    val visitorTeam: TeamId = TeamId(""),
+    val formation: String = "",
+    val localTeam: String = "",
+    val visitorTeam: String = "",
     val score: Score = Score()
 ) {
     data class Score(

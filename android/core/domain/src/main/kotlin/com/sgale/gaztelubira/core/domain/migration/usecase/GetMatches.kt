@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.migration.match
+package com.sgale.gaztelubira.core.domain.migration.usecase
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.Companion.REPLACE
-import androidx.room.Query
-import com.sgale.gaztelubira.core.database.migration.match.entity.MatchEntity
+import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchLocal
+import javax.inject.Inject
 
-@Dao
-internal interface MatchDao {
-    @Query("SELECT * FROM MatchEntity WHERE seasonId = :seasonId")
-    suspend fun getMatches(seasonId: SeasonId)
-
-    @Insert(onConflict = REPLACE)
-    suspend fun insertMatch(entity: MatchEntity)
-
-    @Insert(onConflict = REPLACE)
-    suspend fun insertMatches(entity: List<MatchEntity>)
+class GetMatches @Inject constructor(
+    private val matchLocal: MatchLocal
+) {
+    suspend operator fun invoke(seasonId: SeasonId): List<Match> =
+        matchLocal.getMatches(seasonId)
 }

@@ -16,6 +16,14 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.team
 
-enum class TeamFormation {
-    FOUR_FOUR_TWO
+enum class TeamFormation(
+    val shorten: String
+) {
+    FOUR_FOUR_TWO("4-4-2"),
+    FIVE_THREE_TWO("5-3-2");
+
+    companion object {
+        fun findFormation(shorten: String): TeamFormation =
+            TeamFormation.entries.firstOrNull { it.shorten == shorten } ?: FOUR_FOUR_TWO
+    }
 }

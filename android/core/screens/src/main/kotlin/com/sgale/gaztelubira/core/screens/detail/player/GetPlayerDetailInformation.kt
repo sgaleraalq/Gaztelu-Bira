@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.screens.detail.player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
-import com.sgale.gaztelubira.core.domain.migration.usecase.season.SelectedSeason
+import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 

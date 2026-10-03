@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.usecase.season
+package com.sgale.gaztelubira.core.domain.migration.usecase
 
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
+import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetSquad @Inject constructor(
-    private val seasons: SeasonLocal
+class SelectedSeason @Inject constructor(
+    private val seasons: SeasonLocal,
+    private val preferences: Preferences
 ) {
-    suspend operator fun invoke(season: SeasonId): List<SquadPlayer> =
-        seasons.getSquad(season)
+    operator fun invoke(): Flow<SeasonId?> =
+        preferences.selectedSeason
+            .map { chosen ->
+                val stored = seasons.getSeasons()
+                stored.firstOrNull { it.id == chosen }?.id
+                    ?: stored.firstOrNull { it.isCurrent }?.id
+            }
+            .distinctUntilChanged()
 }

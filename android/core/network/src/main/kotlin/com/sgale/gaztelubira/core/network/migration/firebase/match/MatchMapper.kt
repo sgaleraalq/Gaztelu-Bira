@@ -17,18 +17,20 @@
 package com.sgale.gaztelubira.core.network.migration.firebase.match
 
 import com.google.firebase.Timestamp
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchInformation
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore.Companion.isGBLocal
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.CUP
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.migration.model.match.Score
+import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.Companion.findFormation
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
 
 internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId> {
@@ -72,9 +74,9 @@ internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId> {
 
     private fun MatchScore.asResponse(): MatchResponseScore =
         MatchResponseScore(
-            formation = formation,
-            localTeam = localTeam,
-            visitorTeam = visitorTeam,
+            formation = formation.shorten,
+            localTeam = localTeam.value,
+            visitorTeam = visitorTeam.value,
             score = MatchResponseScore.Score(score.local, score.visitor)
         )
 
@@ -106,10 +108,10 @@ internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId> {
 
     private fun MatchResponseScore.asModel(): MatchScore =
         MatchScore(
-            formation = formation,
-            isLocal = localTeam.value == GAZTELU_BIRA_ID,
-            visitorTeam = visitorTeam,
-            localTeam = localTeam,
+            formation = findFormation(formation),
+            isLocal = TeamId(localTeam).isGBLocal(),
+            visitorTeam = TeamId(visitorTeam),
+            localTeam = TeamId(localTeam),
             score = score.asModel()
         )
 
