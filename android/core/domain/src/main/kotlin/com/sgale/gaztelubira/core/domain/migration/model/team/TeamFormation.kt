@@ -1,12 +1,12 @@
 /*
- * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase
+package com.sgale.gaztelubira.core.domain.migration.model.team
 
-internal object FirebaseConstants {
-    internal const val MATCHES = "matches"
-    internal const val PLAYERS = "players"
-    internal const val SEASONS = "seasons"
-    internal const val SQUAD = "squad"
+enum class TeamFormation {
+    FOUR_FOUR_TWO
 }

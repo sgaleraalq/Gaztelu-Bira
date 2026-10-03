@@ -1,12 +1,12 @@
 /*
- * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ * Designed and developed by 2026 sgaleraalq (Sergio Galera)
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,12 +14,20 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.season.team
+package com.sgale.gaztelubira.core.network.migration.firebase.match
 
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation
+import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.FOUR_FOUR_TWO
 
-data class Team(
-    val id: TeamId,
-    val name: String,
-    val logo: String?
-)
+internal data class MatchResponseScore(
+    val formation: TeamFormation = FOUR_FOUR_TWO,
+    val localTeam: TeamId = TeamId(""),
+    val visitorTeam: TeamId = TeamId(""),
+    val score: Score = Score()
+) {
+    data class Score(
+        val visitor: Int = 0,
+        val local: Int = 0
+    )
+}

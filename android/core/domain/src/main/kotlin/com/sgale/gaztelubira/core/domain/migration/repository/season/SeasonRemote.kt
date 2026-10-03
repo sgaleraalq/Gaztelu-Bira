@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.migration.repository.season
 
+import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
@@ -23,4 +24,5 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlay
 interface SeasonRemote {
     suspend fun fetchSeasons(): List<Season>
     suspend fun fetchSquad(season: SeasonId): List<SeasonPlayer>
+    suspend fun fetchMatches(season: SeasonId): List<Match>
 }

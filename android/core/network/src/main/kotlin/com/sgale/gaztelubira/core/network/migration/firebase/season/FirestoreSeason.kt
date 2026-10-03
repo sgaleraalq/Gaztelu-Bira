@@ -18,14 +18,17 @@ package com.sgale.gaztelubira.core.network.migration.firebase.season
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source.SERVER
+import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
+import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SQUAD
+import com.sgale.gaztelubira.core.network.migration.firebase.match.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.match.MatchResponse
 import com.sgale.gaztelubira.core.network.migration.firebase.season.SeasonMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.season.squad.SeasonPlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.season.squad.SeasonPlayerResponse
@@ -55,6 +58,18 @@ internal class FirestoreSeason @Inject constructor(
             .mapNotNull { player ->
                 player.toObject(SeasonPlayerResponse::class.java)
                     ?.asModel(season, PlayerId(player.id))
+            }
+
+    override suspend fun fetchMatches(season: SeasonId): List<Match> =
+        seasons()
+            .document(season.value)
+            .collection(MATCHES)
+            .get()
+            .await()
+            .documents
+            .mapNotNull { match ->
+                match.toObject(MatchResponse::class.java)
+                    ?.asModel()
             }
 
     private fun seasons(): CollectionReference = firestore.collection(SEASONS)
