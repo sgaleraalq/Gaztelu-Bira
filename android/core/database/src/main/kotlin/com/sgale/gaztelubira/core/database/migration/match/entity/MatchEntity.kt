@@ -14,22 +14,39 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.match
+package com.sgale.gaztelubira.core.database.migration.match.entity
 
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation
 
-data class MatchScore(
-    val formation: TeamFormation,
-    val isLocal: Boolean,
+@Entity
+internal data class MatchEntity(
+    @PrimaryKey
+    val id: MatchId,
+
+    /**
+     * Information
+     */
+    val date: Long,
+    val description: String,
+    val location: String,
+
+    /**
+     * Competition
+     */
+    val journey: Int,
+    val name: String,
+    val round: String,
+    val type: String,
+
+    /**
+     * Score
+     */
+    val formation: String,
+    val localGoals: Int,
     val localTeam: TeamId,
+    val visitorGoals: Int,
     val visitorTeam: TeamId,
-    val score: Score
-) {
-    companion object {
-        fun TeamId.isGBLocal(): Boolean =
-            this.value == GAZTELU_BIRA_ID
-    }
-}
+)

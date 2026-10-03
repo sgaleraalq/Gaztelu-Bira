@@ -16,6 +16,10 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.match
 
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.CUP
+import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
+
 sealed interface MatchCompetition {
     data class League(
         val journey: Int
@@ -25,4 +29,30 @@ sealed interface MatchCompetition {
         val name: String,
         val round: String?
     ): MatchCompetition
+
+    companion object {
+        fun MatchCompetition.asMatchType(): MatchType =
+            when (this) {
+                is Cup -> CUP
+                is League -> LEAGUE
+            }
+
+        fun MatchCompetition.resolveJourney(): Int =
+            when (this) {
+                is Cup -> 0
+                is League -> journey
+            }
+
+        fun MatchCompetition.resolveName(): String =
+            when (this) {
+                is Cup -> name
+                is League -> ""
+            }
+
+        fun MatchCompetition.resolveRound(): String =
+            when (this) {
+                is Cup -> round.orEmpty()
+                is League -> ""
+            }
+    }
 }

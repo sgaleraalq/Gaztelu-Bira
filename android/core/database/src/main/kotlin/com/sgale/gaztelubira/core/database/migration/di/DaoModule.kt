@@ -17,6 +17,7 @@
 package com.sgale.gaztelubira.core.database.migration.di
 
 import com.sgale.gaztelubira.core.database.migration.GazteluDatabase
+import com.sgale.gaztelubira.core.database.migration.match.MatchDao
 import com.sgale.gaztelubira.core.database.migration.player.PlayerDao
 import com.sgale.gaztelubira.core.database.migration.season.SeasonDao
 import dagger.Module
@@ -28,6 +29,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DaoModule {
+
+    @Provides
+    @Singleton
+    fun provideMatchDao(
+        database: GazteluDatabase
+    ): MatchDao = database.getMatchDao()
+
     @Provides
     @Singleton
     fun providePlayerDao(

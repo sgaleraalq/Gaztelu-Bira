@@ -19,6 +19,8 @@ package com.sgale.gaztelubira.activity
 import android.util.Log
 import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
+import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
@@ -27,6 +29,8 @@ import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemot
 import javax.inject.Inject
 
 internal class FirstTime @Inject constructor(
+    private val matchLocal: MatchLocal,
+    private val matchRemote: MatchRemote,
     private val preferences: Preferences,
     private val playerRemote: PlayerRemote,
     private val playerLocal: PlayerLocal,
@@ -45,6 +49,7 @@ internal class FirstTime @Inject constructor(
 
         seasons.forEach { season ->
             seasonLocal.insertSeasonPlayers(seasonRemote.fetchSquad(season.id))
+            matchLocal.insertMatches(matchRemote.fetchMatches(season.id))
         }
 
         seasons.firstOrNull { it.isCurrent }?.let { preferences.selectSeason(it.id) }

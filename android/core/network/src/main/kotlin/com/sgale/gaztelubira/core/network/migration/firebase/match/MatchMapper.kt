@@ -18,20 +18,20 @@ package com.sgale.gaztelubira.core.network.migration.firebase.match
 
 import com.google.firebase.Timestamp
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchInformation
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.CUP
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.LEAGUE
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.valueOf
 import com.sgale.gaztelubira.core.domain.migration.model.match.Score
-import com.sgale.gaztelubira.core.network.NetworkMapper
-import java.util.Date
+import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
 
-internal object MatchMapper: NetworkMapper<Match, MatchResponse> {
+internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId> {
     override fun Match.asResponse(): MatchResponse =
         MatchResponse(
             competition = competition.asResponse(),
@@ -39,8 +39,9 @@ internal object MatchMapper: NetworkMapper<Match, MatchResponse> {
             match = match.asResponse()
         )
 
-    override fun MatchResponse.asModel(): Match =
+    override fun MatchResponse.asModel(id: MatchId): Match =
         Match(
+            id = id,
             competition = competition.asModel(),
             information = information.asModel(),
             match = match.asModel()
@@ -64,7 +65,7 @@ internal object MatchMapper: NetworkMapper<Match, MatchResponse> {
 
     private fun MatchInformation.asResponse(): MatchResponseInformation =
         MatchResponseInformation(
-            date = Timestamp(Date(date)),
+            date = Timestamp(date, 0),
             description = description,
             location = location
         )
@@ -81,8 +82,11 @@ internal object MatchMapper: NetworkMapper<Match, MatchResponse> {
     /**
      * As Model
      */
-    private fun MatchResponseCompetition.asModel(): MatchCompetition =
-        when (valueOf(type)) {
+    private fun MatchResponseCompetition.asModel(): MatchCompetition {
+        val matchType = MatchType.entries.find { it.name == type }
+            ?: if (name != null) CUP else LEAGUE
+
+        return when (matchType) {
             CUP -> Cup(
                 name = name.orEmpty(),
                 round = round.orEmpty()
@@ -91,6 +95,7 @@ internal object MatchMapper: NetworkMapper<Match, MatchResponse> {
                 journey = journey ?: 0
             )
         }
+    }
 
     private fun MatchResponseInformation.asModel(): MatchInformation =
         MatchInformation(

@@ -16,8 +16,10 @@
 
 package com.sgale.gaztelubira.core.network.migration.di
 
+import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
+import com.sgale.gaztelubira.core.network.migration.firebase.match.FirestoreMatches
 import com.sgale.gaztelubira.core.network.migration.firebase.player.FirestorePlayers
 import com.sgale.gaztelubira.core.network.migration.firebase.season.FirestoreSeason
 import dagger.Module
@@ -40,4 +42,10 @@ internal object NetworkModule {
     fun provideSeasonRemote(
         firestoreSeason: FirestoreSeason
     ): SeasonRemote = firestoreSeason
+
+    @Provides
+    @Singleton
+    fun provideMatchRemote(
+        firestoreMatches: FirestoreMatches
+    ): MatchRemote = firestoreMatches
 }

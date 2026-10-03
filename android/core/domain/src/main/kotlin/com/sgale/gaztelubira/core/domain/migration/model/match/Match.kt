@@ -16,7 +16,10 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.match
 
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+
 data class Match(
+    val id: MatchId,
     val competition: MatchCompetition,
     val information: MatchInformation,
     val match: MatchScore

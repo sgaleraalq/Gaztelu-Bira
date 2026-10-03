@@ -20,9 +20,11 @@ import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.sgale.gaztelubira.core.database.migration.GazteluDatabase
+import com.sgale.gaztelubira.core.database.migration.match.RoomMatches
 import com.sgale.gaztelubira.core.database.migration.player.RoomPlayers
 import com.sgale.gaztelubira.core.database.migration.preferences.PreferencesImpl
 import com.sgale.gaztelubira.core.database.migration.season.RoomSeasons
+import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
@@ -47,6 +49,12 @@ internal object DatabaseModule {
             .setDriver(AndroidSQLiteDriver())
             .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideMatchLocal(
+        roomMatches: RoomMatches
+    ): MatchLocal = roomMatches
 
     @Provides
     @Singleton
