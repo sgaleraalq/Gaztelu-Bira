@@ -20,28 +20,28 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
-import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchEntity
+import com.sgale.gaztelubira.core.database.legacy.entities.match.LegacyMatchEntity
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface MatchesDao: BaseDao<MatchEntity> {
+interface MatchesDao: BaseDao<LegacyMatchEntity> {
     @Insert(onConflict = REPLACE)
-    override suspend fun insert(entity: MatchEntity)
+    override suspend fun insert(entity: LegacyMatchEntity)
 
-    @Query("SELECT * FROM MatchEntity")
-    override fun getListAsFlow(): Flow<List<MatchEntity>>
+    @Query("SELECT * FROM LegacyMatchEntity")
+    override fun getListAsFlow(): Flow<List<LegacyMatchEntity>>
 
-    @Query("SELECT * FROM MatchEntity WHERE id = :id")
-    override suspend fun getItem(id: FirebaseId): MatchEntity?
+    @Query("SELECT * FROM LegacyMatchEntity WHERE id = :id")
+    override suspend fun getItem(id: FirebaseId): LegacyMatchEntity?
 
-    @Query("DELETE FROM MatchEntity WHERE id = :id")
+    @Query("DELETE FROM LegacyMatchEntity WHERE id = :id")
     override suspend fun deleteItem(id: FirebaseId)
 
-    @Query("SELECT * FROM MatchEntity WHERE matchType = :type")
-    suspend fun getNumberOfJourneys(type: String = LEAGUE.name): List<MatchEntity>
+    @Query("SELECT * FROM LegacyMatchEntity WHERE matchType = :type")
+    suspend fun getNumberOfJourneys(type: String = LEAGUE.name): List<LegacyMatchEntity>
 
-    @Query("SELECT * FROM MatchEntity")
-    suspend fun getMatches(): List<MatchEntity>
+    @Query("SELECT * FROM LegacyMatchEntity")
+    suspend fun getMatches(): List<LegacyMatchEntity>
 }

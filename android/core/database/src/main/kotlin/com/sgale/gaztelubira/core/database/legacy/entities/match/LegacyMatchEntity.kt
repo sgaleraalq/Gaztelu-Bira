@@ -21,7 +21,7 @@ import androidx.room.PrimaryKey
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 
 @Entity
-data class MatchEntity(
+data class LegacyMatchEntity(
     @PrimaryKey
     val id: FirebaseId,
     val date: Long,

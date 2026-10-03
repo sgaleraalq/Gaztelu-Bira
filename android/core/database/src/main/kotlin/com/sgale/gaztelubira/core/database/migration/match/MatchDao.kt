@@ -26,7 +26,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 @Dao
 internal interface MatchDao {
     @Query("SELECT * FROM MatchEntity WHERE seasonId = :seasonId")
-    suspend fun getMatches(seasonId: SeasonId)
+    suspend fun getMatches(seasonId: SeasonId): List<MatchEntity>
 
     @Insert(onConflict = REPLACE)
     suspend fun insertMatch(entity: MatchEntity)

@@ -30,10 +30,11 @@ import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.CUP
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.migration.model.match.Score
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.Companion.findFormation
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
 
-internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId> {
+internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId, SeasonId> {
     override fun Match.asResponse(): MatchResponse =
         MatchResponse(
             competition = competition.asResponse(),
@@ -41,9 +42,10 @@ internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId> {
             match = match.asResponse()
         )
 
-    override fun MatchResponse.asModel(id: MatchId): Match =
+    override fun MatchResponse.asModel(id: MatchId, parentId: SeasonId?): Match =
         Match(
             id = id,
+            seasonId = requireNotNull(parentId) { "Match $id needs the season it belongs to" },
             competition = competition.asModel(),
             information = information.asModel(),
             match = match.asModel()

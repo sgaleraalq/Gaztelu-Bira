@@ -38,6 +38,7 @@ internal object MatchMapper: DatabaseMapper<Match, MatchEntity> {
     override fun Match.asEntity(): MatchEntity =
         MatchEntity(
             id = id,
+            seasonId = seasonId,
             date = information.date,
             description = information.description,
             location = information.location,
@@ -55,6 +56,7 @@ internal object MatchMapper: DatabaseMapper<Match, MatchEntity> {
     override fun MatchEntity.asModel(): Match =
         Match(
             id = id,
+            seasonId = seasonId,
             competition = toCompetition(),
             information = toInformation(),
             match = toMatch()

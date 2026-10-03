@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.database.migration.match
 
 import com.sgale.gaztelubira.core.database.migration.match.entity.MatchMapper.asEntity
-import com.sgale.gaztelubira.core.database.migration.season.SeasonMapper.asModel
+import com.sgale.gaztelubira.core.database.migration.match.entity.MatchMapper.asModel
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchLocal

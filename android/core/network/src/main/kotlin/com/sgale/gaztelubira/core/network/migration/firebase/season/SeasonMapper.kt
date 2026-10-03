@@ -21,7 +21,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
 
-internal object SeasonMapper: NetworkMapper<Season, SeasonResponse, SeasonId> {
+internal object SeasonMapper: NetworkMapper<Season, SeasonResponse, SeasonId, Nothing> {
     override fun Season.asResponse() =
         SeasonResponse(
             name = name,
@@ -31,7 +31,8 @@ internal object SeasonMapper: NetworkMapper<Season, SeasonResponse, SeasonId> {
         )
 
     override fun SeasonResponse.asModel(
-        id: SeasonId
+        id: SeasonId,
+        parentId: Nothing?
     ) = Season(
         id = id,
         name = name,

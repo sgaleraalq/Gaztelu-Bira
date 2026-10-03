@@ -31,14 +31,14 @@ import javax.inject.Inject
 internal class FirestoreMatches @Inject constructor(
     private val firestore: FirebaseFirestore
 ): MatchRemote {
-    override suspend fun fetchMatches(season: SeasonId): List<Match> =
-        matches(season)
+    override suspend fun fetchMatches(seasonId: SeasonId): List<Match> =
+        matches(seasonId)
             .get()
             .await()
             .documents
             .mapNotNull { match ->
                 match.toObject(MatchResponse::class.java)
-                    ?.asModel(MatchId(match.id))
+                    ?.asModel(MatchId(match.id), seasonId)
             }
 
     private fun matches(season: SeasonId): CollectionReference =

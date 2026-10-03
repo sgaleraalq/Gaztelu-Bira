@@ -22,9 +22,10 @@ import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
-@Entity(primaryKeys = ["seasonId", "matchId"])
+@Entity
 internal data class MatchEntity(
-    val matchId: MatchId,
+    @PrimaryKey
+    val id: MatchId,
     val seasonId: SeasonId,
 
     /**

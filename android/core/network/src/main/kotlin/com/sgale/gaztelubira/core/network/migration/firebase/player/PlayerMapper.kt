@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
 
-internal object PlayerMapper : NetworkMapper<Player, PlayerResponse, PlayerId> {
+internal object PlayerMapper : NetworkMapper<Player, PlayerResponse, PlayerId, Nothing> {
     override fun Player.asResponse() =
         PlayerResponse(
             name = name,
@@ -29,7 +29,7 @@ internal object PlayerMapper : NetworkMapper<Player, PlayerResponse, PlayerId> {
             bodyImage = bodyImage
         )
 
-    override fun PlayerResponse.asModel(id: PlayerId) =
+    override fun PlayerResponse.asModel(id: PlayerId, parentId: Nothing?) =
         Player(
             id = id,
             name = name,

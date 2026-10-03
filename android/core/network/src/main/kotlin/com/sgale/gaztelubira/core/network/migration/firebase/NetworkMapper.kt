@@ -24,8 +24,11 @@ import com.sgale.gaztelubira.core.domain.migration.model.FirebaseId
  * @param Response Data Response layer representation
  * @param Id The id of that model, so each mapper takes its own and no one has
  * to turn a general [FirebaseId] into the one it actually needs
+ * @param ParentId The id of the document this one hangs from, for models that live in a
+ * subcollection (a match inside `seasons/{seasonId}/matches`). Mappers of top level
+ * documents use [Nothing], so the only value they can get is `null`
  */
-internal interface NetworkMapper <Model, Response, Id: FirebaseId> {
+internal interface NetworkMapper <Model, Response, Id: FirebaseId, ParentId: FirebaseId> {
     fun Model.asResponse(): Response
-    fun Response.asModel(id: Id): Model
+    fun Response.asModel(id: Id, parentId: ParentId? = null): Model
 }

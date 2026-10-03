@@ -21,9 +21,9 @@ import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType
 import com.sgale.gaztelubira.core.domain.legacy.model.team.Team.Companion.ERROR_TEAM
 
-internal object MatchMapper : DatabaseMapper<Match, MatchEntity> {
+internal object MatchMapper : DatabaseMapper<Match, LegacyMatchEntity> {
     override fun Match.asEntity() =
-        MatchEntity(
+        LegacyMatchEntity(
             id = id,
             date = date,
             matchName = matchName,
@@ -34,7 +34,7 @@ internal object MatchMapper : DatabaseMapper<Match, MatchEntity> {
             visitorGoals = visitorGoals
         )
 
-    override fun MatchEntity.asModel() =
+    override fun LegacyMatchEntity.asModel() =
         Match(
             id = id,
             date = date,

@@ -18,95 +18,105 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchMapper.toGBMatch
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.DEFEAT
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.TESTING
-import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.match.Match
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
+import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
+import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
-import com.sgale.gaztelubira.core.preview.MatchProvider.provideMatchesList
+import com.sgale.gaztelubira.core.domain.utils.toDate
+import com.sgale.gaztelubira.multiplatform.model.GBMatch
+import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
+import com.sgale.gaztelubira.multiplatform.model.GBMatchResult.DEFEAT
+import com.sgale.gaztelubira.multiplatform.model.GBMatchResult.DRAW
+import com.sgale.gaztelubira.multiplatform.model.GBMatchResult.VICTORY
+import com.sgale.gaztelubira.multiplatform.model.GBMatchTeam
+import com.sgale.gaztelubira.multiplatform.model.GBMatchType
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+private const val KEEP_ALIVE_MILLIS = 5_000L
 private const val MINIMUM_SQUAD = 11
 
 @HiltViewModel
 internal class MatchesViewModel @Inject constructor(
     selectedSeason: SelectedSeason,
-    getMatchess: GetMatches,
-    private val getMatches: GetMatches,
-    private val playersDb: IGBPlayersDb
+    getMatches: GetMatches,
+    getSquad: GetSquad
 ) : ViewModel() {
-    private val _state = MutableStateFlow(MatchesUiState())
-    internal val state: StateFlow<MatchesUiState> = _state.asStateFlow()
-    private var matches: List<Match> = emptyList()
 
-    init {
-        viewModelScope.launch {
-            val hasEnoughPlayers = withContext(IO) {
-                playersDb.getNumberOfPlayers() >= MINIMUM_SQUAD
-            }
+    private val isAdmin = MutableStateFlow(false)
 
-            updateInsertMatchAvailability(hasEnoughPlayers)
-        }
+    private val season = selectedSeason()
 
-        viewModelScope.launch {
-            val testFlow = if (TESTING) flowOf(provideMatchesList(20)) else flowOf(emptyList())
-
-            getMatches()
-                .combine(testFlow) { real, test -> real + test }
-                .flowOn(IO)
-                .collect { combined ->
-                    matches = combined.sortedByDescending { it.date }
-                    renderMatches()
-                }
-        }
+    private val matches = season.map { season ->
+        season?.let { getMatches(it) }.orEmpty()
     }
 
-    private fun updateInsertMatchAvailability(enabled: Boolean) {
-        _state.update { it.copy(hasEnoughPlayers = enabled) }
+    private val hasEnoughPlayers = season.map { season ->
+        val squad = season?.let { getSquad(it) }.orEmpty()
+        squad.count { it.position != MANAGER } >= MINIMUM_SQUAD
     }
 
-    internal fun onSessionChanged(isAdmin: Boolean) {
-        _state.update { it.copy(isAdmin = isAdmin) }
-        renderMatches()
-    }
-
-    private fun renderMatches() {
-        _state.update { state ->
-            state.copy(
-                matches = matches.map { match ->
-                    match.toGBMatch(
-                        appTeam = GAZTELU_BIRA,
-                        result = getMatchResult(match)
-                    )
-                }
+    internal val state: StateFlow<MatchesUiState> =
+        combine(
+            matches,
+            hasEnoughPlayers,
+            isAdmin
+        ) { matches, enoughPlayers, admin ->
+            MatchesUiState(
+                matches = matches
+                    .sortedByDescending { it.information.date }
+                    .map { it.asGBMatch() },
+                isAdmin = admin,
+                hasEnoughPlayers = enoughPlayers
             )
-        }
+        }.stateIn(
+            scope = viewModelScope,
+            started = WhileSubscribed(KEEP_ALIVE_MILLIS),
+            initialValue = MatchesUiState()
+        )
+
+    internal fun onAdminChanged(isAdmin: Boolean) {
+        this.isAdmin.value = isAdmin
     }
 
-    private fun getMatchResult(
-        match: Match
-    ): MatchResult {
-        val isLocal = match.localTeam.id == GAZTELU_BIRA.id
-        val goalsFor = if (isLocal) match.localGoals else match.visitorGoals
-        val goalsAgainst = if (isLocal) match.visitorGoals else match.localGoals
+    private fun Match.asGBMatch() =
+        GBMatch(
+            id = id.value,
+            name = information.description,
+            type = when (competition) {
+                is Cup -> GBMatchType.CUP
+                is League -> GBMatchType.LEAGUE
+            },
+            // The domain keeps dates in seconds, toDate() expects millis
+            date = (information.date * 1_000).toDate(),
+            localTeam = match.localTeam.asGBMatchTeam(),
+            visitorTeam = match.visitorTeam.asGBMatchTeam(),
+            localGoals = match.score.local,
+            visitorGoals = match.score.visitor,
+            result = result()
+        )
+
+    // TODO There is no team source in migration yet, so the id stands in for the name
+    private fun TeamId.asGBMatchTeam() =
+        GBMatchTeam(
+            name = value,
+            logo = null
+        )
+
+    private fun Match.result(): GBMatchResult {
+        val goalsFor = if (match.isLocal) match.score.local else match.score.visitor
+        val goalsAgainst = if (match.isLocal) match.score.visitor else match.score.local
 
         return when {
             goalsFor > goalsAgainst -> VICTORY

@@ -20,5 +20,5 @@ import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 interface MatchRemote {
-    suspend fun fetchMatches(season: SeasonId): List<Match>
+    suspend fun fetchMatches(seasonId: SeasonId): List<Match>
 }

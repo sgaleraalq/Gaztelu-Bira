@@ -57,7 +57,7 @@ internal fun MatchesScreen(
     }
 
     LaunchedEffect(userSession) {
-        viewModel.onSessionChanged(
+        viewModel.onAdminChanged(
             isAdmin = userSession?.isAdmin() == true
         )
     }

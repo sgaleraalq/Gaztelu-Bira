@@ -25,7 +25,7 @@ import com.sgale.gaztelubira.core.database.legacy.dao.PlayerStatsDao
 import com.sgale.gaztelubira.core.database.legacy.dao.PlayersDao
 import com.sgale.gaztelubira.core.database.legacy.dao.TeamsDao
 import com.sgale.gaztelubira.core.database.legacy.entities.Converters
-import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchEntity
+import com.sgale.gaztelubira.core.database.legacy.entities.match.LegacyMatchEntity
 import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchStatsEntity
 import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerEntity
 import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerStatsEntity
@@ -33,7 +33,7 @@ import com.sgale.gaztelubira.core.database.legacy.entities.team.TeamEntity
 
 @Database(
     entities = [
-        MatchEntity::class,
+        LegacyMatchEntity::class,
         MatchStatsEntity::class,
         PlayerEntity::class,
         PlayerStatsEntity::class,
