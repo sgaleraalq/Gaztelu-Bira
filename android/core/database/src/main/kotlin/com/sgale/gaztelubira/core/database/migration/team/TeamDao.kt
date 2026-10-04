@@ -22,11 +22,15 @@ import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import com.sgale.gaztelubira.core.database.migration.team.entity.TeamEntity
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 @Dao
 interface TeamDao {
     @Query("SELECT * FROM TeamEntity WHERE id = :teamId")
     suspend fun getTeam(teamId: TeamId): TeamEntity?
+
+    @Query("SELECT * FROM TeamEntity WHERE seasonId = :seasonId")
+    suspend fun getTeams(seasonId: SeasonId): List<TeamEntity>
 
     @Insert(onConflict = REPLACE)
     suspend fun insertTeams(teams: List<TeamEntity>)

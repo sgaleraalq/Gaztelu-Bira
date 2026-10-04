@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.legacy.repository.db
+package com.sgale.gaztelubira.core.domain.migration.usecase
 
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
-import kotlinx.coroutines.flow.Flow
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
+import javax.inject.Inject
 
-interface IGBTeamsDb {
-    suspend fun deleteTeam(id: FirebaseId)
-    suspend fun insertTeam(team: Team)
-    suspend fun insertTeams(teams: List<Team>)
-    suspend fun getTeam(id: FirebaseId): Team?
-    fun getTeamsList(): Flow<List<Team>>
+class GetTeams @Inject constructor(
+    private val teams: TeamLocal
+) {
+    suspend operator fun invoke(seasonId: SeasonId): List<Team> =
+        teams.getTeams(seasonId)
 }

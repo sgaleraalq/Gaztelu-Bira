@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.season
 
 import androidx.compose.runtime.Composable
 
 @Composable
-fun GazteluBiraView(
-    state: GazteluBiraUiState,
-    actions: GazteluBiraActions
+fun SeasonView(
+    state: SeasonUiState,
+    actions: SeasonActions
 ) {
-    GazteluBiraViewUI(
+    SeasonViewUI(
         state = state,
         actions = actions
     )

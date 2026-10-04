@@ -17,9 +17,11 @@
 package com.sgale.gaztelubira.core.domain.migration.model.team
 
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 data class Team(
     val id: TeamId,
+    val seasonId: SeasonId,
     val name: String,
     val logo: String
 ) {
@@ -27,6 +29,7 @@ data class Team(
     companion object {
         val ERROR_TEAM = Team(
             TeamId(""),
+            SeasonId(""),
             "",
             ""
         )

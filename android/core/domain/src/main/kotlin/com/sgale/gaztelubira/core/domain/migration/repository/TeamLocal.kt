@@ -18,8 +18,10 @@ package com.sgale.gaztelubira.core.domain.migration.repository
 
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 interface TeamLocal {
     suspend fun getTeam(teamId: TeamId): Team
+    suspend fun getTeams(seasonId: SeasonId): List<Team>
     suspend fun insertTeams(teams: List<Team>)
 }

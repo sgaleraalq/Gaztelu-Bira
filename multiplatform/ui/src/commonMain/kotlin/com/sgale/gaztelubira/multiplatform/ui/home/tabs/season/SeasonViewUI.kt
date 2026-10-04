@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.season
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,20 +28,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAddButton
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromGazteluBiraTab.InsertTeam
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.ui.GBHomeInformationBox
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.ui.GBRivals
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.ui.SeasonRivals
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.ui.SeasonInformationBox
 
 @Composable
-internal fun GazteluBiraViewUI(
-    state: GazteluBiraUiState,
-    actions: GazteluBiraActions
+internal fun SeasonViewUI(
+    state: SeasonUiState,
+    actions: SeasonActions
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        GBHomeInformationBox(summary = state.season)
-        HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
-        GBRivals(
+        SeasonInformationBox(
+            summary = state.season
+        )
+        HorizontalDivider(
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+        )
+        SeasonRivals(
             modifier = Modifier.weight(1f),
             teams = state.teams
         )

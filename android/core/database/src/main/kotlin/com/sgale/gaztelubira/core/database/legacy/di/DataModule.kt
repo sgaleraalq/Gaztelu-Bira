@@ -21,14 +21,12 @@ import com.sgale.gaztelubira.core.database.legacy.implementations.GBMatchesDb
 import com.sgale.gaztelubira.core.database.legacy.implementations.GBMatchesStatsDb
 import com.sgale.gaztelubira.core.database.legacy.implementations.GBPlayerStatsDb
 import com.sgale.gaztelubira.core.database.legacy.implementations.GBPlayersDb
-import com.sgale.gaztelubira.core.database.legacy.implementations.GBTeamsDb
 import com.sgale.gaztelubira.core.database.preferences.GBSettings
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesStatsDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersStatsDb
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPreferences
-import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBTeamsDb
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -61,10 +59,6 @@ internal interface DataModule {
     @Binds
     @Singleton
     fun bindPlayersStatsDb(gbPlayerStatsDb: GBPlayerStatsDb): IGBPlayersStatsDb
-
-    @Binds
-    @Singleton
-    fun bindTeamsDb(gbTeamsDb: GBTeamsDb): IGBTeamsDb
 
     @Binds
     @Singleton

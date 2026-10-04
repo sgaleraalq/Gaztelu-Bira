@@ -35,7 +35,6 @@ import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.YellowCards
 import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayers
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetTeams
 import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewMatch
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
@@ -68,7 +67,6 @@ import javax.inject.Inject
 @HiltViewModel
 class InsertMatchViewModel @Inject constructor(
     private val getPlayers: GetPlayers,
-    private val getTeams: GetTeams,
     private val insertNewMatch: InsertNewMatch
 ) : ViewModel() {
     data class InsertMatchPosition(val position: Int = 0)
@@ -86,7 +84,8 @@ class InsertMatchViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _teams.value = withContext(Dispatchers.IO) {
-                getTeams().first()
+//                getTeams().first()
+                emptyList()
             }
             _players.value = withContext(Dispatchers.IO) {
                 getPlayers().first()

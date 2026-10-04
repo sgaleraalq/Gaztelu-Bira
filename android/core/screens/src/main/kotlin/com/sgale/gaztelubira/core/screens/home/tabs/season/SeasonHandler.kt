@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
+package com.sgale.gaztelubira.core.screens.home.tabs.season
 
-import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.DEFEAT
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.LOCAL
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.VISITOR
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
-import com.sgale.gaztelubira.core.domain.legacy.model.team.TeamSeason
-import com.sgale.gaztelubira.core.domain.legacy.model.team.TeamStreak
+import com.sgale.gaztelubira.core.domain.migration.model.match.Match
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore
 
-internal class GazteluBiraHomeHandler(
-    private val appTeam: Team,
+internal class SeasonHandler(
     private val matches: List<Match>
 ) {
     private data class MatchResults(
@@ -53,10 +47,9 @@ internal class GazteluBiraHomeHandler(
 
 
     init {
-        matches.sortedBy { it.date }.forEach { match ->
-            val status = getStatus(match)
-            updateMatchResult(status, match)
-            updateMatchGoals(status, match)
+        matches.sortedBy { it.information.date }.forEach { match ->
+            updateMatchResult(match.match)
+            updateMatchGoals(match.match)
         }
     }
 
@@ -80,13 +73,6 @@ internal class GazteluBiraHomeHandler(
     private fun getPoints(results: MatchResults): Int =
         (results.wins * 3) + results.draws
 
-    private fun getStatus(match: Match): MatchSide =
-        when {
-            match.localTeam.id == appTeam.id -> LOCAL
-            else -> VISITOR
-        }
-
-
     private fun getStreak() =
         TeamStreak(
             currentStreak = getCurrentStreak(),
@@ -97,8 +83,6 @@ internal class GazteluBiraHomeHandler(
         val points = getPoints(results)
 
         return TeamSeason(
-            id = appTeam.id,
-            team = appTeam,
             points = points,
             games = matches.size,
             wins = results.wins,
@@ -111,36 +95,34 @@ internal class GazteluBiraHomeHandler(
     }
 
     private fun updateMatchGoals(
-        status: MatchSide,
-        match: Match
+        match: MatchScore
     ) {
-        when (status) {
-            LOCAL -> {
-                goals.goalsFor += match.localGoals
-                goals.goalsAgainst += match.visitorGoals
+        when (match.isLocal) {
+            true -> {
+                goals.goalsFor += match.score.local
+                goals.goalsAgainst += match.score.visitor
             }
 
-            VISITOR -> {
-                goals.goalsFor += match.visitorGoals
-                goals.goalsAgainst += match.localGoals
+            false -> {
+                goals.goalsFor += match.score.visitor
+                goals.goalsAgainst += match.score.local
             }
         }
     }
 
     private fun updateMatchResult(
-        status: MatchSide,
-        match: Match
+        match: MatchScore
     ) {
-        if (match.localGoals == match.visitorGoals) {
+        if (match.score.local == match.score.visitor) {
             streak.games.add(DRAW)
             results.draws += 1
             return
         }
 
         var streakResult = VICTORY
-        when (status) {
-            LOCAL -> {
-                if (match.localGoals > match.visitorGoals) {
+        when (match.isLocal) {
+            true -> {
+                if (match.score.local > match.score.visitor) {
                     results.wins += 1
                 } else {
                     results.loses += 1
@@ -148,8 +130,8 @@ internal class GazteluBiraHomeHandler(
                 }
             }
 
-            VISITOR -> {
-                if (match.localGoals > match.visitorGoals) {
+            false -> {
+                if (match.score.local > match.score.visitor) {
                     results.loses += 1
                     streakResult = DEFEAT
                 } else {

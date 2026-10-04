@@ -23,6 +23,7 @@ internal object TeamMapper: DatabaseMapper<Team, TeamEntity> {
     override fun Team.asEntity(): TeamEntity =
         TeamEntity(
             id = id,
+            seasonId = seasonId,
             name = name,
             logo = logo
         )
@@ -31,6 +32,7 @@ internal object TeamMapper: DatabaseMapper<Team, TeamEntity> {
     override fun TeamEntity.asModel(): Team =
         Team(
             id = id,
+            seasonId = seasonId,
             name = name,
             logo = logo
         )

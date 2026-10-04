@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.ui
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -51,7 +51,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.other_teams
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun GBRivals(
+internal fun SeasonRivals(
     modifier: Modifier,
     teams: List<GBTeam>
 ) {
@@ -73,13 +73,13 @@ internal fun GBRivals(
             items = teams,
             key = { team -> team.id }
         ) { team ->
-            GBRival(team)
+            SeasonRival(team)
         }
     }
 }
 
 @Composable
-private fun GBRival(
+private fun SeasonRival(
     team: GBTeam
 ) {
     Column(

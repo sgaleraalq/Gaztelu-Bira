@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.legacy.entities.team
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.season
 
-import com.sgale.gaztelubira.core.database.DatabaseMapper
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination
 
-internal object TeamMapper : DatabaseMapper<Team, TeamEntity> {
-    override fun Team.asEntity() =
-        TeamEntity(
-            id = id,
-            name = name,
-            logo = logo.orEmpty()
-        )
-
-    override fun TeamEntity.asModel() =
-        Team(
-            id = id,
-            name = name,
-            logo = logo
-        )
-}
+data class SeasonActions(
+    val navigateTo: (UiDestination) -> Unit
+)

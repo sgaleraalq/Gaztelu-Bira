@@ -19,11 +19,13 @@ package com.sgale.gaztelubira.core.database.migration.team.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 @Entity
 data class TeamEntity(
     @PrimaryKey
     val id: TeamId,
+    val seasonId: SeasonId,
     val name: String,
     val logo: String
 )

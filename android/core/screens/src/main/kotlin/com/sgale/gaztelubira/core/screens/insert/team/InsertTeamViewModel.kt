@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.TeamInserted
-import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewTeam
 import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
@@ -41,7 +40,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class InsertTeamViewModel @Inject constructor(
-    private val insertNewTeam: InsertNewTeam,
+//    private val insertNewTeam: InsertNewTeam,
 ) : ViewModel() {
 
     private val initialState = InsertTeamUiState(teamId = getCurrentTimeId())
@@ -86,11 +85,12 @@ internal class InsertTeamViewModel @Inject constructor(
             _state.update { it.copy(state = Loading) }
 
             val result = withContext(Dispatchers.IO) {
-                insertNewTeam(
-                    img = team.teamImage,
-                    team = team.toTeamModel(),
-                    onFailure = { onFailure(context, errorMsg) }
-                )
+//                insertNewTeam(
+//                    img = team.teamImage,
+//                    team = team.toTeamModel(),
+//                    onFailure = { onFailure(context, errorMsg) }
+//                )
+                TeamInserted // TODO
             }
 
             if (result is TeamInserted) {

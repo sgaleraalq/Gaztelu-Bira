@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.legacy.entities.team
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.season
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.multiplatform.model.GBSeason
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
 
-@Entity
-data class TeamEntity(
-    @PrimaryKey
-    val id: FirebaseId,
-    val name: String,
-    val logo: String
+data class SeasonUiState(
+    val season: GBSeason? = null,
+    val teams: List<GBTeam> = emptyList(),
+    val isAdmin: Boolean = false
 )

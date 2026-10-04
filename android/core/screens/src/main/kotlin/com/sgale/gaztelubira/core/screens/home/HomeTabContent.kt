@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.screens.home
 
 import androidx.compose.runtime.Composable
 import com.sgale.gaztelubira.core.screens.home.tabs.about.AboutScreen
-import com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira.GazteluBiraScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.matches.MatchesScreen
+import com.sgale.gaztelubira.core.screens.home.tabs.season.SeasonScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.StatsScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.team.TeamScreen
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
@@ -31,9 +31,11 @@ import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.TEAM
 
 @Composable
-internal fun HomeTab.Content(state: NavigationState) {
+internal fun HomeTab.Content(
+    state: NavigationState
+) {
     when (this) {
-        HOME -> GazteluBiraScreen(state)
+        HOME -> SeasonScreen(state)
         TEAM -> TeamScreen(state)
         STATS -> StatsScreen()
         MATCHES -> MatchesScreen(state)

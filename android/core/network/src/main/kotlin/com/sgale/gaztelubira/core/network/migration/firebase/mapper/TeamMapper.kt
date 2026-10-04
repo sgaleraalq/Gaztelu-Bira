@@ -17,20 +17,22 @@
 package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.migration.firebase.response.TeamResponse
 
-internal object TeamMapper : NetworkMapper<Team, TeamResponse, TeamId, Nothing> {
+internal object TeamMapper : NetworkMapper<Team, TeamResponse, TeamId, SeasonId> {
     override fun Team.asResponse(): TeamResponse =
         TeamResponse(
             logo = logo,
             name = name
         )
 
-    override fun TeamResponse.asModel(id: TeamId, parentId: Nothing?) =
+    override fun TeamResponse.asModel(id: TeamId, parentId: SeasonId?) =
         Team(
             id = id,
+            seasonId = requireNotNull(parentId),
             name = name,
             logo = logo
         )

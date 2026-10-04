@@ -39,7 +39,7 @@ internal class FirestoreTeam @Inject constructor(
             .documents
             .mapNotNull { team ->
                 team.toObject(TeamResponse::class.java)
-                    ?.asModel(TeamId(team.id))
+                    ?.asModel(TeamId(team.id), seasonId)
             }
 
     private fun teams(season: SeasonId): CollectionReference =

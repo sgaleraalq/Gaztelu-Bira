@@ -19,23 +19,18 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetTeam
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.domain.utils.toDate
+import com.sgale.gaztelubira.core.screens.toGBMatchResult
 import com.sgale.gaztelubira.multiplatform.model.GBMatch
-import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
 import com.sgale.gaztelubira.multiplatform.model.GBMatchTeam
 import com.sgale.gaztelubira.multiplatform.model.GBMatchType.CUP
 import com.sgale.gaztelubira.multiplatform.model.GBMatchType.LEAGUE
@@ -71,7 +66,7 @@ internal class MatchesViewModel @Inject constructor(
         squad.count { it.position != MANAGER } >= MINIMUM_SQUAD
     }
 
-    internal val state: StateFlow<MatchesUiState> =
+    private val _state: StateFlow<MatchesUiState> =
         combine(
             matches,
             hasEnoughPlayers,
@@ -93,6 +88,8 @@ internal class MatchesViewModel @Inject constructor(
             started = WhileSubscribed(KEEP_ALIVE_MILLIS),
             initialValue = MatchesUiState()
         )
+
+    internal val state: StateFlow<MatchesUiState> = _state
 
     internal fun onAdminChanged(isAdmin: Boolean) {
         this.isAdmin.value = isAdmin
@@ -128,12 +125,5 @@ internal class MatchesViewModel @Inject constructor(
         when (competition) {
             is Cup -> "Cup"
             is League -> "Jornada ${(competition as League).journey}"
-        }
-
-    private fun MatchResult.toGBMatchResult() =
-        when (this) {
-            DEFEAT -> GBMatchResult.DEFEAT
-            DRAW -> GBMatchResult.DRAW
-            VICTORY -> GBMatchResult.VICTORY
         }
 }

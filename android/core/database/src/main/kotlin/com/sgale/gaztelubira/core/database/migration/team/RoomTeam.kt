@@ -19,6 +19,7 @@ package com.sgale.gaztelubira.core.database.migration.team
 import com.sgale.gaztelubira.core.database.migration.team.entity.TeamMapper.asEntity
 import com.sgale.gaztelubira.core.database.migration.team.entity.TeamMapper.asModel
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team.Companion.ERROR_TEAM
 import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
@@ -29,6 +30,9 @@ internal class RoomTeam @Inject constructor(
 ): TeamLocal {
     override suspend fun getTeam(teamId: TeamId): Team =
         teamDao.getTeam(teamId)?.asModel() ?: ERROR_TEAM
+
+    override suspend fun getTeams(seasonId: SeasonId): List<Team> =
+        teamDao.getTeams(seasonId).map { it.asModel() }
 
     override suspend fun insertTeams(teams: List<Team>) {
         teamDao.insertTeams(teams.map { it.asEntity() })

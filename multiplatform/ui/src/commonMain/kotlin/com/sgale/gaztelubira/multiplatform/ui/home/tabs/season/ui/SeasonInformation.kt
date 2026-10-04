@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.ui
+package com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -42,8 +42,8 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
 import com.sgale.gaztelubira.multiplatform.model.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
@@ -62,25 +62,25 @@ import org.jetbrains.compose.resources.stringResource
 private const val NO_VALUE = "-"
 
 @Composable
-internal fun GBHomeInformationBox(
+internal fun SeasonInformationBox(
     summary: GBSeason?
 ) {
     Column {
-        GBHomeHeader(summary)
-        GBHomeMatchStats(summary)
+        SeasonHeader(summary)
+        SeasonMatchStats(summary)
     }
 }
 
 @Composable
-private fun GBHomeHeader(
+private fun SeasonHeader(
     summary: GBSeason?
 ) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(16.dp)
     ) {
-        GBTeamLogo()
+        SeasonLogo()
         Spacer(modifier = Modifier.width(12.dp))
-        GBHomeData(
+        SeasonData(
             modifier = Modifier.weight(1f),
             summary = summary
         )
@@ -88,7 +88,7 @@ private fun GBHomeHeader(
 }
 
 @Composable
-private fun GBTeamLogo() {
+private fun SeasonLogo() {
     GBImage(
         modifier = Modifier
             .size(75.dp)
@@ -99,7 +99,7 @@ private fun GBTeamLogo() {
 }
 
 @Composable
-private fun GBHomeData(
+private fun SeasonData(
     modifier: Modifier,
     summary: GBSeason?
 ) {
@@ -111,7 +111,7 @@ private fun GBHomeData(
             text = stringResource(Res.string.app_name),
             style = gBTypography().titleLarge.copy(fontWeight = Bold)
         )
-        GBHomeStreak(
+        SeasonStreak(
             modifier = Modifier.weight(1f),
             summary = summary
         )
@@ -119,7 +119,7 @@ private fun GBHomeData(
 }
 
 @Composable
-private fun GBHomeStreak(
+private fun SeasonStreak(
     modifier: Modifier,
     summary: GBSeason?
 ) {
@@ -139,7 +139,7 @@ private fun GBHomeStreak(
                 style = gBTypography().bodySmall
             )
         }
-        GBHomeStreakDots(
+        SeasonStreakDots(
             modifier = Modifier.weight(1f),
             lastGames = summary?.lastGames.orEmpty()
         )
@@ -147,7 +147,7 @@ private fun GBHomeStreak(
 }
 
 @Composable
-private fun GBHomeStreakDots(
+private fun SeasonStreakDots(
     modifier: Modifier,
     lastGames: List<GBMatchResult>
 ) {
@@ -169,7 +169,7 @@ private fun GBHomeStreakDots(
 }
 
 @Composable
-private fun GBHomeMatchStats(summary: GBSeason?) {
+private fun SeasonMatchStats(summary: GBSeason?) {
     val stats = listOf(
         stringResource(Res.string.short_pts) to summary?.points,
         stringResource(Res.string.short_gms) to summary?.games,

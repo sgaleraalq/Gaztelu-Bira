@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.screens.home.tabs.gaztelu_bira
+package com.sgale.gaztelubira.core.screens.home.tabs.season
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,30 +25,32 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraActions
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.gaztelu_bira.GazteluBiraView
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.SeasonActions
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.SeasonView
 
 @Composable
-internal fun GazteluBiraScreen(
+internal fun SeasonScreen(
     navState: NavigationState,
-    viewModel: GazteluBiraViewModel = hiltViewModel<GazteluBiraViewModel>()
+    viewModel: SeasonViewModel = hiltViewModel<SeasonViewModel>()
 ) {
     val mainViewModel = LocalMainViewModel.current
     val userSession by mainViewModel.userSession.collectAsState()
     val state by viewModel.state.collectAsState()
 
-    val actions = remember(navState, viewModel) {
-        GazteluBiraActions(
+    val actions = remember(
+        navState,
+        viewModel
+    ) {
+        SeasonActions(
             navigateTo = { destination -> navState.navigateTo(destination) }
         )
     }
 
     LaunchedEffect(userSession) {
-        viewModel.onSessionChanged(
-            team = userSession?.team,
+        viewModel.onAdminChanged(
             isAdmin = userSession?.isAdmin() == true
         )
     }
 
-    GazteluBiraView(state, actions)
+    SeasonView(state, actions)
 }
