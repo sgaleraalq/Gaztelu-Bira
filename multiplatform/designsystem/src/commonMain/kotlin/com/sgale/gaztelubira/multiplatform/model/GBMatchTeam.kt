@@ -20,6 +20,7 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class GBMatchTeam(
+    val isGaztelu: Boolean,
     val name: String,
     val logo: String,
     val goals: Int

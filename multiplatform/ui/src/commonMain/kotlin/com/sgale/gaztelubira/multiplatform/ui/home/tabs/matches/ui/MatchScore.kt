@@ -39,6 +39,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.model.GBMatch
 import com.sgale.gaztelubira.multiplatform.model.GBMatchTeam
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
 
 @Composable
 internal fun MatchScore(
@@ -52,7 +54,6 @@ internal fun MatchScore(
             modifier = Modifier.weight(1f),
             logoHeight = teamLogoHeight,
             team = match.localTeam,
-            goals = match.localTeam.goals.toString()
         )
         GBText(
             modifier = Modifier.padding(horizontal = 16.dp).height(teamLogoHeight),
@@ -63,7 +64,6 @@ internal fun MatchScore(
             modifier = Modifier.weight(1f),
             logoHeight = teamLogoHeight,
             team = match.visitorTeam,
-            goals = match.visitorTeam.goals.toString(),
             isLocal = false
         )
     }
@@ -74,7 +74,6 @@ private fun MatchTeam(
     modifier: Modifier,
     logoHeight: Dp,
     team: GBMatchTeam,
-    goals: String,
     isLocal: Boolean = true
 ) {
     Row(
@@ -83,11 +82,12 @@ private fun MatchTeam(
         if (!isLocal) {
             MatchGoals(
                 modifier = Modifier.weight(1f).height(logoHeight),
-                goals = goals,
+                goals = team.goals.toString(),
                 alignment = Start
             )
         }
         MatchTeamBadge(
+            isGaztelu = team.isGaztelu,
             image = team.logo,
             teamName = team.name,
             logoHeight = logoHeight
@@ -95,7 +95,7 @@ private fun MatchTeam(
         if (isLocal) {
             MatchGoals(
                 modifier = Modifier.weight(1f).height(logoHeight),
-                goals = goals,
+                goals = team.goals.toString(),
                 alignment = TextAlign.End
             )
         }
@@ -123,16 +123,30 @@ private fun MatchGoals(
 
 @Composable
 private fun MatchTeamBadge(
+    isGaztelu: Boolean,
     image: String,
     teamName: String,
     logoHeight: Dp
 ) {
+    val imageModifier = Modifier.size(logoHeight)
+
     Column(
         modifier = Modifier.width(100.dp),
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = spacedBy(8.dp)
     ) {
-        GBTeam(Modifier.size(logoHeight), image)
+        if (isGaztelu) {
+            GBTeam(
+                modifier = imageModifier,
+                image = Res.drawable.img_gaztelu_bira
+            )
+        } else {
+            GBTeam(
+                modifier = imageModifier,
+                image = image
+            )
+        }
+
         GBText(
             modifier = Modifier.fillMaxWidth(),
             text = teamName,

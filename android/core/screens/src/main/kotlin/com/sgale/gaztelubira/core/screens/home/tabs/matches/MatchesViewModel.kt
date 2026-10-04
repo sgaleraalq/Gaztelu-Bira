@@ -19,6 +19,8 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils
+import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
@@ -115,6 +117,7 @@ internal class MatchesViewModel @Inject constructor(
 
     private fun getTeam(team: Team, goals: Int): GBMatchTeam =
         GBMatchTeam(
+            isGaztelu = team.id.value == GAZTELU_BIRA_ID,
             name = team.name,
             logo = team.logo,
             goals = goals
