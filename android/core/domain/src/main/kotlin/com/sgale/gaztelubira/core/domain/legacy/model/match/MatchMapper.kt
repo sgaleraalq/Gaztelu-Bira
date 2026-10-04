@@ -38,15 +38,14 @@ object MatchMapper {
             date = date.toDate(),
             localTeam = localTeam.toGBMatchTeam(),
             visitorTeam = visitorTeam.toGBMatchTeam(),
-            localGoals = localGoals,
-            visitorGoals = visitorGoals,
             result = if (appTeam == null) UNDEFINED else result.toGBMatchResult()
         )
 
     private fun Team.toGBMatchTeam(): GBMatchTeam =
         GBMatchTeam(
             name = name,
-            logo = logo
+            logo = logo.orEmpty(),
+            goals = 0
         )
 
     private fun MatchType.toGBMatchType(): GBMatchType =

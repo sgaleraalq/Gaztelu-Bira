@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *
+ *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ *  
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ *  
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.season
+package com.sgale.gaztelubira.core.domain.migration.repository
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
 
-interface SeasonLocal {
-    suspend fun getSeasons(): List<Season>
-    suspend fun getSeasonPlayer(playerId: PlayerId, seasonId: SeasonId): SeasonPlayer
-    suspend fun getSeasonPlayers(season: SeasonId): List<SeasonPlayer>
-    suspend fun getSquad(season: SeasonId): List<SquadPlayer>
-    suspend fun insertSeasons(seasons: List<Season>)
-    suspend fun insertSeasonPlayers(players: List<SeasonPlayer>)
+interface SeasonRemote {
+    suspend fun fetchSeasons(): List<Season>
+    suspend fun fetchSquad(season: SeasonId): List<SeasonPlayer>
 }

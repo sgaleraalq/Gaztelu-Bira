@@ -19,7 +19,6 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
@@ -27,8 +26,10 @@ import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
+import com.sgale.gaztelubira.core.domain.migration.usecase.GetTeam
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.domain.utils.toDate
 import com.sgale.gaztelubira.multiplatform.model.GBMatch
@@ -53,7 +54,8 @@ private const val MINIMUM_SQUAD = 11
 internal class MatchesViewModel @Inject constructor(
     selectedSeason: SelectedSeason,
     getMatches: GetMatches,
-    getSquad: GetSquad
+    getSquad: GetSquad,
+    getTeam: GetTeam
 ) : ViewModel() {
     private val isAdmin = MutableStateFlow(false)
     private val season = selectedSeason()
@@ -76,7 +78,11 @@ internal class MatchesViewModel @Inject constructor(
             MatchesUiState(
                 matches = matches
                     .sortedByDescending { it.information.date }
-                    .map { it.asGBMatch() },
+                    .map { match ->
+                        val local = getTeam(match.match.localTeam)
+                        val visitor = getTeam(match.match.visitorTeam)
+                        match.asGBMatch(local, visitor)
+                    },
                 isAdmin = admin,
                 hasEnoughPlayers = enoughPlayers
             )
@@ -90,29 +96,36 @@ internal class MatchesViewModel @Inject constructor(
         this.isAdmin.value = isAdmin
     }
 
-    private fun Match.asGBMatch() =
-        GBMatch(
-            id = id.value,
-            name = information.description,
-            type = when (competition) {
-                is Cup -> CUP
-                is League -> LEAGUE
-            },
-            // The domain keeps dates in seconds, toDate() expects millis
-            date = (information.date * 1_000).toDate(),
-            localTeam = match.localTeam.asGBMatchTeam(),
-            visitorTeam = match.visitorTeam.asGBMatchTeam(),
-            localGoals = match.score.local,
-            visitorGoals = match.score.visitor,
-            result = result().toGBMatchResult()
+    private fun Match.asGBMatch(
+        local: Team,
+        visitor: Team
+    ) = GBMatch(
+        id = id.value,
+        name = getName(),
+        type = when (competition) {
+            is Cup -> CUP
+            is League -> LEAGUE
+        },
+        // The domain keeps dates in seconds, toDate() expects millis
+        date = (information.date * 1_000).toDate(),
+        localTeam = getTeam(local, match.score.local),
+        visitorTeam = getTeam(visitor, match.score.visitor),
+        result = result().toGBMatchResult()
+    )
+
+    private fun getTeam(team: Team, goals: Int): GBMatchTeam =
+        GBMatchTeam(
+            name = team.name,
+            logo = team.logo,
+            goals = goals
         )
 
-    // TODO There is no team source in migration yet, so the id stands in for the name
-    private fun TeamId.asGBMatchTeam() =
-        GBMatchTeam(
-            name = value,
-            logo = null
-        )
+    // TODO
+    private fun Match.getName(): String =
+        when (competition) {
+            is Cup -> "Cup"
+            is League -> "Jornada ${(competition as League).journey}"
+        }
 
     private fun MatchResult.toGBMatchResult() =
         when (this) {

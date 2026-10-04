@@ -24,10 +24,12 @@ import com.sgale.gaztelubira.core.database.migration.match.RoomMatches
 import com.sgale.gaztelubira.core.database.migration.player.RoomPlayers
 import com.sgale.gaztelubira.core.database.migration.preferences.PreferencesImpl
 import com.sgale.gaztelubira.core.database.migration.season.RoomSeasons
-import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
-import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
+import com.sgale.gaztelubira.core.database.migration.team.RoomTeam
+import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
+import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -73,4 +75,10 @@ internal object DatabaseModule {
     fun provideSeasonLocal(
         roomSeasons: RoomSeasons
     ): SeasonLocal = roomSeasons
+
+    @Provides
+    @Singleton
+    fun provideTeamLocal(
+        roomTeam: RoomTeam
+    ): TeamLocal = roomTeam
 }

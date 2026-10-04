@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.domain.migration.usecase
 
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
 import javax.inject.Inject
 
 class GetMatches @Inject constructor(

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.team
+package com.sgale.gaztelubira.core.domain.migration.repository
 
+import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 
-interface TeamRemote {
-    suspend fun fetchTeams(seasonId: SeasonId): List<Team>
+interface MatchLocal {
+    suspend fun getMatches(seasonId: SeasonId): List<Match>
+    suspend fun insertMatches(matches: List<Match>)
 }

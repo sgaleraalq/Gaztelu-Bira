@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.mapper
+package com.sgale.gaztelubira.core.database.migration.team
 
+import com.sgale.gaztelubira.core.database.migration.team.entity.TeamMapper.asEntity
+import com.sgale.gaztelubira.core.database.migration.team.entity.TeamMapper.asModel
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
-import com.sgale.gaztelubira.core.network.migration.firebase.response.TeamResponse
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team.Companion.ERROR_TEAM
+import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
+import javax.inject.Inject
 
-internal object TeamMapper : NetworkMapper<Team, TeamResponse, TeamId, Nothing> {
-    override fun Team.asResponse(): TeamResponse =
-        TeamResponse(
-            logo = logo,
-            name = name
-        )
+internal class RoomTeam @Inject constructor(
+    private val teamDao: TeamDao
+): TeamLocal {
+    override suspend fun getTeam(teamId: TeamId): Team =
+        teamDao.getTeam(teamId)?.asModel() ?: ERROR_TEAM
 
-    override fun TeamResponse.asModel(id: TeamId, parentId: Nothing?) =
-        Team(
-            id = id,
-            name = name,
-            logo = logo
-        )
+    override suspend fun insertTeams(teams: List<Team>) {
+        teamDao.insertTeams(teams.map { it.asEntity() })
+    }
 }

@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.preferences
+package com.sgale.gaztelubira.core.database.migration.team.entity
 
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import kotlinx.coroutines.flow.Flow
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 
-interface Preferences {
-    val selectedSeason: Flow<SeasonId?>
-    val isFirstTime: Boolean
-    suspend fun resolveSelectedSeason(): SeasonId?
-    suspend fun selectSeason(season: SeasonId?)
-    suspend fun setFirstTime(enabled: Boolean)
-}
+@Entity
+data class TeamEntity(
+    @PrimaryKey
+    val id: TeamId,
+    val name: String,
+    val logo: String
+)

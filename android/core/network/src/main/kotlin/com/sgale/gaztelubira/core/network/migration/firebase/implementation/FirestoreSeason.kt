@@ -22,7 +22,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
-import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.SeasonRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SQUAD
 import com.sgale.gaztelubira.core.network.migration.firebase.response.SeasonResponse

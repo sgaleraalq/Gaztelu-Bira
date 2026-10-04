@@ -17,8 +17,8 @@
 package com.sgale.gaztelubira.core.domain.migration.usecase
 
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
-import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
+import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map

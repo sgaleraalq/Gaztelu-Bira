@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.core.domain.migration.repository.team.TeamRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.TeamRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.TeamMapper.asModel
@@ -39,7 +39,7 @@ internal class FirestoreTeam @Inject constructor(
             .documents
             .mapNotNull { team ->
                 team.toObject(TeamResponse::class.java)
-                    ?.asModel(TeamId(team.id), seasonId)
+                    ?.asModel(TeamId(team.id))
             }
 
     private fun teams(season: SeasonId): CollectionReference =

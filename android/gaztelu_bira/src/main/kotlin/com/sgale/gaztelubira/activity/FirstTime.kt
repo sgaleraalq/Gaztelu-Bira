@@ -19,23 +19,27 @@ package com.sgale.gaztelubira.activity
 import android.util.Log
 import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
-import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
-import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.PlayerRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
+import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.SeasonRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.TeamRemote
 import javax.inject.Inject
 
 internal class FirstTime @Inject constructor(
     private val matchLocal: MatchLocal,
     private val matchRemote: MatchRemote,
     private val preferences: Preferences,
-    private val playerRemote: PlayerRemote,
     private val playerLocal: PlayerLocal,
+    private val playerRemote: PlayerRemote,
+    private val seasonLocal: SeasonLocal,
     private val seasonRemote: SeasonRemote,
-    private val seasonLocal: SeasonLocal
+    private val teamLocal: TeamLocal,
+    private val teamRemote: TeamRemote
 ): InitAppHandler {
     override suspend fun updateAvailable(): Boolean =
         false
@@ -50,6 +54,7 @@ internal class FirstTime @Inject constructor(
         seasons.forEach { season ->
             seasonLocal.insertSeasonPlayers(seasonRemote.fetchSquad(season.id))
             matchLocal.insertMatches(matchRemote.fetchMatches(season.id))
+            teamLocal.insertTeams(teamRemote.fetchTeams(season.id))
         }
 
         seasons.firstOrNull { it.isCurrent }?.let { preferences.selectSeason(it.id) }

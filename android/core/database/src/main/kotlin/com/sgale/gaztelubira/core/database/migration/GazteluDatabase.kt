@@ -25,18 +25,22 @@ import com.sgale.gaztelubira.core.database.migration.player.PlayerEntity
 import com.sgale.gaztelubira.core.database.migration.season.SeasonDao
 import com.sgale.gaztelubira.core.database.migration.season.SeasonEntity
 import com.sgale.gaztelubira.core.database.migration.season.entity.SeasonPlayerEntity
+import com.sgale.gaztelubira.core.database.migration.team.TeamDao
+import com.sgale.gaztelubira.core.database.migration.team.entity.TeamEntity
 
 @Database(
     entities = [
         MatchEntity::class,
         PlayerEntity::class,
         SeasonEntity::class,
-        SeasonPlayerEntity::class
+        SeasonPlayerEntity::class,
+        TeamEntity::class
     ],
-    version = 3
+    version = 4
 )
 internal abstract class GazteluDatabase : RoomDatabase() {
     abstract fun getMatchDao(): MatchDao
     abstract fun getPlayerDao(): PlayerDao
     abstract fun getSeasonDao(): SeasonDao
+    abstract fun getTeamDao(): TeamDao
 }

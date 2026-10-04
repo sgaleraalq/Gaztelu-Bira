@@ -20,7 +20,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.PlayerRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.PLAYERS
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.response.PlayerResponse

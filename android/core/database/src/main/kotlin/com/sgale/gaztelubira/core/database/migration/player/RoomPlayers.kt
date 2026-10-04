@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.database.migration.player.PlayerMapper.asEntit
 import com.sgale.gaztelubira.core.database.migration.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
 import javax.inject.Inject
 
 internal class RoomPlayers @Inject constructor(

@@ -26,7 +26,5 @@ data class GBMatch(
     val date: String,
     val localTeam: GBMatchTeam,
     val visitorTeam: GBMatchTeam,
-    val localGoals: Int,
-    val visitorGoals: Int,
     val result: GBMatchResult
 )

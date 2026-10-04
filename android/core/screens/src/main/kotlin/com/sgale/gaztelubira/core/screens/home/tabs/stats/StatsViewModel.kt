@@ -26,8 +26,8 @@ import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toStat
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayersStats
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.repository.preferences.Preferences
-import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
+import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat

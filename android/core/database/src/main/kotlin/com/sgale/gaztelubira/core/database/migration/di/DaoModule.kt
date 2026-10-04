@@ -20,6 +20,7 @@ import com.sgale.gaztelubira.core.database.migration.GazteluDatabase
 import com.sgale.gaztelubira.core.database.migration.match.MatchDao
 import com.sgale.gaztelubira.core.database.migration.player.PlayerDao
 import com.sgale.gaztelubira.core.database.migration.season.SeasonDao
+import com.sgale.gaztelubira.core.database.migration.team.TeamDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,4 +48,10 @@ internal object DaoModule {
     fun provideSeasonDao(
         database: GazteluDatabase
     ): SeasonDao = database.getSeasonDao()
+
+    @Provides
+    @Singleton
+    fun provideTeamDao(
+        database: GazteluDatabase
+    ): TeamDao = database.getTeamDao()
 }

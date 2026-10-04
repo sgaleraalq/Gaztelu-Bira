@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.repository.match
+package com.sgale.gaztelubira.core.database.migration.team
 
-import com.sgale.gaztelubira.core.domain.migration.model.match.Match
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy.Companion.REPLACE
+import androidx.room.Query
+import com.sgale.gaztelubira.core.database.migration.team.entity.TeamEntity
+import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 
-interface MatchRemote {
-    suspend fun fetchMatches(seasonId: SeasonId): List<Match>
+@Dao
+interface TeamDao {
+    @Query("SELECT * FROM TeamEntity WHERE id = :teamId")
+    suspend fun getTeam(teamId: TeamId): TeamEntity?
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertTeams(teams: List<TeamEntity>)
 }

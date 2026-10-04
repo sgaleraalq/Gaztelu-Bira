@@ -52,7 +52,7 @@ internal fun MatchScore(
             modifier = Modifier.weight(1f),
             logoHeight = teamLogoHeight,
             team = match.localTeam,
-            goals = match.localGoals.toString()
+            goals = match.localTeam.goals.toString()
         )
         GBText(
             modifier = Modifier.padding(horizontal = 16.dp).height(teamLogoHeight),
@@ -63,7 +63,7 @@ internal fun MatchScore(
             modifier = Modifier.weight(1f),
             logoHeight = teamLogoHeight,
             team = match.visitorTeam,
-            goals = match.visitorGoals.toString(),
+            goals = match.visitorTeam.goals.toString(),
             isLocal = false
         )
     }
@@ -88,7 +88,7 @@ private fun MatchTeam(
             )
         }
         MatchTeamBadge(
-            image = team.logo.orEmpty(),
+            image = team.logo,
             teamName = team.name,
             logoHeight = logoHeight
         )
