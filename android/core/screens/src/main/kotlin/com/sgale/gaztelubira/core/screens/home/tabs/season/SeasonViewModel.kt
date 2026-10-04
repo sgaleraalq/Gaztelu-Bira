@@ -45,6 +45,7 @@ internal class SeasonViewModel @Inject constructor(
     selectedSeason: SelectedSeason,
     getTeams: GetTeams,
     getMatches: GetMatches,
+    private val seasonHandler: SeasonHandler,
 ) : ViewModel() {
     private val isAdmin = MutableStateFlow(false)
     private val season = selectedSeason()
@@ -64,7 +65,7 @@ internal class SeasonViewModel @Inject constructor(
             isAdmin
         ) { matches, teams, admin ->
             SeasonUiState(
-                season = SeasonHandler(matches).getGBInformation().toGBSeason(),
+                season = seasonHandler.getGBInformation(matches).toGBSeason(),
                 teams = teams.map { it.toGBTeam() }.filter { it.id != GAZTELU_BIRA_ID },
                 isAdmin = admin
             )

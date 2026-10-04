@@ -21,125 +21,46 @@ import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore
+import javax.inject.Inject
 
-internal class SeasonHandler(
-    private val matches: List<Match>
-) {
-    private data class MatchResults(
-        var wins: Int = 0,
-        var draws: Int = 0,
-        var loses: Int = 0
-    )
+internal class SeasonHandler @Inject constructor() {
+    internal fun getGBInformation(matches: List<Match>): TeamSeason {
+        var wins = 0
+        var draws = 0
+        var loses = 0
+        var goalsFor = 0
+        var goalsAgainst = 0
+        val games = mutableListOf<MatchResult>()
 
-    private data class MatchGoals(
-        var goalsFor: Int = 0,
-        var goalsAgainst: Int = 0
-    )
-
-    private data class MatchStreak(
-        val games: MutableList<MatchResult> = mutableListOf()
-    )
-
-    private val results = MatchResults()
-    private val goals = MatchGoals()
-    private val streak = MatchStreak()
-
-
-    init {
         matches.sortedBy { it.information.date }.forEach { match ->
-            updateMatchResult(match.match)
-            updateMatchGoals(match.match)
-        }
-    }
+            val score = match.match
+            val (gbGoals, rivalGoals) =
+                if (score.isLocal) score.score.local to score.score.visitor
+                else score.score.visitor to score.score.local
 
-    private fun getCurrentStreak(): Int {
-        if (streak.games.isEmpty()) return 0
+            goalsFor += gbGoals
+            goalsAgainst += rivalGoals
 
-        var count = 0
-        for (result in streak.games.asReversed()) {
-            if (result == VICTORY) {
-                count++
-            } else {
-                break
+            val result = when {
+                gbGoals > rivalGoals -> VICTORY.also { wins++ }
+                gbGoals < rivalGoals -> DEFEAT.also { loses++ }
+                else -> DRAW.also { draws++ }
             }
+            games.add(result)
         }
-        return count
-    }
-
-    internal fun getGBInformation(): TeamSeason =
-        provideGBInformation()
-
-    private fun getPoints(results: MatchResults): Int =
-        (results.wins * 3) + results.draws
-
-    private fun getStreak() =
-        TeamStreak(
-            currentStreak = getCurrentStreak(),
-            lastGames = streak.games.toList()
-        )
-
-    private fun provideGBInformation(): TeamSeason {
-        val points = getPoints(results)
 
         return TeamSeason(
-            points = points,
+            points = (wins * 3) + draws,
             games = matches.size,
-            wins = results.wins,
-            draws = results.draws,
-            loses = results.loses,
-            goalsFor = goals.goalsFor,
-            goalsAgainst = goals.goalsAgainst,
-            streak = getStreak()
+            wins = wins,
+            draws = draws,
+            loses = loses,
+            goalsFor = goalsFor,
+            goalsAgainst = goalsAgainst,
+            streak = TeamStreak(
+                currentStreak = games.asReversed().takeWhile { it == VICTORY }.size,
+                lastGames = games.toList()
+            )
         )
-    }
-
-    private fun updateMatchGoals(
-        match: MatchScore
-    ) {
-        when (match.isLocal) {
-            true -> {
-                goals.goalsFor += match.score.local
-                goals.goalsAgainst += match.score.visitor
-            }
-
-            false -> {
-                goals.goalsFor += match.score.visitor
-                goals.goalsAgainst += match.score.local
-            }
-        }
-    }
-
-    private fun updateMatchResult(
-        match: MatchScore
-    ) {
-        if (match.score.local == match.score.visitor) {
-            streak.games.add(DRAW)
-            results.draws += 1
-            return
-        }
-
-        var streakResult = VICTORY
-        when (match.isLocal) {
-            true -> {
-                if (match.score.local > match.score.visitor) {
-                    results.wins += 1
-                } else {
-                    results.loses += 1
-                    streakResult = DEFEAT
-                }
-            }
-
-            false -> {
-                if (match.score.local > match.score.visitor) {
-                    results.loses += 1
-                    streakResult = DEFEAT
-                } else {
-                    results.wins += 1
-                }
-            }
-        }
-
-        streak.games.add(streakResult)
     }
 }
