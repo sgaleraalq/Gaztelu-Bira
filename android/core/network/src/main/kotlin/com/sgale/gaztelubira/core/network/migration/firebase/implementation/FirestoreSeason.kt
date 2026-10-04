@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.season
+package com.sgale.gaztelubira.core.network.migration.firebase.implementation
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,9 +25,10 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlay
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SQUAD
-import com.sgale.gaztelubira.core.network.migration.firebase.season.SeasonMapper.asModel
-import com.sgale.gaztelubira.core.network.migration.firebase.season.squad.SeasonPlayerMapper.asModel
-import com.sgale.gaztelubira.core.network.migration.firebase.season.squad.SeasonPlayerResponse
+import com.sgale.gaztelubira.core.network.migration.firebase.response.SeasonResponse
+import com.sgale.gaztelubira.core.network.migration.firebase.mapper.SeasonMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.mapper.SeasonPlayerMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.response.SeasonPlayerResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

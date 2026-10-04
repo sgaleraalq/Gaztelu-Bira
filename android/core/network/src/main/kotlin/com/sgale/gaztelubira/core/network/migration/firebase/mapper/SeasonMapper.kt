@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.season
+package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
 import com.google.firebase.Timestamp
 import com.sgale.gaztelubira.core.domain.migration.model.season.Season
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
+import com.sgale.gaztelubira.core.network.migration.firebase.response.SeasonResponse
 
 internal object SeasonMapper: NetworkMapper<Season, SeasonResponse, SeasonId, Nothing> {
     override fun Season.asResponse() =

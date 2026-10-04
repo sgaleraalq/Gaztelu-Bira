@@ -23,17 +23,19 @@ import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.domain.utils.toDate
 import com.sgale.gaztelubira.multiplatform.model.GBMatch
 import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
-import com.sgale.gaztelubira.multiplatform.model.GBMatchResult.DEFEAT
-import com.sgale.gaztelubira.multiplatform.model.GBMatchResult.DRAW
-import com.sgale.gaztelubira.multiplatform.model.GBMatchResult.VICTORY
 import com.sgale.gaztelubira.multiplatform.model.GBMatchTeam
-import com.sgale.gaztelubira.multiplatform.model.GBMatchType
+import com.sgale.gaztelubira.multiplatform.model.GBMatchType.CUP
+import com.sgale.gaztelubira.multiplatform.model.GBMatchType.LEAGUE
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,9 +55,7 @@ internal class MatchesViewModel @Inject constructor(
     getMatches: GetMatches,
     getSquad: GetSquad
 ) : ViewModel() {
-
     private val isAdmin = MutableStateFlow(false)
-
     private val season = selectedSeason()
 
     private val matches = season.map { season ->
@@ -95,8 +95,8 @@ internal class MatchesViewModel @Inject constructor(
             id = id.value,
             name = information.description,
             type = when (competition) {
-                is Cup -> GBMatchType.CUP
-                is League -> GBMatchType.LEAGUE
+                is Cup -> CUP
+                is League -> LEAGUE
             },
             // The domain keeps dates in seconds, toDate() expects millis
             date = (information.date * 1_000).toDate(),
@@ -104,7 +104,7 @@ internal class MatchesViewModel @Inject constructor(
             visitorTeam = match.visitorTeam.asGBMatchTeam(),
             localGoals = match.score.local,
             visitorGoals = match.score.visitor,
-            result = result()
+            result = result().toGBMatchResult()
         )
 
     // TODO There is no team source in migration yet, so the id stands in for the name
@@ -114,14 +114,10 @@ internal class MatchesViewModel @Inject constructor(
             logo = null
         )
 
-    private fun Match.result(): GBMatchResult {
-        val goalsFor = if (match.isLocal) match.score.local else match.score.visitor
-        val goalsAgainst = if (match.isLocal) match.score.visitor else match.score.local
-
-        return when {
-            goalsFor > goalsAgainst -> VICTORY
-            goalsFor < goalsAgainst -> DEFEAT
-            else -> DRAW
+    private fun MatchResult.toGBMatchResult() =
+        when (this) {
+            DEFEAT -> GBMatchResult.DEFEAT
+            DRAW -> GBMatchResult.DRAW
+            VICTORY -> GBMatchResult.VICTORY
         }
-    }
 }

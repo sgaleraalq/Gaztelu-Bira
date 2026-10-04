@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.player
+package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
+import com.sgale.gaztelubira.core.network.migration.firebase.response.PlayerResponse
 
 internal object PlayerMapper : NetworkMapper<Player, PlayerResponse, PlayerId, Nothing> {
     override fun Player.asResponse() =

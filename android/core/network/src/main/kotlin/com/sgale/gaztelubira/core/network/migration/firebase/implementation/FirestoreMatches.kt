@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.match
+package com.sgale.gaztelubira.core.network.migration.firebase.implementation
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,7 +24,8 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
-import com.sgale.gaztelubira.core.network.migration.firebase.match.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.mapper.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

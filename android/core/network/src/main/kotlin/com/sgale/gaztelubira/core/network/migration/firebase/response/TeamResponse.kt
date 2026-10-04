@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2026 sgaleraalq (Sergio Galera)
+ * Designed and developed by 2026 sgale (Sergio Galera)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.match
+package com.sgale.gaztelubira.core.network.migration.firebase.response
 
-internal data class MatchResponseScore(
-    val formation: String = "",
-    val localTeam: String = "",
-    val visitorTeam: String = "",
-    val score: Score = Score()
-) {
-    data class Score(
-        val visitor: Int = 0,
-        val local: Int = 0
-    )
-}
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
+
+internal data class TeamResponse(
+    val logo: String = "",
+    val name: String = "",
+    @ServerTimestamp val updatedAt: Timestamp? = null
+)

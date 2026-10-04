@@ -19,9 +19,9 @@ package com.sgale.gaztelubira.core.network.migration.di
 import com.sgale.gaztelubira.core.domain.migration.repository.match.MatchRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.season.SeasonRemote
-import com.sgale.gaztelubira.core.network.migration.firebase.match.FirestoreMatches
-import com.sgale.gaztelubira.core.network.migration.firebase.player.FirestorePlayers
-import com.sgale.gaztelubira.core.network.migration.firebase.season.FirestoreSeason
+import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestoreMatches
+import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestorePlayers
+import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestoreSeason
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

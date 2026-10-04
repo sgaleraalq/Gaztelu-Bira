@@ -17,6 +17,9 @@
 package com.sgale.gaztelubira.core.domain.migration.model.match
 
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 data class Match(
@@ -25,4 +28,15 @@ data class Match(
     val competition: MatchCompetition,
     val information: MatchInformation,
     val match: MatchScore
-)
+) {
+    fun result(): MatchResult {
+        val goalsFor = if (match.isLocal) match.score.local else match.score.visitor
+        val goalsAgainst = if (match.isLocal) match.score.visitor else match.score.local
+
+        return when {
+            goalsFor > goalsAgainst -> VICTORY
+            goalsFor < goalsAgainst -> DEFEAT
+            else -> DRAW
+        }
+    }
+}

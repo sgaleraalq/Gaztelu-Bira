@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.team
+package com.sgale.gaztelubira.core.network.migration.firebase.response
 
-import com.sgale.gaztelubira.core.domain.migration.model.TeamId
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.google.firebase.Timestamp
 
-data class Team(
-    val id: TeamId,
-    val seasonId: SeasonId,
-    val name: String,
-    val logo: String
+internal data class MatchResponseInformation(
+    val date: Timestamp? = null,
+    val description: String = "",
+    val location: String = ""
 )

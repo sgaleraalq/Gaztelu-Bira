@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.player
+package com.sgale.gaztelubira.core.network.migration.firebase.implementation
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,7 +22,8 @@ import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.repository.player.PlayerRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.PLAYERS
-import com.sgale.gaztelubira.core.network.migration.firebase.player.PlayerMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.mapper.PlayerMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.response.PlayerResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

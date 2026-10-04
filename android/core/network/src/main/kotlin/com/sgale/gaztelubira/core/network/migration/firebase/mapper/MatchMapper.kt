@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.match
+package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
 import com.google.firebase.Timestamp
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
@@ -33,6 +33,10 @@ import com.sgale.gaztelubira.core.domain.migration.model.match.Score
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.Companion.findFormation
 import com.sgale.gaztelubira.core.network.migration.firebase.NetworkMapper
+import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchResponse
+import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchResponseCompetition
+import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchResponseInformation
+import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchResponseScore
 
 internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId, SeasonId> {
     override fun Match.asResponse(): MatchResponse =

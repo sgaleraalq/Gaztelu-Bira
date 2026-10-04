@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,17 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.migration.firebase.player
+package com.sgale.gaztelubira.core.domain.migration.model.match
 
-import androidx.annotation.Keep
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.ServerTimestamp
-
-@Keep
-internal data class PlayerResponse(
-    val name: String = "",
-    val nickname: String? = null,
-    val faceImage: String? = null,
-    val bodyImage: String? = null,
-    @ServerTimestamp val updatedAt: Timestamp? = null
-)
+enum class MatchResult {
+    DEFEAT,
+    DRAW,
+    VICTORY
+}
