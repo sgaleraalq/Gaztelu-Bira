@@ -18,14 +18,10 @@ package com.sgale.gaztelubira.core.domain.migration.repository
 
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchDetail
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 interface MatchRemote {
     suspend fun fetchMatches(seasonId: SeasonId): List<Match>
-    suspend fun fetchMatchDetail(
-        match: Match,
-        seasonId: SeasonId,
-        matchId: MatchId
-    ): MatchDetail
+    suspend fun fetchMatchEvents(seasonId: SeasonId, matchId: MatchId): List<MatchEvent>
 }

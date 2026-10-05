@@ -53,8 +53,14 @@ internal class FirstTime @Inject constructor(
 
         seasons.forEach { season ->
             seasonLocal.insertSeasonPlayers(seasonRemote.fetchSquad(season.id))
-            matchLocal.insertMatches(matchRemote.fetchMatches(season.id))
             teamLocal.insertTeams(teamRemote.fetchTeams(season.id))
+
+            val matches = matchRemote.fetchMatches(season.id)
+            matchLocal.insertMatches(matches)
+            matches.forEach { match ->
+                val events = matchRemote.fetchMatchEvents(season.id, match.id)
+                matchLocal.insertMatchEvents(match.id, events)
+            }
         }
 
         seasons.firstOrNull { it.isCurrent }?.let { preferences.selectSeason(it.id) }

@@ -33,6 +33,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.runtime.serialization.NavBackStackSerializer
 import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.defaultPopTransitionSpec
 import com.sgale.gaztelubira.core.navigation.Destination.Splash
 
 @Composable
@@ -69,6 +70,7 @@ fun MainNavigation(
             rememberViewModelStoreNavEntryDecorator(),
             FullScreenNavEntryDecorator
         ),
+        predictivePopTransitionSpec = { defaultPopTransitionSpec<Destination>()(this) },
         entryProvider = entryProvider(builder = entries)
     )
 }

@@ -22,10 +22,17 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 data class MatchEvent(
     val matchId: MatchId,
     val seasonId: SeasonId,
+    val type: MatchEventType?,
     val order: Int,
     val ownGoal: Boolean,
-    val scoredFor: String,
+    val scoredFor: String?,
     val assist: String?,
     val scorer: String?,
-    val type: MatchEventType?
+
+    /**
+     * Penalty
+     */
+    val provokedBy: String?,
+    val scored: Boolean?,
+    val taker: String?
 )

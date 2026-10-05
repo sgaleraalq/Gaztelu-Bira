@@ -16,9 +16,12 @@
 
 package com.sgale.gaztelubira.core.database.migration.match
 
+import com.sgale.gaztelubira.core.database.migration.match.entity.MatchEventMapper.asEntity
 import com.sgale.gaztelubira.core.database.migration.match.entity.MatchMapper.asEntity
 import com.sgale.gaztelubira.core.database.migration.match.entity.MatchMapper.asModel
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
 import javax.inject.Inject
@@ -31,5 +34,9 @@ internal class RoomMatches @Inject constructor(
 
     override suspend fun insertMatches(matches: List<Match>) {
         matchDao.insertMatches(matches.map { it.asEntity() })
+    }
+
+    override suspend fun insertMatchEvents(matchId: MatchId, events: List<MatchEvent>) {
+        matchDao.replaceMatchEvents(matchId, events.map { it.asEntity().copy(matchId = matchId) })
     }
 }

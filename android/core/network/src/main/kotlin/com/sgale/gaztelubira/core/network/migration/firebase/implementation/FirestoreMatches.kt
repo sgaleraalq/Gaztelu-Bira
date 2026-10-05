@@ -20,7 +20,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchDetail
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.EVENTS
@@ -35,7 +35,7 @@ import javax.inject.Inject
 
 internal class FirestoreMatches @Inject constructor(
     private val firestore: FirebaseFirestore
-): MatchRemote {
+) : MatchRemote {
     override suspend fun fetchMatches(seasonId: SeasonId): List<Match> =
         matches(seasonId)
             .get()
@@ -46,12 +46,8 @@ internal class FirestoreMatches @Inject constructor(
                     ?.asModel(MatchId(match.id), seasonId)
             }
 
-    override suspend fun fetchMatchDetail(
-        match: Match,
-        seasonId: SeasonId,
-        matchId: MatchId
-    ): MatchDetail {
-        val events = matches(seasonId)
+    override suspend fun fetchMatchEvents(seasonId: SeasonId, matchId: MatchId): List<MatchEvent> =
+        matches(seasonId)
             .document(matchId.value)
             .collection(EVENTS)
             .get()
@@ -60,13 +56,6 @@ internal class FirestoreMatches @Inject constructor(
             .mapNotNull { event ->
                 event.toObject(MatchEventResponse::class.java)?.asModel()
             }
-
-        return MatchDetail(
-            match = match,
-            events = events,
-            players = emptyList()
-        )
-    }
 
     private fun matches(season: SeasonId): CollectionReference =
         firestore

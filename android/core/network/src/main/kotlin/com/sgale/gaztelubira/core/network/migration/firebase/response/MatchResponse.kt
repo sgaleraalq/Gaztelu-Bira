@@ -23,5 +23,6 @@ internal data class MatchResponse(
     val competition: MatchResponseCompetition = MatchResponseCompetition(),
     val information: MatchResponseInformation = MatchResponseInformation(),
     val match: MatchResponseScore = MatchResponseScore(),
+    @ServerTimestamp val deletedAt: Timestamp? = null,
     @ServerTimestamp val updatedAt: Timestamp? = null
 )

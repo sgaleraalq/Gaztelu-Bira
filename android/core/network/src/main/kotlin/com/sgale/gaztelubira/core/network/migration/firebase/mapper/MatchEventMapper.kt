@@ -16,33 +16,41 @@
 
 package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEventType
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.NetworkMapper
 import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchEventResponse
 
 internal object MatchEventMapper: NetworkMapper<MatchEvent, MatchEventResponse> {
     override fun MatchEvent.asResponse(): MatchEventResponse =
         MatchEventResponse(
-            matchId = matchId,
-            seasonId = seasonId,
+            matchId = matchId.value,
+            seasonId = seasonId.value,
             order = order,
+            type = type?.name.orEmpty(),
             ownGoal = ownGoal,
             scoredFor = scoredFor,
             assist = assist,
             scorer = scorer,
-            type = type?.name.orEmpty()
+            provokedBy = provokedBy,
+            scored = scored,
+            taker = taker
         )
 
     override fun MatchEventResponse.asModel(): MatchEvent =
         MatchEvent(
-            matchId = matchId,
-            seasonId = seasonId,
+            matchId = MatchId(matchId),
+            seasonId = SeasonId(seasonId),
             order = order,
+            type = MatchEventType.valueOf(type),
             ownGoal = ownGoal,
             scoredFor = scoredFor,
             assist = assist,
             scorer = scorer,
-            type = MatchEventType.valueOf(type)
+            provokedBy = provokedBy,
+            scored = scored,
+            taker = taker
         )
 }
