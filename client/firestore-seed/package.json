@@ -9,6 +9,7 @@
     "seed": "node seed.js",
     "reseed": "node seed.js --clean",
     "download": "node backup/players/download.js",
+    "download:season": "node backup/seasons/download-season.js",
     "upload": "node upload.js",
     "upload:check": "node upload.js --dry-run",
     "upload:new": "node upload.js --only-missing",
