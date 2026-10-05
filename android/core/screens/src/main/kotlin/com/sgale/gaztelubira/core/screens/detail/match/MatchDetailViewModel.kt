@@ -20,11 +20,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
 import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.legacy.model.team.TeamMapper.toGBTeam
+import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.FetchMatchStats
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailLineUp
@@ -43,7 +44,6 @@ import javax.inject.Inject
 internal class MatchDetailViewModel @Inject constructor(
     private val fetchMatchStats: FetchMatchStats
 ) : ViewModel() {
-
     private val gazteluBira = GAZTELU_BIRA.toGBTeam()
     private val _state = MutableStateFlow(MatchDetailUiState(team = gazteluBira))
     internal val state: StateFlow<MatchDetailUiState> = _state
@@ -122,4 +122,11 @@ internal class MatchDetailViewModel @Inject constructor(
         saves = matchStats.stats.saves.map { it.toGBPlayer() },
         yellowCards = matchStats.stats.yellowCards.map { it.toGBPlayer() }
     )
+
+    private fun Team.toGBTeam(): GBTeam =
+        GBTeam(
+            id = id,
+            name = name,
+            logo = logo
+        )
 }
