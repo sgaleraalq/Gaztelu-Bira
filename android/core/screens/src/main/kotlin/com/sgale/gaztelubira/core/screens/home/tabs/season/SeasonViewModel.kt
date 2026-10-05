@@ -18,7 +18,6 @@ package com.sgale.gaztelubira.core.screens.home.tabs.season
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
@@ -35,7 +34,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val KEEP_ALIVE_MILLIS = 5_000L
