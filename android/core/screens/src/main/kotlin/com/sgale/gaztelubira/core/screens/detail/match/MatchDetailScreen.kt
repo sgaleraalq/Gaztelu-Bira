@@ -22,7 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
 import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailActions
@@ -31,7 +31,7 @@ import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailView
 @Composable
 internal fun MatchDetailScreen(
     navState: NavigationState,
-    matchId: FirebaseId,
+    matchId: MatchId,
     viewModel: MatchDetailViewModel = hiltViewModel<MatchDetailViewModel>()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()

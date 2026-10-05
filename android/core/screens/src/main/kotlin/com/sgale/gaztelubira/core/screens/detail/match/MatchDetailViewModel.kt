@@ -24,6 +24,7 @@ import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.FetchMatchStats
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
@@ -55,12 +56,12 @@ internal class MatchDetailViewModel @Inject constructor(
     }
 
     fun loadMatch(
-        matchId: FirebaseId,
+        matchId: MatchId,
         onMatchNotFound: () -> Unit
     ) {
         viewModelScope.launch {
             val matchStats = withContext(Dispatchers.IO) {
-                fetchMatchStats(matchId)
+                fetchMatchStats(matchId.value)
             }
 
             if (matchStats != null) {
