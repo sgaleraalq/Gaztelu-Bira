@@ -22,11 +22,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sgale.gaztelubira.core.navigation.Destination.Splash
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.auth.login.LoginEvent.LoggedIn
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.core.screens.navigation.navigateTo
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginView
 

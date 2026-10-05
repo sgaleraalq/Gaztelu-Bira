@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.screens.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Finished
 import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Finished.Completed
 import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Finished.Skipped

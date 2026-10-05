@@ -24,8 +24,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.core.navigation.NavigationState
+import com.sgale.gaztelubira.core.screens.navigation.navigateTo
 import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailActions
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailView

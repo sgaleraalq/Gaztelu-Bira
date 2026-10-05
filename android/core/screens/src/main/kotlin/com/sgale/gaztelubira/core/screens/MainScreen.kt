@@ -21,8 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.sgale.gaztelubira.core.screens.navigation.MainNavigation
-import com.sgale.gaztelubira.core.screens.navigation.rememberNavigationState
+import com.sgale.gaztelubira.core.navigation.MainNavigation
+import com.sgale.gaztelubira.core.navigation.rememberNavigationState
+import com.sgale.gaztelubira.core.screens.navigation.destinationEntries
 
 @Composable
 fun MainScreen(
@@ -36,7 +37,9 @@ fun MainScreen(
 
     CompositionLocalProvider(LocalMainViewModel provides mainViewModel) {
         Scaffold { _ ->
-            MainNavigation(navigationState)
+            MainNavigation(navigationState) {
+                destinationEntries(navigationState)
+            }
         }
     }
 }

@@ -36,6 +36,7 @@ import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayers
 import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewMatch
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First
@@ -52,7 +53,6 @@ import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LineUp
 import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.Manager
 import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.StatPlayer
 import com.sgale.gaztelubira.core.screens.insert.match.data.isValid
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import dagger.hilt.android.lifecycle.HiltViewModel

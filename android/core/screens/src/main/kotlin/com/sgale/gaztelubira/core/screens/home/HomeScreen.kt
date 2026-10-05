@@ -25,11 +25,12 @@ import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sgale.gaztelubira.core.navigation.NavigationState
+import com.sgale.gaztelubira.core.navigation.tab.TabNavigation
+import com.sgale.gaztelubira.core.navigation.tab.rememberTabNavigationState
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.home.HomeNavigation.Companion.HomeNavigationContent
-import com.sgale.gaztelubira.core.screens.home.HomeNavigation.Companion.rememberHomeNavigationState
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeActions
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeView
 
 @Composable
@@ -39,12 +40,14 @@ internal fun HomeScreen(
 ) {
     val mainViewModel = LocalMainViewModel.current
     val updateAvailable by mainViewModel.updateAvailable.collectAsState()
-    val homeNavigation = rememberHomeNavigationState(mainViewModel.getDefaultTab())
+    val homeNavigation = rememberTabNavigationState(HomeTab.entries, mainViewModel.getDefaultTab())
     val selectedTab by homeNavigation.selectedTab
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val tabContent = remember {
-        movableContentOf { HomeNavigationContent(homeNavigation, navState) }
+        movableContentOf {
+            TabNavigation(homeNavigation) { tab -> tab.Content(navState) }
+        }
     }
 
     val actions = remember(

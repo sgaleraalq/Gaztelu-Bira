@@ -26,6 +26,7 @@ android {
 
 dependencies {
     implementation(libs.kotlinx.serialization)
+    implementation(libs.lifecycle.viewmodel.navigation3)
     implementation(libs.nav3.runtime)
     implementation(libs.nav3.ui)
 

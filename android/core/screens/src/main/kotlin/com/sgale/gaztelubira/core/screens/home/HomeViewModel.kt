@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.screens.home
 
 import androidx.lifecycle.ViewModel
 import com.sgale.gaztelubira.core.domain.auth.usecase.Logout
+import com.sgale.gaztelubira.core.navigation.Destination.Login
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.MainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Login
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

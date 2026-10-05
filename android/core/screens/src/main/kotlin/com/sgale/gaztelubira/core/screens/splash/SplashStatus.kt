@@ -17,7 +17,7 @@
 
 package com.sgale.gaztelubira.core.screens.splash
 
-import com.sgale.gaztelubira.core.screens.navigation.Destination
+import com.sgale.gaztelubira.core.navigation.Destination
 
 /**
  * How far the app boot has got, as the splash sees it.

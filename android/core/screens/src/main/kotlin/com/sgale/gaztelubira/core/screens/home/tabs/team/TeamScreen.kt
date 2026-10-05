@@ -22,9 +22,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Companion.navigateTo
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.core.screens.navigation.navigateTo
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamView
 

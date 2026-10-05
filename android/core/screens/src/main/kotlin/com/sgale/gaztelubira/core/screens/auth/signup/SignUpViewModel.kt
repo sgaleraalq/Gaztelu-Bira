@@ -20,9 +20,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.usecase.SignUpEmail
+import com.sgale.gaztelubira.core.navigation.Destination.Splash
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.MainViewModel
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Splash
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Default
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Error
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.SignUp

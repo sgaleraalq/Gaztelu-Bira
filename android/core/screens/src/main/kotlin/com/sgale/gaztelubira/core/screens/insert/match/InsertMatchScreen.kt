@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Default
@@ -41,7 +42,6 @@ import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchInformation
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchScaffold
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchStats
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchStatsButton
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
 

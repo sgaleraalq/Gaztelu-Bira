@@ -18,7 +18,6 @@ plugins {
     alias(libs.plugins.convention.library)
     alias(libs.plugins.convention.compose)
     alias(libs.plugins.convention.hilt)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -33,10 +32,9 @@ dependencies {
     implementation(libs.compose.activity)
 
     implementation(libs.androidx.exifinterface)
-    implementation(libs.compose.navigation)
-    implementation(libs.hilt.navigation.compose)
+    implementation(libs.hilt.lifecycle.viewmodel.compose)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.nav3.runtime)
 
     /**
      * Project
@@ -44,6 +42,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:database"))
     implementation(project(":core:domain"))
+    implementation(project(":core:navigation"))
     implementation(project(":core:preview"))
 
     /**

@@ -23,9 +23,9 @@ import com.sgale.gaztelubira.core.domain.auth.usecase.IsUserAuthenticated
 import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.legacy.usecase.users.GetUser
 import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Home
-import com.sgale.gaztelubira.core.screens.navigation.Destination.Welcome
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
+import com.sgale.gaztelubira.core.navigation.Destination.Home
+import com.sgale.gaztelubira.core.navigation.Destination.Welcome
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.splash.SplashController
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS

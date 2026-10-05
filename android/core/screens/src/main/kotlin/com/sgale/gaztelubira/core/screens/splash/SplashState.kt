@@ -17,7 +17,7 @@
 
 package com.sgale.gaztelubira.core.screens.splash
 
-import com.sgale.gaztelubira.core.screens.navigation.Destination
+import com.sgale.gaztelubira.core.navigation.Destination
 import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Finished.Completed
 import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Finished.Skipped
 import com.sgale.gaztelubira.core.screens.splash.SplashStatus.Loading

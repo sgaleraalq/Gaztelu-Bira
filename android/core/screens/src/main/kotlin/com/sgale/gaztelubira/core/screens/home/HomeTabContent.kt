@@ -17,12 +17,12 @@
 package com.sgale.gaztelubira.core.screens.home
 
 import androidx.compose.runtime.Composable
+import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.home.tabs.about.AboutScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.matches.MatchesScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.season.SeasonScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.StatsScreen
 import com.sgale.gaztelubira.core.screens.home.tabs.team.TeamScreen
-import com.sgale.gaztelubira.core.screens.navigation.NavigationState
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.ABOUT
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.HOME
