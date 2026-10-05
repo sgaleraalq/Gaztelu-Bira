@@ -21,9 +21,8 @@ import androidx.room.PrimaryKey
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
-@Entity
+@Entity(primaryKeys = ["id", "seasonId"])
 data class TeamEntity(
-    @PrimaryKey
     val id: TeamId,
     val seasonId: SeasonId,
     val name: String,
