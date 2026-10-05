@@ -28,10 +28,10 @@ data class Team(
     // TODO maybe populate this?
     companion object {
         val ERROR_TEAM = Team(
-            TeamId(""),
-            SeasonId(""),
-            "",
-            ""
+            id = TeamId(""),
+            seasonId = SeasonId(""),
+            name = "",
+            logo = ""
         )
     }
 }

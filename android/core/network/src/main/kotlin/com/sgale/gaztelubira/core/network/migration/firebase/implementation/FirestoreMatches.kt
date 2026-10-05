@@ -20,11 +20,15 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchDetail
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
+import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.EVENTS
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
+import com.sgale.gaztelubira.core.network.migration.firebase.mapper.MatchEventMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchEventResponse
 import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -41,6 +45,28 @@ internal class FirestoreMatches @Inject constructor(
                 match.toObject(MatchResponse::class.java)
                     ?.asModel(MatchId(match.id), seasonId)
             }
+
+    override suspend fun fetchMatchDetail(
+        match: Match,
+        seasonId: SeasonId,
+        matchId: MatchId
+    ): MatchDetail {
+        val events = matches(seasonId)
+            .document(matchId.value)
+            .collection(EVENTS)
+            .get()
+            .await()
+            .documents
+            .mapNotNull { event ->
+                event.toObject(MatchEventResponse::class.java)?.asModel()
+            }
+
+        return MatchDetail(
+            match = match,
+            events = events,
+            players = emptyList()
+        )
+    }
 
     private fun matches(season: SeasonId): CollectionReference =
         firestore

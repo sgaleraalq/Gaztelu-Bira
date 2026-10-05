@@ -27,6 +27,5 @@ data class MatchEvent(
     val scoredFor: String,
     val assist: String?,
     val scorer: String?,
-    val type: String,
-    val updatedAt: String
+    val type: MatchEventType?
 )
