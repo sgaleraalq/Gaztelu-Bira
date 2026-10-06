@@ -20,11 +20,11 @@ import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.sgale.gaztelubira.core.database.migration.GazteluDatabase
-import com.sgale.gaztelubira.core.database.migration.match.RoomMatches
-import com.sgale.gaztelubira.core.database.migration.player.RoomPlayers
+import com.sgale.gaztelubira.core.database.migration.implementation.RoomMatches
+import com.sgale.gaztelubira.core.database.migration.implementation.RoomPlayers
+import com.sgale.gaztelubira.core.database.migration.implementation.RoomSeasons
+import com.sgale.gaztelubira.core.database.migration.implementation.RoomTeam
 import com.sgale.gaztelubira.core.database.migration.preferences.PreferencesImpl
-import com.sgale.gaztelubira.core.database.migration.season.RoomSeasons
-import com.sgale.gaztelubira.core.database.migration.team.RoomTeam
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.Preferences

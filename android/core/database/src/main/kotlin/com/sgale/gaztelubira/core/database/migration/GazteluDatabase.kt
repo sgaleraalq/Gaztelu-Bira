@@ -18,29 +18,29 @@ package com.sgale.gaztelubira.core.database.migration
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.sgale.gaztelubira.core.database.migration.match.MatchDao
-import com.sgale.gaztelubira.core.database.migration.match.entity.MatchEntity
-import com.sgale.gaztelubira.core.database.migration.match.entity.MatchEventEntity
-import com.sgale.gaztelubira.core.database.migration.match.entity.MatchPlayerEntity
-import com.sgale.gaztelubira.core.database.migration.player.PlayerDao
-import com.sgale.gaztelubira.core.database.migration.player.PlayerEntity
-import com.sgale.gaztelubira.core.database.migration.season.SeasonDao
-import com.sgale.gaztelubira.core.database.migration.season.SeasonEntity
-import com.sgale.gaztelubira.core.database.migration.season.entity.SeasonPlayerEntity
-import com.sgale.gaztelubira.core.database.migration.team.TeamDao
-import com.sgale.gaztelubira.core.database.migration.team.entity.TeamEntity
+import com.sgale.gaztelubira.core.database.migration.dao.MatchDao
+import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
+import com.sgale.gaztelubira.core.database.migration.dao.SeasonDao
+import com.sgale.gaztelubira.core.database.migration.dao.TeamDao
+import com.sgale.gaztelubira.core.database.migration.entity.MatchEntity
+import com.sgale.gaztelubira.core.database.migration.entity.MatchEventEntity
+import com.sgale.gaztelubira.core.database.migration.entity.MatchLineupEntity
+import com.sgale.gaztelubira.core.database.migration.entity.PlayerEntity
+import com.sgale.gaztelubira.core.database.migration.entity.SeasonEntity
+import com.sgale.gaztelubira.core.database.migration.entity.SeasonPlayerEntity
+import com.sgale.gaztelubira.core.database.migration.entity.TeamEntity
 
 @Database(
     entities = [
         MatchEntity::class,
         MatchEventEntity::class,
-        MatchPlayerEntity::class,
+        MatchLineupEntity::class,
         PlayerEntity::class,
         SeasonEntity::class,
         SeasonPlayerEntity::class,
         TeamEntity::class
     ],
-    version = 9
+    version = 10
 )
 internal abstract class GazteluDatabase : RoomDatabase() {
     abstract fun getMatchDao(): MatchDao

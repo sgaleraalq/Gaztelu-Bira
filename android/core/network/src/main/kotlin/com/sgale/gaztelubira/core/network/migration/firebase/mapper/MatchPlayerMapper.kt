@@ -17,53 +17,30 @@
 package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineup
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.UNDEFINED
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerStats
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.NetworkMapper
 import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchPlayerResponse
 
-internal object MatchPlayerMapper : NetworkMapper<MatchPlayer, MatchPlayerResponse> {
-    override fun MatchPlayer.asResponse(): MatchPlayerResponse =
+internal object MatchPlayerMapper : NetworkMapper<MatchLineup, MatchPlayerResponse> {
+    override fun MatchLineup.asResponse(): MatchPlayerResponse =
         MatchPlayerResponse(
             playerId = playerId.value,
             matchId = matchId.value,
             seasonId = seasonId.value,
             role = state.name,
-            formationPosition = formationPosition,
-            assists = stats.assists,
-            cleanSheets = stats.cleanSheets,
-            fails = stats.fails,
-            goals = stats.goals,
-            goalsProvoked = stats.goalsProvoked,
-            penaltiesProvoked = stats.penaltiesProvoked,
-            saves = stats.saves,
-            blueCards = stats.blueCards,
-            redCards = stats.redCards,
-            yellowCards = stats.yellowCards
+            formationPosition = formationPosition
         )
 
-    override fun MatchPlayerResponse.asModel(): MatchPlayer =
-        MatchPlayer(
+    override fun MatchPlayerResponse.asModel(): MatchLineup =
+        MatchLineup(
             playerId = PlayerId(playerId),
             matchId = MatchId(matchId),
             seasonId = SeasonId(seasonId),
             state = MatchPlayerState.entries.find { it.name == role } ?: UNDEFINED,
-            formationPosition = formationPosition,
-            stats = MatchPlayerStats(
-                assists = assists,
-                cleanSheets = cleanSheets,
-                fails = fails,
-                goals = goals,
-                goalsProvoked = goalsProvoked,
-                penaltiesProvoked = penaltiesProvoked,
-                saves = saves,
-                blueCards = blueCards,
-                redCards = redCards,
-                yellowCards = yellowCards
-            )
+            formationPosition = formationPosition
         )
 }
