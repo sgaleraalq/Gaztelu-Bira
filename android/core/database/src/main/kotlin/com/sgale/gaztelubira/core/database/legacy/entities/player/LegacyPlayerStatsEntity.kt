@@ -22,7 +22,7 @@ import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 
 @Entity
-data class PlayerStatsEntity(
+data class LegacyPlayerStatsEntity(
     @PrimaryKey
     val id: FirebaseId,
     val stats: Map<FirebaseId, Stats>

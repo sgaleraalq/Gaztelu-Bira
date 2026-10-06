@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.EVENTS
@@ -61,7 +61,7 @@ internal class FirestoreMatches @Inject constructor(
                 event.toObject(MatchEventResponse::class.java)?.asModel()
             }
 
-    override suspend fun fetchMatchPlayers(seasonId: SeasonId, matchId: MatchId): List<MatchLineupPlayer> =
+    override suspend fun fetchMatchLineup(seasonId: SeasonId, matchId: MatchId): List<MatchPlayer> =
         matches(seasonId)
             .document(matchId.value)
             .collection(LINEUP)

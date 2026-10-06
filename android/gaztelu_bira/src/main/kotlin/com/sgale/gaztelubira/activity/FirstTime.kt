@@ -61,8 +61,9 @@ internal class FirstTime @Inject constructor(
                 val events = matchRemote.fetchMatchEvents(season.id, match.id)
                 matchLocal.insertMatchEvents(match.id, events)
 
-                val players = matchRemote.fetchMatchPlayers(season.id, match.id)
-                matchLocal.insertMatchPlayers(match.id, players)
+                val lineup = matchRemote.fetchMatchLineup(season.id, match.id)
+                matchLocal.insertMatchPlayers(match.id, lineup.map { it.lineup })
+                playerLocal.insertMatchStats(match.id, lineup.map { it.stats })
             }
         }
 

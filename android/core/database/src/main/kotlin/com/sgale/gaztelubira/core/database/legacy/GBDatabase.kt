@@ -26,15 +26,15 @@ import com.sgale.gaztelubira.core.database.legacy.dao.PlayersDao
 import com.sgale.gaztelubira.core.database.legacy.entities.Converters
 import com.sgale.gaztelubira.core.database.legacy.entities.match.LegacyMatchEntity
 import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchStatsEntity
+import com.sgale.gaztelubira.core.database.legacy.entities.player.LegacyPlayerStatsEntity
 import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerEntity
-import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerStatsEntity
 
 @Database(
     entities = [
         LegacyMatchEntity::class,
         MatchStatsEntity::class,
         PlayerEntity::class,
-        PlayerStatsEntity::class
+        LegacyPlayerStatsEntity::class
     ],
     version = 1
 )

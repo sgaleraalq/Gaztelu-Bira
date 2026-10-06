@@ -20,7 +20,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
+import androidx.room.Transaction
 import com.sgale.gaztelubira.core.database.migration.entity.PlayerEntity
+import com.sgale.gaztelubira.core.database.migration.entity.PlayerStatsEntity
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
 @Dao
@@ -36,4 +39,16 @@ internal interface PlayerDao {
 
     @Insert(onConflict = REPLACE)
     suspend fun insertPlayers(entity: List<PlayerEntity>)
+
+    @Transaction
+    suspend fun replaceMatchStats(matchId: MatchId, stats: List<PlayerStatsEntity>) {
+        deleteMatchStats(matchId)
+        insertMatchStats(stats)
+    }
+
+    @Query("DELETE FROM PlayerStatsEntity WHERE matchId = :matchId")
+    suspend fun deleteMatchStats(matchId: MatchId)
+
+    @Insert
+    suspend fun insertMatchStats(stats: List<PlayerStatsEntity>)
 }

@@ -20,21 +20,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
-import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerStatsEntity
+import com.sgale.gaztelubira.core.database.legacy.entities.player.LegacyPlayerStatsEntity
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface PlayerStatsDao: BaseDao<PlayerStatsEntity> {
+interface PlayerStatsDao: BaseDao<LegacyPlayerStatsEntity> {
     @Insert(onConflict = REPLACE)
-    override suspend fun insert(entity: PlayerStatsEntity)
+    override suspend fun insert(entity: LegacyPlayerStatsEntity)
 
-    @Query("SELECT * FROM PlayerStatsEntity")
-    override fun getListAsFlow(): Flow<List<PlayerStatsEntity>>
+    @Query("SELECT * FROM LegacyPlayerStatsEntity")
+    override fun getListAsFlow(): Flow<List<LegacyPlayerStatsEntity>>
 
-    @Query("SELECT * FROM PlayerStatsEntity WHERE id = :id")
-    override suspend fun getItem(id: FirebaseId): PlayerStatsEntity?
+    @Query("SELECT * FROM LegacyPlayerStatsEntity WHERE id = :id")
+    override suspend fun getItem(id: FirebaseId): LegacyPlayerStatsEntity?
 
-    @Query("DELETE FROM PlayerStatsEntity WHERE id = :id")
+    @Query("DELETE FROM LegacyPlayerStatsEntity WHERE id = :id")
     override suspend fun deleteItem(id: FirebaseId)
 }

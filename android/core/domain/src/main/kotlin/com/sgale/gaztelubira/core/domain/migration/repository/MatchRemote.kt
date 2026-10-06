@@ -19,11 +19,11 @@ package com.sgale.gaztelubira.core.domain.migration.repository
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 interface MatchRemote {
     suspend fun fetchMatches(seasonId: SeasonId): List<Match>
     suspend fun fetchMatchEvents(seasonId: SeasonId, matchId: MatchId): List<MatchEvent>
-    suspend fun fetchMatchPlayers(seasonId: SeasonId, matchId: MatchId): List<MatchLineupPlayer>
+    suspend fun fetchMatchLineup(seasonId: SeasonId, matchId: MatchId): List<MatchPlayer>
 }

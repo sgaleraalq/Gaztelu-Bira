@@ -19,8 +19,11 @@ package com.sgale.gaztelubira.core.database.migration.implementation
 import com.sgale.gaztelubira.core.database.migration.dao.PlayerDao
 import com.sgale.gaztelubira.core.database.migration.mapper.PlayerMapper.asEntity
 import com.sgale.gaztelubira.core.database.migration.mapper.PlayerMapper.asModel
+import com.sgale.gaztelubira.core.database.migration.mapper.PlayerStatsMapper.asEntity
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
 import javax.inject.Inject
 
@@ -39,4 +42,7 @@ internal class RoomPlayers @Inject constructor(
 
     override suspend fun insertPlayers(players: List<Player>) =
         playerDao.insertPlayers(players.map { it.asEntity() })
+
+    override suspend fun insertMatchStats(matchId: MatchId, stats: List<PlayerStats>) =
+        playerDao.replaceMatchStats(matchId, stats.map { it.asEntity().copy(matchId = matchId) })
 }

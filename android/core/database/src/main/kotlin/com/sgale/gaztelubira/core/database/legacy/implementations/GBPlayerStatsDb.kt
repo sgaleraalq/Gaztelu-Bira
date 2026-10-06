@@ -17,10 +17,9 @@
 package com.sgale.gaztelubira.core.database.legacy.implementations
 
 import com.sgale.gaztelubira.core.database.legacy.GBDatabase
-import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerStatsEntity
-import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerStatsMapper.asEntity
-import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerStatsMapper.asModel
+import com.sgale.gaztelubira.core.database.legacy.entities.player.LegacyPlayerStatsEntity
 import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats.Companion.ERROR_PLAYER_STATS
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersStatsDb
@@ -52,7 +51,7 @@ class GBPlayerStatsDb @Inject constructor(
             val player = playersStatsDao.getItem(playerId)
 
             if (player == null) {
-                val newPlayer = PlayerStatsEntity(
+                val newPlayer = LegacyPlayerStatsEntity(
                     id = playerId,
                     stats = mapOf(matchId to stats)
                 )
@@ -85,4 +84,13 @@ class GBPlayerStatsDb @Inject constructor(
             mapper = { it.asModel() },
             keySelector = { it.percentage }
         )
+
+    private fun PlayerStats.asEntity() =
+        LegacyPlayerStatsEntity(
+            id = id,
+            stats = stats
+        )
+
+    private fun LegacyPlayerStatsEntity.asModel() =
+        ERROR_PLAYER_STATS // TODO
 }

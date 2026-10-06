@@ -18,29 +18,57 @@ package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.UNDEFINED
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.NetworkMapper
 import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchPlayerResponse
 
-internal object MatchPlayerMapper : NetworkMapper<MatchLineupPlayer, MatchPlayerResponse> {
-    override fun MatchLineupPlayer.asResponse(): MatchPlayerResponse =
+internal object MatchPlayerMapper : NetworkMapper<MatchPlayer, MatchPlayerResponse> {
+    override fun MatchPlayer.asResponse(): MatchPlayerResponse =
         MatchPlayerResponse(
-            playerId = playerId.value,
-            matchId = matchId.value,
-            seasonId = seasonId.value,
-            role = state.name,
-            formationPosition = formationPosition
+            playerId = lineup.playerId.value,
+            matchId = lineup.matchId.value,
+            seasonId = lineup.seasonId.value,
+            role = lineup.state.name,
+            formationPosition = lineup.formationPosition,
+            assists = stats.assists,
+            cleanSheets = stats.cleanSheets,
+            fails = stats.fails,
+            goals = stats.goals,
+            goalsProvoked = stats.goalsProvoked,
+            penaltiesProvoked = stats.penaltiesProvoked,
+            saves = stats.saves,
+            blueCards = stats.blueCards,
+            redCards = stats.redCards,
+            yellowCards = stats.yellowCards
         )
 
-    override fun MatchPlayerResponse.asModel(): MatchLineupPlayer =
-        MatchLineupPlayer(
-            playerId = PlayerId(playerId),
-            matchId = MatchId(matchId),
-            seasonId = SeasonId(seasonId),
-            state = MatchPlayerState.entries.find { it.name == role } ?: UNDEFINED,
-            formationPosition = formationPosition
+    override fun MatchPlayerResponse.asModel(): MatchPlayer =
+        MatchPlayer(
+            lineup = MatchLineupPlayer(
+                playerId = PlayerId(playerId),
+                matchId = MatchId(matchId),
+                seasonId = SeasonId(seasonId),
+                state = MatchPlayerState.entries.find { it.name == role } ?: UNDEFINED,
+                formationPosition = formationPosition
+            ),
+            stats = PlayerStats(
+                playerId = PlayerId(playerId),
+                matchId = MatchId(matchId),
+                assists = assists,
+                cleanSheets = cleanSheets,
+                fails = fails,
+                goals = goals,
+                goalsProvoked = goalsProvoked,
+                penaltiesProvoked = penaltiesProvoked,
+                saves = saves,
+                blueCards = blueCards,
+                redCards = redCards,
+                yellowCards = yellowCards
+            )
         )
 }

@@ -16,7 +16,11 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.player
 
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+
 data class PlayerStats(
+    val playerId: PlayerId,
+    val matchId: MatchId,
     val assists: Int,
     val cleanSheets: Double,
     val fails: Int,

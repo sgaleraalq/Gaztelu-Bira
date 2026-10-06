@@ -17,13 +17,29 @@
 package com.sgale.gaztelubira.core.database.migration.entity
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
-@Entity(primaryKeys = ["id", "matchId"])
+/**
+ * One row per player and match, so they live and die with their match: deleting a [MatchEntity]
+ * cascades to its stats.
+ */
+@Entity(
+    primaryKeys = ["matchId", "playerId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = MatchEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["matchId"],
+            onDelete = CASCADE
+        )
+    ]
+)
 internal data class PlayerStatsEntity(
-    val id: PlayerId,
     val matchId: MatchId,
+    val playerId: PlayerId,
     val assists: Int,
     val cleanSheets: Double,
     val fails: Int,
