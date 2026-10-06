@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.legacy.firebase.implementation.remote_config
+package com.sgale.gaztelubira.core.network.migration.firebase.remote_config
 
 import android.content.Context
 import com.sgale.gaztelubira.core.domain.legacy.repository.IAppVersion

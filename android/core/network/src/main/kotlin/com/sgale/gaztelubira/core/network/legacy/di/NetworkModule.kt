@@ -20,18 +20,16 @@ import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
 import com.sgale.gaztelubira.core.domain.legacy.repository.IAppVersion
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFetch
+import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert
 import com.sgale.gaztelubira.core.network.R
-import com.sgale.gaztelubira.core.network.legacy.firebase.implementation.remote_config.RemoteConfigManager.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
 import com.sgale.gaztelubira.core.network.legacy.firebase.implementation.FirebaseUsers
-import com.sgale.gaztelubira.core.network.legacy.firebase.implementation.fetch.FirebaseFetch
-import com.sgale.gaztelubira.core.network.legacy.firebase.implementation.remote_config.RemoteConfigAppVersion
 import com.sgale.gaztelubira.core.network.legacy.firebase.implementation.insert.FirebaseInsert
 import com.sgale.gaztelubira.core.network.legacy.firebase.implementation.storage.FirebaseStorage
+import com.sgale.gaztelubira.core.network.migration.firebase.remote_config.RemoteConfigAppVersion
+import com.sgale.gaztelubira.core.network.migration.firebase.remote_config.RemoteConfigManager.Companion.MINIMUM_FETCH_INTERVAL_SECONDS
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,11 +39,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
-    @Provides
-    @Singleton
-    fun provideFirebaseFetch(firebaseFetch: FirebaseFetch): IFetch =
-        firebaseFetch
-
     @Provides
     @Singleton
     fun provideFirebaseInsert(firebaseInsert: FirebaseInsert): IInsert =

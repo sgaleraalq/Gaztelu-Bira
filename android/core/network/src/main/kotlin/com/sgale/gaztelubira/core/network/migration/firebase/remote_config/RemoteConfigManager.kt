@@ -15,7 +15,7 @@
  */
 
 
-package com.sgale.gaztelubira.core.network.legacy.firebase.implementation.remote_config
+package com.sgale.gaztelubira.core.network.migration.firebase.remote_config
 
 import android.util.Log
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig

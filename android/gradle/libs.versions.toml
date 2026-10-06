@@ -152,9 +152,6 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 convention-application = { id = "com.sgale.gaztelubira.convention.application" }
 convention-firebase = { id = "com.sgale.gaztelubira.convention.firebase" }
 convention-compose = { id = "com.sgale.gaztelubira.convention.compose" }
-convention-feature-api = { id = "com.sgale.gaztelubira.convention.feature.api" }
-convention-feature-impl = { id = "com.sgale.gaztelubira.convention.feature.impl" }
 convention-hilt = { id = "com.sgale.gaztelubira.convention.hilt" }
 convention-library = { id = "com.sgale.gaztelubira.convention.library" }
 convention-room = { id = "com.sgale.gaztelubira.convention.room" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
