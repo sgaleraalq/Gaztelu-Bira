@@ -31,6 +31,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
 
 @Composable
 internal fun MatchDetailHeader(
@@ -66,6 +68,7 @@ private fun GBMatchDetailResult(
     ) {
         GBTeamDetailResult(
             modifier = Modifier.weight(1f),
+            isGaztelu = state.localTeam?.id == state.team?.id,
             teamModel = state.localTeam,
             goals = state.localGoals
         )
@@ -75,6 +78,7 @@ private fun GBMatchDetailResult(
         )
         GBTeamDetailResult(
             modifier = Modifier.weight(1f),
+            isGaztelu = state.visitorTeam?.id == state.team?.id,
             teamModel = state.visitorTeam,
             goals = state.visitorGoals,
             isLocal = false
@@ -86,6 +90,7 @@ private fun GBMatchDetailResult(
 @Composable
 private fun GBTeamDetailResult(
     modifier: Modifier,
+    isGaztelu: Boolean,
     teamModel: GBTeam?,
     goals: Int,
     isLocal: Boolean = true
@@ -101,10 +106,19 @@ private fun GBTeamDetailResult(
             )
         }
         Spacer(Modifier.weight(1f))
-        GBTeam(
-            modifier = Modifier.size(36.dp),
-            image = teamModel?.logo
-        )
+
+        if (isGaztelu) {
+            GBTeam(
+                modifier = Modifier.size(36.dp),
+                image = Res.drawable.img_gaztelu_bira
+            )
+        } else {
+            GBTeam(
+                modifier = Modifier.size(36.dp),
+                image = teamModel?.logo
+            )
+        }
+
         Spacer(Modifier.weight(1f))
         if (isLocal) {
             GBText(

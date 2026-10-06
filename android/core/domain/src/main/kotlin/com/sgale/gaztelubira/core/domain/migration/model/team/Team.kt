@@ -18,6 +18,7 @@ package com.sgale.gaztelubira.core.domain.migration.model.team
 
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 
 data class Team(
     val id: TeamId,
@@ -25,6 +26,8 @@ data class Team(
     val name: String,
     val logo: String
 ) {
+    fun isGaztelu(): Boolean = id.value == GAZTELU_BIRA_ID
+
     // TODO maybe populate this?
     companion object {
         val ERROR_TEAM = Team(

@@ -39,8 +39,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBStat
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
+import com.sgale.gaztelubira.multiplatform.model.GBStat.BLUE_CARDS
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -54,7 +55,8 @@ internal fun SettingsStats(
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(scrollState)
     ) {
-        GBStat.entries.forEach { stat ->
+        // TODO Legacy stats do not track blue cards, so they cannot be ranked yet
+        GBStat.entries.filter { it != BLUE_CARDS }.forEach { stat ->
             StatIndicator(
                 stat = stat,
                 isSelected = selectedStat == stat,

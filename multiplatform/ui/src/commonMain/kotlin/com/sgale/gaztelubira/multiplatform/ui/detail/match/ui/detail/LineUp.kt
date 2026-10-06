@@ -119,7 +119,8 @@ fun MatchDetailStateLineUp(
                             delay(200.milliseconds)
                             showBench = true
                         }
-                    }
+                    },
+                    playerPlaceholder = AppImages.facePlayer
                 )
             }
         }
@@ -163,7 +164,9 @@ internal fun LazyGridScope.benchPlayers(
     showBench: Boolean,
     benchPlayers: List<GBPlayer>
 ) {
-    item(span = { GridItemSpan(maxLineSpan) }) {
+    item(
+        span = { GridItemSpan(maxLineSpan) }
+    ) {
         AnimatedVisibility(
             visible = showBench,
             enter = fadeIn() + scaleIn(initialScale = 0.9f)

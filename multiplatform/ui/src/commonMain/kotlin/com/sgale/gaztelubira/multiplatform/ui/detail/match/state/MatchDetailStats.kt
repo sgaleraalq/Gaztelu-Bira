@@ -20,6 +20,7 @@ import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 
 data class MatchDetailStats(
     val assists: List<GBPlayer>,
+    val blueCards: List<GBPlayer>,
     val cleanSheets: List<GBPlayer>,
     val fails: List<GBPlayer>,
     val goals: List<GBPlayer>,

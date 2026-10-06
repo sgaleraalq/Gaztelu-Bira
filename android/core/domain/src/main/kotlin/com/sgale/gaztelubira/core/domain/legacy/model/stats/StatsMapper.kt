@@ -31,6 +31,7 @@ import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
 import com.sgale.gaztelubira.multiplatform.model.GBPosition
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat.ASSISTS
+import com.sgale.gaztelubira.multiplatform.model.GBStat.BLUE_CARDS
 import com.sgale.gaztelubira.multiplatform.model.GBStat.CLEAN_SHEETS
 import com.sgale.gaztelubira.multiplatform.model.GBStat.FAILS
 import com.sgale.gaztelubira.multiplatform.model.GBStat.GAMES_PLAYED
@@ -62,7 +63,7 @@ object StatsMapper {
     ) = GBPlayerStatsDetail(
         name = player.name,
         faceImage = player.faceImage,
-        stats = GBStat.entries.map { gbStat ->
+        stats = GBStat.entries.filter { it != BLUE_CARDS }.map { gbStat ->
             val value = when (gbStat) {
                 PERCENTAGE -> "${formatDecimal(percentage)} %"
                 else -> total(gbStat).toString()
@@ -83,7 +84,7 @@ object StatsMapper {
             YELLOW_CARDS -> stats.values.sumOf { it.yellowCards }
             RED_CARDS -> stats.values.sumOf { it.redCards }
             GAMES_PLAYED -> stats.values.sumOf { it.gamesPlayed }
-            PERCENTAGE -> 0
+            PERCENTAGE, BLUE_CARDS -> 0
         }
 
     private fun displayValue(stat: GBStat, value: Double): String =
@@ -105,6 +106,7 @@ object StatsMapper {
             YELLOW_CARDS -> Stat.YellowCards
             RED_CARDS -> Stat.RedCards
             GAMES_PLAYED -> Stat.GamesPlayed
+            BLUE_CARDS -> error("Legacy stats do not track blue cards")
         }
 
     private fun Position.toGBPosition(): GBPosition =

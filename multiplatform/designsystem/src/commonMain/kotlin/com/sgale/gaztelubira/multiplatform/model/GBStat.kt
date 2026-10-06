@@ -18,12 +18,14 @@ package com.sgale.gaztelubira.multiplatform.model
 
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.assists
+import com.sgale.gaztelubira.multiplatform.ui.resources.blue_cards
 import com.sgale.gaztelubira.multiplatform.ui.resources.clean_sheets
 import com.sgale.gaztelubira.multiplatform.ui.resources.fails
 import com.sgale.gaztelubira.multiplatform.ui.resources.games_played
 import com.sgale.gaztelubira.multiplatform.ui.resources.goals
 import com.sgale.gaztelubira.multiplatform.ui.resources.goals_provoked
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_assists
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_blue_card
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_clean_sheets
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_fail
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_games_played
@@ -85,6 +87,10 @@ enum class GBStat(
     RED_CARDS(
         label = Res.string.red_cards,
         icon = Res.drawable.ic_red_card
+    ),
+    BLUE_CARDS(
+        label = Res.string.blue_cards,
+        icon = Res.drawable.ic_blue_card
     ),
     GAMES_PLAYED(
         label = Res.string.games_played,

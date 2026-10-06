@@ -34,6 +34,9 @@ internal interface PlayerDao {
     @Query("SELECT * FROM PlayerEntity")
     suspend fun getPlayers(): List<PlayerEntity>
 
+    @Query("SELECT * FROM PlayerStatsEntity WHERE matchId = :matchId")
+    suspend fun getMatchPlayerStats(matchId: MatchId): List<PlayerStatsEntity>
+
     @Insert(onConflict = REPLACE)
     suspend fun insertPlayer(entity: PlayerEntity)
 
