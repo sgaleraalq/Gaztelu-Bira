@@ -64,7 +64,7 @@ private fun DisplayDetail(
     modifier: Modifier,
     state: MatchDetailUiState
 ) = when (state.uiState) {
-    Loading -> GBProgressDialog(show = true, color = Red)
+    Loading -> GBProgressDialog(modifier = modifier.fillMaxSize(), show = true, color = Red)
     is Details -> MatchDetailStateDetails(modifier = modifier, state = state.uiState)
     is Lineup -> MatchDetailStateLineUp(modifier = modifier, team = state.team, state = state.uiState)
     is Stats -> MatchDetailStateStats(modifier = modifier, state = state.uiState)

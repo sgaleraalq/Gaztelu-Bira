@@ -16,117 +16,109 @@
 
 package com.sgale.gaztelubira.core.screens.detail.match
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.FetchMatchStats
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchDetail
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatchDetail
+import com.sgale.gaztelubira.core.domain.migration.usecase.GetTeam
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailLineUp
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailStats
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 internal class MatchDetailViewModel @Inject constructor(
-    private val fetchMatchStats: FetchMatchStats
+    private val getMatchDetail: GetMatchDetail,
+    private val getTeam: GetTeam
 ) : ViewModel() {
-    private val gazteluBira = GAZTELU_BIRA.toGBTeam()
-    private val _state = MutableStateFlow(MatchDetailUiState(team = gazteluBira))
+    private val _state = MutableStateFlow(MatchDetailUiState(team = GAZTELU_BIRA.toGBTeam()))
     internal val state: StateFlow<MatchDetailUiState> = _state
 
-    fun changeUiState(state: MatchDetailState) {
-        _state.value = _state.value.copy(
-            uiState = state
-        )
+    internal fun changeUiState(state: MatchDetailState) {
+        _state.value = _state.value.copy(uiState = state)
     }
 
-    fun loadMatch(
+    internal fun loadMatch(
         matchId: MatchId,
         onMatchNotFound: () -> Unit
     ) {
         viewModelScope.launch {
-            val matchStats = withContext(Dispatchers.IO) {
-                fetchMatchStats(matchId.value)
-            }
+            try {
+                val matchDetail = withContext(IO) {
+                    getMatchDetail(matchId)
+                }
 
-            if (matchStats != null) {
-                createStateFromStats(matchStats)
-            } else {
+//                val players = withContext(IO) {
+//                    getMatchPlayers(matchId)
+//                }
+
+                val localTeam = withContext(IO) {
+                    getTeam(matchDetail.match.match.localTeam)
+                }
+
+                val visitorTeam = withContext(IO) {
+                    getTeam(matchDetail.match.match.visitorTeam)
+                }
+
+                updateState(matchDetail, localTeam, visitorTeam)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error loading match: $e")
                 onMatchNotFound()
             }
         }
     }
 
-    private fun createStateFromStats(matchStats: MatchStatsModel) {
-        val matchInformation = setMatchInformation(matchStats)
-        val lineUp = setLineUp(matchStats)
-        val stats = setStats(matchStats)
+    private fun updateState(
+        matchDetail: MatchDetail,
+        localTeam: Team,
+        visitorTeam: Team
+    ) {
+        _state.update {
+            it.copy(
+                team = GAZTELU_BIRA.toGBTeam(),
+                localTeam = localTeam.toGBTeam(),
+                visitorTeam = visitorTeam.toGBTeam(),
+                localGoals = matchDetail.match.match.score.local,
+                visitorGoals = matchDetail.match.match.score.visitor,
+                information = matchDetail.toMatchDetailInformation(localTeam, visitorTeam),
+                lineUp = null,
+                stats = null
+            )
+        }
 
-        _state.value = _state.value.copy(
-            uiState = Lineup(lineUp),
-            localTeam = matchStats.match.localTeam.toGBTeam(),
-            localGoals = matchStats.match.localGoals,
-            visitorTeam = matchStats.match.visitorTeam.toGBTeam(),
-            visitorGoals = matchStats.match.visitorGoals,
-            information = matchInformation,
-            lineUp = lineUp,
-            stats = stats
-        )
+        _state.update {
+            it.copy(uiState = Lineup(state.value.lineUp))
+        }
     }
 
-    private fun setMatchInformation(
-        matchStats: MatchStatsModel
+    private fun MatchDetail.toMatchDetailInformation(
+        localTeam: Team,
+        visitorTeam: Team
     ) = MatchDetailInformation(
-        local = matchStats.match.localTeam.toGBTeam(),
-        visitor = matchStats.match.visitorTeam.toGBTeam(),
-        date = matchStats.match.date,
-        description = matchStats.description,
-        location = matchStats.location
-    )
-
-
-    private fun setLineUp(
-        matchStats: MatchStatsModel
-    ) = MatchDetailLineUp(
-        benchPlayers = matchStats.benchPlayers.map { it.toGBPlayer() },
-        managers = matchStats.managers.map { it.toGBPlayer() },
-        matchFormation = LineUpFormation.fromCode(matchStats.formation) ?: LineUpFormation.DEFAULT,
-        players = matchStats.lineUpPlayers.mapValues { (_, player) -> player?.toGBPlayer() }
-    )
-
-
-    private fun setStats(
-        matchStats: MatchStatsModel
-    ) = MatchDetailStats(
-        assists = matchStats.stats.assists.map { it.toGBPlayer() },
-        cleanSheets = matchStats.stats.cleanSheets.map { it.toGBPlayer() },
-        fails = matchStats.stats.fails.map { it.toGBPlayer() },
-        goals = matchStats.stats.goals.map { it.toGBPlayer() },
-        goalsProvoked = matchStats.stats.goalsProvoked.map { it.toGBPlayer() },
-        penaltiesProvoked = matchStats.stats.penaltiesProvoked.map { it.toGBPlayer() },
-        redCards = matchStats.stats.redCards.map { it.toGBPlayer() },
-        saves = matchStats.stats.saves.map { it.toGBPlayer() },
-        yellowCards = matchStats.stats.yellowCards.map { it.toGBPlayer() }
+        local = localTeam.toGBTeam(),
+        visitor = visitorTeam.toGBTeam(),
+        date = match.information.date,
+        description = match.information.description,
+        location = match.information.location
     )
 
     private fun Team.toGBTeam(): GBTeam =
         GBTeam(
-            id = id,
+            id = id.value,
             name = name,
             logo = logo
         )

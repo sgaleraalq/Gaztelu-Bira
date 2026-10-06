@@ -18,14 +18,11 @@ package com.sgale.gaztelubira.core.network.migration.firebase.response
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ServerTimestamp
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
-data class MatchLineupResponse(
-    val seasonId: SeasonId = SeasonId(""),
-    val matchId: MatchId = MatchId(""),
-    val playerId: PlayerId = PlayerId(""),
+internal data class MatchPlayerResponse(
+    val playerId: String = "",
+    val matchId: String = "",
+    val seasonId: String = "",
     @ServerTimestamp val updatedAt: Timestamp? = null,
 
     /**

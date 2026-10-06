@@ -17,9 +17,9 @@
 package com.sgale.gaztelubira.core.domain.legacy.model.match
 
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team.Companion.ERROR_TEAM
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team.Companion.ERROR_TEAM
 
 data class Match(
     val id: FirebaseId,

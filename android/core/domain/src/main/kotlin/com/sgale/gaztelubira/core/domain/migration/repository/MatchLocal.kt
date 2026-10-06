@@ -19,10 +19,13 @@ package com.sgale.gaztelubira.core.domain.migration.repository
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 interface MatchLocal {
+    suspend fun getMatch(matchId: MatchId): Match
     suspend fun getMatches(seasonId: SeasonId): List<Match>
     suspend fun insertMatches(matches: List<Match>)
     suspend fun insertMatchEvents(matchId: MatchId, events: List<MatchEvent>)
+    suspend fun insertMatchPlayers(matchId: MatchId, players: List<MatchPlayer>)
 }

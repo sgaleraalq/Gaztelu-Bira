@@ -25,8 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailActions
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Details
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Stats
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.details
@@ -39,6 +41,8 @@ internal fun MatchDetailInformationBar(
     state: MatchDetailUiState,
     actions: MatchDetailActions
 ) {
+    val clickEnabled = state.uiState !is Loading
+
     Column(
         modifier = Modifier
             .padding(bottom = 8.dp).padding(horizontal = 12.dp)
@@ -52,18 +56,21 @@ internal fun MatchDetailInformationBar(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.details),
                 isHighlighted = state.uiState is Details,
+                clickEnabled = clickEnabled,
                 onClick = { actions.changeUiState(Details(state.information)) }
             )
             MatchDetailBox(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.line_ups),
                 isHighlighted = state.uiState is Lineup,
+                clickEnabled = clickEnabled,
                 onClick = { actions.changeUiState(Lineup(state.lineUp)) }
             )
             MatchDetailBox(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.stats),
                 isHighlighted = state.uiState is Stats,
+                clickEnabled = clickEnabled,
                 onClick = { actions.changeUiState(Stats(state.stats)) }
             )
         }

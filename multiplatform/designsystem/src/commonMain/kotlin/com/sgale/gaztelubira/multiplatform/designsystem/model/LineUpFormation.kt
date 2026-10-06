@@ -31,20 +31,13 @@ import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Win
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.WingBackRight
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.WingerLeft
 
-private const val PLAYERS_ON_PITCH = 11
-private const val FOUR_THREE_THREE = "4-3-3"
-private const val FOUR_FOUR_TWO = "4-4-2"
-private const val FIVE_THREE_TWO = "5-3-2"
-
 enum class LineUpFormation(
-    val code: String,
     val positions: List<PlayerPosition>
 ) {
     /**
      * 4-3-3 FORMATION
      */
     FourThreeThree(
-        code = FOUR_THREE_THREE,
         positions = listOf(
             PlayerPosition(Goalkeeper, x = 0.5f, y = 0.9f),
             PlayerPosition(WingBackLeft, x = 0.15f, y = 0.75f),
@@ -64,7 +57,6 @@ enum class LineUpFormation(
      * 4-4-2 FORMATION
      */
     FourFourTwo(
-        code = FOUR_FOUR_TWO,
         positions = listOf(
             PlayerPosition(Goalkeeper, x = 0.5f, y = 0.9f),
             PlayerPosition(WingBackLeft, x = 0.15f, y = 0.75f),
@@ -84,7 +76,6 @@ enum class LineUpFormation(
      * 5-3-2 FORMATION
      */
     FiveThreeTwo(
-        code = FIVE_THREE_TWO,
         positions = listOf(
             PlayerPosition(Goalkeeper, x = 0.5f, y = 0.9f),
             PlayerPosition(WingBackLeft, x = 0.12f, y = 0.60f),
@@ -100,21 +91,8 @@ enum class LineUpFormation(
         )
     );
 
-    init {
-        require(positions.size == PLAYERS_ON_PITCH) {
-            "$code lines up ${positions.size} players, expected $PLAYERS_ON_PITCH"
-        }
-    }
-
     operator fun get(index: Int): PlayerPosition? = positions.getOrNull(index)
 
     fun indexOf(position: LineUpPosition): Int? =
         positions.indexOfFirst { it.position == position }.takeIf { it >= 0 }
-
-    companion object {
-        val DEFAULT = FourThreeThree
-
-        fun fromCode(code: String): LineUpFormation? =
-            entries.firstOrNull { it.code == code }
-    }
 }

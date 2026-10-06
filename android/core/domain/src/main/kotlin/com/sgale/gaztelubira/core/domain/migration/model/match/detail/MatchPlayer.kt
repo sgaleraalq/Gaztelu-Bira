@@ -16,10 +16,15 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.match.detail
 
+import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 data class MatchPlayer(
-    val id: PlayerId,
+    val playerId: PlayerId,
+    val matchId: MatchId,
+    val seasonId: SeasonId,
+    val state: MatchPlayerState,
     val formationPosition: Int?,
-    val state: MatchPlayerState
+    val stats: MatchPlayerStats
 )

@@ -24,12 +24,4 @@ data class Team(
     val id: FirebaseId,
     val name: String,
     val logo: String?
-) {
-    companion object {
-        val ERROR_TEAM = Team(
-            id = "error_team",
-            name = "Error Team",
-            logo = "https://firebasestorage.googleapis.com/v0/b/gbmultiplatform.firebasestorage.app/o/error_team.png?alt=media&token=8890839e-cc50-41db-a648-1502145e37d4"
-        )
-    }
-}
+)

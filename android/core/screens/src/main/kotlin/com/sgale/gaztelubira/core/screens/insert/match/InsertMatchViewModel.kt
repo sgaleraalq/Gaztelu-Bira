@@ -32,10 +32,10 @@ import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Percentage
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.RedCards
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Saves
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.YellowCards
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayers
 import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewMatch
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
@@ -387,7 +387,7 @@ class InsertMatchViewModel @Inject constructor(
             location = _informationState.value.location,
             description = _informationState.value.description,
             match = match.toMatchModel(),
-            formation = _formationState.value.formation.code,
+            formation = _formationState.value.formation.name,
             lineUpPlayers = _formationState.value.getLineUpPlayers(),
             benchPlayers = _formationState.value.benchPlayers,
             managers = _formationState.value.managers.toList().filterNotNull(),

@@ -21,14 +21,18 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.EVENTS
+import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.LINEUP
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.MatchEventMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.mapper.MatchPlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchEventResponse
+import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchPlayerResponse
 import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -55,6 +59,17 @@ internal class FirestoreMatches @Inject constructor(
             .documents
             .mapNotNull { event ->
                 event.toObject(MatchEventResponse::class.java)?.asModel()
+            }
+
+    override suspend fun fetchMatchPlayers(seasonId: SeasonId, matchId: MatchId): List<MatchPlayer> =
+        matches(seasonId)
+            .document(matchId.value)
+            .collection(LINEUP)
+            .get()
+            .await()
+            .documents
+            .mapNotNull { player ->
+                player.toObject(MatchPlayerResponse::class.java)?.asModel()
             }
 
     private fun matches(season: SeasonId): CollectionReference =

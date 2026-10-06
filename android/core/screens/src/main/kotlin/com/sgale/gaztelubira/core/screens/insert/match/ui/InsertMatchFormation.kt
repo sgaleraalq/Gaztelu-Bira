@@ -107,10 +107,10 @@ internal fun FormationPossibilities(
     ) {
         items(
             items = formations,
-            key = { it.code }
+            key = { it.name }
         ) { formation ->
             InsertMatchFormationButton(
-                text = formation.code,
+                text = formation.name,
                 isSelected = formation == formationState.formation,
                 onClick = { changeFormationSelected(formation) }
             )

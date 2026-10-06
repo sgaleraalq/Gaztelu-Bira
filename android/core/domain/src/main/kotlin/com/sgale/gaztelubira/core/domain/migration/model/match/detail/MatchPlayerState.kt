@@ -19,5 +19,6 @@ package com.sgale.gaztelubira.core.domain.migration.model.match.detail
 enum class MatchPlayerState {
     STARTER,
     BENCH,
-    MANAGER
+    MANAGER,
+    UNDEFINED
 }

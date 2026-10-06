@@ -18,6 +18,7 @@ package com.sgale.gaztelubira.core.network.migration.firebase
 
 internal object FirebaseConstants {
     internal const val EVENTS = "events"
+    internal const val LINEUP = "lineup"
     internal const val MATCHES = "matches"
     internal const val PLAYERS = "players"
     internal const val SEASONS = "seasons"

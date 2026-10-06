@@ -18,12 +18,12 @@ package com.sgale.gaztelubira.core.network.legacy.firebase.implementation
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.USERS
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.network.legacy.firebase.response.user.UserMapper.asModel
 import com.sgale.gaztelubira.core.network.legacy.firebase.response.user.UserMapper.asResponse
 import com.sgale.gaztelubira.core.network.legacy.firebase.response.user.UserResponse

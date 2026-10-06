@@ -23,11 +23,16 @@ import androidx.room.Transaction
 import androidx.room.Upsert
 import com.sgale.gaztelubira.core.database.migration.match.entity.MatchEntity
 import com.sgale.gaztelubira.core.database.migration.match.entity.MatchEventEntity
+import com.sgale.gaztelubira.core.database.migration.match.entity.MatchPlayerEntity
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 @Dao
 internal interface MatchDao {
+
+    @Query("SELECT * FROM MatchEntity WHERE id = :matchId")
+    suspend fun getMatch(matchId: MatchId): MatchEntity
+
     @Query("SELECT * FROM MatchEntity WHERE seasonId = :seasonId")
     suspend fun getMatches(seasonId: SeasonId): List<MatchEntity>
 
@@ -51,4 +56,19 @@ internal interface MatchDao {
 
     @Insert
     suspend fun insertMatchEvents(events: List<MatchEventEntity>)
+
+    /**
+     * The match's players are swapped as a whole, so a player removed remotely does not linger here.
+     */
+    @Transaction
+    suspend fun replaceMatchPlayers(matchId: MatchId, players: List<MatchPlayerEntity>) {
+        deleteMatchPlayers(matchId)
+        insertMatchPlayers(players)
+    }
+
+    @Query("DELETE FROM MatchPlayerEntity WHERE matchId = :matchId")
+    suspend fun deleteMatchPlayers(matchId: MatchId)
+
+    @Insert
+    suspend fun insertMatchPlayers(players: List<MatchPlayerEntity>)
 }

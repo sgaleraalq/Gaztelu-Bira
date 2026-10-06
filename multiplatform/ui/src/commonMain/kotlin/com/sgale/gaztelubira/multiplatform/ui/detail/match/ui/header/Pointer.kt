@@ -57,6 +57,7 @@ internal fun MatchDetailBox(
     modifier: Modifier,
     text: String,
     isHighlighted: Boolean,
+    clickEnabled: Boolean,
     onClick: () -> Unit
 ) {
     val textStyle = gBTypography().bodyMedium.copy(
@@ -67,7 +68,7 @@ internal fun MatchDetailBox(
     )
 
     Box(
-        modifier = modifier.clickable { onClick() },
+        modifier = modifier.clickable { if (clickEnabled) onClick() },
         contentAlignment = Center
     ) {
         GBText(

@@ -16,10 +16,11 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.model.utils
 
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.model.TeamId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 
 object GazteluBiraUtils {
-    const val TESTING = false
     const val GAZTELU_BIRA_ID = "gaztelu_bira"
     const val GAZTELU_BIRA_NAME = "Gaztelu Bira"
     const val GAZTELU_BIRA_LOGO =
@@ -27,7 +28,8 @@ object GazteluBiraUtils {
             "img_gaztelu_bira.webp?alt=media&token=3708f1c5-f9d7-4353-8829-967b21df75ed"
 
     val GAZTELU_BIRA = Team(
-        id = GAZTELU_BIRA_ID,
+        id = TeamId(GAZTELU_BIRA_ID),
+        seasonId = SeasonId(""),
         name = GAZTELU_BIRA_NAME,
         logo = GAZTELU_BIRA_LOGO
     )

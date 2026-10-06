@@ -53,7 +53,7 @@ internal class PlayerDetailViewModel @Inject constructor(
         playerStats.stats.forEach { (matchId, stats) ->
             if (stats.gamesPlayed != 1) return@forEach
             val match = matches.find { it.id == matchId } ?: return@forEach
-            val local = match.localTeam.id == appTeam.id
+            val local = match.localTeam.id.value == appTeam.id
             when (local) {
                 true -> {
                     when {
