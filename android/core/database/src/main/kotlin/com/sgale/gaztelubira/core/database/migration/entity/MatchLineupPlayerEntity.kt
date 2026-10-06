@@ -38,7 +38,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
         )
     ]
 )
-internal data class MatchLineupEntity(
+internal data class MatchLineupPlayerEntity(
     val matchId: MatchId,
     val playerId: PlayerId,
     val seasonId: SeasonId,

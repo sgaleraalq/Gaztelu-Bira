@@ -21,15 +21,15 @@ import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First
 import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LineUp
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.FourThreeThree
+import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.FOUR_THREE_THREE
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Goalkeeper
 
 @Stable
 data class InsertMatchFormation(
     val state: PlayerState = LineUp,
-    val formation: LineUpFormation = FourThreeThree,
-    val lineUp: Map<Int, Player?> = FourThreeThree.positions.indices.associateWith { null },
+    val formation: LineUpFormation = FOUR_THREE_THREE,
+    val lineUp: Map<Int, Player?> = FOUR_THREE_THREE.positions.indices.associateWith { null },
     val benchPlayers: List<Player> = emptyList(),
     val managers: Pair<Player?, Player?> = Pair(null, null),
     val selectedPosition: LineUpPosition = Goalkeeper,

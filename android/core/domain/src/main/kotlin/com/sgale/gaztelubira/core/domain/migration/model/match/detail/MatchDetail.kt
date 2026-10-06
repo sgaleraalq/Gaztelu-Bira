@@ -21,5 +21,5 @@ import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 data class MatchDetail(
     val match: Match,
     val events: List<MatchEvent>,
-    val players: List<MatchLineup>
+    val players: List<MatchLineupPlayer>
 )

@@ -37,7 +37,7 @@ enum class LineUpFormation(
     /**
      * 4-3-3 FORMATION
      */
-    FourThreeThree(
+    FOUR_THREE_THREE(
         positions = listOf(
             PlayerPosition(Goalkeeper, x = 0.5f, y = 0.9f),
             PlayerPosition(WingBackLeft, x = 0.15f, y = 0.75f),
@@ -56,7 +56,7 @@ enum class LineUpFormation(
     /**
      * 4-4-2 FORMATION
      */
-    FourFourTwo(
+    FOUR_FOUR_TWO(
         positions = listOf(
             PlayerPosition(Goalkeeper, x = 0.5f, y = 0.9f),
             PlayerPosition(WingBackLeft, x = 0.15f, y = 0.75f),
@@ -75,7 +75,7 @@ enum class LineUpFormation(
     /**
      * 5-3-2 FORMATION
      */
-    FiveThreeTwo(
+    FIVE_THREE_TWO(
         positions = listOf(
             PlayerPosition(Goalkeeper, x = 0.5f, y = 0.9f),
             PlayerPosition(WingBackLeft, x = 0.12f, y = 0.60f),
@@ -92,7 +92,4 @@ enum class LineUpFormation(
     );
 
     operator fun get(index: Int): PlayerPosition? = positions.getOrNull(index)
-
-    fun indexOf(position: LineUpPosition): Int? =
-        positions.indexOfFirst { it.position == position }.takeIf { it >= 0 }
 }

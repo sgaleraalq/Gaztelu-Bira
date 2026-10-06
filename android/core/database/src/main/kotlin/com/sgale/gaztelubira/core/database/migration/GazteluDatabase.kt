@@ -24,7 +24,7 @@ import com.sgale.gaztelubira.core.database.migration.dao.SeasonDao
 import com.sgale.gaztelubira.core.database.migration.dao.TeamDao
 import com.sgale.gaztelubira.core.database.migration.entity.MatchEntity
 import com.sgale.gaztelubira.core.database.migration.entity.MatchEventEntity
-import com.sgale.gaztelubira.core.database.migration.entity.MatchLineupEntity
+import com.sgale.gaztelubira.core.database.migration.entity.MatchLineupPlayerEntity
 import com.sgale.gaztelubira.core.database.migration.entity.PlayerEntity
 import com.sgale.gaztelubira.core.database.migration.entity.SeasonEntity
 import com.sgale.gaztelubira.core.database.migration.entity.SeasonPlayerEntity
@@ -34,13 +34,13 @@ import com.sgale.gaztelubira.core.database.migration.entity.TeamEntity
     entities = [
         MatchEntity::class,
         MatchEventEntity::class,
-        MatchLineupEntity::class,
+        MatchLineupPlayerEntity::class,
         PlayerEntity::class,
         SeasonEntity::class,
         SeasonPlayerEntity::class,
         TeamEntity::class
     ],
-    version = 10
+    version = 11
 )
 internal abstract class GazteluDatabase : RoomDatabase() {
     abstract fun getMatchDao(): MatchDao

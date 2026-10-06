@@ -45,10 +45,10 @@ import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -106,9 +106,7 @@ fun GBFootballField(
                     fieldWidthPx = boxWidthPx,
                     fieldHeightPx = boxHeightPx,
                     visible = visiblePlayers.contains(index),
-                    onPlayerSelected = {
-                        onPlayerSelected(position.position, index)
-                    }
+                    onPlayerSelected = { onPlayerSelected(position.position, index) }
                 )
             }
         }

@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineup
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.UNDEFINED
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
@@ -25,8 +25,8 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.NetworkMapper
 import com.sgale.gaztelubira.core.network.migration.firebase.response.MatchPlayerResponse
 
-internal object MatchPlayerMapper : NetworkMapper<MatchLineup, MatchPlayerResponse> {
-    override fun MatchLineup.asResponse(): MatchPlayerResponse =
+internal object MatchPlayerMapper : NetworkMapper<MatchLineupPlayer, MatchPlayerResponse> {
+    override fun MatchLineupPlayer.asResponse(): MatchPlayerResponse =
         MatchPlayerResponse(
             playerId = playerId.value,
             matchId = matchId.value,
@@ -35,8 +35,8 @@ internal object MatchPlayerMapper : NetworkMapper<MatchLineup, MatchPlayerRespon
             formationPosition = formationPosition
         )
 
-    override fun MatchPlayerResponse.asModel(): MatchLineup =
-        MatchLineup(
+    override fun MatchPlayerResponse.asModel(): MatchLineupPlayer =
+        MatchLineupPlayer(
             playerId = PlayerId(playerId),
             matchId = MatchId(matchId),
             seasonId = SeasonId(seasonId),

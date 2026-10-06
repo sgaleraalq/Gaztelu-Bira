@@ -23,7 +23,9 @@ import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
+import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
+import com.sgale.gaztelubira.multiplatform.model.GBTeam
 
 internal fun showToast(
     context: Context,
@@ -38,3 +40,10 @@ internal fun MatchResult.toGBMatchResult() =
         DRAW -> GBMatchResult.DRAW
         VICTORY -> GBMatchResult.VICTORY
     }
+
+internal fun Team.toGBTeam(): GBTeam =
+    GBTeam(
+        id = id.value,
+        name = name,
+        logo = logo
+    )

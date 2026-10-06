@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model.match.detail
+package com.sgale.gaztelubira.core.domain.migration.usecase
 
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
+import javax.inject.Inject
 
-data class MatchLineup(
-    val playerId: PlayerId,
-    val matchId: MatchId,
-    val seasonId: SeasonId,
-    val state: MatchPlayerState,
-    val formationPosition: Int?
-)
+class GetPlayers @Inject constructor(
+    private val playerLocal: PlayerLocal
+) {
+    suspend operator fun invoke(): List<Player> =
+        playerLocal.getPlayers()
+}

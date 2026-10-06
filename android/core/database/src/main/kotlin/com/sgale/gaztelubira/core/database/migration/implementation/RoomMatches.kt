@@ -18,13 +18,15 @@ package com.sgale.gaztelubira.core.database.migration.implementation
 
 import com.sgale.gaztelubira.core.database.migration.dao.MatchDao
 import com.sgale.gaztelubira.core.database.migration.mapper.MatchEventMapper.asEntity
-import com.sgale.gaztelubira.core.database.migration.mapper.MatchLineupMapper.asEntity
+import com.sgale.gaztelubira.core.database.migration.mapper.MatchEventMapper.asModel
+import com.sgale.gaztelubira.core.database.migration.mapper.MatchLineupPlayerMapper.asEntity
+import com.sgale.gaztelubira.core.database.migration.mapper.MatchLineupPlayerMapper.asModel
 import com.sgale.gaztelubira.core.database.migration.mapper.MatchMapper.asEntity
 import com.sgale.gaztelubira.core.database.migration.mapper.MatchMapper.asModel
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineup
+import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
 import javax.inject.Inject
@@ -38,6 +40,12 @@ internal class RoomMatches @Inject constructor(
     override suspend fun getMatches(seasonId: SeasonId): List<Match> =
         matchDao.getMatches(seasonId).map { it.asModel() }
 
+    override suspend fun getMatchEvents(matchId: MatchId): List<MatchEvent> =
+        matchDao.getMatchEvents(matchId).map { it.asModel() }
+
+    override suspend fun getMatchLineupPlayer(matchId: MatchId): List<MatchLineupPlayer> =
+        matchDao.getMatchPlayers(matchId).map { it.asModel() }
+
     override suspend fun insertMatches(matches: List<Match>) {
         matchDao.insertMatches(matches.map { it.asEntity() })
     }
@@ -46,7 +54,7 @@ internal class RoomMatches @Inject constructor(
         matchDao.replaceMatchEvents(matchId, events.map { it.asEntity().copy(matchId = matchId) })
     }
 
-    override suspend fun insertMatchPlayers(matchId: MatchId, players: List<MatchLineup>) {
+    override suspend fun insertMatchPlayers(matchId: MatchId, players: List<MatchLineupPlayer>) {
         matchDao.replaceMatchPlayers(matchId, players.map { it.asEntity().copy(matchId = matchId) })
     }
 }

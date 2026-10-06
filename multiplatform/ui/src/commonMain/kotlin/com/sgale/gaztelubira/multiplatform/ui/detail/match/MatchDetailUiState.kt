@@ -16,13 +16,15 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.detail.match
 
+import androidx.compose.runtime.Immutable
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailLineUp
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.*
+import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailStats
 
+@Immutable
 data class MatchDetailUiState(
     val uiState: MatchDetailState = Loading,
     val team: GBTeam? = null,

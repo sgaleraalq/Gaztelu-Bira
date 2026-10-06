@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.legacy.model.utils
+package com.sgale.gaztelubira.core.domain.utils
 
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId

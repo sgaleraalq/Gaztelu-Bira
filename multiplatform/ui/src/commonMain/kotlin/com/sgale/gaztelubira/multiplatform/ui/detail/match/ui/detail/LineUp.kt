@@ -94,8 +94,10 @@ fun MatchDetailStateLineUp(
             bottom = 16.dp
         ),
         verticalArrangement = spacedBy(8.dp)
-    )  {
-        item( span= { GridItemSpan(maxLineSpan) }) {
+    ) {
+        item(
+            span = { GridItemSpan(maxLineSpan) }
+        ) {
             Column {
                 StartingElevenHeader(
                     managers = Pair(
@@ -106,7 +108,7 @@ fun MatchDetailStateLineUp(
                 )
                 Spacer(Modifier.height(8.dp))
                 GBFootballField(
-            fieldImage = AppImages.footballField,
+                    fieldImage = AppImages.footballField,
                     modifier = Modifier.fillMaxWidth().fillMaxHeight(0.95f),
                     formation = lineUp.matchFormation,
                     players = lineUp.players.mapValues { entry -> entry.value }, // TODO
@@ -161,7 +163,7 @@ internal fun LazyGridScope.benchPlayers(
     showBench: Boolean,
     benchPlayers: List<GBPlayer>
 ) {
-    item( span = { GridItemSpan(maxLineSpan) }) {
+    item(span = { GridItemSpan(maxLineSpan) }) {
         AnimatedVisibility(
             visible = showBench,
             enter = fadeIn() + scaleIn(initialScale = 0.9f)

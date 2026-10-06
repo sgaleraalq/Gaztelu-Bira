@@ -26,11 +26,13 @@ class GetMatchDetail @Inject constructor(
 ) {
     suspend operator fun invoke(matchId: MatchId): MatchDetail {
         val match = matchLocal.getMatch(matchId)
+        val events = matchLocal.getMatchEvents(matchId)
+        val players = matchLocal.getMatchLineupPlayer(matchId)
 
         return MatchDetail(
             match = match,
-            events = emptyList(),
-            players = emptyList()
+            events = events,
+            players = players
         )
     }
 }
