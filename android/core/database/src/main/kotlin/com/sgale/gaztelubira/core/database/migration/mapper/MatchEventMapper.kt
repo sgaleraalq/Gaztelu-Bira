@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.database.migration.mapper
 
-import com.sgale.gaztelubira.core.database.DatabaseMapper
+import com.sgale.gaztelubira.core.database.migration.DatabaseMapper
 import com.sgale.gaztelubira.core.database.migration.entity.MatchEventEntity
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEventType
