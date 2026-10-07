@@ -26,6 +26,7 @@ import com.sgale.gaztelubira.core.domain.migration.repository.SeasonRemote
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SQUAD
 import com.sgale.gaztelubira.core.network.firebase.mapper.SeasonMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.mapper.SeasonPlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.SeasonPlayerResponse
 import com.sgale.gaztelubira.core.network.firebase.response.SeasonResponse
 import kotlinx.coroutines.tasks.await

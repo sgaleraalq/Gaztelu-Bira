@@ -23,7 +23,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.MatchEventResponse
 
-internal object MatchEventMapper : NetworkMapper<MatchEvent, MatchEventResponse, Nothing, Nothing> {
+internal object MatchEventMapper : NetworkMapper<MatchEvent, MatchEventResponse, MatchId, SeasonId> {
     override fun MatchEvent.asResponse(): MatchEventResponse =
         MatchEventResponse(
             matchId = matchId.value,
@@ -40,11 +40,11 @@ internal object MatchEventMapper : NetworkMapper<MatchEvent, MatchEventResponse,
         )
 
     override fun MatchEventResponse.asModel(
-        id: Nothing,
-        parentId: Nothing?
+        id: MatchId,
+        parentId: SeasonId?
     ): MatchEvent = MatchEvent(
-        matchId = MatchId(matchId),
-        seasonId = SeasonId(seasonId),
+        matchId = id,
+        seasonId = requireNotNull(parentId) { "Events of match $id need the season it belongs to" },
         order = order,
         type = MatchEventType.valueOf(type),
         ownGoal = ownGoal,

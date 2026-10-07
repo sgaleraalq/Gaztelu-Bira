@@ -23,7 +23,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.user.UserRole.GUEST
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.UserResponse
 
-internal object UserMapper : NetworkMapper<User, UserResponse, Nothing, Nothing> {
+internal object UserMapper : NetworkMapper<User, UserResponse, UserId, Nothing> {
     override fun User.asResponse(): UserResponse =
         UserResponse(
             id = uid.value,
@@ -34,10 +34,10 @@ internal object UserMapper : NetworkMapper<User, UserResponse, Nothing, Nothing>
         )
 
     override fun UserResponse.asModel(
-        id: Nothing,
+        id: UserId,
         parentId: Nothing?
     ): User = User(
-        uid = UserId(this.id),
+        uid = id,
         name = name,
         email = email,
         img = img,

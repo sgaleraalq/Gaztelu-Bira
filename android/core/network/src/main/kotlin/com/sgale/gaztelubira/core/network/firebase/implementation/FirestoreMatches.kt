@@ -28,7 +28,9 @@ import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.EVENTS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.LINEUP
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
+import com.sgale.gaztelubira.core.network.firebase.mapper.MatchEventMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.mapper.MatchPlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.MatchEventResponse
 import com.sgale.gaztelubira.core.network.firebase.response.MatchPlayerResponse
 import com.sgale.gaztelubira.core.network.firebase.response.MatchResponse
@@ -56,7 +58,7 @@ internal class FirestoreMatches @Inject constructor(
             .await()
             .documents
             .mapNotNull { event ->
-                event.toObject(MatchEventResponse::class.java)?.asModel()
+                event.toObject(MatchEventResponse::class.java)?.asModel(matchId, seasonId)
             }
 
     override suspend fun fetchMatchLineup(seasonId: SeasonId, matchId: MatchId): List<MatchPlayer> =
@@ -67,7 +69,7 @@ internal class FirestoreMatches @Inject constructor(
             .await()
             .documents
             .mapNotNull { player ->
-                player.toObject(MatchPlayerResponse::class.java)?.asModel()
+                player.toObject(MatchPlayerResponse::class.java)?.asModel(matchId, seasonId)
             }
 
     private fun matches(season: SeasonId): CollectionReference =

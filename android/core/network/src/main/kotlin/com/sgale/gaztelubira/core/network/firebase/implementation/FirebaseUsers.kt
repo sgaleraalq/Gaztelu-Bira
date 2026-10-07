@@ -71,7 +71,7 @@ class FirebaseUsers @Inject constructor(
                 .get()
                 .addOnSuccessListener { snapshot ->
                     val userResponse = snapshot.toObject(UserResponse::class.java)
-                    cancellableContinuation.resumeWith(success(userResponse?.asModel()))
+                    cancellableContinuation.resumeWith(success(userResponse?.asModel(uid)))
                 }
                 .addOnFailureListener {
                     cancellableContinuation.resume(null)
@@ -86,7 +86,7 @@ class FirebaseUsers @Inject constructor(
                 .get()
                 .addOnSuccessListener { snapshot ->
                     val userResponse = snapshot.toObject(UserResponse::class.java)
-                    cancellableContinuation.resumeWith(success(userResponse?.asModel()))
+                    cancellableContinuation.resumeWith(success(userResponse?.asModel(uid)))
                 }
                 .addOnFailureListener {
                     cancellableContinuation.resume(null)

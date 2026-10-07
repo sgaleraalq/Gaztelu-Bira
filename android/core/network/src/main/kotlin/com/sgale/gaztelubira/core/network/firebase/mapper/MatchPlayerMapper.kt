@@ -27,7 +27,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.MatchPlayerResponse
 
-internal object MatchPlayerMapper : NetworkMapper<MatchPlayer, MatchPlayerResponse, Nothing, Nothing> {
+internal object MatchPlayerMapper : NetworkMapper<MatchPlayer, MatchPlayerResponse, MatchId, SeasonId> {
     override fun MatchPlayer.asResponse(): MatchPlayerResponse =
         MatchPlayerResponse(
             playerId = lineup.playerId.value,
@@ -47,18 +47,18 @@ internal object MatchPlayerMapper : NetworkMapper<MatchPlayer, MatchPlayerRespon
             yellowCards = stats.yellowCards
         )
 
-    override fun MatchPlayerResponse.asModel(id: Nothing, parentId: Nothing?): MatchPlayer =
+    override fun MatchPlayerResponse.asModel(id: MatchId, parentId: SeasonId?): MatchPlayer =
         MatchPlayer(
             lineup = MatchLineupPlayer(
                 playerId = PlayerId(playerId),
-                matchId = MatchId(matchId),
-                seasonId = SeasonId(seasonId),
+                matchId = id,
+                seasonId = requireNotNull(parentId) { "Lineup of match $id needs the season it belongs to" },
                 state = MatchPlayerState.entries.find { it.name == role } ?: UNDEFINED,
                 formationPosition = formationPosition
             ),
             stats = PlayerStats(
                 playerId = PlayerId(playerId),
-                matchId = MatchId(matchId),
+                matchId = id,
                 assists = assists,
                 cleanSheets = cleanSheets,
                 fails = fails,
