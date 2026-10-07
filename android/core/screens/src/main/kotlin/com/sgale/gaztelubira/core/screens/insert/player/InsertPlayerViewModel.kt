@@ -21,14 +21,11 @@ import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.PictureType.BODY
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.PictureType.FACE
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.PlayerInserted
 import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetAvailableDorsals
 import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.player.Position
-import com.sgale.gaztelubira.core.navigation.Destination.Home
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert.manager.gallery.Gallery
-import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog
@@ -107,16 +104,16 @@ internal class InsertPlayerViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(state = Loading) }
 
-            val result = withContext(IO) {
-                insertNewPlayer(player.toPlayerModel())
-            }
-
-            if (result is PlayerInserted) {
-                navState.navigateTo(Home, true)
-            } else {
-                onFailure()
-                _state.update { it.copy(state = Default) }
-            }
+//            val result = withContext(IO) {
+//                insertNewPlayer(player.toPlayerModel())
+//            }
+//
+//            if (result is PlayerInserted) {
+//                navState.navigateTo(Home, true)
+//            } else {
+//                onFailure()
+//                _state.update { it.copy(state = Default) }
+//            }
         }
     }
 

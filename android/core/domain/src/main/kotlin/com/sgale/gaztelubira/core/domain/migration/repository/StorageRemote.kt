@@ -16,6 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.migration.repository
 
+import com.sgale.gaztelubira.core.domain.migration.util.FirebaseInsertResult
+
 interface StorageRemote {
-    suspend fun insertImage(): String
+    suspend fun insertImage(path: String, image: String): FirebaseInsertResult
 }

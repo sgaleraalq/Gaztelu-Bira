@@ -17,12 +17,9 @@
 package com.sgale.gaztelubira.core.domain.legacy.repository.firestore
 
 object FirebaseConstants {
-    const val BODY = "body"
-    const val FACE = "face"
     const val INFORMATION = "information"
     const val MATCHES = "matches"
     const val PLAYERS = "players"
     const val STATS = "stats"
-    const val TEAMS = "teams"
     const val USERS = "users"
 }

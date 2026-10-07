@@ -20,10 +20,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.USERS
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.model.user.User
 import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
+import com.sgale.gaztelubira.core.domain.migration.repository.UsersRemote
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.UserMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.UserMapper.asResponse
@@ -37,7 +37,7 @@ import kotlin.coroutines.resume
 
 class FirebaseUsers @Inject constructor(
     private val firestore: FirebaseFirestore
-) : IFbUsers {
+) : UsersRemote {
     override suspend fun getUser(uid: UserId): UserSession? =
         coroutineScope {
             val team = async { getUserTeam() }.await()

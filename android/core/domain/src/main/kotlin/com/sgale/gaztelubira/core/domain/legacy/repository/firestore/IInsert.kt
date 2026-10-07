@@ -18,9 +18,7 @@ package com.sgale.gaztelubira.core.domain.legacy.repository.firestore
 
 import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 
 interface IInsert {
@@ -30,9 +28,6 @@ interface IInsert {
         data object StatsInserted: FirebaseInsertResult
         data class ErrorInsert(val msg: String?): FirebaseInsertResult
     }
-
-    suspend fun insertPlayer(player: Player): FirebaseInsertResult
-    suspend fun insertTeam(team: Team): FirebaseInsertResult
     suspend fun insertStats(
         match: Match,
         matchStats: MatchStatsModel,

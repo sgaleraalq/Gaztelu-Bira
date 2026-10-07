@@ -18,26 +18,15 @@ package com.sgale.gaztelubira.core.network.legacy.firebase.implementation.insert
 
 import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult
 import javax.inject.Inject
 
 internal class FirebaseInsert @Inject constructor(
-    private val insertPlayer: InsertPlayer,
-    private val insertStats: InsertStats,
-    private val insertTeam: InsertTeam
+    private val insertStats: InsertStats
 ) : IInsert {
-
-    override suspend fun insertPlayer(player: Player): FirebaseInsertResult =
-        insertPlayer.invoke(player)
-
-    override suspend fun insertTeam(team: Team): FirebaseInsertResult =
-        insertTeam.invoke(team)
-
     override suspend fun insertStats(
         match: Match,
         matchStats: MatchStatsModel,

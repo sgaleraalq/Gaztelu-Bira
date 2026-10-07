@@ -16,9 +16,14 @@
 
 package com.sgale.gaztelubira.core.domain.migration.util
 
+import android.net.Uri
+
 interface FirebaseInsertResult {
-    data object Inserted: FirebaseInsertResult
     data class Error(
         val message: String
     ): FirebaseInsertResult
+
+    interface Insertion: FirebaseInsertResult {
+        data class Image(val uri: Uri): Insertion
+    }
 }

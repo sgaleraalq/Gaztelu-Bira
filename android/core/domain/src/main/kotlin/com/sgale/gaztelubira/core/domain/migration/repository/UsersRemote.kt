@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.legacy.firebase.response.team
+package com.sgale.gaztelubira.core.domain.migration.repository
 
-import androidx.annotation.Keep
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
-import kotlinx.serialization.Serializable
+import com.sgale.gaztelubira.core.domain.auth.UserSession
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
 
-@Keep
-@Serializable
-data class TeamResponse(
-    val id: FirebaseId = "",
-    val name: String = "",
-    val logo: String = ""
-)
+interface UsersRemote {
+    suspend fun getUser(uid: UserId): UserSession?
+    suspend fun insertUser(user: User): Boolean
+    suspend fun isUserInserted(uid: UserId): User?
+}

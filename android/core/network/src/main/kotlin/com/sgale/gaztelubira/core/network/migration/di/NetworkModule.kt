@@ -21,7 +21,9 @@ import com.sgale.gaztelubira.core.domain.migration.repository.PlayerRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.SeasonRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.StorageRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.TeamRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.UsersRemote
 import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirebaseStorage
+import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirebaseUsers
 import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestoreMatches
 import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestorePlayers
 import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestoreSeason
@@ -64,4 +66,10 @@ internal object NetworkModule {
     internal fun provideTeamRemote(
         firestoreTeam: FirestoreTeam
     ): TeamRemote = firestoreTeam
+
+    @Provides
+    @Singleton
+    internal fun provideFirebaseUsers(
+        firebaseUsers: FirebaseUsers
+    ): UsersRemote = firebaseUsers
 }

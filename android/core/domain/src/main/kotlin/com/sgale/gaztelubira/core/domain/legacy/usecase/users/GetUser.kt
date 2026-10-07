@@ -17,12 +17,12 @@
 package com.sgale.gaztelubira.core.domain.legacy.usecase.users
 
 import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
 import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
+import com.sgale.gaztelubira.core.domain.migration.repository.UsersRemote
 import javax.inject.Inject
 
 class GetUser @Inject constructor(
-    private val repository: IFbUsers
+    private val repository: UsersRemote
 ) {
     suspend operator fun invoke(uid: UserId): UserSession? =
         repository.getUser(uid)

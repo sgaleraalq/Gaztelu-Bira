@@ -16,54 +16,45 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert
 
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
-import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.BODY
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.FACE
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.PLAYERS
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IGBFireStorage.ImageInsertionResult.Success
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult
 import javax.inject.Inject
 
 class InsertNewPlayer @Inject constructor(
-    private val firestore: IInsert,
-    private val storage: IGBFireStorage,
-    private val playersDb: IGBPlayersDb
+//    private val firestore: IInsert,
+//    private val storage: IGBFireStorage,
+//    private val playersDb: IGBPlayersDb
 ) {
     suspend operator fun invoke(
-        player: Player
-    ): FirebaseInsertResult {
-        val faceImgPath = "$PLAYERS/$FACE/${player.id}"
-        val bodyImgPath = "$PLAYERS/$BODY/${player.id}"
-
-        val faceImgInserted = if (!player.faceImage.isNullOrBlank()) {
-            storage.insertImage(faceImgPath, player.faceImage)
-        } else {
-            Success(null)
-        }
-
-        val bodyImgInserted = if (!player.bodyImage.isNullOrBlank()) {
-            storage.insertImage(bodyImgPath, player.bodyImage)
-        } else {
-            Success(null)
-        }
-
-        var result: FirebaseInsertResult?
-
-        if (faceImgInserted is Success && bodyImgInserted is Success) {
-            val player = player.copy(
-                faceImage = faceImgInserted.url,
-                bodyImage = bodyImgInserted.url
-            )
-
-            playersDb.insertPlayer(player)
-            result = firestore.insertPlayer(player)
-        } else {
-            result = FirebaseInsertResult.ErrorInsert("")
-        }
-
-        return result
+//        player: Player
+    ) { // : FirebaseInsertResult
+//        val faceImgPath = "$PLAYERS/$FACE/${player.id}"
+//        val bodyImgPath = "$PLAYERS/$BODY/${player.id}"
+//
+//        val faceImgInserted = if (!player.faceImage.isNullOrBlank()) {
+//            storage.insertImage(faceImgPath, player.faceImage)
+//        } else {
+//            Success(null)
+//        }
+//
+//        val bodyImgInserted = if (!player.bodyImage.isNullOrBlank()) {
+//            storage.insertImage(bodyImgPath, player.bodyImage)
+//        } else {
+//            Success(null)
+//        }
+//
+//        var result: FirebaseInsertResult?
+//
+//        if (faceImgInserted is Success && bodyImgInserted is Success) {
+//            val player = player.copy(
+//                faceImage = faceImgInserted.url,
+//                bodyImage = bodyImgInserted.url
+//            )
+//
+//            playersDb.insertPlayer(player)
+//            result = firestore.insertPlayer(player)
+//        } else {
+//            result = FirebaseInsertResult.ErrorInsert("")
+//        }
+//
+//        return result
     }
 }
