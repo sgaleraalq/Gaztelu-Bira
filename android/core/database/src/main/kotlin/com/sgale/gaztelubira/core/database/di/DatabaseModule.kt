@@ -1,0 +1,93 @@
+/*
+ * Designed and developed by 2026 sgale (Sergio Galera)
+ *  
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *  
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *  
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sgale.gaztelubira.core.database.di
+
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import androidx.room.Room
+import androidx.sqlite.driver.AndroidSQLiteDriver
+import com.sgale.gaztelubira.core.database.GazteluDatabase
+import com.sgale.gaztelubira.core.database.implementation.RoomMatches
+import com.sgale.gaztelubira.core.database.implementation.RoomPlayers
+import com.sgale.gaztelubira.core.database.implementation.RoomSeasons
+import com.sgale.gaztelubira.core.database.implementation.RoomTeam
+import com.sgale.gaztelubira.core.database.preferences.PreferencesImpl
+import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
+import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+private const val GAZTELU_DB = "gaztelu_bira_database"
+private const val SHARED_PREFS_NAME = "gaztelu_bira_preferences"
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal object DatabaseModule {
+    @Provides
+    @Singleton
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ): GazteluDatabase =
+        Room.databaseBuilder<GazteluDatabase>(context, GAZTELU_DB)
+            .setDriver(AndroidSQLiteDriver())
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(
+        @ApplicationContext context: Context
+    ): SharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE)
+
+    @Provides
+    @Singleton
+    fun provideMatchLocal(
+        roomMatches: RoomMatches
+    ): MatchLocal = roomMatches
+
+    @Provides
+    @Singleton
+    fun providePlayerLocal(
+        roomPlayers: RoomPlayers
+    ): PlayerLocal = roomPlayers
+
+    @Provides
+    @Singleton
+    fun provideSeasonPreferences(
+        preferences: PreferencesImpl
+    ): Preferences = preferences
+
+    @Provides
+    @Singleton
+    fun provideSeasonLocal(
+        roomSeasons: RoomSeasons
+    ): SeasonLocal = roomSeasons
+
+    @Provides
+    @Singleton
+    fun provideTeamLocal(
+        roomTeam: RoomTeam
+    ): TeamLocal = roomTeam
+}
