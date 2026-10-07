@@ -18,11 +18,8 @@ package com.sgale.gaztelubira.core.screens.insert.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.PictureType.BODY
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.PictureType.FACE
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetAvailableDorsals
-import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.player.Position
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert.manager.gallery.Gallery
@@ -51,8 +48,8 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerFi
 
 @HiltViewModel
 internal class InsertPlayerViewModel @Inject constructor(
-    private val insertNewPlayer: InsertNewPlayer,
-    private val getAvailableDorsals: GetAvailableDorsals
+//    private val insertNewPlayer: InsertNewPlayer,
+//    private val getAvailableDorsals: GetAvailableDorsals
 ) : ViewModel() {
     private var selectedPicture = FACE
     private val initialState = InsertPlayerUiState(
@@ -64,7 +61,7 @@ internal class InsertPlayerViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val dorsals = withContext(IO) { getAvailableDorsals() }
+            val dorsals = withContext(IO) { emptyList<Int>() /* getAvailableDorsals() */ }
             _state.update { it.copy(availableDorsals = dorsals) }
         }
     }
@@ -123,16 +120,6 @@ internal class InsertPlayerViewModel @Inject constructor(
             BODY -> { _state.update { it.copy(bodyImage = newImage.orEmpty()) } }
         }
     }
-
-    private fun InsertPlayerUiState.toPlayerModel(): Player =
-        Player(
-            id = playerId,
-            name = playerName,
-            dorsal = playerDorsal,
-            position = Position.valueOf(playerPosition),
-            faceImage = faceImage,
-            bodyImage = bodyImage
-        )
 
     private fun getCurrentTimeId(): String = currentTimeMillis().toString()
 }

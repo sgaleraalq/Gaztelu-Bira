@@ -16,7 +16,6 @@
 
 package com.sgale.gaztelubira.core.screens.insert.match.data
 
-import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
@@ -46,16 +45,4 @@ data class InsertMatchTeamsInformation(
     }
 
     fun validMatch() = local != null && visitor != null
-
-    fun toMatchModel() =
-        Match(
-            id = id,
-            date = date,
-            matchName = matchName,
-            matchType = matchType,
-            localTeam = local!!,
-            visitorTeam = visitor!!,
-            localGoals = localGoals,
-            visitorGoals = visitorGoals
-        )
 }

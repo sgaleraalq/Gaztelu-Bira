@@ -342,7 +342,7 @@ class InsertMatchViewModel @Inject constructor(
         matchInformation: InsertMatchTeamsInformation,
         state: NavigationState
     ) {
-        val matchModel = matchInformation.toMatchModel()
+//        val matchModel = matchInformation.toMatchModel()
         val goalsScored = matchInformation.getGoalsScored()
         val goalsAgainst = matchInformation.getGoalsReceived()
         if (!isValid(goalsScored, goalsAgainst, matchInformation)) {

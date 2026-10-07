@@ -18,12 +18,8 @@ package com.sgale.gaztelubira.core.screens.detail.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
-import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
-import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState.PlayerWinRate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,45 +36,45 @@ internal class PlayerDetailViewModel @Inject constructor(
     private val _state = MutableStateFlow(PlayerDetailUiState())
     internal val state: StateFlow<PlayerDetailUiState> = _state
 
-    private fun calculateMatchesStats(
-        appTeam: Team?,
-        matches: List<Match>,
-        playerStats: PlayerStats
-    ) {
-        if (appTeam == null) return
-        var wins = 0
-        var draws = 0
-        var loses = 0
-
-        playerStats.stats.forEach { (matchId, stats) ->
-            if (stats.gamesPlayed != 1) return@forEach
-            val match = matches.find { it.id == matchId } ?: return@forEach
-            val local = match.localTeam.id.value == appTeam.id
-            when (local) {
-                true -> {
-                    when {
-                        match.localGoals > match.visitorGoals -> wins++
-                        match.localGoals < match.visitorGoals -> loses++
-                        else -> draws++
-                    }
-                }
-
-                else -> {
-                    when {
-                        match.localGoals < match.visitorGoals -> wins++
-                        match.localGoals > match.visitorGoals -> loses++
-                        else -> draws++
-                    }
-                }
-            }
-        }
-
-        _state.update {
-            it.copy(
-                winRate = PlayerWinRate(wins, draws, loses)
-            )
-        }
-    }
+//    private fun calculateMatchesStats(
+//        appTeam: Team?,
+//        matches: List<Match>,
+//        playerStats: PlayerStats
+//    ) {
+//        if (appTeam == null) return
+//        var wins = 0
+//        var draws = 0
+//        var loses = 0
+//
+//        playerStats.stats.forEach { (matchId, stats) ->
+//            if (stats.gamesPlayed != 1) return@forEach
+//            val match = matches.find { it.id == matchId } ?: return@forEach
+//            val local = match.localTeam.id.value == appTeam.id
+//            when (local) {
+//                true -> {
+//                    when {
+//                        match.localGoals > match.visitorGoals -> wins++
+//                        match.localGoals < match.visitorGoals -> loses++
+//                        else -> draws++
+//                    }
+//                }
+//
+//                else -> {
+//                    when {
+//                        match.localGoals < match.visitorGoals -> wins++
+//                        match.localGoals > match.visitorGoals -> loses++
+//                        else -> draws++
+//                    }
+//                }
+//            }
+//        }
+//
+//        _state.update {
+//            it.copy(
+//                winRate = PlayerWinRate(wins, draws, loses)
+//            )
+//        }
+//    }
 
     internal fun updateState(
         playerId: PlayerId,

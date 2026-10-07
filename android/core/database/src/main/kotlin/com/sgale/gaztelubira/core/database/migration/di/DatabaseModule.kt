@@ -17,6 +17,8 @@
 package com.sgale.gaztelubira.core.database.migration.di
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.sgale.gaztelubira.core.database.migration.GazteluDatabase
@@ -38,6 +40,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 private const val GAZTELU_DB = "gaztelu_bira_database"
+private const val SHARED_PREFS_NAME = "gaztelu_bira_preferences"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -51,6 +54,12 @@ internal object DatabaseModule {
             .setDriver(AndroidSQLiteDriver())
             .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(
+        @ApplicationContext context: Context
+    ): SharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE)
 
     @Provides
     @Singleton

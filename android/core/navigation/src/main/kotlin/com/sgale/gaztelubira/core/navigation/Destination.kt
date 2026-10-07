@@ -17,7 +17,6 @@
 package com.sgale.gaztelubira.core.navigation
 
 import androidx.navigation3.runtime.NavKey
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import kotlinx.serialization.Serializable
 
 /**
@@ -56,7 +55,7 @@ sealed interface Destination : NavKey {
      */
     @Serializable
     data class MatchDetail(
-        val matchId: FirebaseId
+        val matchId: String
     ) : Destination
 
     @Serializable

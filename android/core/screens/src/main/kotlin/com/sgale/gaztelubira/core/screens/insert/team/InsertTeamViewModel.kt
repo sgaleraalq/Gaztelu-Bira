@@ -19,8 +19,6 @@ package com.sgale.gaztelubira.core.screens.insert.team
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.team.Team
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.TeamInserted
 import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
@@ -90,14 +88,14 @@ internal class InsertTeamViewModel @Inject constructor(
 //                    team = team.toTeamModel(),
 //                    onFailure = { onFailure(context, errorMsg) }
 //                )
-                TeamInserted // TODO
+                 // TODO
             }
 
-            if (result is TeamInserted) {
-                onSuccess()
-            } else {
-                onFailure(context, errorMsg)
-            }
+//            if (result is TeamInserted) {
+//                onSuccess()
+//            } else {
+//                onFailure(context, errorMsg)
+//            }
         }
     }
 
@@ -115,11 +113,4 @@ internal class InsertTeamViewModel @Inject constructor(
     private fun resetUiState() {
         _state.update { initialState }
     }
-
-    private fun InsertTeamUiState.toTeamModel() =
-        Team(
-            id = teamId,
-            name = teamName,
-            logo = teamImage
-        )
 }

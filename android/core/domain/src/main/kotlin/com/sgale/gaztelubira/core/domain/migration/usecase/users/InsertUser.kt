@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.legacy.entities.player
+package com.sgale.gaztelubira.core.domain.migration.usecase.users
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.repository.UsersRemote
+import javax.inject.Inject
 
-@Entity
-data class PlayerEntity(
-    @PrimaryKey
-    val id: FirebaseId,
-    val name: String,
-    val position: Position,
-    val faceImage: String,
-    val bodyImage: String,
-    val dorsal: Int?
-)
+class InsertUser @Inject constructor(
+    private val repository: UsersRemote
+) {
+    suspend operator fun invoke(user: User): Boolean =
+        repository.insertUser(user)
+}

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.database.legacy.entities.player
+package com.sgale.gaztelubira.core.domain.migration.usecase.users
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
+import com.sgale.gaztelubira.core.domain.migration.repository.UsersRemote
+import javax.inject.Inject
 
-@Entity
-data class LegacyPlayerStatsEntity(
-    @PrimaryKey
-    val id: FirebaseId,
-    val stats: Map<FirebaseId, Stats>
-)
+class IsUserInserted @Inject constructor(
+    private val repository: UsersRemote
+) {
+    suspend operator fun invoke(uid: UserId): User? =
+        repository.isUserInserted(uid)
+}

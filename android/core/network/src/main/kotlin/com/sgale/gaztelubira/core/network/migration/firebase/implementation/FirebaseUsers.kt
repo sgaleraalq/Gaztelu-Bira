@@ -18,13 +18,13 @@ package com.sgale.gaztelubira.core.network.migration.firebase.implementation
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.USERS
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.model.user.User
 import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
 import com.sgale.gaztelubira.core.domain.migration.repository.UsersRemote
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA
+import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.USERS
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.UserMapper.asModel
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.UserMapper.asResponse
 import com.sgale.gaztelubira.core.network.migration.firebase.response.UserResponse
@@ -94,8 +94,8 @@ class FirebaseUsers @Inject constructor(
         }
     }
 
-    private fun getPlayerId(uid: UserId): FirebaseId {
-        return "TODO"
+    private fun getPlayerId(uid: UserId): PlayerId {
+        return PlayerId("TODO")
     }
 
     private fun getUserTeam(): Team = GAZTELU_BIRA

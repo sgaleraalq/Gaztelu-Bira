@@ -24,4 +24,5 @@ internal object FirebaseConstants {
     internal const val SEASONS = "seasons"
     internal const val SQUAD = "squad"
     internal const val TEAMS = "teams"
+    internal const val USERS = "users"
 }
