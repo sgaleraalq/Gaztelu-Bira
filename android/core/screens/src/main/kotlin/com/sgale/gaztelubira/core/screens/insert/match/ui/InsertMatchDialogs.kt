@@ -34,15 +34,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
-import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.CleanSheets
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.RedCards
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.YellowCards
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchStats
+import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
@@ -62,12 +58,12 @@ internal fun InsertMatchDialogPlayers(
     dismiss: () -> Unit
 ) {
     val usedIds: Set<String> = buildSet {
-        formation.lineUp.values.filterNotNull().forEach { add(it.id) }
-        formation.benchPlayers.forEach { add(it.id) }
-        formation.managers.first?.let { add(it.id) }
-        formation.managers.second?.let { add(it.id) }
+        formation.lineUp.values.filterNotNull().forEach { add(it.id.value) }
+        formation.benchPlayers.forEach { add(it.id.value) }
+        formation.managers.first?.let { add(it.id.value) }
+        formation.managers.second?.let { add(it.id.value) }
     }
-    val availablePlayers = players.filter { it.id !in usedIds }
+    val availablePlayers = players // TODO .filter { it.id !in usedIds }
 
     GBDialog(
         modifier = Modifier.fillMaxSize(),
@@ -89,13 +85,14 @@ internal fun InsertMatchDialogPlayers(
                 )
             }
             items(
-                availablePlayers.filter {
-                    if (isManager) {
-                        it.position == MANAGER
-                    } else {
-                        it.position != MANAGER
-                    }
-                }
+                availablePlayers
+            // .filter {
+//                    if (isManager) {
+//                        it.position == MANAGER
+//                    } else {
+//                        it.position != MANAGER
+//                    }
+//                }
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -136,16 +133,16 @@ fun InsertMatchDialogStatsPlayers(
     val playersInBench = formationState.benchPlayers
 
     val availablePlayers = players
-        .filter { it.position != MANAGER }
-        .filter { it in playersInLineup || it in playersInBench }
-        .filter { player ->
-            when (statsState?.selectedStat) {
-                CleanSheets -> player !in statsState.cleanSheets
-                YellowCards -> statsState.yellowCards.count { it.id == player.id } < 2
-                RedCards -> player !in statsState.redCards
-                else -> true
-            }
-        }
+//        .filter { it.position != MANAGER }
+//        .filter { it in playersInLineup || it in playersInBench }
+//        .filter { player ->
+//            when (statsState?.selectedStat) {
+//                CLEAN_SHEET -> player !in statsState.cleanSheets
+//                YELLOW_CARDS -> statsState.yellowCards.count { it.id.value == player.id } < 2
+//                RED_CARDS -> player !in statsState.redCards
+//                else -> true
+//            }
+//        }
 
     GBDialog(
         modifier = Modifier.fillMaxSize(),
@@ -161,7 +158,7 @@ fun InsertMatchDialogStatsPlayers(
             item(span = { GridItemSpan(maxLineSpan) }) {
                 GBText(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    text = stringResource(statsState?.selectedStat?.statName ?: R.string.goals),
+                    text = "statName", // TODO stringResource(statsState?.selectedStat?.statName ?: R.string.goals),
                     alignment = Center,
                     style = gBTypography().titleMedium
                 )

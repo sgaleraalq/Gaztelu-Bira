@@ -36,8 +36,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
-import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerMapper.toGBPlayer
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
@@ -46,6 +45,7 @@ import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState
 import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.Bench
 import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LineUp
+import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAddButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBFootballField

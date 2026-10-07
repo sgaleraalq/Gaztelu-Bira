@@ -54,27 +54,25 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextOverflow.Companion.Visible
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
-import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerMapper.toGBPlayer
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Assists
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.CleanSheets
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Fails
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.GamesPlayed
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Goals
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.GoalsProvoked
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.PenaltiesProvoked
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Percentage
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.RedCards
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Saves
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.YellowCards
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.ASSIST
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.BLUE_CARDS
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.CLEAN_SHEET
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.FAILS
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.GOALS
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.GOALS_PROVOKED
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.PENALTIES_PROVOKED
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.RED_CARDS
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.SAVES
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.YELLOW_CARDS
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchStats
+import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
@@ -84,6 +82,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.ic_stats
+import org.jetbrains.compose.resources.painterResource
 
 private val STAT_BOX_SIZE = 75.dp
 private val PLAYER_STAT_BOX_SIZE = 20.dp
@@ -98,7 +99,7 @@ internal fun InsertMatchStats(
     removeStat: (Int, Stat) -> Unit
 ) {
     var showStat by remember { mutableStateOf<Stat?>(null) }
-    val insertableStats = Stat.entries.filter { it.isInsertable }
+    val insertableStats = Stat.entries // .filter { it.isInsertable } TODO
 
     LazyVerticalGrid(
         modifier = modifier,
@@ -153,7 +154,7 @@ internal fun InsertMatchStatBox(
         )
         GBText(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(stat.statName),
+            text = "stat", // stringResource(stat.statName),
             style = gBTypography().bodySmall.copy(fontSize = 10.sp),
             overflow = Visible,
             alignment = Center
@@ -182,7 +183,7 @@ internal fun StatBox(
             if (values.isEmpty()) {
                 GBIcon(
                     modifier = Modifier.fillMaxSize().padding(12.dp),
-                    icon = painterResource(stat.icon),
+                    icon = painterResource(Res.drawable.ic_stats), //painterResource(stat.icon),
                     size = 50.dp,
                     tint = Unspecified
                 )
@@ -279,7 +280,7 @@ internal fun InsertMatchStatPlayersBigBox(
         item {
             GBElevatedButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(stat.statTitle ?: R.string.insert_player),
+                text = "statTitle", // TODO stringResource(stat.statTitle ?: R.string.insert_player),
                 enabled = true,
                 onClick = { showPlayers() }
             )
@@ -295,11 +296,13 @@ internal fun StatsTitle(stat: Stat){
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            GBIcon(icon = painterResource(stat.icon))
+            GBIcon(
+                icon = painterResource(Res.drawable.ic_stats) // TODO painterResource(stat.icon)
+            )
             Spacer(Modifier.width(16.dp))
             GBText(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(stat.statName),
+                text = "statName", // TODO stringResource(stat.statName),
                 style = gBTypography().titleLarge,
                 textColor = elevated_button_text_color
             )
@@ -342,15 +345,16 @@ internal fun InsertMatchPlayerStat(
 
 private fun getPlayerStats(state: InsertMatchStats, stat: Stat): List<Player> {
     return when (stat) {
-        Assists -> state.assists
-        CleanSheets -> state.cleanSheets
-        Fails -> state.fails
-        Goals -> state.goals
-        GoalsProvoked -> state.goalsProvoked
-        PenaltiesProvoked -> state.penaltiesProvoked
-        RedCards -> state.redCards
-        Saves -> state.saves
-        YellowCards -> state.yellowCards
-        GamesPlayed, Percentage -> emptyList()
+        ASSIST -> state.assists
+        CLEAN_SHEET -> state.cleanSheets
+        FAILS -> state.fails
+        GOALS -> state.goals
+        GOALS_PROVOKED -> state.goalsProvoked
+        PENALTIES_PROVOKED -> state.penaltiesProvoked
+        RED_CARDS -> state.redCards
+        SAVES -> state.saves
+        YELLOW_CARDS -> state.yellowCards
+        BLUE_CARDS -> emptyList()
+//        GamesPlayed, Percentage -> emptyList()
     }
 }

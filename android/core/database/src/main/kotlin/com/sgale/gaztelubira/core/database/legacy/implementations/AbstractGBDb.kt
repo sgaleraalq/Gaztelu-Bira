@@ -17,7 +17,6 @@
 package com.sgale.gaztelubira.core.database.legacy.implementations
 
 import com.sgale.gaztelubira.core.database.legacy.GBDatabase
-import com.sgale.gaztelubira.core.database.legacy.dao.BaseDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
@@ -25,17 +24,6 @@ import kotlinx.coroutines.flow.mapLatest
 abstract class AbstractGBDb(
     protected val db: GBDatabase
 ) {
-//    private val matchesDao = db.getMatchesDao()
-//    private val playersDao = db.getPlayersDao()
-//    private val teamsDao = db.getTeamsDao()
-//
-//    suspend fun getMatchesMap(): Map<FirebaseId, Match> =
-//        matchesDao.getMatches().map { it.asModel() }.associateBy { it.id }
-//    suspend fun getPlayersMap(): Map<FirebaseId, Player> =
-//        playersDao.getPlayers().map { it.asModel() }.associateBy { it.id }
-//    suspend fun getTeamsMap(): Map<FirebaseId, Team> =
-//        teamsDao.getTeams().map { it.asModel() }.associateBy { it.id }
-
     @OptIn(ExperimentalCoroutinesApi::class)
     protected fun <Entity, Model, K : Comparable<K>> getFlow(
         source: Flow<List<Entity>>,
@@ -47,17 +35,4 @@ abstract class AbstractGBDb(
             list.forEach { element -> mapped += mapper(element) }
             mapped.sortedBy(keySelector)
         }
-
-    protected suspend fun <T, E> insertList(
-        items: List<T>,
-        mapper: (T) -> E,
-        dao: BaseDao<E>
-    ) {
-        runCatching {
-            items.forEach { item -> dao.insert(mapper(item)) }
-        }.onFailure { e ->
-            println("GBDatabase error inserting ${e.message}")
-            throw e
-        }
-    }
 }

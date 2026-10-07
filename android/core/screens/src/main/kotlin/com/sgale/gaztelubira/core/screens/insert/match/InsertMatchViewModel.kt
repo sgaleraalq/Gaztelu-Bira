@@ -18,23 +18,8 @@ package com.sgale.gaztelubira.core.screens.insert.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Assists
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.CleanSheets
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Fails
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.GamesPlayed
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Goals
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.GoalsProvoked
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.PenaltiesProvoked
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Percentage
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.RedCards
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Saves
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.YellowCards
-import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IInsert.FirebaseInsertResult.StatsInserted
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayers
-import com.sgale.gaztelubira.core.domain.legacy.usecase.firestore.insert.InsertNewMatch
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
@@ -59,15 +44,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class InsertMatchViewModel @Inject constructor(
-    private val getPlayers: GetPlayers,
-    private val insertNewMatch: InsertNewMatch
+//    private val getPlayers: GetPlayers,
+//    private val insertNewMatch: InsertNewMatch
 ) : ViewModel() {
     data class InsertMatchPosition(val position: Int = 0)
 
@@ -88,9 +72,10 @@ class InsertMatchViewModel @Inject constructor(
                 emptyList()
             }
             _players.value = withContext(Dispatchers.IO) {
-                getPlayers().first()
-                    .sortedBy { it.dorsal }
-                    .filter { it.dorsal != null }
+//                getPlayers().first()
+//                    .sortedBy { it.dorsal }
+//                    .filter { it.dorsal != null }
+                emptyList()
             }
         }
     }
@@ -168,12 +153,12 @@ class InsertMatchViewModel @Inject constructor(
     }
 
     private fun insertManager(manager: Player) {
-        _formationState.value = _formationState.value.copy(
-            managers = when (_formationState.value.selectedManager) {
-                First -> Pair(manager, _formationState.value.managers.second)
-                Second -> Pair(_formationState.value.managers.first, manager)
-            }
-        )
+//        _formationState.value = _formationState.value.copy(
+//            managers = when (_formationState.value.selectedManager) {
+//                First -> Pair(manager, _formationState.value.managers.second)
+//                Second -> Pair(_formationState.value.managers.first, manager)
+//            }
+//        )
     }
 
     private fun insertLineUpPlayer(player: Player, position: Int) {
@@ -247,108 +232,110 @@ class InsertMatchViewModel @Inject constructor(
 
     fun addStat(value: Player) {
         val stat = _statsState.value.selectedStat ?: return
-        if (!stat.isInsertable) return
-        _statsState.value = when (stat) {
-            Assists -> _statsState.value.copy(
-                assists = _statsState.value.assists + value
-            )
-
-            CleanSheets -> _statsState.value.copy(
-                cleanSheets = _statsState.value.cleanSheets + value
-            )
-
-            Fails -> _statsState.value.copy(
-                fails = _statsState.value.fails + value
-            )
-
-            Goals -> _statsState.value.copy(
-                goals = _statsState.value.goals + value
-            )
-
-            GoalsProvoked -> _statsState.value.copy(
-                goalsProvoked = _statsState.value.goalsProvoked + value
-            )
-
-            PenaltiesProvoked -> _statsState.value.copy(
-                penaltiesProvoked = _statsState.value.penaltiesProvoked + value
-            )
-
-            RedCards -> _statsState.value.copy(
-                redCards = _statsState.value.redCards + value
-            )
-
-            Saves -> _statsState.value.copy(
-                saves = _statsState.value.saves + value
-            )
-
-            YellowCards -> _statsState.value.copy(
-                yellowCards = _statsState.value.yellowCards + value
-            )
-
-            GamesPlayed, Percentage -> _statsState.value
-        }
+//        if (!stat.isInsertable) return
+//        _statsState.value = when (stat) {
+//            ASSIST -> _statsState.value.copy(
+//                assists = _statsState.value.assists + value
+//            )
+//
+//            CLEAN_SHEET -> _statsState.value.copy(
+//                cleanSheets = _statsState.value.cleanSheets + value
+//            )
+//
+//            FAILS -> _statsState.value.copy(
+//                fails = _statsState.value.fails + value
+//            )
+//
+//            GOALS -> _statsState.value.copy(
+//                goals = _statsState.value.goals + value
+//            )
+//
+//            GOALS_PROVOKED -> _statsState.value.copy(
+//                goalsProvoked = _statsState.value.goalsProvoked + value
+//            )
+//
+//            PENALTIES_PROVOKED -> _statsState.value.copy(
+//                penaltiesProvoked = _statsState.value.penaltiesProvoked + value
+//            )
+//
+//            RED_CARDS -> _statsState.value.copy(
+//                redCards = _statsState.value.redCards + value
+//            )
+//
+//            SAVES -> _statsState.value.copy(
+//                saves = _statsState.value.saves + value
+//            )
+//
+//            YELLOW_CARDS -> _statsState.value.copy(
+//                yellowCards = _statsState.value.yellowCards + value
+//            )
+//
+//            BLUE_CARDS -> Unit
+//             gamesPlayed, percentage-> _statsState.value
+//        }
     }
 
     fun removeStat(idx: Int, stat: Stat) {
-        if (!stat.isInsertable) return
+//        if (!stat.isInsertable) return
 
-        _statsState.value = when (stat) {
-            Assists -> _statsState.value.copy(
-                assists = _statsState.value.assists.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            CleanSheets -> _statsState.value.copy(
-                cleanSheets = _statsState.value.cleanSheets.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            Fails -> _statsState.value.copy(
-                fails = _statsState.value.fails.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            Goals -> _statsState.value.copy(
-                goals = _statsState.value.goals.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            GoalsProvoked -> _statsState.value.copy(
-                goalsProvoked = _statsState.value.goalsProvoked.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            PenaltiesProvoked -> _statsState.value.copy(
-                penaltiesProvoked = _statsState.value.penaltiesProvoked.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            RedCards -> _statsState.value.copy(
-                redCards = _statsState.value.redCards.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            Saves -> _statsState.value.copy(
-                saves = _statsState.value.saves.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            YellowCards -> _statsState.value.copy(
-                yellowCards = _statsState.value.yellowCards.toMutableList().apply {
-                    if (idx in indices) removeAt(idx)
-                }
-            )
-
-            GamesPlayed, Percentage -> _statsState.value
-        }
+//        _statsState.value = when (stat) {
+//            ASSIST -> _statsState.value.copy(
+//                assists = _statsState.value.assists.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            CLEAN_SHEET -> _statsState.value.copy(
+//                cleanSheets = _statsState.value.cleanSheets.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            FAILS -> _statsState.value.copy(
+//                fails = _statsState.value.fails.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            GOALS -> _statsState.value.copy(
+//                goals = _statsState.value.goals.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            GOALS_PROVOKED -> _statsState.value.copy(
+//                goalsProvoked = _statsState.value.goalsProvoked.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            PENALTIES_PROVOKED -> _statsState.value.copy(
+//                penaltiesProvoked = _statsState.value.penaltiesProvoked.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            RED_CARDS -> _statsState.value.copy(
+//                redCards = _statsState.value.redCards.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            SAVES -> _statsState.value.copy(
+//                saves = _statsState.value.saves.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            YELLOW_CARDS -> _statsState.value.copy(
+//                yellowCards = _statsState.value.yellowCards.toMutableList().apply {
+//                    if (idx in indices) removeAt(idx)
+//                }
+//            )
+//
+//            BLUE_CARDS -> Unit // TODO
+////            GamesPlayed, Percentage -> _statsState.value
+//        }
     }
 
     fun insertMatch(
@@ -366,33 +353,33 @@ class InsertMatchViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = Loading
             val matchInserted = withContext(Dispatchers.IO) {
-                insertNewMatch(
-                    match = matchModel,
-                    matchStats = createMatchStatsModel(matchInformation)
-                )
+//                insertNewMatch(
+//                    match = matchModel,
+//                    matchStats = createMatchStatsModel(matchInformation)
+//                )
             }
 
-            if (matchInserted is StatsInserted) {
-                state.navigateBack()
-            } else {
-                showErrorToast()
-            }
+//            if (matchInserted is StatsInserted) {
+//                state.navigateBack()
+//            } else {
+//                showErrorToast()
+//            }
             _uiState.value = Default
         }
     }
 
-    private fun createMatchStatsModel(match: InsertMatchTeamsInformation) =
-        MatchStatsModel(
-            id = match.id,
-            location = _informationState.value.location,
-            description = _informationState.value.description,
-            match = match.toMatchModel(),
-            formation = _formationState.value.formation.name,
-            lineUpPlayers = _formationState.value.getLineUpPlayers(),
-            benchPlayers = _formationState.value.benchPlayers,
-            managers = _formationState.value.managers.toList().filterNotNull(),
-            stats = _statsState.value.toStatsMatchModel()
-        )
+//    private fun createMatchStatsModel(match: InsertMatchTeamsInformation) =
+//        MatchStatsModel(
+//            id = match.id,
+//            location = _informationState.value.location,
+//            description = _informationState.value.description,
+//            match = match.toMatchModel(),
+//            formation = _formationState.value.formation.name,
+//            lineUpPlayers = _formationState.value.getLineUpPlayers(),
+//            benchPlayers = _formationState.value.benchPlayers,
+//            managers = _formationState.value.managers.toList().filterNotNull(),
+//            stats = _statsState.value.toStatsMatchModel()
+//        )
 
     private fun isValid(
         goalsScored: Int,

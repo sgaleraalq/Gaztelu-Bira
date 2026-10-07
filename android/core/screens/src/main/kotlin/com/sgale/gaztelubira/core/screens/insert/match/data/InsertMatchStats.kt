@@ -17,14 +17,13 @@
 package com.sgale.gaztelubira.core.screens.insert.match.data
 
 import androidx.compose.runtime.Stable
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStats
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stat.Goals
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat
+import com.sgale.gaztelubira.core.domain.migration.model.player.Stat.GOALS
 
 @Stable
 data class InsertMatchStats(
-    val selectedStat: Stat? = Goals,
+    val selectedStat: Stat? = GOALS,
     val assists: List<Player> = emptyList(),
     val cleanSheets: List<Player> = emptyList(),
     val fails: List<Player> = emptyList(),
@@ -35,15 +34,15 @@ data class InsertMatchStats(
     val saves: List<Player> = emptyList(),
     val yellowCards: List<Player> = emptyList()
 ) {
-    fun toStatsMatchModel() = MatchStats(
-        assists = assists,
-        cleanSheets = cleanSheets,
-        fails = fails,
-        goals = goals,
-        goalsProvoked = goalsProvoked,
-        penaltiesProvoked = penaltiesProvoked,
-        redCards = redCards,
-        saves = saves,
-        yellowCards = yellowCards
-    )
+//    fun toStatsMatchModel() = MatchStats(
+//        assists = assists,
+//        cleanSheets = cleanSheets,
+//        fails = fails,
+//        goals = goals,
+//        goalsProvoked = goalsProvoked,
+//        penaltiesProvoked = penaltiesProvoked,
+//        redCards = redCards,
+//        saves = saves,
+//        yellowCards = yellowCards
+//    )
 }
