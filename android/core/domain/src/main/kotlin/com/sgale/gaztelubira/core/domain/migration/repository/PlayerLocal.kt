@@ -20,11 +20,13 @@ import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 interface PlayerLocal {
     suspend fun getPlayer(id: PlayerId): Player
     suspend fun getPlayers(): List<Player>
     suspend fun getMatchPlayerStats(matchId: MatchId): List<PlayerStats>
+    suspend fun getSeasonPlayerStats(seasonId: SeasonId): List<PlayerStats>
     suspend fun insertPlayer(player: Player)
     suspend fun insertPlayers(players: List<Player>)
     suspend fun insertMatchStats(matchId: MatchId, stats: List<PlayerStats>)

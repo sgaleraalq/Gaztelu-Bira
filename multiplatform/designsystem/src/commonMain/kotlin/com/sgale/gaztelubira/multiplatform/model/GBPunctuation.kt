@@ -46,15 +46,17 @@ data class GBPunctuation(
         MIN_RED_CARDS
     }
 
-    fun updateValue(value: Int, field: PunctuationField): GBPunctuation =
-        when (field) {
-            GOALS -> copy(goals = value)
-            ASSISTS -> copy(assists = value)
-            CLEAN_SHEETS -> copy(cleanSheets = value)
-            PENALTIES_PROVOKED -> copy(penaltiesProvoked = value)
-            SAVES -> copy(saves = value)
-            FAILS -> copy(fails = value)
-            MIN_YELLOW_CARDS -> copy(minYellowCards = value)
-            MIN_RED_CARDS -> copy(minRedCards = value)
-        }
+    fun updateValue(
+        value: Int,
+        field: PunctuationField
+    ): GBPunctuation = when (field) {
+        GOALS -> copy(goals = value)
+        ASSISTS -> copy(assists = value)
+        CLEAN_SHEETS -> copy(cleanSheets = value)
+        PENALTIES_PROVOKED -> copy(penaltiesProvoked = value)
+        SAVES -> copy(saves = value)
+        FAILS -> copy(fails = value)
+        MIN_YELLOW_CARDS -> copy(minYellowCards = value)
+        MIN_RED_CARDS -> copy(minRedCards = value)
+    }
 }

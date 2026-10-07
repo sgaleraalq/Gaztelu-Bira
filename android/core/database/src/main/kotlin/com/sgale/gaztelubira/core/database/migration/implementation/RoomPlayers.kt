@@ -25,6 +25,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
 import javax.inject.Inject
 
@@ -40,6 +41,9 @@ internal class RoomPlayers @Inject constructor(
 
     override suspend fun getMatchPlayerStats(matchId: MatchId): List<PlayerStats> =
         playerDao.getMatchPlayerStats(matchId).map { it.asModel() }
+
+    override suspend fun getSeasonPlayerStats(seasonId: SeasonId): List<PlayerStats> =
+        playerDao.getSeasonPlayerStats(seasonId).map { it.asModel() }
 
     override suspend fun insertPlayer(player: Player) =
         playerDao.insertPlayer(player.asEntity())

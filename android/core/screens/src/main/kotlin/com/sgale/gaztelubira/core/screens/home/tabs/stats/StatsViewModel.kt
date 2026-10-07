@@ -18,112 +18,110 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
-import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toDetail
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toGBPlayerStat
-import com.sgale.gaztelubira.core.domain.legacy.model.stats.StatsMapper.toStat
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetMatches
-import com.sgale.gaztelubira.core.domain.legacy.usecase.db.GetPlayersStats
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.DEFENDER
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.FORWARD
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.GOALKEEPER
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MIDFIELDER
+import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.UNDEFINED
+import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
 import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
+import com.sgale.gaztelubira.core.domain.migration.usecase.GetSeasonPlayerStats
+import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
+import com.sgale.gaztelubira.core.domain.utils.formatDecimal
+import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
+import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
+import com.sgale.gaztelubira.multiplatform.model.GBPosition
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
+import com.sgale.gaztelubira.multiplatform.model.GBStat.BLUE_CARDS
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
+import com.sgale.gaztelubira.multiplatform.model.GBStatValue
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason.Companion.EMPTY_SEASONS
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.ShowPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.ChangePunctuation
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Companion.computing
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded.Default
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+private const val KEEP_ALIVE_MILLIS = 5_000L
+
 @HiltViewModel
 internal class StatsViewModel @Inject constructor(
-    private val getPlayerStats: GetPlayersStats,
+    selectedSeason: SelectedSeason,
+    private val getSquad: GetSquad,
+    private val getSeasonPlayerStats: GetSeasonPlayerStats,
     private val getMatches: GetMatches,
     private val seasonLocal: SeasonLocal,
-    private val selectedSeason: SelectedSeason,
     private val preferences: Preferences
 ) : ViewModel() {
-    private val _state = MutableStateFlow(StatsUiState())
-    internal val state: StateFlow<StatsUiState> = _state.asStateFlow()
+    private val seasonId = selectedSeason()
 
-    private val playersStats = MutableStateFlow<List<PlayerStats>?>(null)
-    private val matches = MutableStateFlow<List<Match>?>(null)
-    private val selectedStat = MutableStateFlow(PERCENTAGE.toStat())
+    private val seasonStats = seasonId.map { id ->
+        id?.let { loadSeasonStats(it) } ?: SeasonStats.EMPTY
+    }
 
-    private val handler = StatsHandler(
-        playersList = playersStats.filterNotNull(),
-        selectedStat = selectedStat,
-        matchesFlow = matches.filterNotNull(),
-        scope = viewModelScope
-    )
+    private val seasons = seasonId.map { id ->
+        val all = seasonLocal.getSeasons().map { StatsSeason(it.id.value, it.name) }
+        all.firstOrNull { it.id == id?.value }
+            ?.let { GBSeason(selectedSeason = it, seasons = all) }
+            ?: EMPTY_SEASONS
+    }
 
-    init {
-        viewModelScope.launch {
-            getPlayerStats()
-                .flowOn(IO)
-                .collect { playersStats.value = it }
-        }
+    private val selectedStat = MutableStateFlow(PERCENTAGE)
+    private val punctuation = MutableStateFlow(GBPunctuation())
+    private val screen = MutableStateFlow(StatsControls())
 
-        viewModelScope.launch {
-            getMatches()
-                .flowOn(IO)
-                .collect { matches.value = it }
-        }
+    internal val state: StateFlow<StatsUiState> =
+        combine(
+            seasonStats,
+            seasons,
+            selectedStat,
+            punctuation,
+            screen
+        ) { season, seasons, stat, punctuation, screen ->
+            StatsUiState(
+                state = screen.state,
+                selectedStat = stat,
+                players = StatsCalculator.rank(season, stat, punctuation)
+                    .map { it.toGBPlayerStat(stat) },
+                punctuation = punctuation,
+                selectedPlayer = screen.selectedPlayer?.let { season.toDetail(it, punctuation) },
+                seasons = seasons,
+                settings = screen.settings
+            )
+        }.stateIn(
+            scope = viewModelScope,
+            started = WhileSubscribed(KEEP_ALIVE_MILLIS),
+            initialValue = StatsUiState()
+        )
 
-        viewModelScope.launch {
-            handler.statsDisplayed.filterNotNull().collect { ranking ->
-                _state.update { state ->
-                    state.copy(
-                        state = Default,
-                        players = ranking.map { it.toGBPlayerStat(state.selectedStat) }
-                    )
-                }
-            }
-        }
-
-        viewModelScope.launch {
-            handler.valueChanged.collect { recomputing ->
-                if (!recomputing) return@collect
-                _state.update { state ->
-                    state.copy(state = computing(state.players.isEmpty()))
-                }
-            }
-        }
-
-        viewModelScope.launch {
-            val seasons = withContext(IO) {
-                seasonLocal.getSeasons()
-            }.map { season -> StatsSeason(season.id.value, season.name) }
-
-            selectedSeason()
-                .flowOn(IO)
-                .mapNotNull { selectedId -> seasons.firstOrNull { it.id == selectedId?.value } }
-                .collect { selected ->
-                    _state.update {
-                        it.copy(seasons = GBSeason(selectedSeason = selected, seasons = seasons))
-                    }
-                }
-        }
+    internal fun onChangeState(newState: GBStatsState) {
+        screen.update { it.copy(state = newState) }
     }
 
     internal fun onChangeSeason(newSeason: String) {
@@ -133,47 +131,85 @@ internal class StatsViewModel @Inject constructor(
         }
     }
 
-    internal fun onChangeState(newState: GBStatsState) {
-        _state.update { it.copy(state = newState) }
-    }
-
     internal fun onStatSelected(stat: GBStat) {
-        selectedStat.value = stat.toStat()
-        _state.update { it.copy(selectedStat = stat) }
+        selectedStat.value = stat
     }
 
     internal fun onPunctuationDraftChanged(punctuation: GBPunctuation) {
-        _state.update { state ->
-            state.copy(settings = GBStatsSettings.ChangePunctuation(punctuation))
-        }
+        screen.update { it.copy(settings = ChangePunctuation(punctuation)) }
     }
 
     /**
      * Only now does the leaderboard get rescored: the sliders were editing a draft.
      */
     internal fun onPunctuationConfirmed(punctuation: GBPunctuation) {
-        _state.update { it.copy(punctuation = punctuation) }
-        handler.changePunctuation(punctuation)
+        this.punctuation.value = punctuation
     }
 
     internal fun onSettingsChanged(settings: GBStatsSettings) {
-        _state.update { it.copy(settings = settings) }
+        screen.update { it.copy(settings = settings) }
     }
 
     internal fun onPlayerAction(action: GBStatsPlayerModal) {
-        when (action) {
-            DismissPlayer -> onPlayerDismissed()
-            is ShowPlayer -> onPlayerSelected(action.id)
+        val selectedPlayer = when (action) {
+            DismissPlayer -> null
+            is ShowPlayer -> PlayerId(action.id)
         }
+        screen.update { it.copy(selectedPlayer = selectedPlayer) }
     }
 
-    private fun onPlayerSelected(playerId: String) {
-        val player = playersStats.value?.find { it.id == playerId } ?: return
-        val percentage = handler.calculatePercentage(player, _state.value.punctuation)
-        _state.update { it.copy(selectedPlayer = player.toDetail(percentage)) }
+    private suspend fun loadSeasonStats(seasonId: SeasonId) =
+        SeasonStats(
+            squad = getSquad(seasonId),
+            stats = getSeasonPlayerStats(seasonId).groupBy { it.playerId },
+            lastMatchId = getMatches(seasonId).maxByOrNull { it.information.date }?.id
+        )
+
+    private fun RankedPlayer.toGBPlayerStat(stat: GBStat): GBPlayerStat =
+        GBPlayerStat(
+            id = player.player.id.value,
+            name = player.player.displayName(),
+            dorsal = player.dorsal,
+            faceImage = player.player.faceImage,
+            bodyImage = player.player.bodyImage,
+            position = player.position.toGBPosition(),
+            value = formatDecimal(value),
+            changedPosition = changedPosition
+        )
+
+    private fun SeasonStats.toDetail(
+        id: PlayerId,
+        punctuation: GBPunctuation
+    ): GBPlayerStatsDetail? {
+        val player = squad.find { it.player.id == id }?.player ?: return null
+        val playerStats = stats[id].orEmpty()
+
+        return GBPlayerStatsDetail(
+            name = player.displayName(),
+            faceImage = player.faceImage,
+            stats = GBStat.entries.filter { it != BLUE_CARDS }.map { stat ->
+                val value = formatDecimal(StatsCalculator.total(playerStats, stat, punctuation))
+                GBStatValue(stat, if (stat == PERCENTAGE) "$value %" else value)
+            }
+        )
     }
 
-    private fun onPlayerDismissed() {
-        _state.update { it.copy(selectedPlayer = null) }
-    }
+    private fun Player.displayName(): String =
+        nickname ?: name
+
+    private fun Position.toGBPosition() =
+        when (this) {
+            UNDEFINED -> GBPosition.UNDEFINED
+            MANAGER -> GBPosition.MANAGER
+            GOALKEEPER -> GBPosition.GOALKEEPER
+            DEFENDER -> GBPosition.DEFENDER
+            MIDFIELDER -> GBPosition.MIDFIELDER
+            FORWARD -> GBPosition.FORWARD
+        }
+
+    private data class StatsControls(
+        val state: GBStatsState = Default,
+        val settings: GBStatsSettings = Hidden,
+        val selectedPlayer: PlayerId? = null
+    )
 }

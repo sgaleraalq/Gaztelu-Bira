@@ -40,7 +40,6 @@ internal class TeamViewModel @Inject constructor(
     selectedSeason: SelectedSeason,
     getSquad: GetSquad
 ) : ViewModel() {
-
     private val isAdmin = MutableStateFlow(false)
 
     private val squad = selectedSeason().map { season ->

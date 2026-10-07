@@ -25,6 +25,7 @@ import com.sgale.gaztelubira.core.database.migration.entity.PlayerEntity
 import com.sgale.gaztelubira.core.database.migration.entity.PlayerStatsEntity
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 @Dao
 internal interface PlayerDao {
@@ -36,6 +37,15 @@ internal interface PlayerDao {
 
     @Query("SELECT * FROM PlayerStatsEntity WHERE matchId = :matchId")
     suspend fun getMatchPlayerStats(matchId: MatchId): List<PlayerStatsEntity>
+
+    @Query(
+        """
+        SELECT PlayerStatsEntity.* FROM PlayerStatsEntity
+        INNER JOIN MatchEntity ON MatchEntity.id = PlayerStatsEntity.matchId
+        WHERE MatchEntity.seasonId = :seasonId
+        """
+    )
+    suspend fun getSeasonPlayerStats(seasonId: SeasonId): List<PlayerStatsEntity>
 
     @Insert(onConflict = REPLACE)
     suspend fun insertPlayer(entity: PlayerEntity)
