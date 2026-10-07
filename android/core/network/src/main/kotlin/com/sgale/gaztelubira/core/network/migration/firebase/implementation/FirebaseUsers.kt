@@ -14,30 +14,31 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.network.legacy.firebase.implementation
+package com.sgale.gaztelubira.core.network.migration.firebase.implementation
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.FirebaseConstants.USERS
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.network.legacy.firebase.response.user.UserMapper.asModel
-import com.sgale.gaztelubira.core.network.legacy.firebase.response.user.UserMapper.asResponse
-import com.sgale.gaztelubira.core.network.legacy.firebase.response.user.UserResponse
+import com.sgale.gaztelubira.core.network.migration.firebase.mapper.UserMapper.asModel
+import com.sgale.gaztelubira.core.network.migration.firebase.mapper.UserMapper.asResponse
+import com.sgale.gaztelubira.core.network.migration.firebase.response.UserResponse
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
+import kotlin.Result.Companion.success
 import kotlin.coroutines.resume
 
 class FirebaseUsers @Inject constructor(
     private val firestore: FirebaseFirestore
 ) : IFbUsers {
-
-    override suspend fun getUser(uid: FirebaseId): UserSession? =
+    override suspend fun getUser(uid: UserId): UserSession? =
         coroutineScope {
             val team = async { getUserTeam() }.await()
             val user = async { getUserInformation(uid) }.await()
@@ -50,9 +51,11 @@ class FirebaseUsers @Inject constructor(
             }
         }
 
-    override suspend fun insertUser(user: UserModel): Boolean {
+    override suspend fun insertUser(user: User): Boolean {
         return suspendCancellableCoroutine { cancellableContinuation ->
-            firestore.collection(USERS).document(user.uid).set(user.asResponse())
+            firestore.collection(USERS)
+                .document(user.uid.value)
+                .set(user.asResponse())
                 .addOnSuccessListener {
                     cancellableContinuation.resume(true)
                 }.addOnFailureListener {
@@ -61,12 +64,14 @@ class FirebaseUsers @Inject constructor(
         }
     }
 
-    override suspend fun isUserInserted(uid: FirebaseId): UserModel? {
+    override suspend fun isUserInserted(uid: UserId): User? {
         return suspendCancellableCoroutine { cancellableContinuation ->
-            firestore.collection(USERS).document(uid).get()
+            firestore.collection(USERS)
+                .document(uid.value)
+                .get()
                 .addOnSuccessListener { snapshot ->
                     val userResponse = snapshot.toObject(UserResponse::class.java)
-                    cancellableContinuation.resumeWith(Result.success(userResponse?.asModel()))
+                    cancellableContinuation.resumeWith(success(userResponse?.asModel()))
                 }
                 .addOnFailureListener {
                     cancellableContinuation.resume(null)
@@ -74,12 +79,14 @@ class FirebaseUsers @Inject constructor(
         }
     }
 
-    private suspend fun getUserInformation(uid: String): UserModel? {
+    private suspend fun getUserInformation(uid: UserId): User? {
         return suspendCancellableCoroutine { cancellableContinuation ->
-            firestore.collection(USERS).document(uid).get()
+            firestore.collection(USERS)
+                .document(uid.value)
+                .get()
                 .addOnSuccessListener { snapshot ->
                     val userResponse = snapshot.toObject(UserResponse::class.java)
-                    cancellableContinuation.resumeWith(Result.success(userResponse?.asModel()))
+                    cancellableContinuation.resumeWith(success(userResponse?.asModel()))
                 }
                 .addOnFailureListener {
                     cancellableContinuation.resume(null)
@@ -87,7 +94,7 @@ class FirebaseUsers @Inject constructor(
         }
     }
 
-    private fun getPlayerId(uid: String): FirebaseId {
+    private fun getPlayerId(uid: UserId): FirebaseId {
         return "TODO"
     }
 

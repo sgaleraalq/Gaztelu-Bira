@@ -19,13 +19,6 @@ package com.sgale.gaztelubira.core.screens
 import android.content.Context
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
-import com.sgale.gaztelubira.multiplatform.model.GBTeam
 
 internal fun showToast(
     context: Context,
@@ -33,17 +26,3 @@ internal fun showToast(
 ) {
     makeText(context, msg, LENGTH_SHORT).show()
 }
-
-internal fun MatchResult.toGBMatchResult() =
-    when (this) {
-        DEFEAT -> GBMatchResult.DEFEAT
-        DRAW -> GBMatchResult.DRAW
-        VICTORY -> GBMatchResult.VICTORY
-    }
-
-internal fun Team.toGBTeam(): GBTeam =
-    GBTeam(
-        id = id.value,
-        name = name,
-        logo = logo
-    )

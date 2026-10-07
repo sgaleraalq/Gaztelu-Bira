@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.legacy.model.user
+package com.sgale.gaztelubira.core.network.migration.firebase.response
 
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserRole.GUEST
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
-
-data class UserModel(
-    val uid: FirebaseId,
-    val name: String?,
-    val email: String?,
+internal data class UserResponse(
+    val id: String = "",
+    val email: String = "",
     val img: String? = null,
-    val role: UserRole = GUEST
+    val name: String = "",
+    val role: String = ""
 )

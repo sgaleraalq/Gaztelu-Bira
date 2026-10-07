@@ -28,7 +28,8 @@ import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.LOGIN_ER
 import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.SIGN_UP_ERROR
 import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
 import com.sgale.gaztelubira.core.domain.auth.usecase.LoginGoogle
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -53,8 +54,8 @@ internal class AuthRepositoryImpl @Inject constructor(
             val user = result.user ?: error(SIGN_UP_ERROR)
             updateUserName(name, user)
             Success(
-                UserModel(
-                    uid = user.uid,
+                User(
+                    uid = UserId(user.uid),
                     name = user.displayName,
                     email = user.email
                 )
@@ -69,8 +70,8 @@ internal class AuthRepositoryImpl @Inject constructor(
             auth.signInWithEmailAndPassword(email, password).await()
             val user = auth.currentUser ?: error(LOGIN_ERROR)
             Success(
-                UserModel(
-                    uid = user.uid,
+                User(
+                    uid = UserId(user.uid),
                     name = user.displayName,
                     email = user.email
                 )

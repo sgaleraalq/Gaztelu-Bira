@@ -18,15 +18,7 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.DEFENDER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.FORWARD
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.GOALKEEPER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MIDFIELDER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.UNDEFINED
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
 import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
@@ -34,16 +26,12 @@ import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetSeasonPlayerStats
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
-import com.sgale.gaztelubira.core.domain.utils.formatDecimal
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.StatsCalculator.rank
-import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
-import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
-import com.sgale.gaztelubira.multiplatform.model.GBPosition
+import com.sgale.gaztelubira.core.screens.mapper.StatsUiMapper.toDetail
+import com.sgale.gaztelubira.core.screens.mapper.StatsUiMapper.toGBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
-import com.sgale.gaztelubira.multiplatform.model.GBStat.BLUE_CARDS
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
-import com.sgale.gaztelubira.multiplatform.model.GBStatValue
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason.Companion.EMPTY_SEASONS
@@ -164,48 +152,6 @@ internal class StatsViewModel @Inject constructor(
             stats = getSeasonPlayerStats(seasonId).groupBy { it.playerId },
             lastMatchId = getMatches(seasonId).maxByOrNull { it.information.date }?.id
         )
-
-    private fun RankedPlayer.toGBPlayerStat(): GBPlayerStat =
-        GBPlayerStat(
-            id = player.player.id.value,
-            name = player.player.displayName(),
-            dorsal = player.dorsal,
-            faceImage = player.player.faceImage,
-            bodyImage = player.player.bodyImage,
-            position = player.position.toGBPosition(),
-            value = formatDecimal(value),
-            changedPosition = changedPosition
-        )
-
-    private fun SeasonStats.toDetail(
-        id: PlayerId,
-        punctuation: GBPunctuation
-    ): GBPlayerStatsDetail? {
-        val player = squad.find { it.player.id == id }?.player ?: return null
-        val playerStats = stats[id].orEmpty()
-
-        return GBPlayerStatsDetail(
-            name = player.displayName(),
-            faceImage = player.faceImage,
-            stats = GBStat.entries.filter { it != BLUE_CARDS }.map { stat ->
-                val value = formatDecimal(StatsCalculator.total(playerStats, stat, punctuation))
-                GBStatValue(stat, if (stat == PERCENTAGE) "$value %" else value)
-            }
-        )
-    }
-
-    private fun Player.displayName(): String =
-        nickname ?: name
-
-    private fun Position.toGBPosition() =
-        when (this) {
-            UNDEFINED -> GBPosition.UNDEFINED
-            MANAGER -> GBPosition.MANAGER
-            GOALKEEPER -> GBPosition.GOALKEEPER
-            DEFENDER -> GBPosition.DEFENDER
-            MIDFIELDER -> GBPosition.MIDFIELDER
-            FORWARD -> GBPosition.FORWARD
-        }
 
     private data class StatsControls(
         val state: GBStatsState = Default,

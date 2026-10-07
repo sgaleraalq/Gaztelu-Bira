@@ -22,17 +22,17 @@ import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult.GoogleLogin
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult.GoogleSignUp
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.usecase.users.InsertUser
 import com.sgale.gaztelubira.core.domain.legacy.usecase.users.IsUserInserted
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
 import javax.inject.Inject
 
 class LoginGoogle @Inject constructor(
     private val isUserInserted: IsUserInserted,
     private val insertUser: InsertUser
 ) {
-    suspend operator fun invoke(user: UserModel?): AuthResult {
+    suspend operator fun invoke(user: User?): AuthResult {
         return if (user != null) {
             when (val googleResult = resolveGoogleUser(user.uid)) {
                 is GoogleLogin -> { loginGoogle(googleResult.user) }
@@ -43,7 +43,7 @@ class LoginGoogle @Inject constructor(
         }
     }
 
-    private suspend fun resolveGoogleUser(id: FirebaseId): GoogleResult {
+    private suspend fun resolveGoogleUser(id: UserId): GoogleResult {
         val user = isUserInserted(id)
         return if (user != null) {
             GoogleLogin(user)
@@ -52,8 +52,8 @@ class LoginGoogle @Inject constructor(
         }
     }
 
-    private fun loginGoogle(user: UserModel): AuthResult = Success(user)
-    private suspend fun signupGoogle(user: UserModel): AuthResult {
+    private fun loginGoogle(user: User): AuthResult = Success(user)
+    private suspend fun signupGoogle(user: User): AuthResult {
         val inserted = insertUser(user)
         return if (inserted) {
             Success(user)

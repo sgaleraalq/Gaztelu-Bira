@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.domain.auth
 
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
 
 sealed interface GoogleResult {
     data class GoogleLogin(
-        val user: UserModel
+        val user: User
     ): GoogleResult
     data object GoogleSignUp: GoogleResult
 }

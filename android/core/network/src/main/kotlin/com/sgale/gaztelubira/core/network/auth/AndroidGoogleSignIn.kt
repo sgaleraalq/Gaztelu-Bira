@@ -30,8 +30,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserRole.GUEST
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserRole.GUEST
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -47,7 +48,7 @@ internal class AndroidGoogleSignIn @Inject constructor(
 ) : IGoogleSignIn {
     private val firebaseAuth = Firebase.auth
 
-    override suspend fun signIn(): UserModel? {
+    override suspend fun signIn(): User? {
         return try {
             credentialManager
                 .getCredential(context = context, request = credentialRequest())
@@ -70,12 +71,12 @@ internal class AndroidGoogleSignIn @Inject constructor(
             null
         }
 
-    private suspend fun authenticate(googleId: GoogleIdTokenCredential): UserModel? {
+    private suspend fun authenticate(googleId: GoogleIdTokenCredential): User? {
         val credential = GoogleAuthProvider.getCredential(googleId.idToken, null)
         val user = firebaseAuth.signInWithCredential(credential).await().user ?: return null
 
-        return UserModel(
-            uid = user.uid,
+        return User(
+            uid = UserId(user.uid),
             name = user.displayName,
             email = user.email,
             img = googleId.profilePictureUri?.toString(),

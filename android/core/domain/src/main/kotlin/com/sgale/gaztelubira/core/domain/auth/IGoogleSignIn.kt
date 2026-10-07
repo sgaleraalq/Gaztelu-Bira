@@ -16,16 +16,16 @@
 
 package com.sgale.gaztelubira.core.domain.auth
 
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
 
 /**
  * Opens the platform's Google sign-in flow. Each platform brings its own way of
- * asking the user for an account; what comes back is always a [UserModel].
+ * asking the user for an account; what comes back is always a [User].
  */
 interface IGoogleSignIn {
     /**
      * @return the signed-in user, or null when the user backs out or the platform
      * cannot complete the flow.
      */
-    suspend fun signIn(): UserModel?
+    suspend fun signIn(): User?
 }

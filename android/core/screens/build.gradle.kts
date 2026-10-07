@@ -43,7 +43,6 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:domain"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:preview"))
 
     /**
      * Multiplatform

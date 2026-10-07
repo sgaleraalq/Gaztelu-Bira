@@ -21,7 +21,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.repository.StorageRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.TeamRemote
+import com.sgale.gaztelubira.core.domain.migration.util.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.migration.util.FirebaseInsertResult.Inserted
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.migration.firebase.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.network.migration.firebase.mapper.TeamMapper.asModel
@@ -30,8 +33,15 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 internal class FirestoreTeam @Inject constructor(
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    private val firebaseStorage: StorageRemote
 ): TeamRemote {
+    
+    override suspend fun insertTeam(team: Team): FirebaseInsertResult {
+        val path = firebaseStorage.insertImage()
+        return Inserted
+    }
+
     override suspend fun fetchTeams(seasonId: SeasonId): List<Team> =
         teams(seasonId)
             .get()

@@ -19,7 +19,9 @@ package com.sgale.gaztelubira.core.network.migration.di
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.PlayerRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.SeasonRemote
+import com.sgale.gaztelubira.core.domain.migration.repository.StorageRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.TeamRemote
+import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirebaseStorage
 import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestoreMatches
 import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestorePlayers
 import com.sgale.gaztelubira.core.network.migration.firebase.implementation.FirestoreSeason
@@ -35,25 +37,31 @@ import javax.inject.Singleton
 internal object NetworkModule {
     @Provides
     @Singleton
-    fun providePlayerRemote(
-        firestorePlayers: FirestorePlayers
-    ): PlayerRemote = firestorePlayers
-
-    @Provides
-    @Singleton
-    fun provideSeasonRemote(
-        firestoreSeason: FirestoreSeason
-    ): SeasonRemote = firestoreSeason
-
-    @Provides
-    @Singleton
-    fun provideMatchRemote(
+    internal fun provideMatchRemote(
         firestoreMatches: FirestoreMatches
     ): MatchRemote = firestoreMatches
 
     @Provides
     @Singleton
-    fun provideTeamRemote(
+    internal fun providePlayerRemote(
+        firestorePlayers: FirestorePlayers
+    ): PlayerRemote = firestorePlayers
+
+    @Provides
+    @Singleton
+    internal fun provideSeasonRemote(
+        firestoreSeason: FirestoreSeason
+    ): SeasonRemote = firestoreSeason
+
+    @Provides
+    @Singleton
+    internal fun provideStorage(
+        firebaseStorage: FirebaseStorage
+    ): StorageRemote = firebaseStorage
+
+    @Provides
+    @Singleton
+    internal fun provideTeamRemote(
         firestoreTeam: FirestoreTeam
     ): TeamRemote = firestoreTeam
 }

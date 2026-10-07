@@ -17,10 +17,10 @@
 package com.sgale.gaztelubira.core.database.legacy.entities.user
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
 
-object UserMapper: DatabaseMapper<UserModel, UserEntity> {
-    override fun UserModel.asEntity() =
+object UserMapper: DatabaseMapper<User, UserEntity> {
+    override fun User.asEntity() =
         UserEntity(
             id = uid,
             name = name.orEmpty(),
@@ -30,7 +30,7 @@ object UserMapper: DatabaseMapper<UserModel, UserEntity> {
         )
 
     override fun UserEntity.asModel() =
-        UserModel(
+        User(
             uid = id,
             name = name,
             email = email,

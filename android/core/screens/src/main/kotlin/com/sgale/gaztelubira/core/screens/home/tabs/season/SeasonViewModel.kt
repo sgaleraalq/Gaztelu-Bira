@@ -18,14 +18,12 @@ package com.sgale.gaztelubira.core.screens.home.tabs.season
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetTeams
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
-import com.sgale.gaztelubira.core.screens.toGBMatchResult
-import com.sgale.gaztelubira.multiplatform.model.GBSeason
-import com.sgale.gaztelubira.multiplatform.model.GBTeam
+import com.sgale.gaztelubira.core.screens.mapper.SeasonUiMapper.toGBSeason
+import com.sgale.gaztelubira.core.screens.mapper.TeamUiMapper.toGBTeam
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.SeasonUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -79,23 +77,4 @@ internal class SeasonViewModel @Inject constructor(
         this.isAdmin.value = isAdmin
     }
 
-    private fun Team.toGBTeam(): GBTeam =
-        GBTeam(
-            id = id.value,
-            name = name,
-            logo = logo
-        )
-
-    private fun TeamSeason.toGBSeason(): GBSeason =
-        GBSeason(
-            points = points,
-            games = games,
-            wins = wins,
-            draws = draws,
-            loses = loses,
-            goalsFor = goalsFor,
-            goalsAgainst = goalsAgainst,
-            currentStreak = streak.currentStreak,
-            lastGames = streak.lastGames.map { it.toGBMatchResult() }
-        )
 }

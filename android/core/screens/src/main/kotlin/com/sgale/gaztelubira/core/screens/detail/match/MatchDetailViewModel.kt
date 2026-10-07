@@ -21,32 +21,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchDetail
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.BENCH
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.FIVE_THREE_TWO
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.FOUR_FOUR_TWO
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatchDetail
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatchPlayerStats
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetPlayers
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetTeam
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA
-import com.sgale.gaztelubira.core.screens.toGBTeam
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.multiplatform.model.GBPlayer
-import com.sgale.gaztelubira.multiplatform.model.GBTeam
+import com.sgale.gaztelubira.core.screens.mapper.MatchDetailUiMapper.toMatchDetailInformation
+import com.sgale.gaztelubira.core.screens.mapper.MatchDetailUiMapper.toMatchDetailLineUp
+import com.sgale.gaztelubira.core.screens.mapper.MatchDetailUiMapper.toMatchDetailStats
+import com.sgale.gaztelubira.core.screens.mapper.TeamUiMapper.toGBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailInformation
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailLineUp
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
-import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailStats
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -107,68 +93,4 @@ internal class MatchDetailViewModel @Inject constructor(
             stats = stats
         )
     }
-
-    private fun MatchDetail.toMatchDetailInformation(
-        localTeam: GBTeam,
-        visitorTeam: GBTeam
-    ) = MatchDetailInformation(
-        local = localTeam,
-        visitor = visitorTeam,
-        date = match.information.date,
-        description = match.information.description,
-        location = match.information.location
-    )
-
-    private fun MatchDetail.toMatchDetailLineUp(
-        players: Map<PlayerId, Player>
-    ) = MatchDetailLineUp(
-        benchPlayers = this.players.toGBPlayers(BENCH, players),
-        managers = this.players.toGBPlayers(MANAGER, players),
-        matchFormation = match.match.formation.toLineUpFormation(),
-        players = this.players
-            .mapNotNull { p -> p.formationPosition?.let { it - 1 to p.playerId.toGBPlayer(players) } }
-            .toMap()
-    )
-
-    private fun List<PlayerStats>.toMatchDetailStats(
-        players: Map<PlayerId, Player>
-    ): MatchDetailStats {
-        fun playersWith(stat: (PlayerStats) -> Number) =
-            filter { stat(it).toDouble() > 0 }.map { it.playerId.toGBPlayer(players) }
-
-        return MatchDetailStats(
-            assists = playersWith { it.assists },
-            blueCards = playersWith { it.blueCards },
-            cleanSheets = playersWith { it.cleanSheets },
-            fails = playersWith { it.fails },
-            goals = playersWith { it.goals },
-            goalsProvoked = playersWith { it.goalsProvoked },
-            penaltiesProvoked = playersWith { it.penaltiesProvoked },
-            redCards = playersWith { it.redCards },
-            saves = playersWith { it.saves },
-            yellowCards = playersWith { it.yellowCards }
-        )
-    }
-
-    private fun TeamFormation.toLineUpFormation(): LineUpFormation =
-        when (this) {
-            FOUR_FOUR_TWO -> LineUpFormation.FOUR_FOUR_TWO
-            FIVE_THREE_TWO -> LineUpFormation.FIVE_THREE_TWO
-        }
-
-    private fun PlayerId.toGBPlayer(
-        players: Map<PlayerId, Player>
-    ): GBPlayer {
-        val player = players[this]
-        return GBPlayer(
-            id = value,
-            name = player?.name.orEmpty(),
-            image = player?.faceImage
-        )
-    }
-
-    private fun List<MatchLineupPlayer>.toGBPlayers(
-        filterState: MatchPlayerState,
-        players: Map<PlayerId, Player>
-    ): List<GBPlayer> = filter { it.state == filterState }.map { it.playerId.toGBPlayer(players) }
 }

@@ -18,7 +18,9 @@ package com.sgale.gaztelubira.core.domain.migration.repository
 
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.util.FirebaseInsertResult
 
 interface TeamRemote {
+    suspend fun insertTeam(team: Team): FirebaseInsertResult
     suspend fun fetchTeams(seasonId: SeasonId): List<Team>
 }

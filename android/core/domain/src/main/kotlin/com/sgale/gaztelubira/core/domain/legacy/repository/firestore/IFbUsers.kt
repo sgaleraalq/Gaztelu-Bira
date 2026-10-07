@@ -17,11 +17,11 @@
 package com.sgale.gaztelubira.core.domain.legacy.repository.firestore
 
 import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
 
 interface IFbUsers {
-    suspend fun getUser(uid: FirebaseId): UserSession?
-    suspend fun insertUser(user: UserModel): Boolean
-    suspend fun isUserInserted(uid: FirebaseId): UserModel?
+    suspend fun getUser(uid: UserId): UserSession?
+    suspend fun insertUser(user: User): Boolean
+    suspend fun isUserInserted(uid: UserId): User?
 }

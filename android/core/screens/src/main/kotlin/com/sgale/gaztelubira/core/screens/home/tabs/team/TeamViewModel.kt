@@ -19,10 +19,9 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
-import com.sgale.gaztelubira.multiplatform.model.GBPlayer
+import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -52,8 +51,8 @@ internal class TeamViewModel @Inject constructor(
             isAdmin
         ) { squad, admin ->
             TeamUiState(
-                players = squad.filterNot { it.position == MANAGER }.map { it.asGBPlayer() },
-                managers = squad.filter { it.position == MANAGER }.map { it.asGBPlayer() },
+                players = squad.filterNot { it.position == MANAGER }.map { it.toGBPlayer() },
+                managers = squad.filter { it.position == MANAGER }.map { it.toGBPlayer() },
                 isAdmin = admin
             )
         }.stateIn(
@@ -65,12 +64,4 @@ internal class TeamViewModel @Inject constructor(
     internal fun onAdminChanged(isAdmin: Boolean) {
         this.isAdmin.value = isAdmin
     }
-
-    private fun SquadPlayer.asGBPlayer() =
-        GBPlayer(
-            id = player.id.value,
-            name = player.nickname ?: player.name,
-            image = player.faceImage,
-            dorsal = dorsal
-        )
 }

@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.domain.auth
 
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
 
 sealed interface AuthResult {
     data class Success(
-        val user: UserModel
+        val user: User
     ): AuthResult
 
     data class Error(

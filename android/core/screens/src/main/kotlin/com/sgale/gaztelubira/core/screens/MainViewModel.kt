@@ -22,6 +22,7 @@ import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.auth.usecase.IsUserAuthenticated
 import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
 import com.sgale.gaztelubira.core.domain.legacy.usecase.users.GetUser
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
 import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
 import com.sgale.gaztelubira.core.navigation.Destination.Home
 import com.sgale.gaztelubira.core.navigation.Destination.Welcome
@@ -138,7 +139,7 @@ class MainViewModel @Inject constructor(
     private fun resolveUser(userId: String) {
         viewModelScope.launch {
             _userSession.value = withContext(Dispatchers.IO) {
-                getUserSession(userId)
+                getUserSession(UserId(userId))
             }
         }
     }

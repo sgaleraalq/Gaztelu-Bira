@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.database.legacy.entities.user
 
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserRole
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.UserSessionId
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserRole
 
 data class UserEntity(
-    val id: UserSessionId,
+    val id: UserId,
     val name: String,
     val email: String,
     val img: String?,

@@ -16,13 +16,13 @@
 
 package com.sgale.gaztelubira.core.domain.legacy.usecase.users
 
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
 import com.sgale.gaztelubira.core.domain.legacy.repository.firestore.IFbUsers
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
 import javax.inject.Inject
 
 class InsertUser @Inject constructor(
     private val repository: IFbUsers
 ) {
-    suspend operator fun invoke(user: UserModel): Boolean =
+    suspend operator fun invoke(user: User): Boolean =
         repository.insertUser(user)
 }

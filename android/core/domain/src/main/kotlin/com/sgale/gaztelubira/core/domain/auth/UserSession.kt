@@ -16,13 +16,13 @@
 
 package com.sgale.gaztelubira.core.domain.auth
 
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserModel
-import com.sgale.gaztelubira.core.domain.legacy.model.user.UserRole.ADMIN
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.migration.model.user.UserRole.ADMIN
 
 data class UserSession(
-    val session: UserModel,
+    val session: User,
     val team: Team,
     val player: FirebaseId? = null
 ) {

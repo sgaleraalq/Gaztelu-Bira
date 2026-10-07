@@ -21,6 +21,5 @@ import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 
 interface PlayerRemote {
     suspend fun fetchPlayer(id: PlayerId): Player?
-
     suspend fun fetchPlayers(): List<Player>
 }
