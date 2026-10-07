@@ -18,15 +18,15 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.DEFENDER
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.FORWARD
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.GOALKEEPER
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MIDFIELDER
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.UNDEFINED
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.DEFENDER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.FORWARD
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.GOALKEEPER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MIDFIELDER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.UNDEFINED
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
 import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
@@ -35,6 +35,7 @@ import com.sgale.gaztelubira.core.domain.migration.usecase.GetSeasonPlayerStats
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
 import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.domain.utils.formatDecimal
+import com.sgale.gaztelubira.core.screens.home.tabs.stats.StatsCalculator.rank
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
 import com.sgale.gaztelubira.multiplatform.model.GBPosition
@@ -107,8 +108,7 @@ internal class StatsViewModel @Inject constructor(
             StatsUiState(
                 state = screen.state,
                 selectedStat = stat,
-                players = StatsCalculator.rank(season, stat, punctuation)
-                    .map { it.toGBPlayerStat(stat) },
+                players = rank(season, stat, punctuation).map { it.toGBPlayerStat() },
                 punctuation = punctuation,
                 selectedPlayer = screen.selectedPlayer?.let { season.toDetail(it, punctuation) },
                 seasons = seasons,
@@ -165,7 +165,7 @@ internal class StatsViewModel @Inject constructor(
             lastMatchId = getMatches(seasonId).maxByOrNull { it.information.date }?.id
         )
 
-    private fun RankedPlayer.toGBPlayerStat(stat: GBStat): GBPlayerStat =
+    private fun RankedPlayer.toGBPlayerStat(): GBPlayerStat =
         GBPlayerStat(
             id = player.player.id.value,
             name = player.player.displayName(),

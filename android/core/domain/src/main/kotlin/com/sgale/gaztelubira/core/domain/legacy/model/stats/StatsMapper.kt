@@ -18,13 +18,13 @@ package com.sgale.gaztelubira.core.domain.legacy.model.stats
 
 import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerDisplayStats
 import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.DEFENDER
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.FORWARD
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.GOALKEEPER
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MIDFIELDER
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.UNDEFINED
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.DEFENDER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.FORWARD
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.GOALKEEPER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MIDFIELDER
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.UNDEFINED
 import com.sgale.gaztelubira.core.domain.utils.formatDecimal
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail

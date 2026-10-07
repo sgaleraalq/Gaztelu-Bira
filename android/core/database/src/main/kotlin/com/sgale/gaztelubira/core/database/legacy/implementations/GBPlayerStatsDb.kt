@@ -23,7 +23,6 @@ import com.sgale.gaztelubira.core.domain.legacy.model.player.PlayerStats.Compani
 import com.sgale.gaztelubira.core.domain.legacy.model.stats.Stats
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersStatsDb
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GBPlayerStatsDb @Inject constructor(
@@ -31,17 +30,6 @@ class GBPlayerStatsDb @Inject constructor(
 ) : AbstractGBDb(db), IGBPlayersStatsDb {
 
     private val playersStatsDao = db.getPlayersStatsDao()
-
-    override suspend fun deletePlayer(id: FirebaseId) {
-        playersStatsDao.deleteItem(id)
-    }
-
-    override suspend fun getPlayerStats(id: FirebaseId): PlayerStats? =
-        playersStatsDao.getItem(id)?.asModel()
-
-    override suspend fun insertPlayer(player: PlayerStats) {
-        playersStatsDao.insert(player.asEntity())
-    }
 
     override suspend fun insertStats(
         matchId: FirebaseId,
@@ -67,23 +55,6 @@ class GBPlayerStatsDb @Inject constructor(
             }
         }
     }
-
-    override suspend fun insertStatsFromFB(
-        stats: List<PlayerStats>
-    ) {
-        insertList(
-            items = stats,
-            mapper = { it.asEntity() },
-            dao = playersStatsDao
-        )
-    }
-
-    override fun getPlayersStatsListAsFlow(): Flow<List<PlayerStats>> =
-        getFlow(
-            source = playersStatsDao.getListAsFlow(),
-            mapper = { it.asModel() },
-            keySelector = { it.percentage }
-        )
 
     private fun PlayerStats.asEntity() =
         LegacyPlayerStatsEntity(

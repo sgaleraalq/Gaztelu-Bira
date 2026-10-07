@@ -17,14 +17,8 @@
 package com.sgale.gaztelubira.core.domain.legacy.repository.db
 
 import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
-import kotlinx.coroutines.flow.Flow
 
 interface IGBMatchesDb {
-    suspend fun deleteMatch(id: FirebaseId)
-    suspend fun fetchMatches(): List<Match>
     suspend fun insertMatch(match: Match)
-    suspend fun insertMatches(matches: List<Match>)
     suspend fun getNumberOfJourneys(): Int
-    fun getMatchesListAsFlow(): Flow<List<Match>>
 }

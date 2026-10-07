@@ -18,10 +18,10 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad

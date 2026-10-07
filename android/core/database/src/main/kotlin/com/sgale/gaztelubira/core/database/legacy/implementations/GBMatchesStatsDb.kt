@@ -18,11 +18,8 @@ package com.sgale.gaztelubira.core.database.legacy.implementations
 
 import com.sgale.gaztelubira.core.database.legacy.GBDatabase
 import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchStatsMapper.asEntity
-import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchStatsMapper.asModel
 import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchStatsModel
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesStatsDb
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GBMatchesStatsDb @Inject constructor(
@@ -30,29 +27,7 @@ class GBMatchesStatsDb @Inject constructor(
 ) : AbstractGBDb(db), IGBMatchesStatsDb {
     private val matchesStatsDao = db.getMatchesStatsDao()
 
-    override suspend fun deleteMatch(id: FirebaseId) {
-        matchesStatsDao.deleteItem(id)
-    }
-
-    override suspend fun getMatchStats(id: FirebaseId) =
-        matchesStatsDao.getItem(id)?.asModel()
-
     override suspend fun insertMatch(match: MatchStatsModel) {
         matchesStatsDao.insert(match.asEntity())
     }
-
-    override suspend fun insertMatchesStatsFromFB(matches: List<MatchStatsModel>) {
-        insertList(
-            items = matches,
-            mapper = { it.asEntity() },
-            dao = matchesStatsDao
-        )
-    }
-
-    override fun getMatchesStatsListAsFlow(): Flow<List<MatchStatsModel>> =
-        getFlow(
-            source = matchesStatsDao.getListAsFlow(),
-            mapper = { it.asModel() },
-            keySelector = { it.id }
-        )
 }

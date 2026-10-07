@@ -18,11 +18,8 @@ package com.sgale.gaztelubira.core.database.legacy.implementations
 
 import com.sgale.gaztelubira.core.database.legacy.GBDatabase
 import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchMapper.asEntity
-import com.sgale.gaztelubira.core.database.legacy.entities.match.MatchMapper.asModel
 import com.sgale.gaztelubira.core.domain.legacy.model.match.Match
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBMatchesDb
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GBMatchesDb @Inject constructor(
@@ -30,30 +27,8 @@ class GBMatchesDb @Inject constructor(
 ) : AbstractGBDb(db), IGBMatchesDb {
     private val matchesDao = db.getMatchesDao()
 
-    override suspend fun deleteMatch(id: FirebaseId) {
-        matchesDao.deleteItem(id)
-    }
-
-    override suspend fun fetchMatches(): List<Match> =
-        matchesDao.getMatches().map { it.asModel() }
-
     override suspend fun insertMatch(match: Match) =
         matchesDao.insert(match.asEntity())
-
-    override suspend fun insertMatches(
-        matches: List<Match>
-    ) = insertList(
-        items = matches,
-        mapper = { it.asEntity() },
-        dao = matchesDao
-    )
-
-    override fun getMatchesListAsFlow(): Flow<List<Match>> =
-        getFlow(
-            source = matchesDao.getListAsFlow(),
-            mapper = { it.asModel() },
-            keySelector = { it.date }
-        )
 
     override suspend fun getNumberOfJourneys(): Int =
         matchesDao.getNumberOfJourneys().size

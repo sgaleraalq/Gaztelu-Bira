@@ -17,15 +17,14 @@
 package com.sgale.gaztelubira.core.network.migration.firebase.remote_config
 
 import android.content.Context
-import com.sgale.gaztelubira.core.domain.legacy.repository.IAppVersion
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 internal class RemoteConfigAppVersion @Inject constructor(
     private val remoteConfigManager: RemoteConfigManager,
     @param:ApplicationContext private val context: Context
-) : IAppVersion {
-    override suspend fun isSupported(): Boolean {
+) {
+    suspend fun isSupported(): Boolean {
         remoteConfigManager.fetchAndActivate() ?: return true
 
         return getLocalVersion().zip(remoteConfigManager.getMinAppVersion())

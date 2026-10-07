@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.legacy.repository
+package com.sgale.gaztelubira.core.domain.migration.model.player
 
-interface IAppVersion {
-    suspend fun isSupported(): Boolean
+enum class Position {
+    UNDEFINED,
+    MANAGER,
+    GOALKEEPER,
+    DEFENDER,
+    MIDFIELDER,
+    FORWARD;
+
+    companion object {
+        fun mapPosition(position: String): Position =
+            entries.firstOrNull { it.name.equals(position, ignoreCase = true) }
+                ?: MANAGER
+    }
 }

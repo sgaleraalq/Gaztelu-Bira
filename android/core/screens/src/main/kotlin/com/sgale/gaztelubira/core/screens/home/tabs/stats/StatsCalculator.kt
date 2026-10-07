@@ -16,10 +16,8 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
 import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
@@ -35,26 +33,6 @@ import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
 import com.sgale.gaztelubira.multiplatform.model.GBStat.RED_CARDS
 import com.sgale.gaztelubira.multiplatform.model.GBStat.SAVES
 import com.sgale.gaztelubira.multiplatform.model.GBStat.YELLOW_CARDS
-
-internal data class SeasonStats(
-    val squad: List<SquadPlayer>,
-    val stats: Map<PlayerId, List<PlayerStats>>,
-    val lastMatchId: MatchId?
-) {
-    companion object {
-        val EMPTY = SeasonStats(
-            squad = emptyList(),
-            stats = emptyMap(),
-            lastMatchId = null
-        )
-    }
-}
-
-internal data class RankedPlayer(
-    val player: SquadPlayer,
-    val value: Double,
-    val changedPosition: Int
-)
 
 internal object StatsCalculator {
     /**

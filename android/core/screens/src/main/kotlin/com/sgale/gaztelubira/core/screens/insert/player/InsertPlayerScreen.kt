@@ -64,9 +64,7 @@ internal fun InsertPlayerScreen(
             updateField = viewModel::updateField,
             updateDialogState = viewModel::updateDialogState,
             openGallery = { viewModel.updateSelectedImage(it, galleryManager) },
-            insertPlayer = {
-                viewModel.insertPlayer(navState) { showToast(context, uploadErrorMsg) }
-            },
+            insertPlayer = { viewModel.insertPlayer(navState) { showToast(context, uploadErrorMsg) } },
             onMissingField = { message -> showToast(context, message) }
         )
     }

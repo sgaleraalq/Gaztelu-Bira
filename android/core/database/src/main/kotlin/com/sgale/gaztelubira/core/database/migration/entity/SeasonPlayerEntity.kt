@@ -17,8 +17,8 @@
 package com.sgale.gaztelubira.core.database.migration.entity
 
 import androidx.room.Entity
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 @Entity(primaryKeys = ["seasonId", "playerId"])

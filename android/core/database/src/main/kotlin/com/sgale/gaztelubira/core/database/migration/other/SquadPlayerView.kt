@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.database.migration.other
 
 import androidx.room.Embedded
 import com.sgale.gaztelubira.core.database.migration.entity.PlayerEntity
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position
 
 internal data class SquadPlayerView(
     @Embedded val player: PlayerEntity,

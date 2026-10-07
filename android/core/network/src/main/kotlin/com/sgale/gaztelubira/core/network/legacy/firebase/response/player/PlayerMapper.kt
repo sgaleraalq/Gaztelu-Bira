@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.network.legacy.firebase.response.player
 
 import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position
 import com.sgale.gaztelubira.core.network.NetworkMapper
 
 internal object PlayerMapper: NetworkMapper<Player, PlayerResponse> {

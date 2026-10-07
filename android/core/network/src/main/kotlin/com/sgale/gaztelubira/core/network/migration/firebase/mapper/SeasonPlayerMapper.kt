@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.network.migration.firebase.mapper
 
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
 import com.sgale.gaztelubira.core.network.migration.firebase.response.SeasonPlayerResponse

@@ -20,7 +20,6 @@ import com.sgale.gaztelubira.core.database.legacy.GBDatabase
 import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerMapper.asEntity
 import com.sgale.gaztelubira.core.database.legacy.entities.player.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.domain.legacy.model.player.Player
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
 import com.sgale.gaztelubira.core.domain.legacy.repository.db.IGBPlayersDb
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -30,25 +29,8 @@ class GBPlayersDb @Inject constructor(
 ): AbstractGBDb(db), IGBPlayersDb {
     private val playersDao = db.getPlayersDao()
 
-    override suspend fun deletePlayer(id: FirebaseId) {
-        playersDao.deleteItem(id)
-    }
-
     override suspend fun insertPlayer(player: Player) =
         playersDao.insert(player.asEntity())
-
-    override suspend fun insertPlayers(players: List<Player>) =
-        insertList(
-            items = players,
-            mapper = { it.asEntity() },
-            dao = playersDao
-        )
-
-    override suspend fun getPlayer(id: FirebaseId): Player? =
-        playersDao.getItem(id)?.asModel()
-
-    override suspend fun getNumberOfPlayers(): Int =
-        playersDao.getDorsals().size
 
     override suspend fun getAvailableDorsals(): List<Int> {
         val taken = playersDao.getDorsals()

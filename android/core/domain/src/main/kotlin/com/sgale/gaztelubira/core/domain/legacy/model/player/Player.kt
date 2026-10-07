@@ -17,8 +17,9 @@
 package com.sgale.gaztelubira.core.domain.legacy.model.player
 
 import androidx.compose.runtime.Immutable
-import com.sgale.gaztelubira.core.domain.legacy.model.player.Position.GOALKEEPER
 import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position
+import com.sgale.gaztelubira.core.domain.migration.model.player.Position.GOALKEEPER
 
 @Immutable
 data class Player(
