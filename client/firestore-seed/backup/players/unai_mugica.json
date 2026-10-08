@@ -3,8 +3,8 @@
   "data": {
     "name": "Unai Múgica",
     "nickname": "Unai",
-    "bodyImage": null,
-    "updatedAt": "2026-09-25T13:12:49.934Z",
-    "faceImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Funai_mujica%2Fface.jpg?alt=media&token=53ae298b-5335-4d43-8572-1870d5d00530"
+    "bodyImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Funai_mugica%2Fbody.png?alt=media&token=fa870f04-c636-4f54-8108-3b502d55ba70",
+    "faceImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Funai_mugica%2Fface.jpg?alt=media&token=53ae298b-5335-4d43-8572-1870d5d00530",
+    "updatedAt": "2026-10-08T22:52:22.901Z"
   }
 }
