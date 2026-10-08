@@ -14,8 +14,9 @@
  *   node upload.js backup/players --production --yes
  *   node upload.js --only-missing --production --yes
  *
- * Replacing means deleting: any document under a target that its file does not
- * bring is removed, so the result matches the file exactly. Unless you pass
+ * Replacing means deleting: any document in a subcollection the file brings but
+ * that the file does not list is removed, so the result matches the file exactly.
+ * Subcollections the file does not mention are left alone. Unless you pass
  * --only-missing, which adds what Firestore does not have and touches nothing
  * else.
  */
@@ -66,7 +67,7 @@ async function main() {
     const writes = onlyMissing ? await missing(firestore, incoming) : incoming
     const removed = onlyMissing
       ? []
-      : (await currentPaths(firestore.doc(path))).filter((each) => incoming.every((write) => write.path !== each))
+      : (await currentPaths(firestore.doc(path), Object.keys(document.subcollections || {}))).filter((each) => incoming.every((write) => write.path !== each))
 
     console.log(file + '  ->  ' + path)
     console.log(onlyMissing
@@ -124,10 +125,15 @@ async function missing(firestore, writes) {
   return absent
 }
 
-/** Everything hanging off the document right now, so we know what to remove. */
-async function currentPaths(reference) {
+/*
+ * Everything hanging off the document right now, so we know what to remove —
+ * but only in the subcollections the file brings. A season file carries the
+ * season fields alone; its teams, squad and matches live in their own files
+ * and must not be wiped because this one does not list them.
+ */
+async function currentPaths(reference, names) {
   const paths = []
-  const collections = await reference.listCollections()
+  const collections = (await reference.listCollections()).filter((each) => names.includes(each.id))
 
   for (const collection of collections) {
     const snapshot = await collection.get()
