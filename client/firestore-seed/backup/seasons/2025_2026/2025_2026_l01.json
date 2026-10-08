@@ -1,0 +1,28 @@
+{
+  "path": "seasons/2025_2026/matches/2025_2026_l01",
+  "data": {
+    "competition": {
+      "type": "LEAGUE",
+      "journey": 1
+    },
+    "match": {
+      "localTeam": null,
+      "visitorTeam": null,
+      "score": {
+        "local": null,
+        "visitor": null
+      },
+      "formation": null
+    },
+    "information": {
+      "date": null,
+      "location": null,
+      "description": null
+    },
+    "updatedAt": "2026-10-08T00:00:00.000Z"
+  },
+  "subcollections": {
+    "events": {},
+    "lineup": {}
+  }
+}
