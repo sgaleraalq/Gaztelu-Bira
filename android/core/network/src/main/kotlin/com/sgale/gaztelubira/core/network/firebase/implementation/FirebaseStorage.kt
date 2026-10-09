@@ -20,8 +20,8 @@ import android.net.Uri
 import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
 import com.sgale.gaztelubira.core.domain.repository.StorageRemote
-import com.sgale.gaztelubira.core.domain.util.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.util.FirebaseInsertResult.Insertion.Image
+import com.sgale.gaztelubira.core.domain.utils.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.utils.FirebaseInsertResult.Insertion.Image
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

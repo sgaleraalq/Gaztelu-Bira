@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.TextStyle
@@ -48,12 +49,17 @@ fun GBTeam(
 @Composable
 fun GBTeam(
     modifier: Modifier = Modifier,
-    image: DrawableResource
+    image: DrawableResource,
+    borderColor: Color = White
 ) {
     GBImage(
         modifier = modifier
             .clip(RoundedCornerShape(50))
-            .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
+            .border(
+                width = 1.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(50)
+            ),
         painter = painterResource(image)
     )
 }

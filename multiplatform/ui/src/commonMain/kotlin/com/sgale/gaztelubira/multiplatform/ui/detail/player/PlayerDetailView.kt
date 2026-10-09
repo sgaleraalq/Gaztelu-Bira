@@ -17,14 +17,19 @@
 package com.sgale.gaztelubira.multiplatform.ui.detail.player
 
 import androidx.compose.runtime.Composable
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 
 @Composable
 fun PlayerDetailView(
     state: PlayerDetailUiState,
     actions: PlayerDetailActions
 ) {
-    PlayerDetailViewUI(
-        state = state,
-        actions = actions
-    )
+    GBScaffold(
+        title = ""
+    ) {
+        PlayerDetailViewUI(
+            state = state,
+            actions = actions
+        )
+    }
 }

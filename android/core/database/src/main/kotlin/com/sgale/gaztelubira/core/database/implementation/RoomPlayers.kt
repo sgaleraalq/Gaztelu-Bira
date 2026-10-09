@@ -45,6 +45,9 @@ internal class RoomPlayers @Inject constructor(
     override suspend fun getSeasonPlayerStats(seasonId: SeasonId): List<PlayerStats> =
         playerDao.getSeasonPlayerStats(seasonId).map { it.asModel() }
 
+    override suspend fun getSeasonPlayerStats(playerId: PlayerId, seasonId: SeasonId): List<PlayerStats> =
+        playerDao.getSeasonPlayerStats(playerId, seasonId).map { it.asModel() }
+
     override suspend fun insertPlayer(player: Player) =
         playerDao.insertPlayer(player.asEntity())
 

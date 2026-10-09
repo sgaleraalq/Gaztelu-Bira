@@ -18,10 +18,14 @@ package com.sgale.gaztelubira.core.screens.detail.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.model.match.MatchScore
 import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.usecase.GetMatches
+import com.sgale.gaztelubira.core.domain.usecase.GetPlayerStats
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
+import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState.PlayerWinRate
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -31,92 +35,50 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class PlayerDetailViewModel @Inject constructor(
-    private val getPlayerDetailInformation: GetPlayerDetailInformation
+    private val getPlayerDetailInformation: GetPlayerDetailInformation,
+    private val getPlayerStats: GetPlayerStats,
+    private val getMatches: GetMatches
 ) : ViewModel() {
     private val _state = MutableStateFlow(PlayerDetailUiState())
     internal val state: StateFlow<PlayerDetailUiState> = _state
-
-//    private fun calculateMatchesStats(
-//        appTeam: Team?,
-//        matches: List<Match>,
-//        playerStats: PlayerStats
-//    ) {
-//        if (appTeam == null) return
-//        var wins = 0
-//        var draws = 0
-//        var loses = 0
-//
-//        playerStats.stats.forEach { (matchId, stats) ->
-//            if (stats.gamesPlayed != 1) return@forEach
-//            val match = matches.find { it.id == matchId } ?: return@forEach
-//            val local = match.localTeam.id.value == appTeam.id
-//            when (local) {
-//                true -> {
-//                    when {
-//                        match.localGoals > match.visitorGoals -> wins++
-//                        match.localGoals < match.visitorGoals -> loses++
-//                        else -> draws++
-//                    }
-//                }
-//
-//                else -> {
-//                    when {
-//                        match.localGoals < match.visitorGoals -> wins++
-//                        match.localGoals > match.visitorGoals -> loses++
-//                        else -> draws++
-//                    }
-//                }
-//            }
-//        }
-//
-//        _state.update {
-//            it.copy(
-//                winRate = PlayerWinRate(wins, draws, loses)
-//            )
-//        }
-//    }
 
     internal fun updateState(
         playerId: PlayerId,
         isManager: Boolean
     ) {
         viewModelScope.launch {
-            val playerInfo = withContext(Dispatchers.IO) {
-                getPlayerDetailInformation(playerId)
-            }
+            val playerInfo = withContext(IO) { getPlayerDetailInformation(playerId) } ?: return@launch
+            val winRate = withContext(IO) { winRate(playerId) }
 
-            if (playerInfo != null) {
-                _state.update {
-                    it.copy(
-                        isManager = isManager,
-                        player = playerInfo.toGBPlayer()
-                    )
-                }
+            _state.update {
+                it.copy(
+                    isManager = isManager,
+                    player = playerInfo.toGBPlayer(),
+                    winRate = winRate
+                )
             }
-
-//            val playerInfo = withContext(Dispatchers.IO) {
-//                fetchPlayerInformation(playerId)
-//            }
-//
-//            val playerStats = withContext(Dispatchers.IO) {
-//                fetchPlayerStats(playerId)
-//            }
-//            val matches = withContext(Dispatchers.IO) {
-//                fetchMatches()
-//            }
-//
-//            playerStats?.let {
-//                calculateMatchesStats(GAZTELU_BIRA, matches, playerStats)
-//            }
-//
-//            playerInfo?.let {
-//                _state.update {
-//                    it.copy(
-//                        isManager = isManager,
-//                        player = playerInfo.toGBPlayer()
-//                    )
-//                }
-//            }
         }
     }
+
+    /**
+     * Results of the season matches the player has stats for, i.e. the ones they played.
+     */
+    private suspend fun winRate(playerId: PlayerId): PlayerWinRate {
+        val playedMatchIds = getPlayerStats(playerId).mapTo(HashSet()) { it.matchId }
+        val goalDifferences = getMatches()
+            .filter { it.id in playedMatchIds }
+            .map { it.match.goalDifference() }
+
+        return PlayerWinRate(
+            wins = goalDifferences.count { it > 0 },
+            draws = goalDifferences.count { it == 0 },
+            loses = goalDifferences.count { it < 0 }
+        )
+    }
+
+    /**
+     * Seen from Gaztelu Bira's side: positive when it won, whether it played home or away.
+     */
+    private fun MatchScore.goalDifference(): Int =
+        if (isLocal) score.local - score.visitor else score.visitor - score.local
 }

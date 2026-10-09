@@ -70,7 +70,9 @@ private fun PlayerImage(
     placeholder: Painter
 ) {
     GBImage(
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(2f / 3f),
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(2f / 3f),
         imageModifier = Modifier.fillMaxSize(),
         image = bodyImg,
         contentScale = Fit,

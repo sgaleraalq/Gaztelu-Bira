@@ -19,11 +19,18 @@ package com.sgale.gaztelubira.core.domain.usecase
 import com.sgale.gaztelubira.core.domain.model.match.Match
 import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.repository.MatchLocal
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class GetMatches @Inject constructor(
+    private val selectedSeason: SelectedSeason,
     private val matchLocal: MatchLocal
 ) {
+    suspend operator fun invoke(): List<Match> {
+        val seasonId = selectedSeason().first() ?: return emptyList()
+        return matchLocal.getMatches(seasonId)
+    }
+
     suspend operator fun invoke(seasonId: SeasonId): List<Match> =
         matchLocal.getMatches(seasonId)
 }

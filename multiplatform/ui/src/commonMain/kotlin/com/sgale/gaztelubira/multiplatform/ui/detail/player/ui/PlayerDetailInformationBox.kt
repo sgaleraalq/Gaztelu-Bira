@@ -49,7 +49,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
+import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
@@ -91,11 +91,12 @@ internal fun PlayerDetailInformationBox(
             contentScale = Crop
         )
 
-        GBImage(
+        GBTeam(
             modifier = Modifier.align(TopCenter)
                 .size(LOGO_SIZE.dp)
                 .offset(y = (-(LOGO_SIZE / 2)).dp),
-            painter = painterResource(Res.drawable.img_gaztelu_bira)
+            image = Res.drawable.img_gaztelu_bira,
+            borderColor = Black
         )
 
         PlayerInformation(

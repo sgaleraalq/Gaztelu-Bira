@@ -17,23 +17,21 @@
 package com.sgale.gaztelubira.core.screens.detail.player
 
 import com.sgale.gaztelubira.core.domain.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.repository.PlayerLocal
-import com.sgale.gaztelubira.core.domain.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.usecase.GetPlayer
+import com.sgale.gaztelubira.core.domain.usecase.GetSeasonPlayer
 import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class GetPlayerDetailInformation @Inject constructor(
     private val selectedSeason: SelectedSeason,
-    private val playerLocal: PlayerLocal,
-    private val seasonLocal: SeasonLocal,
+    private val getPlayer: GetPlayer,
+    private val getSeasonPlayer: GetSeasonPlayer
 ) {
     suspend operator fun invoke(
         playerId: PlayerId
     ): PlayerDetailState? {
         val seasonId = selectedSeason().first() ?: return null
-        val player = playerLocal.getPlayer(playerId)
-        val seasonPlayer = seasonLocal.getSeasonPlayer(playerId, seasonId)
-        return PlayerDetailState(player, seasonPlayer)
+        return PlayerDetailState(getPlayer(playerId), getSeasonPlayer(playerId, seasonId))
     }
 }

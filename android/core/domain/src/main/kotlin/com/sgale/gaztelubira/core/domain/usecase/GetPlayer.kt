@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.util
+package com.sgale.gaztelubira.core.domain.usecase
 
-import android.net.Uri
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.repository.PlayerLocal
+import javax.inject.Inject
 
-interface FirebaseInsertResult {
-    data class Error(
-        val message: String
-    ): FirebaseInsertResult
-
-    interface Insertion: FirebaseInsertResult {
-        data class Image(val uri: Uri): Insertion
-    }
+class GetPlayer @Inject constructor(
+    private val playerLocal: PlayerLocal
+) {
+    suspend operator fun invoke(playerId: PlayerId): Player =
+        playerLocal.getPlayer(playerId)
 }

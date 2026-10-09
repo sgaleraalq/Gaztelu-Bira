@@ -24,7 +24,6 @@ fun MatchDetailView(
     state: MatchDetailUiState,
     actions: MatchDetailActions
 ) {
-
     GBScaffold(
         title = ""
     ) { modifier ->

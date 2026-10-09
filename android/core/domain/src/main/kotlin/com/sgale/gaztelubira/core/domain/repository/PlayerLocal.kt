@@ -27,6 +27,7 @@ interface PlayerLocal {
     suspend fun getPlayers(): List<Player>
     suspend fun getMatchPlayerStats(matchId: MatchId): List<PlayerStats>
     suspend fun getSeasonPlayerStats(seasonId: SeasonId): List<PlayerStats>
+    suspend fun getSeasonPlayerStats(playerId: PlayerId, seasonId: SeasonId): List<PlayerStats>
     suspend fun insertPlayer(player: Player)
     suspend fun insertPlayers(players: List<Player>)
     suspend fun insertMatchStats(matchId: MatchId, stats: List<PlayerStats>)

@@ -47,6 +47,15 @@ internal interface PlayerDao {
     )
     suspend fun getSeasonPlayerStats(seasonId: SeasonId): List<PlayerStatsEntity>
 
+    @Query(
+        """
+        SELECT PlayerStatsEntity.* FROM PlayerStatsEntity
+        INNER JOIN MatchEntity ON MatchEntity.id = PlayerStatsEntity.matchId
+        WHERE MatchEntity.seasonId = :seasonId AND PlayerStatsEntity.playerId = :playerId
+        """
+    )
+    suspend fun getSeasonPlayerStats(playerId: PlayerId, seasonId: SeasonId): List<PlayerStatsEntity>
+
     @Insert(onConflict = REPLACE)
     suspend fun insertPlayer(entity: PlayerEntity)
 
