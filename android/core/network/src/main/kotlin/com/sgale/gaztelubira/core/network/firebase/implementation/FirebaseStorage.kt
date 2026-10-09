@@ -19,6 +19,7 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 import android.net.Uri
 import com.google.firebase.storage.FirebaseStorage
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.Unknown
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Inserted.Image
 import com.sgale.gaztelubira.core.domain.model.team.TeamId
 import com.sgale.gaztelubira.core.domain.repository.StorageRemote
@@ -39,6 +40,6 @@ internal class FirebaseStorage @Inject constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            FirebaseInsertResult.Error(e.message.orEmpty())
+            Unknown(e.message.orEmpty())
         }
 }

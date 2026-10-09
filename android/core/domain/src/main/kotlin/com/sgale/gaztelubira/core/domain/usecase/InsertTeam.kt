@@ -18,7 +18,9 @@ package com.sgale.gaztelubira.core.domain.usecase
 
 import android.net.Uri
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.AlreadyExists
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.NoSeasonSelected
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.Unknown
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Inserted.Document
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Inserted.Image
 import com.sgale.gaztelubira.core.domain.model.team.Team
@@ -37,28 +39,30 @@ class InsertTeam @Inject constructor(
     private val teamRemote: TeamRemote
 ) {
     suspend operator fun invoke(name: String, image: Uri): FirebaseInsertResult {
-        val season = selectedSeason().first() ?: return Error("No season selected")
+        val season = selectedSeason().first() ?: return NoSeasonSelected
         val cleanName = name.trim()
         val id = TeamId(cleanName.lowercase().replace(Regex("\\s+"), "_"))
 
-        val upload = storage.insertTeamLogo(id, image)
-        if (upload !is Image) return upload
-
-        val team = Team(
-            id = id,
-            seasonId = season,
-            name = cleanName,
-            logo = upload.uri.toString()
-        )
-
         return try {
+            if (teamRemote.teamExists(season, id)) return AlreadyExists
+
+            val upload = storage.insertTeamLogo(id, image)
+            if (upload !is Image) return upload
+
+            val team = Team(
+                id = id,
+                seasonId = season,
+                name = cleanName,
+                logo = upload.uri.toString()
+            )
+
             teamRemote.insertTeam(season, team)
             teamLocal.insertTeam(team)
             Document
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            Error(e.message.orEmpty())
+            Unknown(e.message.orEmpty())
         }
     }
 }

@@ -20,20 +20,31 @@ import android.content.Context
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.AlreadyExists
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.NoSeasonSelected
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.Unknown
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Inserted.Document
 import com.sgale.gaztelubira.core.domain.usecase.InsertTeam
 import com.sgale.gaztelubira.core.screens.showToast
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_inserting_team
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_inserting_team_reason
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_no_season_selected
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_team_already_exists
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
 import java.lang.System.currentTimeMillis
 import javax.inject.Inject
 
@@ -72,8 +83,7 @@ internal class InsertTeamViewModel @Inject constructor(
 
     internal fun insertTeam(
         context: Context,
-        onSuccess: () -> Unit,
-        errorMsg: String
+        onSuccess: () -> Unit
     ) {
         val team = _state.value
         if (!team.handler.isValid) return
@@ -81,12 +91,9 @@ internal class InsertTeamViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(state = Loading) }
 
-            val result = insertTeam(team.teamName, team.teamImage.toUri())
-
-            if (result is Document) {
-                onSuccess()
-            } else {
-                onFailure(context, errorMsg)
+            when (val result = insertTeam(team.teamName, team.teamImage.toUri())) {
+                is Document -> onSuccess()
+                else -> onFailure(context, result.errorMessage())
             }
         }
     }
@@ -94,15 +101,26 @@ internal class InsertTeamViewModel @Inject constructor(
     private fun getCurrentTimeId(): String =
         currentTimeMillis().toString()
 
+    private suspend fun FirebaseInsertResult.errorMessage(): String =
+        when (this) {
+            is AlreadyExists -> getString(Res.string.error_team_already_exists)
+            is NoSeasonSelected -> getString(Res.string.error_no_season_selected)
+            is Unknown -> if (message.isNotBlank()) {
+                getString(Res.string.error_inserting_team_reason, message)
+            } else {
+                getString(Res.string.error_inserting_team)
+            }
+            else -> getString(Res.string.error_inserting_team)
+        }
+
+    /**
+     * Keeps the filled fields so the user can fix them and retry.
+     */
     private fun onFailure(
         context: Context,
         errorMsg: String
     ) {
         showToast(context, errorMsg)
-        resetUiState()
-    }
-
-    private fun resetUiState() {
-        _state.update { initialState }
+        _state.update { it.copy(state = Default) }
     }
 }

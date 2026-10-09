@@ -163,7 +163,10 @@
     <string name="invalid_player_name">Nombre de jugador no valido</string>
     <string name="invalid_player_dorsal">Dorsal de jugador no valido</string>
     <string name="invalid_player_position">Posición de jugador no valida</string>
-    <string name="error_inserting_team">Ha ocurrido un error mientras se insertaba un jugador</string>
+    <string name="error_inserting_team">Ha ocurrido un error mientras se insertaba el equipo</string>
+    <string name="error_inserting_team_reason">Error insertando el equipo: %1$s</string>
+    <string name="error_team_already_exists">Ya existe un equipo con ese nombre en esta temporada</string>
+    <string name="error_no_season_selected">No hay ninguna temporada seleccionada</string>
 
     <string name="seasons_dialog_title">Temporada</string>
     <string name="seasons_dialog_subtitle">Selecciona o gestiona la edición de la competición</string>

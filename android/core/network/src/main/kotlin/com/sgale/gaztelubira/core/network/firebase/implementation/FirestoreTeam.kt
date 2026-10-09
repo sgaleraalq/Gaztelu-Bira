@@ -43,6 +43,13 @@ internal class FirestoreTeam @Inject constructor(
                     ?.asModel(TeamId(team.id), seasonId)
             }
 
+    override suspend fun teamExists(seasonId: SeasonId, teamId: TeamId): Boolean =
+        teams(seasonId)
+            .document(teamId.value)
+            .get()
+            .await()
+            .exists()
+
     override suspend fun insertTeam(seasonId: SeasonId, team: Team) {
         teams(seasonId)
             .document(team.id.value)

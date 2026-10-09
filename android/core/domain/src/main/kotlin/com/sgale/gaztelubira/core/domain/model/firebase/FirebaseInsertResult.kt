@@ -19,9 +19,11 @@ package com.sgale.gaztelubira.core.domain.model.firebase
 import android.net.Uri
 
 interface FirebaseInsertResult {
-    data class Error(
-        val message: String
-    ): FirebaseInsertResult
+    interface Error: FirebaseInsertResult {
+        data object AlreadyExists: Error
+        data object NoSeasonSelected: Error
+        data class Unknown(val message: String): Error
+    }
 
     interface Inserted: FirebaseInsertResult {
         data object Document: Inserted

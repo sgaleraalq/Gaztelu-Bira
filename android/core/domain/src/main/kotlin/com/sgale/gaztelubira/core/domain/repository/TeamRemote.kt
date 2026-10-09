@@ -18,8 +18,10 @@ package com.sgale.gaztelubira.core.domain.repository
 
 import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.team.TeamId
 
 interface TeamRemote {
     suspend fun fetchTeams(seasonId: SeasonId): List<Team>
+    suspend fun teamExists(seasonId: SeasonId, teamId: TeamId): Boolean
     suspend fun insertTeam(seasonId: SeasonId, team: Team)
 }
