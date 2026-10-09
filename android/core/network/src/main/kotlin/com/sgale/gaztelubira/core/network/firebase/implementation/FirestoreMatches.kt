@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId

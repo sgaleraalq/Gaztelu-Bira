@@ -16,9 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.match
 
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.CUP
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.CUP
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.LEAGUE
 
 sealed interface MatchCompetition {
     data class League(

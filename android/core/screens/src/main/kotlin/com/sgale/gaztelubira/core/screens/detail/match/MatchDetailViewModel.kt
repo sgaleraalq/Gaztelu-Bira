@@ -20,7 +20,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.common.utils.TAG
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatchDetail
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatchPlayerStats
 import com.sgale.gaztelubira.core.domain.migration.usecase.GetPlayers

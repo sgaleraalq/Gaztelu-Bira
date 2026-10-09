@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.network.firebase.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState

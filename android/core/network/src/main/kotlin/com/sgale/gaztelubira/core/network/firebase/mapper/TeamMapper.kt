@@ -16,9 +16,9 @@
 
 package com.sgale.gaztelubira.core.network.firebase.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.migration.model.team.TeamId
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.TeamResponse
 

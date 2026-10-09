@@ -16,7 +16,6 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.match
 
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY

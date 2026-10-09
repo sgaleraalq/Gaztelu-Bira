@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.migration.model
+package com.sgale.gaztelubira.core.domain.migration
 
-@JvmInline
-value class TeamId(
-    override val value: String
-): FirebaseId {
-    override fun toString() = value
-}
-
-@JvmInline
-value class MatchId(
-    override val value: String
-): FirebaseId {
-    override fun toString() = value
+interface InitAppHandler {
+    suspend fun updateAvailable(): Boolean
+    suspend fun firstTimeInit(): Result<Boolean>
+    suspend fun initApp()
 }

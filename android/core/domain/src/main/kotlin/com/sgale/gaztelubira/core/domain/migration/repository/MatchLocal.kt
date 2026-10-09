@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.migration.repository
 
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId

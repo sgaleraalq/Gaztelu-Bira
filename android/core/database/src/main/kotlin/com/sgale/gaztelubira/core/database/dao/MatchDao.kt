@@ -24,7 +24,7 @@ import androidx.room.Upsert
 import com.sgale.gaztelubira.core.database.entity.MatchEntity
 import com.sgale.gaztelubira.core.database.entity.MatchEventEntity
 import com.sgale.gaztelubira.core.database.entity.MatchLineupPlayerEntity
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 
 @Dao

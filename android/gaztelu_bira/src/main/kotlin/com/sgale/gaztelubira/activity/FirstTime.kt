@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.activity
 
 import android.util.Log
 import com.sgale.gaztelubira.core.common.utils.TAG
-import com.sgale.gaztelubira.core.domain.legacy.repository.InitAppHandler
+import com.sgale.gaztelubira.core.domain.migration.InitAppHandler
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
 import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
 import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal

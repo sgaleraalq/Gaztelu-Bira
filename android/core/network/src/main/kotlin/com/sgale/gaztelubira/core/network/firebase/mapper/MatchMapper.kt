@@ -17,12 +17,11 @@
 package com.sgale.gaztelubira.core.network.firebase.mapper
 
 import com.google.firebase.Timestamp
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchInformation
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore
 import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore.Companion.isGBLocal
@@ -32,6 +31,7 @@ import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.migration.model.match.Score
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.Companion.findFormation
+import com.sgale.gaztelubira.core.domain.migration.model.team.TeamId
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.MatchResponse
 import com.sgale.gaztelubira.core.network.firebase.response.MatchResponseCompetition

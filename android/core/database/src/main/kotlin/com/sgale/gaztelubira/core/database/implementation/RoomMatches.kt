@@ -23,8 +23,8 @@ import com.sgale.gaztelubira.core.database.mapper.MatchLineupPlayerMapper.asEnti
 import com.sgale.gaztelubira.core.database.mapper.MatchLineupPlayerMapper.asModel
 import com.sgale.gaztelubira.core.database.mapper.MatchMapper.asEntity
 import com.sgale.gaztelubira.core.database.mapper.MatchMapper.asModel
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.Match
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
 import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId

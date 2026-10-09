@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.screens.insert.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.PictureType.BODY
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.PictureType.FACE
+import com.sgale.gaztelubira.core.domain.migration.model.other.PictureType.BODY
+import com.sgale.gaztelubira.core.domain.migration.model.other.PictureType.FACE
 import com.sgale.gaztelubira.core.domain.migration.model.player.Position
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert.manager.gallery.Gallery

@@ -47,9 +47,9 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.LOCAL
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchSide.VISITOR
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchSide.LOCAL
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchSide.VISITOR
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.utils.DATE_FORMAT
 import com.sgale.gaztelubira.core.domain.utils.getDateFromLong

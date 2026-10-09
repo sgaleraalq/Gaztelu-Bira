@@ -16,7 +16,6 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.team
 
-import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 

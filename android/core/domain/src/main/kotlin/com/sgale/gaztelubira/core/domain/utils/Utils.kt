@@ -18,21 +18,18 @@ package com.sgale.gaztelubira.core.domain.utils
 
 import android.os.Build.VERSION_CODES.O
 import androidx.annotation.RequiresApi
+import java.lang.System.currentTimeMillis
 import java.text.DecimalFormat
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.UUID
 
 const val DATE_FORMAT = "dd/MM/yyyy"
 
 fun formatDecimal(value: Double?, pattern: String = "#.##"): String =
     DecimalFormat(pattern).format(value)
 
-fun generateRandomUUID(): String =
-    UUID.randomUUID().toString()
-
-fun getActualTimeAsLong(): Long = System.currentTimeMillis()
+fun getActualTimeAsLong(): Long = currentTimeMillis()
 
 @RequiresApi(O)
 fun getDateFromLong(format: String, date: Long): String {

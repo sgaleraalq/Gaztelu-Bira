@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.legacy.model.match
+package com.sgale.gaztelubira.core.domain.migration.model.other
 
-enum class MatchSide {
-    LOCAL,
-    VISITOR
+enum class PictureType {
+    FACE,
+    BODY
 }

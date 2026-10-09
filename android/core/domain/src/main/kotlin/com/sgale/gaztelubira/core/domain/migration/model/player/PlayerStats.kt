@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.player
 
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 
 data class PlayerStats(
     val playerId: PlayerId,

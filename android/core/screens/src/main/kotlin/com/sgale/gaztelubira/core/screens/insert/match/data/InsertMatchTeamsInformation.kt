@@ -16,14 +16,14 @@
 
 package com.sgale.gaztelubira.core.screens.insert.match.data
 
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType
-import com.sgale.gaztelubira.core.domain.legacy.model.match.MatchType.LEAGUE
-import com.sgale.gaztelubira.core.domain.legacy.model.utils.FirebaseId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.migration.model.team.Team
 import com.sgale.gaztelubira.core.domain.utils.getActualTimeAsLong
 
 data class InsertMatchTeamsInformation(
-    val id: FirebaseId = getActualTimeAsLong().toString(),
+    val id: MatchId = MatchId(""),
     val date: Long = getActualTimeAsLong(),
     val matchName: String = "",
     val matchType: MatchType = LEAGUE,

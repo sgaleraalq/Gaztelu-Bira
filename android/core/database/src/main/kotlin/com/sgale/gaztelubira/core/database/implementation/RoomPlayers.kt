@@ -21,7 +21,7 @@ import com.sgale.gaztelubira.core.database.mapper.PlayerMapper.asEntity
 import com.sgale.gaztelubira.core.database.mapper.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.database.mapper.PlayerStatsMapper.asEntity
 import com.sgale.gaztelubira.core.database.mapper.PlayerStatsMapper.asModel
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.Player
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats

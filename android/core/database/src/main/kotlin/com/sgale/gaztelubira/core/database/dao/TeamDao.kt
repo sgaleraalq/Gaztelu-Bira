@@ -21,8 +21,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import com.sgale.gaztelubira.core.database.entity.TeamEntity
-import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.migration.model.team.TeamId
 
 @Dao
 interface TeamDao {

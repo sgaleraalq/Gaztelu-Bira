@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.migration.usecase
 
-import com.sgale.gaztelubira.core.domain.migration.model.MatchId
+import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
 import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
 import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
 import javax.inject.Inject

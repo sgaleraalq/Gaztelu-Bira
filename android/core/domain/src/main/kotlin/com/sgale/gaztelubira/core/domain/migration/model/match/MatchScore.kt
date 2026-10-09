@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.domain.migration.model.match
 
-import com.sgale.gaztelubira.core.domain.migration.model.TeamId
 import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation
+import com.sgale.gaztelubira.core.domain.migration.model.team.TeamId
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 
 data class MatchScore(

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.legacy.model.utils
+package com.sgale.gaztelubira.core.domain.migration.model.match
 
-typealias FirebaseId = String
-typealias FirebaseCollection = String
-typealias FirebaseTimestamp = Long
-typealias UserSessionId = String
+enum class MatchSide {
+    LOCAL,
+    VISITOR
+}
