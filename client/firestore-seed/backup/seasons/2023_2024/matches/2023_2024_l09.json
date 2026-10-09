@@ -252,24 +252,6 @@
         "blueCards": 0,
         "updatedAt": "2026-10-09T00:00:00.000Z"
       },
-      "david_sadaba": {
-        "playerId": "david_sadaba",
-        "matchId": "2023_2024_l09",
-        "seasonId": "2023_2024",
-        "role": "BENCH",
-        "formationPosition": null,
-        "goals": 0,
-        "assists": 0,
-        "goalsProvoked": 0,
-        "penaltiesProvoked": 0,
-        "saves": 0,
-        "fails": 0,
-        "cleanSheets": 0.0,
-        "yellowCards": 0,
-        "redCards": 0,
-        "blueCards": 0,
-        "updatedAt": "2026-10-09T00:00:00.000Z"
-      },
       "fernando_ayala": {
         "playerId": "fernando_ayala",
         "matchId": "2023_2024_l09",
