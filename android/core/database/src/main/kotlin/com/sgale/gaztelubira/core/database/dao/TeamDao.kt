@@ -33,5 +33,8 @@ interface TeamDao {
     suspend fun getTeams(seasonId: SeasonId): List<TeamEntity>
 
     @Insert(onConflict = REPLACE)
+    suspend fun insertTeam(team: TeamEntity)
+
+    @Insert(onConflict = REPLACE)
     suspend fun insertTeams(teams: List<TeamEntity>)
 }

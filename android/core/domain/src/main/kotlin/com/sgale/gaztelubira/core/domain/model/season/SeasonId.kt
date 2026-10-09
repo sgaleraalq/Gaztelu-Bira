@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.model.season
 
-import com.sgale.gaztelubira.core.domain.model.FirebaseId
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseId
 
 @JvmInline
 value class SeasonId(

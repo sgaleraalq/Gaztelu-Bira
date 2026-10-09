@@ -21,25 +21,18 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.team.TeamId
-import com.sgale.gaztelubira.core.domain.repository.StorageRemote
 import com.sgale.gaztelubira.core.domain.repository.TeamRemote
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.network.firebase.mapper.TeamMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.mapper.TeamMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.TeamResponse
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 internal class FirestoreTeam @Inject constructor(
-    private val firestore: FirebaseFirestore,
-    private val firebaseStorage: StorageRemote
+    private val firestore: FirebaseFirestore
 ): TeamRemote {
-
-    override suspend fun insertTeam(team: Team) {
-        val path = ""
-        val insertionResult = firebaseStorage.insertImage(path, team.logo)
-    }
-
     override suspend fun fetchTeams(seasonId: SeasonId): List<Team> =
         teams(seasonId)
             .get()
@@ -49,6 +42,13 @@ internal class FirestoreTeam @Inject constructor(
                 team.toObject(TeamResponse::class.java)
                     ?.asModel(TeamId(team.id), seasonId)
             }
+
+    override suspend fun insertTeam(seasonId: SeasonId, team: Team) {
+        teams(seasonId)
+            .document(team.id.value)
+            .set(team.asResponse())
+            .await()
+    }
 
     private fun teams(season: SeasonId): CollectionReference =
         firestore

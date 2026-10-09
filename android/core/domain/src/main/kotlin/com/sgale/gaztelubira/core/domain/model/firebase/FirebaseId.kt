@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.model
+package com.sgale.gaztelubira.core.domain.model.firebase
 
 interface FirebaseId {
     val value: String

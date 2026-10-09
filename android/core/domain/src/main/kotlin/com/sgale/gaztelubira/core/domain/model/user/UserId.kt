@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.model.user
 
-import com.sgale.gaztelubira.core.domain.model.FirebaseId
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseId
 
 @JvmInline
 value class UserId(

@@ -23,5 +23,6 @@ import com.sgale.gaztelubira.core.domain.model.team.TeamId
 interface TeamLocal {
     suspend fun getTeam(teamId: TeamId): Team
     suspend fun getTeams(seasonId: SeasonId): List<Team>
+    suspend fun insertTeam(team: Team)
     suspend fun insertTeams(teams: List<Team>)
 }

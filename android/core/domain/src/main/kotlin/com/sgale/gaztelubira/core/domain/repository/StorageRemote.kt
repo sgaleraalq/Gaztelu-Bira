@@ -16,8 +16,14 @@
 
 package com.sgale.gaztelubira.core.domain.repository
 
-import com.sgale.gaztelubira.core.domain.utils.FirebaseInsertResult
+import android.net.Uri
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.model.team.TeamId
 
 interface StorageRemote {
-    suspend fun insertImage(path: String, image: String): FirebaseInsertResult
+    /**
+     * @param id TeamId used as the logo's file name.
+     * @param uri Uri of the image to be uploaded.
+     */
+    suspend fun insertTeamLogo(id: TeamId, uri: Uri): FirebaseInsertResult
 }

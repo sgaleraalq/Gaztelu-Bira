@@ -17,29 +17,28 @@
 package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import android.net.Uri
-import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Inserted.Image
+import com.sgale.gaztelubira.core.domain.model.team.TeamId
 import com.sgale.gaztelubira.core.domain.repository.StorageRemote
-import com.sgale.gaztelubira.core.domain.utils.FirebaseInsertResult
-import com.sgale.gaztelubira.core.domain.utils.FirebaseInsertResult.Insertion.Image
+import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.TEAMS
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 internal class FirebaseStorage @Inject constructor(
     private val fireStorage: FirebaseStorage
 ) : StorageRemote {
-    override suspend fun insertImage(
-        path: String,
-        image: String
-    ): FirebaseInsertResult =
+    override suspend fun insertTeamLogo(id: TeamId, uri: Uri): FirebaseInsertResult =
         try {
-            val ref = fireStorage.reference.child(path)
-            ref.putFile(image.toUri()).await()
-
-            val downloadUri: Uri = ref.downloadUrl.await()
+            val ref = fireStorage.reference.child("$TEAMS/$id")
+            ref.putFile(uri).await()
+            val downloadUri = ref.downloadUrl.await()
             Image(downloadUri)
-        } catch (t: Throwable) {
-            FirebaseInsertResult.Error(t.message.orEmpty())
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            FirebaseInsertResult.Error(e.message.orEmpty())
         }
-
 }

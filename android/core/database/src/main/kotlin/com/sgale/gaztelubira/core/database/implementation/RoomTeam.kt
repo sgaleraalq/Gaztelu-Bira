@@ -35,6 +35,10 @@ internal class RoomTeam @Inject constructor(
     override suspend fun getTeams(seasonId: SeasonId): List<Team> =
         teamDao.getTeams(seasonId).map { it.asModel() }
 
+    override suspend fun insertTeam(team: Team) {
+        teamDao.insertTeam(team.asEntity())
+    }
+
     override suspend fun insertTeams(teams: List<Team>) {
         teamDao.insertTeams(teams.map { it.asEntity() })
     }

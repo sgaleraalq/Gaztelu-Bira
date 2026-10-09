@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.utils
+package com.sgale.gaztelubira.core.domain.model.firebase
 
 import android.net.Uri
 
@@ -23,7 +23,8 @@ interface FirebaseInsertResult {
         val message: String
     ): FirebaseInsertResult
 
-    interface Insertion: FirebaseInsertResult {
-        data class Image(val uri: Uri): Insertion
+    interface Inserted: FirebaseInsertResult {
+        data object Document: Inserted
+        data class Image(val uri: Uri): Inserted
     }
 }
