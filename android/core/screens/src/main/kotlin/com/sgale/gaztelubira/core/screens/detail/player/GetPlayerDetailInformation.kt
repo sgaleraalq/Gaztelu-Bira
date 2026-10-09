@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.screens.detail.player
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
-import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.repository.PlayerLocal
+import com.sgale.gaztelubira.core.domain.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 

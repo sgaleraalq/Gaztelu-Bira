@@ -16,12 +16,12 @@
 
 package com.sgale.gaztelubira.core.network.di
 
-import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.PlayerRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.SeasonRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.StorageRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.TeamRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.UsersRemote
+import com.sgale.gaztelubira.core.domain.repository.MatchRemote
+import com.sgale.gaztelubira.core.domain.repository.PlayerRemote
+import com.sgale.gaztelubira.core.domain.repository.SeasonRemote
+import com.sgale.gaztelubira.core.domain.repository.StorageRemote
+import com.sgale.gaztelubira.core.domain.repository.TeamRemote
+import com.sgale.gaztelubira.core.domain.repository.UsersRemote
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseStorage
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirebaseUsers
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirestoreMatches

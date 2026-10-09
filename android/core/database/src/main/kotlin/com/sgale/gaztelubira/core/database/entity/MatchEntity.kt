@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamId
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.team.TeamId
 
 @Entity
 internal data class MatchEntity(

@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.database.mapper
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.entity.PlayerStatsEntity
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 
 internal object PlayerStatsMapper : DatabaseMapper<PlayerStats, PlayerStatsEntity> {
     override fun PlayerStats.asEntity(): PlayerStatsEntity =

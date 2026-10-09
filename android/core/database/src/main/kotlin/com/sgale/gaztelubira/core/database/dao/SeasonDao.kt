@@ -23,8 +23,8 @@ import androidx.room.Query
 import com.sgale.gaztelubira.core.database.entity.SeasonEntity
 import com.sgale.gaztelubira.core.database.entity.SeasonPlayerEntity
 import com.sgale.gaztelubira.core.database.other.SquadPlayerView
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 
 @Dao
 internal interface SeasonDao {

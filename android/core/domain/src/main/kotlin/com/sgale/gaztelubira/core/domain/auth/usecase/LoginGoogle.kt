@@ -22,10 +22,10 @@ import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult.GoogleLogin
 import com.sgale.gaztelubira.core.domain.auth.GoogleResult.GoogleSignUp
-import com.sgale.gaztelubira.core.domain.migration.model.user.User
-import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
-import com.sgale.gaztelubira.core.domain.migration.usecase.users.InsertUser
-import com.sgale.gaztelubira.core.domain.migration.usecase.users.IsUserInserted
+import com.sgale.gaztelubira.core.domain.model.user.User
+import com.sgale.gaztelubira.core.domain.model.user.UserId
+import com.sgale.gaztelubira.core.domain.usecase.users.InsertUser
+import com.sgale.gaztelubira.core.domain.usecase.users.IsUserInserted
 import javax.inject.Inject
 
 class LoginGoogle @Inject constructor(

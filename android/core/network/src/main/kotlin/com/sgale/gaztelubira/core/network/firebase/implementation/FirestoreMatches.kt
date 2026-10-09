@@ -18,12 +18,12 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.domain.migration.model.match.Match
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchEvent
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayer
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.repository.MatchRemote
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.EVENTS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.LINEUP
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.MATCHES

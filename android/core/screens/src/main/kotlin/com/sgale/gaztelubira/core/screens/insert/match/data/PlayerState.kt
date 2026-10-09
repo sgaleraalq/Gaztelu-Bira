@@ -17,5 +17,8 @@
 package com.sgale.gaztelubira.core.screens.insert.match.data
 
 enum class PlayerState {
-    Bench, LineUp, Manager, StatPlayer
+    BENCH,
+    LINE_UP,
+    MANAGER,
+    STAT_PLAYER
 }

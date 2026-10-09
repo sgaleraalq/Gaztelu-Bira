@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.season.squad.SquadPlayer
 
 internal data class SeasonStats(
     val squad: List<SquadPlayer>,

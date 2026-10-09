@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.screens.home.tabs.season
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetTeams
-import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
+import com.sgale.gaztelubira.core.domain.usecase.GetMatches
+import com.sgale.gaztelubira.core.domain.usecase.GetTeams
+import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 import com.sgale.gaztelubira.core.screens.mapper.SeasonUiMapper.toGBSeason
 import com.sgale.gaztelubira.core.screens.mapper.TeamUiMapper.toGBTeam

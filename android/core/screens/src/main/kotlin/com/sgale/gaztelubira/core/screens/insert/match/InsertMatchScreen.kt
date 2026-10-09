@@ -32,7 +32,7 @@ import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.For
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Information
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Stats
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.StatPlayer
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.STAT_PLAYER
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchDialogPlayers
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchDialogStatsPlayers
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchFormation
@@ -129,7 +129,7 @@ internal fun InsertMatchScreen(
                         InsertMatchStats(
                             modifier = it,
                             statsState = statsState,
-                            changePlayerState = { viewModel.updatePlayerState(StatPlayer) },
+                            changePlayerState = { viewModel.updatePlayerState(STAT_PLAYER) },
                             showPlayers = { showStatsPlayers = true },
                             selectStat = { stat -> viewModel.selectStat(stat) },
                             removeStat = { idx, stat -> viewModel.removeStat(idx, stat) }

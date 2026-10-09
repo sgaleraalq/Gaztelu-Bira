@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.database.mapper
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.entity.MatchLineupPlayerEntity
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.UNDEFINED
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchLineupPlayer
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayerState
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayerState.UNDEFINED
 
 internal object MatchLineupPlayerMapper : DatabaseMapper<MatchLineupPlayer, MatchLineupPlayerEntity> {
     override fun MatchLineupPlayer.asEntity(): MatchLineupPlayerEntity =
@@ -37,7 +37,8 @@ internal object MatchLineupPlayerMapper : DatabaseMapper<MatchLineupPlayer, Matc
             playerId = playerId,
             matchId = matchId,
             seasonId = seasonId,
-            state = MatchPlayerState.entries.find { it.name == state } ?: UNDEFINED,
+            state = MatchPlayerState.entries.find { it.name == state }
+                ?: UNDEFINED,
             formationPosition = formationPosition
         )
 }

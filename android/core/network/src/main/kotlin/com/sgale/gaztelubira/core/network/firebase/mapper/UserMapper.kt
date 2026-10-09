@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.network.firebase.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.user.User
-import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
-import com.sgale.gaztelubira.core.domain.migration.model.user.UserRole
-import com.sgale.gaztelubira.core.domain.migration.model.user.UserRole.GUEST
+import com.sgale.gaztelubira.core.domain.model.user.User
+import com.sgale.gaztelubira.core.domain.model.user.UserId
+import com.sgale.gaztelubira.core.domain.model.user.UserRole
+import com.sgale.gaztelubira.core.domain.model.user.UserRole.GUEST
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.UserResponse
 

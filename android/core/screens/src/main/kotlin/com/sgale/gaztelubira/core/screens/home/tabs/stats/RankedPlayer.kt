@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
+import com.sgale.gaztelubira.core.domain.model.season.squad.SquadPlayer
 
 internal data class RankedPlayer(
     val player: SquadPlayer,

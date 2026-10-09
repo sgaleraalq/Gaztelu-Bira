@@ -18,11 +18,11 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetTeam
-import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.usecase.GetMatches
+import com.sgale.gaztelubira.core.domain.usecase.GetSquad
+import com.sgale.gaztelubira.core.domain.usecase.GetTeam
+import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.screens.mapper.MatchUiMapper.toGBMatch
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

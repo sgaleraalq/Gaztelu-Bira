@@ -18,11 +18,11 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.core.domain.migration.model.user.User
-import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
-import com.sgale.gaztelubira.core.domain.migration.repository.UsersRemote
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.user.User
+import com.sgale.gaztelubira.core.domain.model.user.UserId
+import com.sgale.gaztelubira.core.domain.repository.UsersRemote
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.USERS
 import com.sgale.gaztelubira.core.network.firebase.mapper.UserMapper.asModel

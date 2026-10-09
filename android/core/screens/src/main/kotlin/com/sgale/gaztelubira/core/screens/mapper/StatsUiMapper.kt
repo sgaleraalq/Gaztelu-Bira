@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.screens.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.utils.formatDecimal
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.RankedPlayer
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.SeasonStats

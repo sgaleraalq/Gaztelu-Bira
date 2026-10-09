@@ -27,11 +27,11 @@ import com.sgale.gaztelubira.core.database.implementation.RoomPlayers
 import com.sgale.gaztelubira.core.database.implementation.RoomSeasons
 import com.sgale.gaztelubira.core.database.implementation.RoomTeam
 import com.sgale.gaztelubira.core.database.preferences.PreferencesImpl
-import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
-import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
+import com.sgale.gaztelubira.core.domain.repository.MatchLocal
+import com.sgale.gaztelubira.core.domain.repository.PlayerLocal
+import com.sgale.gaztelubira.core.domain.repository.Preferences
+import com.sgale.gaztelubira.core.domain.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.repository.TeamLocal
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

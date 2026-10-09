@@ -19,9 +19,9 @@ package com.sgale.gaztelubira.core.database.entity
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 
 /**
  * One row per player called up for a match, so they live and die with their match:

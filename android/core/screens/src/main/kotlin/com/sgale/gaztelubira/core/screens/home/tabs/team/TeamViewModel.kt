@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
-import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.usecase.GetSquad
+import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

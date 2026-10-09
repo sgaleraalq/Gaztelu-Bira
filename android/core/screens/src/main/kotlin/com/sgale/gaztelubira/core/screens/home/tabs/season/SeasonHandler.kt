@@ -16,11 +16,11 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.season
 
-import com.sgale.gaztelubira.core.domain.migration.model.match.Match
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
 import javax.inject.Inject
 
 internal class SeasonHandler @Inject constructor() {

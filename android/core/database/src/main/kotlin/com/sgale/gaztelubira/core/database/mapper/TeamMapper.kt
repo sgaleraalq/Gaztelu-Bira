@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.database.mapper
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.entity.TeamEntity
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.team.Team
 
 internal object TeamMapper: DatabaseMapper<Team, TeamEntity> {
     override fun Team.asEntity(): TeamEntity =

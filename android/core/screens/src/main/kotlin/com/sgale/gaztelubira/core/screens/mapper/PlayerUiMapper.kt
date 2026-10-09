@@ -16,16 +16,16 @@
 
 package com.sgale.gaztelubira.core.screens.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.DEFENDER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.FORWARD
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.GOALKEEPER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.MIDFIELDER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position.UNDEFINED
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.Position
+import com.sgale.gaztelubira.core.domain.model.player.Position.DEFENDER
+import com.sgale.gaztelubira.core.domain.model.player.Position.FORWARD
+import com.sgale.gaztelubira.core.domain.model.player.Position.GOALKEEPER
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.model.player.Position.MIDFIELDER
+import com.sgale.gaztelubira.core.domain.model.player.Position.UNDEFINED
+import com.sgale.gaztelubira.core.domain.model.season.squad.SquadPlayer
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.model.GBPosition
 

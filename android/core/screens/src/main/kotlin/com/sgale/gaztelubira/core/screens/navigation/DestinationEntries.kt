@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.screens.navigation
 
 import androidx.navigation3.runtime.EntryProviderScope
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
 import com.sgale.gaztelubira.core.navigation.Destination
 import com.sgale.gaztelubira.core.navigation.Destination.Home
 import com.sgale.gaztelubira.core.navigation.Destination.InsertMatch

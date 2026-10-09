@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.domain.auth
 
-import com.sgale.gaztelubira.core.domain.migration.model.user.User
+import com.sgale.gaztelubira.core.domain.model.user.User
 
 sealed interface GoogleResult {
     data class GoogleLogin(

@@ -16,14 +16,14 @@
 
 package com.sgale.gaztelubira.core.network.firebase.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayer
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.UNDEFINED
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchLineupPlayer
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayer
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayerState
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayerState.UNDEFINED
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.MatchPlayerResponse
 

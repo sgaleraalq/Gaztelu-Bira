@@ -16,9 +16,9 @@
 
 package com.sgale.gaztelubira.core.domain.utils
 
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamId
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.team.TeamId
 
 object GazteluBiraUtils {
     const val GAZTELU_BIRA_ID = "gaztelu_bira"

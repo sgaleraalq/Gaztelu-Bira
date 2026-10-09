@@ -16,10 +16,11 @@
 
 package com.sgale.gaztelubira.core.network.firebase.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.player.Position
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.Position
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.season.squad.SeasonPlayer
+import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.SeasonPlayerResponse
 
 /**

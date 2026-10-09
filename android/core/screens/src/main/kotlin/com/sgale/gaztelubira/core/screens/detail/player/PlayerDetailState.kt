@@ -16,8 +16,8 @@
 
 package com.sgale.gaztelubira.core.screens.detail.player
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.season.squad.SeasonPlayer
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 
 data class PlayerDetailState(

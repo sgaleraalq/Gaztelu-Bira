@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.screens.insert.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.model.player.Stat
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Stat
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
@@ -33,10 +33,10 @@ import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loa
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchStats
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
 import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.Bench
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LineUp
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.Manager
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.StatPlayer
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.BENCH
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LINE_UP
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.MANAGER
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.STAT_PLAYER
 import com.sgale.gaztelubira.core.screens.insert.match.data.isValid
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
@@ -123,20 +123,20 @@ class InsertMatchViewModel @Inject constructor(
     fun insertPlayer(player: Player) {
         val state = _formationState.value.state
         when (state) {
-            Bench -> insertBenchPlayer(player)
-            LineUp -> insertLineUpPlayer(player, position.value.position)
-            Manager -> insertManager(player)
-            StatPlayer -> addStat(player)
+            BENCH -> insertBenchPlayer(player)
+            LINE_UP -> insertLineUpPlayer(player, position.value.position)
+            MANAGER -> insertManager(player)
+            STAT_PLAYER -> addStat(player)
         }
     }
 
     fun removePlayer(player: Player) {
         val state = _formationState.value.state
         when (state) {
-            Bench -> removeBenchPlayer(player)
-            LineUp -> removeLineUpPlayer(player)
-            Manager -> removeManager()
-            StatPlayer -> Unit
+            BENCH -> removeBenchPlayer(player)
+            LINE_UP -> removeLineUpPlayer(player)
+            MANAGER -> removeManager()
+            STAT_PLAYER -> Unit
         }
     }
 

@@ -18,14 +18,14 @@ package com.sgale.gaztelubira.core.screens.home.tabs.stats
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
-import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatches
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetSeasonPlayerStats
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetSquad
-import com.sgale.gaztelubira.core.domain.migration.usecase.SelectedSeason
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.repository.Preferences
+import com.sgale.gaztelubira.core.domain.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.usecase.GetMatches
+import com.sgale.gaztelubira.core.domain.usecase.GetSeasonPlayerStats
+import com.sgale.gaztelubira.core.domain.usecase.GetSquad
+import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.StatsCalculator.rank
 import com.sgale.gaztelubira.core.screens.mapper.StatsUiMapper.toDetail
 import com.sgale.gaztelubira.core.screens.mapper.StatsUiMapper.toGBPlayerStat

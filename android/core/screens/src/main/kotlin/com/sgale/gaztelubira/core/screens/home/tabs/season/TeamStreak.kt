@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.screens.home.tabs.season
 
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult
 
 data class TeamStreak(
     val currentStreak: Int,

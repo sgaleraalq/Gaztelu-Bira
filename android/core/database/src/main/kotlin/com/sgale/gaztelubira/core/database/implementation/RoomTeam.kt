@@ -19,11 +19,11 @@ package com.sgale.gaztelubira.core.database.implementation
 import com.sgale.gaztelubira.core.database.dao.TeamDao
 import com.sgale.gaztelubira.core.database.mapper.TeamMapper.asEntity
 import com.sgale.gaztelubira.core.database.mapper.TeamMapper.asModel
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team.Companion.ERROR_TEAM
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamId
-import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.team.Team.Companion.ERROR_TEAM
+import com.sgale.gaztelubira.core.domain.model.team.TeamId
+import com.sgale.gaztelubira.core.domain.repository.TeamLocal
 import javax.inject.Inject
 
 internal class RoomTeam @Inject constructor(

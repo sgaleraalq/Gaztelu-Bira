@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.screens.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
 
 internal object TeamUiMapper {

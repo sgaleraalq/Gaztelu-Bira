@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.core.database.other
 
 import com.sgale.gaztelubira.core.database.mapper.PlayerMapper.asModel
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
+import com.sgale.gaztelubira.core.domain.model.season.squad.SquadPlayer
 
 internal object SquadPlayerMapper {
     fun SquadPlayerView.asModel() =

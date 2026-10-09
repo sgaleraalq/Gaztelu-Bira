@@ -16,24 +16,25 @@
 
 package com.sgale.gaztelubira.core.screens.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.match.Match
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DEFEAT
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.DRAW
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchResult.VICTORY
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.FIVE_THREE_TWO
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation.FOUR_FOUR_TWO
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.Cup
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.League
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DEFEAT
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.DRAW
+import com.sgale.gaztelubira.core.domain.model.match.MatchResult.VICTORY
+import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.team.TeamFormation
+import com.sgale.gaztelubira.core.domain.model.team.TeamFormation.FIVE_THREE_TWO
+import com.sgale.gaztelubira.core.domain.model.team.TeamFormation.FOUR_FOUR_TWO
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 import com.sgale.gaztelubira.core.domain.utils.toDate
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.model.GBMatch
 import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
 import com.sgale.gaztelubira.multiplatform.model.GBMatchTeam
-import com.sgale.gaztelubira.multiplatform.model.GBMatchType
+import com.sgale.gaztelubira.multiplatform.model.GBMatchType.CUP
+import com.sgale.gaztelubira.multiplatform.model.GBMatchType.LEAGUE
 
 internal object MatchUiMapper {
     fun Match.toGBMatch(
@@ -44,8 +45,8 @@ internal object MatchUiMapper {
             id = id.value,
             name = displayName(),
             type = when (competition) {
-                is Cup -> GBMatchType.CUP
-                is League -> GBMatchType.LEAGUE
+                is Cup -> CUP
+                is League -> LEAGUE
             },
             // The domain keeps dates in seconds, toDate() expects millis
             date = (information.date * 1_000).toDate(),

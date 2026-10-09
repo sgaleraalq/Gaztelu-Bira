@@ -16,7 +16,7 @@
 
 package com.sgale.gaztelubira.core.network.firebase
 
-import com.sgale.gaztelubira.core.domain.migration.model.FirebaseId
+import com.sgale.gaztelubira.core.domain.model.FirebaseId
 
 /**
  * Maps every object to each layer of the application

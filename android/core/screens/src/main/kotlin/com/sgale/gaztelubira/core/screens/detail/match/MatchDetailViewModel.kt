@@ -20,11 +20,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.common.utils.TAG
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatchDetail
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetMatchPlayerStats
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetPlayers
-import com.sgale.gaztelubira.core.domain.migration.usecase.GetTeam
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.usecase.GetMatchDetail
+import com.sgale.gaztelubira.core.domain.usecase.GetMatchPlayerStats
+import com.sgale.gaztelubira.core.domain.usecase.GetPlayers
+import com.sgale.gaztelubira.core.domain.usecase.GetTeam
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA
 import com.sgale.gaztelubira.core.screens.mapper.MatchDetailUiMapper.toMatchDetailInformation
 import com.sgale.gaztelubira.core.screens.mapper.MatchDetailUiMapper.toMatchDetailLineUp

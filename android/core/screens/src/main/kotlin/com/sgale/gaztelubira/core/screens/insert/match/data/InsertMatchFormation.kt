@@ -17,9 +17,9 @@
 package com.sgale.gaztelubira.core.screens.insert.match.data
 
 import androidx.compose.runtime.Stable
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LineUp
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LINE_UP
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation.FOUR_THREE_THREE
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
@@ -27,7 +27,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Goa
 
 @Stable
 data class InsertMatchFormation(
-    val state: PlayerState = LineUp,
+    val state: PlayerState = LINE_UP,
     val formation: LineUpFormation = FOUR_THREE_THREE,
     val lineUp: Map<Int, Player?> = FOUR_THREE_THREE.positions.indices.associateWith { null },
     val benchPlayers: List<Player> = emptyList(),

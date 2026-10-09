@@ -36,15 +36,15 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.Second
 import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.Bench
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LineUp
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.BENCH
+import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LINE_UP
 import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAddButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
@@ -79,7 +79,7 @@ internal fun InsertMatchFormation(
     LineUpPlayers(
         modifier = modifier,
         formationState = formationState,
-        onPlayerSelected = { changePlayerState(LineUp); onPlayerSelected(it) },
+        onPlayerSelected = { changePlayerState(LINE_UP); onPlayerSelected(it) },
         changeSelectedPosition = { changeSelectedPosition(it) }
     )
     NonLineUpPlayers(
@@ -190,8 +190,8 @@ private fun BenchPlayers(
         BenchTitle()
         Bench(
             formationState = formationState,
-            showPlayers = { changePlayerState(Bench); showPlayers() },
-            removeBenchPlayer = { changePlayerState(Bench); removePlayer(it) },
+            showPlayers = { changePlayerState(BENCH); showPlayers() },
+            removeBenchPlayer = { changePlayerState(BENCH); removePlayer(it) },
             changeSelectedPosition = { changeSelectedPosition(it) }
         )
     }
@@ -316,7 +316,7 @@ private fun Managers(
             ) {
                 showPlayers()
                 changeSelectedPosition(Manager)
-                changePlayerState(PlayerState.Manager)
+                changePlayerState(PlayerState.MANAGER)
                 changeManagerSelected(First)
             }
         } else {
@@ -330,7 +330,7 @@ private fun Managers(
                 show = true
             ) {
                 showPlayers()
-                changePlayerState(PlayerState.Manager)
+                changePlayerState(PlayerState.MANAGER)
                 changeSelectedPosition(Manager)
                 changeManagerSelected(Second)
             }

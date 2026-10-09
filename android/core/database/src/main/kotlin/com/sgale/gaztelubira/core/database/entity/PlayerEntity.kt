@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
 
 @Entity
 internal data class PlayerEntity(

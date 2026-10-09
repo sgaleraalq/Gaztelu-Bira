@@ -16,10 +16,10 @@
 
 package com.sgale.gaztelubira.core.domain.auth
 
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.core.domain.migration.model.user.User
-import com.sgale.gaztelubira.core.domain.migration.model.user.UserRole.ADMIN
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.user.User
+import com.sgale.gaztelubira.core.domain.model.user.UserRole.ADMIN
 
 data class UserSession(
     val session: User,

@@ -23,9 +23,9 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.sgale.gaztelubira.core.database.entity.PlayerEntity
 import com.sgale.gaztelubira.core.database.entity.PlayerStatsEntity
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 
 @Dao
 internal interface PlayerDao {

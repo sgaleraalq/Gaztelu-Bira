@@ -18,8 +18,8 @@ package com.sgale.gaztelubira.core.database.mapper
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.entity.MatchEventEntity
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEvent
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchEventType
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchEvent
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchEventType
 
 internal object MatchEventMapper : DatabaseMapper<MatchEvent, MatchEventEntity> {
     override fun MatchEvent.asEntity(): MatchEventEntity =

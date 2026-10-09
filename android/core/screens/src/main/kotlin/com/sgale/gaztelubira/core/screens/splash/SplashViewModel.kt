@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package com.sgale.gaztelubira.core.screens.splash
 
 import androidx.lifecycle.ViewModel

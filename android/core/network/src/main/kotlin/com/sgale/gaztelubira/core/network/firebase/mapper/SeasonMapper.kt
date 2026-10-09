@@ -17,8 +17,8 @@
 package com.sgale.gaztelubira.core.network.firebase.mapper
 
 import com.google.firebase.Timestamp
-import com.sgale.gaztelubira.core.domain.migration.model.season.Season
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.season.Season
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.SeasonResponse
 

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package com.sgale.gaztelubira.core.screens.review_photo
 
 import androidx.compose.runtime.Composable

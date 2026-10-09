@@ -18,9 +18,9 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.repository.PlayerRemote
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.repository.PlayerRemote
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.PLAYERS
 import com.sgale.gaztelubira.core.network.firebase.mapper.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.PlayerResponse

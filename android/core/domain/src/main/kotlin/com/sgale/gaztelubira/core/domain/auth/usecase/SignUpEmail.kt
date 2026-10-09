@@ -20,7 +20,7 @@ import com.sgale.gaztelubira.core.domain.auth.AuthResult
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
-import com.sgale.gaztelubira.core.domain.migration.usecase.users.InsertUser
+import com.sgale.gaztelubira.core.domain.usecase.users.InsertUser
 import javax.inject.Inject
 
 /**
@@ -33,9 +33,9 @@ class SignUpEmail @Inject constructor(
     suspend operator fun invoke(
         name: String, email: String, password: String
     ): AuthResult {
-        val authResult = repository.signUpWithEmail(name, email, password)
-
-        return when (authResult) {
+        return when (
+            val authResult = repository.signUpWithEmail(name, email, password)
+        ) {
             is Success -> {
                 insertUser(authResult.user)
                 authResult

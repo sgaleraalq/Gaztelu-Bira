@@ -16,14 +16,14 @@
 
 package com.sgale.gaztelubira.core.screens.mapper
 
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchDetail
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchLineupPlayer
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.BENCH
-import com.sgale.gaztelubira.core.domain.migration.model.match.detail.MatchPlayerState.MANAGER
-import com.sgale.gaztelubira.core.domain.migration.model.player.Player
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerStats
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchDetail
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchLineupPlayer
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayerState
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayerState.BENCH
+import com.sgale.gaztelubira.core.domain.model.match.detail.MatchPlayerState.MANAGER
+import com.sgale.gaztelubira.core.domain.model.player.Player
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerStats
 import com.sgale.gaztelubira.core.screens.mapper.MatchUiMapper.toLineUpFormation
 import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer

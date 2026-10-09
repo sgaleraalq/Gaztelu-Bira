@@ -22,12 +22,12 @@ import com.sgale.gaztelubira.core.database.mapper.SeasonMapper.asModel
 import com.sgale.gaztelubira.core.database.mapper.SeasonPlayerMapper.asEntity
 import com.sgale.gaztelubira.core.database.mapper.SeasonPlayerMapper.asModel
 import com.sgale.gaztelubira.core.database.other.SquadPlayerMapper.asModel
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
-import com.sgale.gaztelubira.core.domain.migration.model.season.Season
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SeasonPlayer
-import com.sgale.gaztelubira.core.domain.migration.model.season.squad.SquadPlayer
-import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.season.Season
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.season.squad.SeasonPlayer
+import com.sgale.gaztelubira.core.domain.model.season.squad.SquadPlayer
+import com.sgale.gaztelubira.core.domain.repository.SeasonLocal
 import javax.inject.Inject
 
 internal class RoomSeasons @Inject constructor(

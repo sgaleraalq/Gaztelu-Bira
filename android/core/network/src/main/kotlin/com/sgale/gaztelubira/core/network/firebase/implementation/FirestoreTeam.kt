@@ -18,11 +18,11 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.sgale.gaztelubira.core.domain.migration.model.season.SeasonId
-import com.sgale.gaztelubira.core.domain.migration.model.team.Team
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamId
-import com.sgale.gaztelubira.core.domain.migration.repository.StorageRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.TeamRemote
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.model.team.Team
+import com.sgale.gaztelubira.core.domain.model.team.TeamId
+import com.sgale.gaztelubira.core.domain.repository.StorageRemote
+import com.sgale.gaztelubira.core.domain.repository.TeamRemote
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.TEAMS
 import com.sgale.gaztelubira.core.network.firebase.mapper.TeamMapper.asModel

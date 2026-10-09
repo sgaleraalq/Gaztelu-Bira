@@ -18,7 +18,7 @@ package com.sgale.gaztelubira.core.screens.detail.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.migration.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

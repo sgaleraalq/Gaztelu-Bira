@@ -18,22 +18,22 @@ package com.sgale.gaztelubira.core.database.mapper
 
 import com.sgale.gaztelubira.core.database.DatabaseMapper
 import com.sgale.gaztelubira.core.database.entity.MatchEntity
-import com.sgale.gaztelubira.core.domain.migration.model.match.Match
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Companion.asMatchType
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Companion.resolveJourney
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Companion.resolveName
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Companion.resolveRound
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.Cup
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchCompetition.League
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchInformation
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchScore.Companion.isGBLocal
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.CUP
-import com.sgale.gaztelubira.core.domain.migration.model.match.MatchType.LEAGUE
-import com.sgale.gaztelubira.core.domain.migration.model.match.Score
-import com.sgale.gaztelubira.core.domain.migration.model.team.TeamFormation
+import com.sgale.gaztelubira.core.domain.model.match.Match
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.Companion.asMatchType
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.Companion.resolveJourney
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.Companion.resolveName
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.Companion.resolveRound
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.Cup
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.League
+import com.sgale.gaztelubira.core.domain.model.match.MatchInformation
+import com.sgale.gaztelubira.core.domain.model.match.MatchScore
+import com.sgale.gaztelubira.core.domain.model.match.MatchScore.Companion.isGBLocal
+import com.sgale.gaztelubira.core.domain.model.match.MatchType
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.CUP
+import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
+import com.sgale.gaztelubira.core.domain.model.match.Score
+import com.sgale.gaztelubira.core.domain.model.team.TeamFormation
 
 internal object MatchMapper: DatabaseMapper<Match, MatchEntity> {
     override fun Match.asEntity(): MatchEntity =
@@ -82,10 +82,15 @@ internal object MatchMapper: DatabaseMapper<Match, MatchEntity> {
 
     private fun MatchEntity.toMatch(): MatchScore =
         MatchScore(
-            formation = TeamFormation.valueOf(formation),
+            formation = TeamFormation.valueOf(
+                formation
+            ),
             isLocal = localTeam.isGBLocal(),
             localTeam = localTeam,
             visitorTeam = visitorTeam,
-            score = Score(localGoals, visitorGoals)
+            score = Score(
+                localGoals,
+                visitorGoals
+            )
         )
 }

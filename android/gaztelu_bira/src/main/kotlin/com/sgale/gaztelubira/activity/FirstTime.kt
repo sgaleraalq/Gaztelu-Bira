@@ -18,16 +18,16 @@ package com.sgale.gaztelubira.activity
 
 import android.util.Log
 import com.sgale.gaztelubira.core.common.utils.TAG
-import com.sgale.gaztelubira.core.domain.migration.InitAppHandler
-import com.sgale.gaztelubira.core.domain.migration.repository.MatchLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.MatchRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.PlayerLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.PlayerRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
-import com.sgale.gaztelubira.core.domain.migration.repository.SeasonLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.SeasonRemote
-import com.sgale.gaztelubira.core.domain.migration.repository.TeamLocal
-import com.sgale.gaztelubira.core.domain.migration.repository.TeamRemote
+import com.sgale.gaztelubira.core.domain.InitAppHandler
+import com.sgale.gaztelubira.core.domain.repository.MatchLocal
+import com.sgale.gaztelubira.core.domain.repository.MatchRemote
+import com.sgale.gaztelubira.core.domain.repository.PlayerLocal
+import com.sgale.gaztelubira.core.domain.repository.PlayerRemote
+import com.sgale.gaztelubira.core.domain.repository.Preferences
+import com.sgale.gaztelubira.core.domain.repository.SeasonLocal
+import com.sgale.gaztelubira.core.domain.repository.SeasonRemote
+import com.sgale.gaztelubira.core.domain.repository.TeamLocal
+import com.sgale.gaztelubira.core.domain.repository.TeamRemote
 import javax.inject.Inject
 
 internal class FirstTime @Inject constructor(

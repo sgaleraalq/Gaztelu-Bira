@@ -18,12 +18,12 @@ package com.sgale.gaztelubira.core.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.InitAppHandler
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.auth.usecase.IsUserAuthenticated
-import com.sgale.gaztelubira.core.domain.migration.InitAppHandler
-import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
-import com.sgale.gaztelubira.core.domain.migration.repository.Preferences
-import com.sgale.gaztelubira.core.domain.migration.usecase.users.GetUser
+import com.sgale.gaztelubira.core.domain.model.user.UserId
+import com.sgale.gaztelubira.core.domain.repository.Preferences
+import com.sgale.gaztelubira.core.domain.usecase.users.GetUser
 import com.sgale.gaztelubira.core.navigation.Destination.Home
 import com.sgale.gaztelubira.core.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.navigation.NavigationState

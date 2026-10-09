@@ -28,8 +28,8 @@ import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.LOGIN_ER
 import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.SIGN_UP_ERROR
 import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
 import com.sgale.gaztelubira.core.domain.auth.usecase.LoginGoogle
-import com.sgale.gaztelubira.core.domain.migration.model.user.User
-import com.sgale.gaztelubira.core.domain.migration.model.user.UserId
+import com.sgale.gaztelubira.core.domain.model.user.User
+import com.sgale.gaztelubira.core.domain.model.user.UserId
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
