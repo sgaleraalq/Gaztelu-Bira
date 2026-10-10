@@ -280,7 +280,7 @@ internal fun InsertMatchStatPlayersBigBox(
         item {
             GBElevatedButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = "statTitle", // TODO stringResource(stat.statTitle ?: R.string.insert_player),
+                text = "statTitle", // TODO stringResource(stat.statTitle ?: Res.string.insert_player_button),
                 enabled = true,
                 onClick = { showPlayers() }
             )

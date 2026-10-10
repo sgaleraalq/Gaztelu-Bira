@@ -57,15 +57,15 @@ import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.assists
-import com.sgale.gaztelubira.multiplatform.ui.resources.clean_sheets
-import com.sgale.gaztelubira.multiplatform.ui.resources.fails
-import com.sgale.gaztelubira.multiplatform.ui.resources.goals
-import com.sgale.gaztelubira.multiplatform.ui.resources.penalties
-import com.sgale.gaztelubira.multiplatform.ui.resources.red_cards
-import com.sgale.gaztelubira.multiplatform.ui.resources.saves
-import com.sgale.gaztelubira.multiplatform.ui.resources.update_punctuation
-import com.sgale.gaztelubira.multiplatform.ui.resources.yellow_cards
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_assists
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_clean_sheets
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_fails
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_goals
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_red_cards
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_saves
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_yellow_cards
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_penalties
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_update_punctuation
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.roundToInt
@@ -97,7 +97,7 @@ internal fun SettingsPunctuation(
         )
         GBElevatedButton(
             modifier = Modifier.padding(horizontal = 12.dp).padding(bottom = 8.dp).fillMaxWidth(),
-            text = stringResource(Res.string.update_punctuation),
+            text = stringResource(Res.string.home_stats_update_punctuation),
             onClick = {
                 actions.onPunctuationConfirmed(draft)
                 actions.onSettingsChanged(Hidden)
@@ -115,45 +115,45 @@ private fun Sliders(
     val scrollState = rememberScrollState()
     val specs = listOf(
         SliderSpec(
-            label = Res.string.goals,
+            label = Res.string.common_goals,
             value = draft.goals,
             field = GOALS
         ),
         SliderSpec(
-            label = Res.string.assists,
+            label = Res.string.common_assists,
             value = draft.assists,
             field = ASSISTS
         ),
         SliderSpec(
-            label = Res.string.clean_sheets,
+            label = Res.string.common_clean_sheets,
             value = draft.cleanSheets,
             field = CLEAN_SHEETS
         ),
         SliderSpec(
-            label = Res.string.penalties,
+            label = Res.string.home_stats_penalties,
             value = draft.penaltiesProvoked,
             field = PENALTIES_PROVOKED
         ),
         SliderSpec(
-            label = Res.string.saves,
+            label = Res.string.common_saves,
             value = draft.saves,
             field = SAVES
         ),
         SliderSpec(
-            label = Res.string.fails,
+            label = Res.string.common_fails,
             value = draft.fails,
             field = FAILS,
             isNegative = true
         ),
         SliderSpec(
-            label = Res.string.yellow_cards,
+            label = Res.string.common_yellow_cards,
             value = draft.minYellowCards,
             field = MIN_YELLOW_CARDS,
             possibleValues = CARD_VALUES,
             isCard = true
         ),
         SliderSpec(
-            label = Res.string.red_cards,
+            label = Res.string.common_red_cards,
             value = draft.minRedCards,
             field = MIN_RED_CARDS,
             possibleValues = CARD_VALUES,

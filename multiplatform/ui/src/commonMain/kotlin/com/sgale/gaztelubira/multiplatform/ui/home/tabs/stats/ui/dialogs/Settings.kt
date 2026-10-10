@@ -62,12 +62,12 @@ import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.Setting
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.SettingsOption.PUNCTUATION
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui.dialogs.SettingsOption.STATS
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.change_punctuation
-import com.sgale.gaztelubira.multiplatform.ui.resources.change_stat
-import com.sgale.gaztelubira.multiplatform.ui.resources.current_stat
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_change_punctuation
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_change_stat
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_current_stat
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_need_to_set_percentage
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_left
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_right
-import com.sgale.gaztelubira.multiplatform.ui.resources.need_to_set_percentage
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -78,12 +78,12 @@ private enum class SettingsOption(
     val action: (GBPunctuation) -> GBStatsSettings
 ) {
     STATS(
-        title = Res.string.change_stat,
-        subtitle = Res.string.current_stat,
+        title = Res.string.home_stats_change_stat,
+        subtitle = Res.string.home_stats_current_stat,
         action = { ChangeStat }
     ),
     PUNCTUATION(
-        title = Res.string.change_punctuation,
+        title = Res.string.home_stats_change_punctuation,
         action = { punctuation -> ChangePunctuation(punctuation) }
     );
 
@@ -239,7 +239,7 @@ private fun getSubtitle(
     selectedStat: GBStat
 ): String? = when (option) {
     STATS -> stringResource(option.subtitle!!)
-    PUNCTUATION -> { if (selectedStat == PERCENTAGE) null else stringResource(Res.string.need_to_set_percentage) }
+    PUNCTUATION -> { if (selectedStat == PERCENTAGE) null else stringResource(Res.string.home_stats_need_to_set_percentage) }
 }
 
 @Composable

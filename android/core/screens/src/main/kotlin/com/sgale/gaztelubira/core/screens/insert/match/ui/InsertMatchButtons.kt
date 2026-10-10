@@ -28,7 +28,6 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState
@@ -42,6 +41,11 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gb_dialog_background
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_stats
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_information
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_formation
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertMatchButtons(
@@ -64,7 +68,7 @@ internal fun InsertMatchInformationButton(
 ) {
     InsertMatchButton(
         icon = R.drawable.ic_information,
-        text = stringResource(R.string.information),
+        text = stringResource(Res.string.insert_information),
         onClick = { changeState() }
     )
 }
@@ -74,7 +78,7 @@ internal fun InsertMatchFormationButton(
 ) {
     InsertMatchButton(
         icon = R.drawable.ic_formation,
-        text = stringResource(R.string.formation),
+        text = stringResource(Res.string.insert_match_formation),
         onClick = { changeState() }
     )
 }
@@ -84,7 +88,7 @@ internal fun InsertMatchStatsButton(
 ) {
     InsertMatchButton(
         icon = R.drawable.ic_stats,
-        text = stringResource(R.string.stats),
+        text = stringResource(Res.string.common_stats),
         onClick = { changeState() }
     )
 }

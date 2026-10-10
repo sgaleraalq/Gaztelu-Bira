@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.team
 import androidx.compose.runtime.Composable
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.insert_new_team
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team_title
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -29,7 +29,7 @@ fun InsertTeamView(
 ) {
     GBScaffold(
         showTopAppBar = true,
-        title = stringResource(Res.string.insert_new_team)
+        title = stringResource(Res.string.insert_team_title)
     ) { modifier ->
         InsertTeamViewUI(
             modifier = modifier,

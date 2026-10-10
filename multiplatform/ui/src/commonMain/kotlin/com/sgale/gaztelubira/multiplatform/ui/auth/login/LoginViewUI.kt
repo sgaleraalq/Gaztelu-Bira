@@ -34,7 +34,7 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.GoogleLogin
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.LoginTextFields
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.ui.OrSpacer
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.login
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_login_title
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -45,7 +45,7 @@ internal fun LoginViewUI(
 ) {
     AuthScaffold(
         modifier = modifier,
-        title = stringResource(Res.string.login)
+        title = stringResource(Res.string.auth_login_title)
     ) {
         LoginCard(state, actions)
     }
@@ -61,7 +61,7 @@ private fun LoginCard(
         AuthErrorMessage(state.errorMessage())
         Spacer(Modifier.height(16.dp))
         AuthButton(
-            text = stringResource(Res.string.login),
+            text = stringResource(Res.string.auth_login_title),
             authState = state.auth,
             onClick = { actions.onLogin(Email) }
         )

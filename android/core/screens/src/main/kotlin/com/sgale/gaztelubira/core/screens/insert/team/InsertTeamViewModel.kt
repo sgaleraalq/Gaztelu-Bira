@@ -34,10 +34,10 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamName
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_inserting_team
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_inserting_team_reason
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_no_season_selected
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_team_already_exists
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_error_no_season_selected
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team_error_already_exists
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team_error_inserting
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team_error_inserting_reason
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -100,14 +100,14 @@ internal class InsertTeamViewModel @Inject constructor(
 
     private suspend fun FirebaseInsertResult.errorMessage(): String =
         when (this) {
-            is AlreadyExists -> getString(Res.string.error_team_already_exists)
-            is NoSeasonSelected -> getString(Res.string.error_no_season_selected)
+            is AlreadyExists -> getString(Res.string.insert_team_error_already_exists)
+            is NoSeasonSelected -> getString(Res.string.insert_error_no_season_selected)
             is Unknown -> if (message.isNotBlank()) {
-                getString(Res.string.error_inserting_team_reason, message)
+                getString(Res.string.insert_team_error_inserting_reason, message)
             } else {
-                getString(Res.string.error_inserting_team)
+                getString(Res.string.insert_team_error_inserting)
             }
-            else -> getString(Res.string.error_inserting_team)
+            else -> getString(Res.string.insert_team_error_inserting)
         }
 
     /**

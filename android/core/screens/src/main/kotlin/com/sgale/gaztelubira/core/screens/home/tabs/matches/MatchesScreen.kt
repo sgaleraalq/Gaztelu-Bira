@@ -30,7 +30,7 @@ import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesView
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.not_enough_players
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_matches_not_enough_players
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -40,7 +40,7 @@ internal fun MatchesScreen(
 ) {
     val context = LocalContext.current
     val mainViewModel = LocalMainViewModel.current
-    val notEnoughPlayersMsg = stringResource(Res.string.not_enough_players)
+    val notEnoughPlayersMsg = stringResource(Res.string.home_matches_not_enough_players)
 
     val userSession by mainViewModel.userSession.collectAsState()
     val state by viewModel.state.collectAsState()

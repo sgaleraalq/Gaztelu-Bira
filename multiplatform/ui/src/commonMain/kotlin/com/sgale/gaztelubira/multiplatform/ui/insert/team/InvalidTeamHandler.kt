@@ -19,9 +19,8 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.team
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationReason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_team_image
-import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_team_name
-
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team_invalid_image
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team_invalid_name
 internal class InvalidTeamHandler(
     state: InsertTeamUiState
 ) : InvalidInformationHandler<InsertTeamUiState>(state) {
@@ -29,11 +28,11 @@ internal class InvalidTeamHandler(
         listOf(
             InvalidInformationReason(
                 value = state.teamName,
-                reason = Res.string.invalid_team_name
+                reason = Res.string.insert_team_invalid_name
             ),
             InvalidInformationReason(
                 value = state.teamImage,
-                reason = Res.string.invalid_team_image
+                reason = Res.string.insert_team_invalid_image
             )
         )
 }

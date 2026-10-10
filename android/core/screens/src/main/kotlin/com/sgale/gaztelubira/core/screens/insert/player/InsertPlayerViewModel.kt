@@ -46,10 +46,10 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerFi
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Nickname
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_inserting_player_reason
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_no_season_selected
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_player_already_exists
-import com.sgale.gaztelubira.multiplatform.ui.resources.upload_error_message
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_error_no_season_selected
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_error_already_exists
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_error_inserting_reason
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_upload_error_message
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -140,14 +140,14 @@ internal class InsertPlayerViewModel @Inject constructor(
 
     private suspend fun FirebaseInsertResult.errorMessage(): String =
         when (this) {
-            is AlreadyExists -> getString(Res.string.error_player_already_exists)
-            is NoSeasonSelected -> getString(Res.string.error_no_season_selected)
+            is AlreadyExists -> getString(Res.string.insert_player_error_already_exists)
+            is NoSeasonSelected -> getString(Res.string.insert_error_no_season_selected)
             is Unknown -> if (message.isNotBlank()) {
-                getString(Res.string.error_inserting_player_reason, message)
+                getString(Res.string.insert_player_error_inserting_reason, message)
             } else {
-                getString(Res.string.upload_error_message)
+                getString(Res.string.insert_player_upload_error_message)
             }
-            else -> getString(Res.string.upload_error_message)
+            else -> getString(Res.string.insert_player_upload_error_message)
         }
 
     private fun onImageChanged(newImage: String?) {

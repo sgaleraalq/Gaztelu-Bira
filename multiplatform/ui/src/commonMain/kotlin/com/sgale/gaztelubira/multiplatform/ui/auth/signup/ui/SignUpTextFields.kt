@@ -28,12 +28,12 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthTextField
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpActions
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.SignUpUser
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.email_id
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_email_id
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_password
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_repeat_password
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_at_sign
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_padlock
-import com.sgale.gaztelubira.multiplatform.ui.resources.name
-import com.sgale.gaztelubira.multiplatform.ui.resources.password
-import com.sgale.gaztelubira.multiplatform.ui.resources.repeat_password
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -48,7 +48,7 @@ fun SignUpTextFields(
     ) {
         AuthTextField(
             text = user.name,
-            label = stringResource(Res.string.name),
+            label = stringResource(Res.string.auth_signup_name),
             style = bodyLarge,
             onTextChanged = actions.onNameChange,
             firstCap = true
@@ -56,13 +56,13 @@ fun SignUpTextFields(
         Spacer(Modifier.height(16.dp))
         AuthTextField(
             text = user.email,
-            label = stringResource(Res.string.email_id),
+            label = stringResource(Res.string.auth_email_id),
             icon = Res.drawable.ic_at_sign,
             onTextChanged = actions.onEmailChange
         )
         AuthTextField(
             text = user.password,
-            label = stringResource(Res.string.password),
+            label = stringResource(Res.string.auth_password),
             icon = Res.drawable.ic_padlock,
             isPassword = true,
             isPasswordVisible = user.passwordVisible,
@@ -71,7 +71,7 @@ fun SignUpTextFields(
         )
         AuthTextField(
             text = user.repeatPassword,
-            label = stringResource(Res.string.repeat_password),
+            label = stringResource(Res.string.auth_signup_repeat_password),
             icon = Res.drawable.ic_padlock,
             isPassword = true,
             isPasswordVisible = user.repeatPasswordVisible,

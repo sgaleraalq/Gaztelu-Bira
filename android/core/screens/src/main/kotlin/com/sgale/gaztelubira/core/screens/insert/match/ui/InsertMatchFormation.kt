@@ -34,10 +34,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First
@@ -56,6 +54,11 @@ import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_bench
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_bench_player
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_managers
+import org.jetbrains.compose.resources.stringResource
 
 private val BENCH_PLAYER_SIZE = 70.dp
 
@@ -201,7 +204,7 @@ private fun BenchPlayers(
 internal fun BenchTitle() {
     GBText(
         modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
-        text = stringResource(R.string.bench),
+        text = stringResource(Res.string.common_bench),
         style = gBTypography().bodyLarge
     )
 }
@@ -217,7 +220,7 @@ private fun Bench(
         Box(Modifier.height(BENCH_PLAYER_SIZE), contentAlignment = Center) {
             GBElevatedButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(R.string.insert_bench_player),
+                text = stringResource(Res.string.insert_match_bench_player),
                 onClick = {
                     changeSelectedPosition(LineUpPosition.Bench)
                     showPlayers()
@@ -291,7 +294,7 @@ fun ManagersPlayers(
 private fun ManagersTitle() {
     GBText(
         modifier = Modifier.padding(top = 12.dp),
-        text = stringResource(R.string.managers),
+        text = stringResource(Res.string.insert_match_managers),
         style = gBTypography().bodyLarge
     )
 }

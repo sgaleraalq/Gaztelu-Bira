@@ -17,7 +17,7 @@
 package com.sgale.gaztelubira.multiplatform.designsystem.utils
 
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_app_name
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -25,5 +25,5 @@ import org.jetbrains.compose.resources.StringResource
 object AppProvider {
     val APP_LOGO: DrawableResource = Res.drawable.img_gaztelu_bira
 
-    val APP_NAME: StringResource = Res.string.app_name
+    val APP_NAME: StringResource = Res.string.common_app_name
 }

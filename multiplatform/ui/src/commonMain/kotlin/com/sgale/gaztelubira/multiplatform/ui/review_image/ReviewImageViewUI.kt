@@ -34,8 +34,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedBut
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.accept
-import com.sgale.gaztelubira.multiplatform.ui.resources.repeat
+import com.sgale.gaztelubira.multiplatform.ui.resources.review_image_accept
+import com.sgale.gaztelubira.multiplatform.ui.resources.review_image_repeat
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -67,13 +67,13 @@ internal fun ReviewImageViewUI(
         ) {
             GBElevatedButton(
                 modifier = Modifier.weight(1f).padding(8.dp),
-                text = stringResource(Res.string.repeat),
+                text = stringResource(Res.string.review_image_repeat),
                 textColor = gray_box_in_black_bg,
                 onClick = actions.onRepeat
             )
             GBElevatedButton(
                 modifier = Modifier.weight(1f).padding(8.dp),
-                text = stringResource(Res.string.accept),
+                text = stringResource(Res.string.review_image_accept),
                 textColor = gray_box_in_black_bg,
                 onClick = actions.onAccept
             )

@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.or
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_login_or
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -39,7 +39,7 @@ internal fun OrSpacer() {
     ) {
         HorizontalDivider(Modifier.weight(1f), thickness = 1.dp, color = white_in_gray_box.copy(0.8f))
         GBText(
-            text = stringResource(Res.string.or).uppercase(),
+            text = stringResource(Res.string.auth_login_or).uppercase(),
             textColor = white_in_gray_box.copy(0.8f)
         )
         HorizontalDivider(Modifier.weight(1f), thickness = 1.dp, color = white_in_gray_box.copy(0.8f))

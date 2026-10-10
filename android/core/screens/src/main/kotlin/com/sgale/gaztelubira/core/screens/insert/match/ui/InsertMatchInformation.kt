@@ -29,14 +29,16 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.core.domain.utils.getActualTimeAsLong
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchInformation
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBasicTextField
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_description
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_location
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertMatchInformation(
@@ -64,7 +66,7 @@ internal fun InsertMatchInformation(
 internal fun InsertMatchLocationTitle() {
     GBText(
         modifier = Modifier.fillMaxWidth(),
-        text = stringResource(R.string.location),
+        text = stringResource(Res.string.insert_match_location),
         style = gBTypography().titleMedium
     )
 }
@@ -73,7 +75,7 @@ internal fun InsertMatchLocationTitle() {
 internal fun InsertMatchDescriptionTitle() {
     GBText(
         modifier = Modifier.fillMaxWidth(),
-        text = stringResource(R.string.description),
+        text = stringResource(Res.string.insert_match_description),
         style = gBTypography().titleLarge
     )
 }

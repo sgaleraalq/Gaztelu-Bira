@@ -49,10 +49,10 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_seasons_dialog_subtitle
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_seasons_dialog_title
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_close_unfill
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_date
-import com.sgale.gaztelubira.multiplatform.ui.resources.seasons_dialog_subtitle
-import com.sgale.gaztelubira.multiplatform.ui.resources.seasons_dialog_title
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -166,7 +166,7 @@ private fun SeasonsDialogTitle() {
             tint = seasonsRedColor
         )
         GBText(
-            text = stringResource(Res.string.seasons_dialog_title),
+            text = stringResource(Res.string.home_stats_seasons_dialog_title),
             style = gBTypography().titleLarge,
             textColor = White
         )
@@ -176,7 +176,7 @@ private fun SeasonsDialogTitle() {
 @Composable
 private fun SeasonsDialogSubtitle() {
     GBText(
-        text = stringResource(Res.string.seasons_dialog_subtitle),
+        text = stringResource(Res.string.home_stats_seasons_dialog_subtitle),
         style = gBTypography().bodyMedium,
         textColor = seasonsTextColor
     )

@@ -26,7 +26,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
@@ -34,12 +33,11 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.ic_gaztelu_bira
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_logout
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_no
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_sure_want_to_logout
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_yes
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
-import com.sgale.gaztelubira.multiplatform.ui.resources.logout
-import com.sgale.gaztelubira.multiplatform.ui.resources.no
-import com.sgale.gaztelubira.multiplatform.ui.resources.sure_want_to_logout
-import com.sgale.gaztelubira.multiplatform.ui.resources.yes
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -72,7 +70,7 @@ fun GBLogoutDialog(
                 )
                 GBText(
                     modifier = Modifier.weight(1f),
-                    text = stringResource(Res.string.logout),
+                    text = stringResource(Res.string.common_logout),
                     style = gBTypography().titleLarge.copy(
                         fontWeight = Bold
                     )
@@ -81,7 +79,7 @@ fun GBLogoutDialog(
 
             GBText(
                 modifier = Modifier.padding(12.dp),
-                text =  stringResource(Res.string.sure_want_to_logout),
+                text =  stringResource(Res.string.common_sure_want_to_logout),
                 style = gBTypography().titleMedium,
                 textColor = white_in_gray_box
             )
@@ -91,12 +89,12 @@ fun GBLogoutDialog(
             ) {
                 GBElevatedButton(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
-                    text = stringResource(Res.string.no),
+                    text = stringResource(Res.string.common_no),
                     onClick = { onCancel() }
                 )
                 GBElevatedButton(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
-                    text = stringResource(Res.string.yes),
+                    text = stringResource(Res.string.common_yes),
                     onClick = {
                         onCancel() // dismiss dialog
                         onConfirm()

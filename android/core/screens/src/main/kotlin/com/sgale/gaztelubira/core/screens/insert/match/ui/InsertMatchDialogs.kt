@@ -30,12 +30,10 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchStats
 import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
@@ -45,6 +43,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.label
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_select_a_player
+import org.jetbrains.compose.resources.stringResource
 
 private val CARD_SIZE = 60.dp
 
@@ -79,7 +80,7 @@ internal fun InsertMatchDialogPlayers(
             item(span = { GridItemSpan(maxLineSpan) }) {
                 GBText(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    text = stringResource(R.string.select_a_player) + ": " + playerPosition.label,
+                    text = stringResource(Res.string.insert_match_select_a_player) + ": " + playerPosition.label,
                     alignment = Center,
                     style = gBTypography().titleMedium
                 )
@@ -158,7 +159,7 @@ fun InsertMatchDialogStatsPlayers(
             item(span = { GridItemSpan(maxLineSpan) }) {
                 GBText(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    text = "statName", // TODO stringResource(statsState?.selectedStat?.statName ?: R.string.goals),
+                    text = "statName", // TODO stringResource(statsState?.selectedStat?.statName ?: Res.string.common_goals),
                     alignment = Center,
                     style = gBTypography().titleMedium
                 )

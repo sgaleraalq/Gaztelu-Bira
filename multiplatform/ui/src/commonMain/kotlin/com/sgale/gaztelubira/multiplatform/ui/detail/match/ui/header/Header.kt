@@ -33,7 +33,6 @@ import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
-
 @Composable
 internal fun MatchDetailHeader(
     state: MatchDetailUiState,

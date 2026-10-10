@@ -46,7 +46,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.loading_resources
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_loading_resources
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -84,7 +84,7 @@ private fun GBProgressBarText() {
         horizontalArrangement = Arrangement.Center
     ) {
         GBText(
-            text = stringResource(Res.string.loading_resources),
+            text = stringResource(Res.string.common_loading_resources),
             style = gBTypography().bodyMedium,
             alignment = Center
         )

@@ -17,13 +17,18 @@
 package com.sgale.gaztelubira.multiplatform.model
 
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.assists
-import com.sgale.gaztelubira.multiplatform.ui.resources.blue_cards
-import com.sgale.gaztelubira.multiplatform.ui.resources.clean_sheets
-import com.sgale.gaztelubira.multiplatform.ui.resources.fails
-import com.sgale.gaztelubira.multiplatform.ui.resources.games_played
-import com.sgale.gaztelubira.multiplatform.ui.resources.goals
-import com.sgale.gaztelubira.multiplatform.ui.resources.goals_provoked
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_assists
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_blue_cards
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_clean_sheets
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_fails
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_games_played
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_goals
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_goals_provoked
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_penalties_provoked
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_percentage
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_red_cards
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_saves
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_yellow_cards
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_assists
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_blue_card
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_clean_sheets
@@ -36,11 +41,6 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.ic_percentage
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_red_card
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_saves
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_yellow_card
-import com.sgale.gaztelubira.multiplatform.ui.resources.penalties_provoked
-import com.sgale.gaztelubira.multiplatform.ui.resources.percentage
-import com.sgale.gaztelubira.multiplatform.ui.resources.red_cards
-import com.sgale.gaztelubira.multiplatform.ui.resources.saves
-import com.sgale.gaztelubira.multiplatform.ui.resources.yellow_cards
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
@@ -49,51 +49,51 @@ enum class GBStat(
     val icon: DrawableResource
 ) {
     PERCENTAGE(
-        label = Res.string.percentage,
+        label = Res.string.common_percentage,
         icon = Res.drawable.ic_percentage
     ),
     GOALS(
-        label = Res.string.goals,
+        label = Res.string.common_goals,
         icon = Res.drawable.ic_goal
     ),
     GOALS_PROVOKED(
-        label = Res.string.goals_provoked,
+        label = Res.string.common_goals_provoked,
         icon = Res.drawable.ic_goal_provoked
     ),
     ASSISTS(
-        label = Res.string.assists,
+        label = Res.string.common_assists,
         icon = Res.drawable.ic_assists
     ),
     CLEAN_SHEETS(
-        label = Res.string.clean_sheets,
+        label = Res.string.common_clean_sheets,
         icon = Res.drawable.ic_clean_sheets
     ),
     PENALTIES_PROVOKED(
-        label = Res.string.penalties_provoked,
+        label = Res.string.common_penalties_provoked,
         icon = Res.drawable.ic_penalties
     ),
     SAVES(
-        label = Res.string.saves,
+        label = Res.string.common_saves,
         icon = Res.drawable.ic_saves
     ),
     FAILS(
-        label = Res.string.fails,
+        label = Res.string.common_fails,
         icon = Res.drawable.ic_fail
     ),
     YELLOW_CARDS(
-        label = Res.string.yellow_cards,
+        label = Res.string.common_yellow_cards,
         icon = Res.drawable.ic_yellow_card
     ),
     RED_CARDS(
-        label = Res.string.red_cards,
+        label = Res.string.common_red_cards,
         icon = Res.drawable.ic_red_card
     ),
     BLUE_CARDS(
-        label = Res.string.blue_cards,
+        label = Res.string.common_blue_cards,
         icon = Res.drawable.ic_blue_card
     ),
     GAMES_PLAYED(
-        label = Res.string.games_played,
+        label = Res.string.common_games_played,
         icon = Res.drawable.ic_games_played
     )
 }

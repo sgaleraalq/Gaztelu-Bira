@@ -24,7 +24,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.sign_up_color
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.forgot_password
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_login_forgot_password
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -33,7 +33,7 @@ internal fun ForgotPassword(
 ){
     GBText(
         modifier = Modifier.fillMaxWidth().clickable{ onPasswordForgotten() },
-        text = stringResource(Res.string.forgot_password),
+        text = stringResource(Res.string.auth_login_forgot_password),
         style = gBTypography().bodyMedium,
         textColor = sign_up_color
     )

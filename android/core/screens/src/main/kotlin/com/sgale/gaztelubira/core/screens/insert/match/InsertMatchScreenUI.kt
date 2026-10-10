@@ -27,18 +27,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchButtons
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchTeams
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchTeamsDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertMatchScreenUI(
@@ -71,7 +72,7 @@ internal fun InsertMatchScreenUI(
         )
         GBInsertButton(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.insert_match),
+            text = stringResource(Res.string.insert_match_title),
             enabled = true,
             loading = loading,
             onInsert = { insertMatch(matchInformation) }

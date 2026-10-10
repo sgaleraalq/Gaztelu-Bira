@@ -46,16 +46,16 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
 import com.sgale.gaztelubira.multiplatform.model.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_app_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_last_streak
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_short_draw
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_short_gms
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_short_goalsAgainst
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_short_goalsFor
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_short_lose
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_short_pts
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_short_win
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
-import com.sgale.gaztelubira.multiplatform.ui.resources.last_streak
-import com.sgale.gaztelubira.multiplatform.ui.resources.short_draw
-import com.sgale.gaztelubira.multiplatform.ui.resources.short_gms
-import com.sgale.gaztelubira.multiplatform.ui.resources.short_goalsAgainst
-import com.sgale.gaztelubira.multiplatform.ui.resources.short_goalsFor
-import com.sgale.gaztelubira.multiplatform.ui.resources.short_lose
-import com.sgale.gaztelubira.multiplatform.ui.resources.short_pts
-import com.sgale.gaztelubira.multiplatform.ui.resources.short_win
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -108,7 +108,7 @@ private fun SeasonData(
     ) {
         GBText(
             modifier = Modifier.weight(1f).fillMaxWidth().padding(end = 60.dp),
-            text = stringResource(Res.string.app_name),
+            text = stringResource(Res.string.common_app_name),
             style = gBTypography().titleLarge.copy(fontWeight = Bold)
         )
         SeasonStreak(
@@ -130,7 +130,7 @@ private fun SeasonStreak(
             modifier = Modifier.weight(1f).fillMaxWidth()
         ) {
             GBText(
-                text = stringResource(Res.string.last_streak) + ":",
+                text = stringResource(Res.string.home_season_last_streak) + ":",
                 style = gBTypography().bodySmall
             )
             Spacer(modifier = Modifier.width(8.dp))
@@ -171,13 +171,13 @@ private fun SeasonStreakDots(
 @Composable
 private fun SeasonMatchStats(summary: GBSeason?) {
     val stats = listOf(
-        stringResource(Res.string.short_pts) to summary?.points,
-        stringResource(Res.string.short_gms) to summary?.games,
-        stringResource(Res.string.short_win) to summary?.wins,
-        stringResource(Res.string.short_draw) to summary?.draws,
-        stringResource(Res.string.short_lose) to summary?.loses,
-        stringResource(Res.string.short_goalsFor) to summary?.goalsFor,
-        stringResource(Res.string.short_goalsAgainst) to summary?.goalsAgainst
+        stringResource(Res.string.home_season_short_pts) to summary?.points,
+        stringResource(Res.string.home_season_short_gms) to summary?.games,
+        stringResource(Res.string.home_season_short_win) to summary?.wins,
+        stringResource(Res.string.home_season_short_draw) to summary?.draws,
+        stringResource(Res.string.home_season_short_lose) to summary?.loses,
+        stringResource(Res.string.home_season_short_goalsFor) to summary?.goalsFor,
+        stringResource(Res.string.home_season_short_goalsAgainst) to summary?.goalsAgainst
     )
 
     Row(

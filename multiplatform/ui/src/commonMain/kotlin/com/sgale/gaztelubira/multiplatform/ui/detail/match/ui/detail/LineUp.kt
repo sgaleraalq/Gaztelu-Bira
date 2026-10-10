@@ -62,7 +62,7 @@ import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Lineup
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.bench
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_bench
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_bench
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -204,7 +204,7 @@ private fun BenchTitle() {
             icon = painterResource(Res.drawable.ic_bench)
         )
         GBText(
-            text = stringResource(Res.string.bench),
+            text = stringResource(Res.string.common_bench),
             style = gBTypography().bodyLarge
         )
     }

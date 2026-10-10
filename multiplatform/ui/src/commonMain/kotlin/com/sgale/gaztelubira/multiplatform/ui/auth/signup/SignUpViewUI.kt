@@ -27,8 +27,8 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthErrorMessage
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthScaffold
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.ui.SignUpTextFields
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.sign_up
-import com.sgale.gaztelubira.multiplatform.ui.resources.sign_up_exclamation
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_sign_up_exclamation
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_title
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -39,7 +39,7 @@ fun SignUpViewUI(
 ) {
     AuthScaffold(
         modifier = modifier,
-        title = stringResource(Res.string.sign_up_exclamation)
+        title = stringResource(Res.string.auth_sign_up_exclamation)
     ) {
         SignUpCard(state, actions)
     }
@@ -55,7 +55,7 @@ fun SignUpCard(
         AuthErrorMessage(state.errorMessage())
         Spacer(Modifier.height(16.dp))
         AuthButton(
-            text = stringResource(Res.string.sign_up),
+            text = stringResource(Res.string.auth_signup_title),
             authState = state.auth,
             onClick = actions.onSignUp
         )

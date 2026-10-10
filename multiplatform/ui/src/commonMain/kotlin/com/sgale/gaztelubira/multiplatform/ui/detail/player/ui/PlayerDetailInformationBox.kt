@@ -58,12 +58,12 @@ import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailActions
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailUiState.PlayerWinRate
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.draws
+import com.sgale.gaztelubira.multiplatform.ui.resources.detail_player_draws
+import com.sgale.gaztelubira.multiplatform.ui.resources.detail_player_loses
+import com.sgale.gaztelubira.multiplatform.ui.resources.detail_player_view_stats
+import com.sgale.gaztelubira.multiplatform.ui.resources.detail_player_wins
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_football_ball
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
-import com.sgale.gaztelubira.multiplatform.ui.resources.loses
-import com.sgale.gaztelubira.multiplatform.ui.resources.view_stats
-import com.sgale.gaztelubira.multiplatform.ui.resources.wins
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -152,19 +152,19 @@ private fun PlayerBasicStats(
                 .weight(1f)
                 .onGloballyPositioned { coordinates -> itemHeight = coordinates.size.height },
             statValue = winRate.wins.toString(),
-            playerStat = stringResource(Res.string.wins)
+            playerStat = stringResource(Res.string.detail_player_wins)
         )
         PersonalizedSpacer(itemHeight)
         PlayerStatItem(
             modifier = Modifier.weight(1f),
             statValue = winRate.draws.toString(),
-            playerStat = stringResource(Res.string.draws)
+            playerStat = stringResource(Res.string.detail_player_draws)
         )
         PersonalizedSpacer(itemHeight)
         PlayerStatItem(
             modifier = Modifier.weight(1f),
             statValue = winRate.loses.toString(),
-            playerStat = stringResource(Res.string.loses)
+            playerStat = stringResource(Res.string.detail_player_loses)
         )
     }
 }
@@ -207,7 +207,7 @@ private fun ViewStatsButton(
 ) {
     GBElevatedButton(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
-        text = stringResource(Res.string.view_stats),
+        text = stringResource(Res.string.detail_player_view_stats),
         backgroundColor = primaryRed,
         textColor = White,
         roundness = 32,

@@ -20,18 +20,18 @@ package com.sgale.gaztelubira.multiplatform.ui.auth.login.ui
 import androidx.compose.runtime.Composable
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.continue_as_guest
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_login_continue_as_guest
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_login_with_google
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_google
-import com.sgale.gaztelubira.multiplatform.ui.resources.login_with_google
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun GoogleLogin(
     loginGoogle: () -> Unit
 ) {
     GBElevatedButton(
-        text = stringResource(Res.string.login_with_google),
+        text = stringResource(Res.string.auth_login_with_google),
         onClick = { loginGoogle() },
         icon = painterResource(Res.drawable.ic_google)
     )
@@ -42,7 +42,7 @@ fun ContinueAsGuest(
     onClick: () -> Unit
 ) {
     GBElevatedButton(
-        text = stringResource(Res.string.continue_as_guest),
+        text = stringResource(Res.string.auth_login_continue_as_guest),
         onClick = { onClick() }
     )
 }

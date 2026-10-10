@@ -36,9 +36,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_leaderboard
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_arrow_down
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_settings
-import com.sgale.gaztelubira.multiplatform.ui.resources.leaderboard
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -55,7 +55,7 @@ internal fun StatsHeader(
     ) {
         GBText(
             modifier = Modifier.weight(1f),
-            text = stringResource(Res.string.leaderboard),
+            text = stringResource(Res.string.home_stats_leaderboard),
             style = gBTypography().headlineSmall
         )
         SeasonsDropdown(

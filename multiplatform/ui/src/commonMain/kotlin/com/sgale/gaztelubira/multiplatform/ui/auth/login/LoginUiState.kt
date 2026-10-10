@@ -22,8 +22,8 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.common.Email
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.valid
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginUiState.ValidationError.InvalidEmail
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_invalid_email
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_login
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_error_invalid_email
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_login_error
 import org.jetbrains.compose.resources.StringResource
 
 data class LoginUiState(
@@ -44,13 +44,13 @@ data class LoginUiState(
 
     fun errorMessage(): StringResource? = when {
         error != null -> error.messageRes
-        auth == AuthState.Error -> Res.string.error_login
+        auth == AuthState.Error -> Res.string.auth_login_error
         else -> null
     }
 
     sealed class ValidationError(
         val messageRes: StringResource
     ) {
-        data object InvalidEmail : ValidationError(Res.string.error_invalid_email)
+        data object InvalidEmail : ValidationError(Res.string.auth_error_invalid_email)
     }
 }

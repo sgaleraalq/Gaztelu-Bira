@@ -41,7 +41,6 @@ import com.sgale.gaztelubira.multiplatform.model.GBMatch
 import com.sgale.gaztelubira.multiplatform.model.GBMatchTeam
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
-
 @Composable
 internal fun MatchScore(
     match: GBMatch

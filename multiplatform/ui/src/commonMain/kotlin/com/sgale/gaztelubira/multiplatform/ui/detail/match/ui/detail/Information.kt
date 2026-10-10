@@ -44,10 +44,10 @@ import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Details
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.detail_match_no_description_provided
+import com.sgale.gaztelubira.multiplatform.ui.resources.detail_match_no_location_available
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_date
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_location
-import com.sgale.gaztelubira.multiplatform.ui.resources.no_description_provided
-import com.sgale.gaztelubira.multiplatform.ui.resources.no_location_available
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -140,7 +140,7 @@ fun DetailsDescription(
 ) {
     GBText(
         modifier = modifier.fillMaxWidth().padding(12.dp),
-        text = description ?: stringResource(Res.string.no_description_provided),
+        text = description ?: stringResource(Res.string.detail_match_no_description_provided),
         style = gBTypography().bodyMedium,
         alignment = Justify,
         maxLines = MAX_VALUE
@@ -159,7 +159,7 @@ fun DetailsLocation(
         Spacer(Modifier.weight(1f))
         DetailsIcon(Res.drawable.ic_location)
         GBText(
-            text = location ?: stringResource(Res.string.no_location_available),
+            text = location ?: stringResource(Res.string.detail_match_no_location_available),
             style = gBTypography().bodyMedium,
             alignment = End
         )

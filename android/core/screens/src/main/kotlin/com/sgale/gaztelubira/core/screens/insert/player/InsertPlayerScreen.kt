@@ -31,7 +31,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerView
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Image
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.permission_denied_gallery
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_permission_denied_gallery
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -42,7 +42,7 @@ internal fun InsertPlayerScreen(
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    val permissionDeniedMsg = stringResource(Res.string.permission_denied_gallery)
+    val permissionDeniedMsg = stringResource(Res.string.insert_permission_denied_gallery)
 
     BackHandler(state.state.isNotLoading()) {
         navState.navigateBack()

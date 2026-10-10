@@ -17,10 +17,10 @@
 package com.sgale.gaztelubira.multiplatform.model
 
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.cup
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_cup
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_league
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_cup
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_league
-import com.sgale.gaztelubira.multiplatform.ui.resources.league
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
@@ -29,11 +29,11 @@ enum class GBMatchType(
     val icon: DrawableResource
 ) {
     LEAGUE(
-        label = Res.string.league,
+        label = Res.string.common_league,
         icon = Res.drawable.ic_league
     ),
     CUP(
-        label = Res.string.cup, 
+        label = Res.string.common_cup, 
         icon = Res.drawable.ic_cup
     )
 }

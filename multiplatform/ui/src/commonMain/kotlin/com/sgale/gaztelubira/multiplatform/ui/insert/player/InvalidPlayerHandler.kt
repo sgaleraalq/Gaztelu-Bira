@@ -19,25 +19,24 @@ package com.sgale.gaztelubira.multiplatform.ui.insert.player
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationHandler
 import com.sgale.gaztelubira.multiplatform.ui.insert.InvalidInformationReason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_player_dorsal
-import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_player_name
-import com.sgale.gaztelubira.multiplatform.ui.resources.invalid_player_position
-
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_invalid_dorsal
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_invalid_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_invalid_position
 internal class InvalidPlayerHandler(
     state: InsertPlayerUiState
 ) : InvalidInformationHandler<InsertPlayerUiState>(state) {
     override val requiredFields: List<InvalidInformationReason> = listOfNotNull(
         InvalidInformationReason(
             value = state.playerName,
-            reason = Res.string.invalid_player_name
+            reason = Res.string.insert_player_invalid_name
         ),
         InvalidInformationReason(
             value = state.playerPosition,
-            reason = Res.string.invalid_player_position
+            reason = Res.string.insert_player_invalid_position
         ),
         InvalidInformationReason(
             value = state.playerDorsal.takeIf { it > 0 }?.toString().orEmpty(),
-            reason = Res.string.invalid_player_dorsal
+            reason = Res.string.insert_player_invalid_dorsal
         )
     )
 }

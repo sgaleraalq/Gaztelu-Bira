@@ -42,7 +42,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,7 +52,6 @@ import com.sgale.gaztelubira.core.domain.model.match.MatchType.LEAGUE
 import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.utils.DATE_FORMAT
 import com.sgale.gaztelubira.core.domain.utils.getDateFromLong
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.InsertMatchTeamsViewModel
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBasicTextField
@@ -65,6 +63,14 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_cup
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_league
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_add_team
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_journey
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_local
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_visitor
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertMatchTeams(
@@ -73,8 +79,8 @@ internal fun InsertMatchTeams(
     onTeamClicked: () -> Unit,
     viewModel: InsertMatchTeamsViewModel
 ) {
-    val journey = stringResource(R.string.journey)
-    val cup = stringResource(R.string.cup)
+    val journey = stringResource(Res.string.insert_match_journey)
+    val cup = stringResource(Res.string.common_cup)
 
     val matchInformation by viewModel.matchInformation.collectAsStateWithLifecycle()
 
@@ -128,15 +134,15 @@ internal fun InsertMatchInformationRow(
     changeLocal: () -> Unit
 ) {
     val matchTypeText = if (matchInformation.matchType == LEAGUE) {
-        stringResource(R.string.league)
+        stringResource(Res.string.common_league)
     } else {
-        stringResource(R.string.cup)
+        stringResource(Res.string.common_cup)
     }
 
     val matchSideText = if (matchInformation.appTeamLocal) {
-        stringResource(R.string.local)
+        stringResource(Res.string.insert_match_local)
     } else {
-        stringResource(R.string.visitor)
+        stringResource(Res.string.insert_match_visitor)
     }
 
     val isLocal = matchInformation.appTeamLocal
@@ -290,7 +296,7 @@ internal fun InsertPlayerTeam(
             )
             GBTeamName(
                 modifier = Modifier.fillMaxWidth(),
-                name = stringResource(R.string.insert_team)
+                name = stringResource(Res.string.insert_add_team)
             )
         }
     }

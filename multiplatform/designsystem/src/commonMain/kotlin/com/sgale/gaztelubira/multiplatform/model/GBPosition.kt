@@ -17,33 +17,33 @@
 package com.sgale.gaztelubira.multiplatform.model
 
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.defender
-import com.sgale.gaztelubira.multiplatform.ui.resources.forward
-import com.sgale.gaztelubira.multiplatform.ui.resources.goalkeeper
-import com.sgale.gaztelubira.multiplatform.ui.resources.manager
-import com.sgale.gaztelubira.multiplatform.ui.resources.midfielder
-import com.sgale.gaztelubira.multiplatform.ui.resources.undefined
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_defender
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_forward
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_goalkeeper
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_manager
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_midfielder
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_undefined
 import org.jetbrains.compose.resources.StringResource
 
 enum class GBPosition(
     val label: StringResource
 ) {
     UNDEFINED(
-        label = Res.string.undefined
+        label = Res.string.common_undefined
     ),
     MANAGER(
-        label = Res.string.manager
+        label = Res.string.common_manager
     ),
     GOALKEEPER(
-        label = Res.string.goalkeeper
+        label = Res.string.common_goalkeeper
     ),
     DEFENDER(
-        label = Res.string.defender
+        label = Res.string.common_defender
     ),
     MIDFIELDER(
-        label = Res.string.midfielder
+        label = Res.string.common_midfielder
     ),
     FORWARD(
-        label = Res.string.forward
+        label = Res.string.common_forward
     )
 }

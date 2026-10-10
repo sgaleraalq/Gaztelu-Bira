@@ -24,10 +24,10 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthTextField
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginActions
 import com.sgale.gaztelubira.multiplatform.ui.auth.login.LoginUiState.LoginUser
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.email_id
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_email_id
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_password
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_at_sign
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_padlock
-import com.sgale.gaztelubira.multiplatform.ui.resources.password
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -40,13 +40,13 @@ internal fun LoginTextFields(
     ) {
         AuthTextField(
             text = user.email,
-            label = stringResource(Res.string.email_id),
+            label = stringResource(Res.string.auth_email_id),
             icon = Res.drawable.ic_at_sign,
             onTextChanged = actions.onEmailChanged
         )
         AuthTextField(
             text = user.password,
-            label = stringResource(Res.string.password),
+            label = stringResource(Res.string.auth_password),
             icon = Res.drawable.ic_padlock,
             isPassword = true,
             isPasswordVisible = user.isPasswordVisible,

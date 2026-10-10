@@ -28,8 +28,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.sign_up_color
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.dont_have_account
-import com.sgale.gaztelubira.multiplatform.ui.resources.sign_up_exclamation
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_login_dont_have_account
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_sign_up_exclamation
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -38,13 +38,13 @@ internal fun DontHaveAccount(
 ){
     Row(Modifier.fillMaxWidth()) {
         GBText(
-            text = stringResource(Res.string.dont_have_account),
+            text = stringResource(Res.string.auth_login_dont_have_account),
             style = gBTypography().bodyMedium
         )
         Spacer(Modifier.width(8.dp))
         GBText(
             modifier = Modifier.clickable{ navigateToSignUp() },
-            text = stringResource(Res.string.sign_up_exclamation),
+            text = stringResource(Res.string.auth_sign_up_exclamation),
             style = gBTypography().bodyMedium,
             textColor = sign_up_color
         )

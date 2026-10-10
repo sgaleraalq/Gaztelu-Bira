@@ -44,10 +44,10 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
-import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
+import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.other_teams
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_season_other_teams
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -57,7 +57,7 @@ internal fun SeasonRivals(
 ) {
     GBText(
         modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
-        text = stringResource(Res.string.other_teams),
+        text = stringResource(Res.string.home_season_other_teams),
         alignment = TextAlign.Center,
         style = gBTypography().titleLarge
     )

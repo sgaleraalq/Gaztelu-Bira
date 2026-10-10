@@ -19,9 +19,9 @@ package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state
 import androidx.compose.runtime.Stable
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.punctuation_values
-import com.sgale.gaztelubira.multiplatform.ui.resources.settings
-import com.sgale.gaztelubira.multiplatform.ui.resources.stats_values
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_punctuation_values
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_settings
+import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_values
 import org.jetbrains.compose.resources.StringResource
 
 @Stable
@@ -33,17 +33,17 @@ sealed interface GBStatsSettings {
     }
 
     data object Menu : GBStatsSettings {
-        override val title = Res.string.settings
+        override val title = Res.string.home_stats_settings
     }
 
     data object ChangeStat : GBStatsSettings {
-        override val title = Res.string.stats_values
+        override val title = Res.string.home_stats_values
     }
 
     data class ChangePunctuation(
         val draft: GBPunctuation
     ) : GBStatsSettings {
-        override val title = Res.string.punctuation_values
+        override val title = Res.string.home_stats_punctuation_values
     }
 
     companion object {

@@ -52,15 +52,15 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerFi
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Nickname
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.body_image
-import com.sgale.gaztelubira.multiplatform.ui.resources.dorsal
-import com.sgale.gaztelubira.multiplatform.ui.resources.face_image
-import com.sgale.gaztelubira.multiplatform.ui.resources.images
-import com.sgale.gaztelubira.multiplatform.ui.resources.information
-import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player
-import com.sgale.gaztelubira.multiplatform.ui.resources.player_name
-import com.sgale.gaztelubira.multiplatform.ui.resources.player_nickname
-import com.sgale.gaztelubira.multiplatform.ui.resources.position
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_information
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_body_image
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_button
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_dorsal
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_face_image
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_images
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_nickname
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_position
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -70,7 +70,7 @@ internal fun InsertPlayerMainInformation(
 ) {
     GBText(
         modifier = Modifier.fillMaxWidth(),
-        text = stringResource(Res.string.information),
+        text = stringResource(Res.string.insert_information),
         style = gBTypography().titleMedium,
         alignment = Start
     )
@@ -78,7 +78,7 @@ internal fun InsertPlayerMainInformation(
         modifier = Modifier.fillMaxWidth(),
         text = state.playerNickname,
         onTextChanged = { newName -> actions.updateField(Nickname(newName)) },
-        label = stringResource(Res.string.player_nickname),
+        label = stringResource(Res.string.insert_player_nickname),
         firstCap = true,
         enabled = state.state.isNotLoading()
     )
@@ -89,7 +89,7 @@ internal fun InsertPlayerMainInformation(
         modifier = Modifier.fillMaxWidth(),
         text = state.playerName,
         onTextChanged = { newName -> actions.updateField(Name(newName)) },
-        label = stringResource(Res.string.player_name),
+        label = stringResource(Res.string.insert_player_name),
         firstCap = true,
         enabled = state.state.isNotLoading()
     )
@@ -108,9 +108,9 @@ private fun DorsalAndPosition(
     actions: InsertPlayerActions
 ) {
     val loading = state.state.isLoading()
-    val defaultPosition = stringResource(Res.string.position)
+    val defaultPosition = stringResource(Res.string.insert_player_position)
     val dorsalText = if (state.playerDorsal == 0) {
-        stringResource(Res.string.dorsal)
+        stringResource(Res.string.insert_player_dorsal)
     } else {
         state.playerDorsal.toString()
     }
@@ -167,7 +167,7 @@ internal fun InsertPlayerImages(
 ) {
     GBText(
         modifier = Modifier.fillMaxWidth(),
-        text = stringResource(Res.string.images),
+        text = stringResource(Res.string.insert_player_images),
         style = gBTypography().titleMedium,
         alignment = Start
     )
@@ -175,13 +175,13 @@ internal fun InsertPlayerImages(
         image = state.faceImage,
         actions = actions,
         action = Face,
-        text = stringResource(Res.string.face_image)
+        text = stringResource(Res.string.insert_player_face_image)
     )
     PlayerImageRow(
         image = state.bodyImage,
         actions = actions,
         action = Body,
-        text = stringResource(Res.string.body_image)
+        text = stringResource(Res.string.insert_player_body_image)
     )
 }
 
@@ -220,7 +220,7 @@ internal fun InsertPlayerButton(
     )
     GBInsertButton(
         modifier = Modifier.padding(horizontal = 12.dp).padding(bottom = 16.dp),
-        text = stringResource(Res.string.insert_player),
+        text = stringResource(Res.string.insert_player_button),
         loading = state.state.isLoading(),
         enabled = state.state.isNotLoading(),
         onInsert = {

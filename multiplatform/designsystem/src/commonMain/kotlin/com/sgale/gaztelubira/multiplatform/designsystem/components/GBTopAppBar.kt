@@ -35,7 +35,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_app_name
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_button_add
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_gaztelu_bira
 import org.jetbrains.compose.resources.painterResource
@@ -44,7 +44,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun GBTopAppBar(
     modifier: Modifier = Modifier,
-    title: String = stringResource(Res.string.app_name),
+    title: String = stringResource(Res.string.common_app_name),
     showAdminButton: Boolean = false,
     onButtonClicked: () -> Unit = {}
 ) {

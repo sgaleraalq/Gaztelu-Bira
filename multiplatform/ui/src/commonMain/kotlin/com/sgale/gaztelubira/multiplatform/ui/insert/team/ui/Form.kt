@@ -36,8 +36,8 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.Companion.EMPTY_IMAGE
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team
-import com.sgale.gaztelubira.multiplatform.ui.resources.team_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_add_team
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team_name
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -51,7 +51,7 @@ internal fun InsertTeamName(
             .padding(horizontal = 24.dp),
         text = state.teamName,
         onTextChanged = { onTeamNameChanged(it) },
-        label = stringResource(Res.string.team_name),
+        label = stringResource(Res.string.insert_team_name),
         firstCap = true,
         enabled = state.state.isNotLoading()
     )
@@ -93,7 +93,7 @@ internal fun InsertTeamButton(
     Spacer(modifier = modifier)
     GBInsertButton(
         modifier = Modifier.padding(horizontal = 12.dp).padding(bottom = 16.dp),
-        text = stringResource(Res.string.insert_team),
+        text = stringResource(Res.string.insert_add_team),
         loading = state.state.isLoading(),
         enabled = state.state.isNotLoading(),
         onInsert = {

@@ -33,18 +33,18 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTitle
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.app_name
-import com.sgale.gaztelubira.multiplatform.ui.resources.gaztelu_bira_welcome_text
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_welcome_gaztelu_bira_text
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_welcome_join_gaztelu_bira
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_welcome_to
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_app_name
 import com.sgale.gaztelubira.multiplatform.ui.resources.img_welcome_image
-import com.sgale.gaztelubira.multiplatform.ui.resources.join_gaztelu_bira
-import com.sgale.gaztelubira.multiplatform.ui.resources.welcome_to
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun WelcomeScreenTitle() {
-    val welcomeString = stringResource(Res.string.welcome_to)
-    val appName = stringResource(Res.string.app_name)
+    val welcomeString = stringResource(Res.string.auth_welcome_to)
+    val appName = stringResource(Res.string.common_app_name)
 
     GBTitle(
         modifier = Modifier
@@ -57,7 +57,7 @@ fun WelcomeScreenTitle() {
 @Composable
 fun WelcomeScreenSubtitle() {
     val bodyMedium = gBTypography().bodyMedium
-    val welcomeText = stringResource(Res.string.gaztelu_bira_welcome_text)
+    val welcomeText = stringResource(Res.string.auth_welcome_gaztelu_bira_text)
 
     GBText(
         modifier = Modifier
@@ -76,7 +76,7 @@ fun WelcomeScreenImage(
     modifier: Modifier
 ) {
     val welcomeImg = painterResource(Res.drawable.img_welcome_image)
-    val descriptionAppName = stringResource(Res.string.app_name)
+    val descriptionAppName = stringResource(Res.string.common_app_name)
 
     Box(
         modifier = modifier.fillMaxWidth()
@@ -94,7 +94,7 @@ fun WelcomeScreenImage(
 fun WelcomeScreenButton(
     navigate: () -> Unit,
 ) {
-    val joinGbText = stringResource(Res.string.join_gaztelu_bira)
+    val joinGbText = stringResource(Res.string.auth_welcome_join_gaztelu_bira)
 
     GBElevatedButton(
         modifier = Modifier

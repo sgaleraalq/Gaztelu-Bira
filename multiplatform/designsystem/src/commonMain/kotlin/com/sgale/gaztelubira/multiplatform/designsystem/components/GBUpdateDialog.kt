@@ -28,8 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.good_news
-import com.sgale.gaztelubira.multiplatform.ui.resources.update_available
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_good_news
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_update_available
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -58,7 +58,7 @@ fun GBUpdateDialog(
 @Composable
 fun GBUpdateDialogTitle() {
     GBText(
-        text = stringResource(Res.string.good_news),
+        text = stringResource(Res.string.common_good_news),
         style = gBTypography().headlineLarge.copy(
             color = White,
             fontWeight = FontWeight.Bold
@@ -69,7 +69,7 @@ fun GBUpdateDialogTitle() {
 @Composable
 fun GBUpdateDialogText() {
     GBText(
-        text = stringResource(Res.string.update_available),
+        text = stringResource(Res.string.common_update_available),
         style = gBTypography().bodyMedium.copy(
             color = White
         )
@@ -82,7 +82,7 @@ fun GBUpdateDialogButton() {
 //    val openUrl = rememberOpenUrl()
 //
 //    GBElevatedButton(
-//        text = stringResource(R.string.update),
+//        text = stringResource(Res.string.common_update),
 //        onClick = { openUrl("url") }
 //    )
 }

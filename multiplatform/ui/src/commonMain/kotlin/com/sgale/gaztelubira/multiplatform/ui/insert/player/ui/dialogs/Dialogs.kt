@@ -41,9 +41,9 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDi
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Dorsal
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Position
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.select_dorsal
-import com.sgale.gaztelubira.multiplatform.ui.resources.select_media_from
-import com.sgale.gaztelubira.multiplatform.ui.resources.select_position
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_select_dorsal
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_select_media_from
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_select_position
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -58,7 +58,7 @@ internal fun InsertPlayerDialogs(
 
         is Images -> {
             GBMediaOrCamera(
-                title = stringResource(Res.string.select_media_from),
+                title = stringResource(Res.string.insert_player_select_media_from),
                 dismiss = dismiss,
                 onMediaClicked = { /* actions.openGallery()*/ },
                 onCameraClicked = { actions.openCamera() }
@@ -84,8 +84,8 @@ private fun GenericDialog(
     dismiss: () -> Unit
 ) {
     val title = when (dialog) {
-        Generic.Dorsal -> stringResource(Res.string.select_dorsal)
-        Generic.Position -> stringResource(Res.string.select_position)
+        Generic.Dorsal -> stringResource(Res.string.insert_player_select_dorsal)
+        Generic.Position -> stringResource(Res.string.insert_player_select_position)
     }
 
     InsertPlayerGenericDialog(

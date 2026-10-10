@@ -21,12 +21,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
-import com.sgale.gaztelubira.core.screens.R
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Default
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Formation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Information
@@ -44,6 +42,9 @@ import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchStats
 import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchStatsButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertMatchScreen(
@@ -68,7 +69,7 @@ internal fun InsertMatchScreen(
 
     GBScaffold(
         showTopAppBar = true,
-        title = stringResource(R.string.insert_match)
+        title = stringResource(Res.string.insert_match_title)
     ) { modifier ->
         when (uiState) {
             Default, Loading -> {

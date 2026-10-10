@@ -30,7 +30,7 @@ import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailActions
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailView
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.not_yet_available
+import com.sgale.gaztelubira.multiplatform.ui.resources.detail_player_not_yet_available
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -41,7 +41,7 @@ internal fun PlayerDetailScreen(
     viewModel: PlayerDetailViewModel = hiltViewModel<PlayerDetailViewModel>()
 ) {
     val context = LocalContext.current
-    val notAvailableYetMsg = stringResource(Res.string.not_yet_available)
+    val notAvailableYetMsg = stringResource(Res.string.detail_player_not_yet_available)
 
     LaunchedEffect(true) {
         viewModel.updateState(PlayerId(playerId), isManager)

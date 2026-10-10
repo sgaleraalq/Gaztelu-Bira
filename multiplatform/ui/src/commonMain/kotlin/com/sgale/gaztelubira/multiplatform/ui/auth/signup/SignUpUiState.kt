@@ -32,13 +32,13 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.Validati
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError.PasswordNoNumber
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.ValidationError.PasswordTooShort
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_empty_password
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_invalid_email
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_invalid_name
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_password_mismatch
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_password_no_number
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_password_too_short
-import com.sgale.gaztelubira.multiplatform.ui.resources.error_sign_up
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_error_invalid_email
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_error_empty_password
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_error_invalid_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_error_password_mismatch
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_error_password_no_number
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_error_password_too_short
+import com.sgale.gaztelubira.multiplatform.ui.resources.auth_signup_error_sign_up
 import org.jetbrains.compose.resources.StringResource
 
 data class SignUpUiState(
@@ -48,7 +48,7 @@ data class SignUpUiState(
 ) {
     fun errorMessage(): StringResource? = when {
         error != null -> error.messageRes
-        auth == AuthState.Error -> Res.string.error_sign_up
+        auth == AuthState.Error -> Res.string.auth_signup_error_sign_up
         else -> null
     }
 
@@ -76,11 +76,11 @@ data class SignUpUiState(
     sealed class ValidationError(
         val messageRes: StringResource
     ) {
-        data object InvalidName : ValidationError(Res.string.error_invalid_name)
-        data object InvalidEmail : ValidationError(Res.string.error_invalid_email)
-        data object EmptyPassword : ValidationError(Res.string.error_empty_password)
-        data object PasswordTooShort : ValidationError(Res.string.error_password_too_short)
-        data object PasswordNoNumber : ValidationError(Res.string.error_password_no_number)
-        data object PasswordMismatch : ValidationError(Res.string.error_password_mismatch)
+        data object InvalidName : ValidationError(Res.string.auth_signup_error_invalid_name)
+        data object InvalidEmail : ValidationError(Res.string.auth_error_invalid_email)
+        data object EmptyPassword : ValidationError(Res.string.auth_signup_error_empty_password)
+        data object PasswordTooShort : ValidationError(Res.string.auth_signup_error_password_too_short)
+        data object PasswordNoNumber : ValidationError(Res.string.auth_signup_error_password_no_number)
+        data object PasswordMismatch : ValidationError(Res.string.auth_signup_error_password_mismatch)
     }
 }
