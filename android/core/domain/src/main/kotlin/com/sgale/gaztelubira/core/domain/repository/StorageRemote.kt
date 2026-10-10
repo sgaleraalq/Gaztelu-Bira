@@ -18,6 +18,8 @@ package com.sgale.gaztelubira.core.domain.repository
 
 import android.net.Uri
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.model.other.PictureType
+import com.sgale.gaztelubira.core.domain.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.model.team.TeamId
 
 interface StorageRemote {
@@ -26,4 +28,11 @@ interface StorageRemote {
      * @param uri Uri of the image to be uploaded.
      */
     suspend fun insertTeamLogo(id: TeamId, uri: Uri): FirebaseInsertResult
+
+    /**
+     * @param id PlayerId used as the folder where the player's pictures live.
+     * @param type Which of the player's pictures is being uploaded.
+     * @param uri Uri of the image to be uploaded.
+     */
+    suspend fun insertPlayerImage(id: PlayerId, type: PictureType, uri: Uri): FirebaseInsertResult
 }

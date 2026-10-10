@@ -168,6 +168,8 @@
     <string name="error_inserting_team_reason">Error insertando el equipo: %1$s</string>
     <string name="error_team_already_exists">Ya existe un equipo con ese nombre en esta temporada</string>
     <string name="error_no_season_selected">No hay ninguna temporada seleccionada</string>
+    <string name="error_inserting_player_reason">Error insertando el jugador: %1$s</string>
+    <string name="error_player_already_exists">Ya existe un jugador con ese nombre</string>
 
     <string name="seasons_dialog_title">Temporada</string>
     <string name="seasons_dialog_subtitle">Selecciona o gestiona la edición de la competición</string>

@@ -16,13 +16,23 @@
 
 package com.sgale.gaztelubira.core.screens.insert.player
 
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.AlreadyExists
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.NoSeasonSelected
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.Unknown
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Inserted.Document
 import com.sgale.gaztelubira.core.domain.model.other.PictureType.BODY
 import com.sgale.gaztelubira.core.domain.model.other.PictureType.FACE
 import com.sgale.gaztelubira.core.domain.model.player.Position
+import com.sgale.gaztelubira.core.domain.usecase.GetAvailableDorsals
+import com.sgale.gaztelubira.core.domain.usecase.InsertPlayer
+import com.sgale.gaztelubira.core.navigation.Destination.Home
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.insert.media.gallery.Gallery
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog
@@ -35,22 +45,26 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerFi
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Image
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Nickname
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_inserting_player_reason
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_no_season_selected
+import com.sgale.gaztelubira.multiplatform.ui.resources.error_player_already_exists
+import com.sgale.gaztelubira.multiplatform.ui.resources.upload_error_message
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.getString
 import java.lang.System.currentTimeMillis
 import javax.inject.Inject
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Position as PositionField
 
 @HiltViewModel
 internal class InsertPlayerViewModel @Inject constructor(
-//    private val insertNewPlayer: InsertNewPlayer,
-//    private val getAvailableDorsals: GetAvailableDorsals
+    private val insertNewPlayer: InsertPlayer,
+    private val getAvailableDorsals: GetAvailableDorsals
 ) : ViewModel() {
     private var selectedPicture = FACE
     private val initialState = InsertPlayerUiState(
@@ -62,7 +76,7 @@ internal class InsertPlayerViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val dorsals = withContext(IO) { emptyList<Int>() /* getAvailableDorsals() */ }
+            val dorsals = getAvailableDorsals()
             _state.update { it.copy(availableDorsals = dorsals) }
         }
     }
@@ -93,9 +107,12 @@ internal class InsertPlayerViewModel @Inject constructor(
         gallery.launch()
     }
 
+    /**
+     * @param onFailure Receives the message to show. The form keeps its fields so the user can retry.
+     */
     internal fun insertPlayer(
         navState: NavigationState,
-        onFailure: () -> Unit
+        onFailure: (String) -> Unit
     ) {
         val player = _state.value
         if (!player.handler.isValid) return
@@ -103,18 +120,35 @@ internal class InsertPlayerViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(state = Loading) }
 
-//            val result = withContext(IO) {
-//                insertNewPlayer(player.toPlayerModel())
-//            }
-//
-//            if (result is PlayerInserted) {
-//                navState.navigateTo(Home, true)
-//            } else {
-//                onFailure()
-//                _state.update { it.copy(state = Default) }
-//            }
+            val result = insertNewPlayer(
+                name = player.playerName,
+                nickname = player.playerNickname,
+                dorsal = player.playerDorsal,
+                position = Position.mapPosition(player.playerPosition),
+                faceImage = player.faceImage.ifBlank { null }?.toUri(),
+                bodyImage = player.bodyImage.ifBlank { null }?.toUri()
+            )
+
+            if (result is Document) {
+                navState.navigateTo(Home, true)
+            } else {
+                onFailure(result.errorMessage())
+                _state.update { it.copy(state = Default) }
+            }
         }
     }
+
+    private suspend fun FirebaseInsertResult.errorMessage(): String =
+        when (this) {
+            is AlreadyExists -> getString(Res.string.error_player_already_exists)
+            is NoSeasonSelected -> getString(Res.string.error_no_season_selected)
+            is Unknown -> if (message.isNotBlank()) {
+                getString(Res.string.error_inserting_player_reason, message)
+            } else {
+                getString(Res.string.upload_error_message)
+            }
+            else -> getString(Res.string.upload_error_message)
+        }
 
     private fun onImageChanged(newImage: String?) {
         when (selectedPicture) {

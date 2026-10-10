@@ -18,7 +18,6 @@ package com.sgale.gaztelubira.core.network.firebase.image
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat.JPEG
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
@@ -37,26 +36,25 @@ import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import javax.inject.Inject
 
-private const val JPEG_QUALITY = 85
-
 /**
- * Converts any image picked by the user into a small JPEG, ready to be uploaded.
+ * Converts any image picked by the user into a small [ImageFormat] file, ready to be uploaded.
  */
-internal class JpegCompressor @Inject constructor(
+internal class ImageCompressor @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     /**
      * @param uri Uri of the source image (any format Android can decode).
      * @param maxSize Max size in pixels of the longest side of the result.
-     * Transparent areas are filled with white, since JPEG has no alpha channel.
+     * @param format Output format. With [ImageFormat.JPEG] transparent areas are filled with white,
+     * since JPEG has no alpha channel; [ImageFormat.PNG] keeps them.
      */
-    suspend fun compress(uri: Uri, maxSize: Int): ByteArray = withContext(IO) {
+    suspend fun compress(uri: Uri, maxSize: Int, format: ImageFormat): ByteArray = withContext(IO) {
         val source = decodeSampled(uri, maxSize)
         val transformed = source.scaleAndRotate(maxSize, readRotation(uri))
-        val output = transformed.onWhiteBackground()
+        val output = if (format.supportsAlpha) transformed else transformed.onWhiteBackground()
 
         val bytes = ByteArrayOutputStream().use { stream ->
-            output.compress(JPEG, JPEG_QUALITY, stream)
+            output.compress(format.compressFormat, format.quality, stream)
             stream.toByteArray()
         }
 

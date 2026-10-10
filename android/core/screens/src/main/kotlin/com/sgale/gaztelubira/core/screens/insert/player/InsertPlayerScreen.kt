@@ -32,7 +32,6 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerView
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Image
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.permission_denied_gallery
-import com.sgale.gaztelubira.multiplatform.ui.resources.upload_error_message
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -44,7 +43,6 @@ internal fun InsertPlayerScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val permissionDeniedMsg = stringResource(Res.string.permission_denied_gallery)
-    val uploadErrorMsg = stringResource(Res.string.upload_error_message)
 
     BackHandler(state.state.isNotLoading()) {
         navState.navigateBack()
@@ -64,7 +62,7 @@ internal fun InsertPlayerScreen(
             updateField = viewModel::updateField,
             updateDialogState = viewModel::updateDialogState,
             openGallery = { viewModel.updateSelectedImage(it, galleryManager) },
-            insertPlayer = { viewModel.insertPlayer(navState) { showToast(context, uploadErrorMsg) } },
+            insertPlayer = { viewModel.insertPlayer(navState) { message -> showToast(context, message) } },
             onMissingField = { message -> showToast(context, message) }
         )
     }

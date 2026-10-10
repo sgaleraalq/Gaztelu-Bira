@@ -28,6 +28,7 @@ import com.sgale.gaztelubira.core.domain.model.team.TeamId
 import com.sgale.gaztelubira.core.domain.repository.StorageRemote
 import com.sgale.gaztelubira.core.domain.repository.TeamLocal
 import com.sgale.gaztelubira.core.domain.repository.TeamRemote
+import com.sgale.gaztelubira.core.domain.utils.toFirebaseId
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -41,7 +42,7 @@ class InsertTeam @Inject constructor(
     suspend operator fun invoke(name: String, image: Uri): FirebaseInsertResult {
         val season = selectedSeason().first() ?: return NoSeasonSelected
         val cleanName = name.trim()
-        val id = TeamId(cleanName.lowercase().replace(Regex("\\s+"), "_"))
+        val id = TeamId(cleanName.toFirebaseId())
 
         return try {
             if (teamRemote.teamExists(season, id)) return AlreadyExists

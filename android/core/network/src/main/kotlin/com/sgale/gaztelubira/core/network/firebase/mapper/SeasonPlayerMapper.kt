@@ -38,4 +38,10 @@ internal object SeasonPlayerMapper {
         dorsal = dorsal,
         position = Position.mapPosition(position)
     )
+
+    fun SeasonPlayer.asResponse() = SeasonPlayerResponse(
+        playerId = id.value,
+        dorsal = dorsal,
+        position = position.name
+    )
 }

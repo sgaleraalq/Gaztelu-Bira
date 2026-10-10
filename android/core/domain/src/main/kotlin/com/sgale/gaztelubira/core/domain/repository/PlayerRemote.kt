@@ -18,8 +18,16 @@ package com.sgale.gaztelubira.core.domain.repository
 
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.season.squad.SeasonPlayer
 
 interface PlayerRemote {
     suspend fun fetchPlayer(id: PlayerId): Player?
     suspend fun fetchPlayers(): List<Player>
+    suspend fun playerExists(id: PlayerId): Boolean
+
+    /**
+     * Writes the player and their squad entry for [SeasonPlayer.seasonId] atomically,
+     * so a player never ends up created but missing from the season.
+     */
+    suspend fun insertPlayer(player: Player, seasonPlayer: SeasonPlayer)
 }
