@@ -26,6 +26,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDi
 data class InsertPlayerUiState(
     val playerId: String,
     val playerName: String = "",
+    val playerNickname: String = "",
     val playerDorsal: Int = 0,
     val playerPosition: String = "",
     val faceImage: String = "",

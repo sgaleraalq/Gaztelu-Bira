@@ -50,6 +50,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDi
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerDialog.Images.Face
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Companion.EMPTY_IMAGE
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Nickname
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.body_image
 import com.sgale.gaztelubira.multiplatform.ui.resources.dorsal
@@ -58,6 +59,7 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.images
 import com.sgale.gaztelubira.multiplatform.ui.resources.information
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player
 import com.sgale.gaztelubira.multiplatform.ui.resources.player_name
+import com.sgale.gaztelubira.multiplatform.ui.resources.player_nickname
 import com.sgale.gaztelubira.multiplatform.ui.resources.position
 import org.jetbrains.compose.resources.stringResource
 
@@ -71,6 +73,17 @@ internal fun InsertPlayerMainInformation(
         text = stringResource(Res.string.information),
         style = gBTypography().titleMedium,
         alignment = Start
+    )
+    GBTextField(
+        modifier = Modifier.fillMaxWidth(),
+        text = state.playerNickname,
+        onTextChanged = { newName -> actions.updateField(Nickname(newName)) },
+        label = stringResource(Res.string.player_nickname),
+        firstCap = true,
+        enabled = state.state.isNotLoading()
+    )
+    Spacer(
+        modifier = Modifier.height(8.dp)
     )
     GBTextField(
         modifier = Modifier.fillMaxWidth(),

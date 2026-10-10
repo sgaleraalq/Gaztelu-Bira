@@ -74,10 +74,7 @@ internal class InsertTeamViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-//            val validImage = imageValidator.isValidImage(newImage)
-//            if (validImage) {
-//            }
-            _state.update { it.copy(teamImage = newImage) } // TODO
+            _state.update { it.copy(teamImage = newImage) }
         }
     }
 

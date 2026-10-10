@@ -111,6 +111,7 @@
     <string name="permission_denied_camera">Permissions needed to open camera</string>
     <string name="permission_denied_gallery">Permissions needed to open gallery</string>
     <string name="player_name">Player name</string>
+    <string name="player_nickname">Player nickname</string>
     <string name="position">Position</string>
     <string name="punctuation_values">Punctuation values</string>
     <string name="red_cards">Red cards</string>

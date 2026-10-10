@@ -21,6 +21,10 @@ sealed interface InsertPlayerField {
         val name: String
     ) : InsertPlayerField
 
+    data class Nickname(
+        val nickname: String
+    ) : InsertPlayerField
+
     data class Dorsal(
         val dorsal: Int
     ) : InsertPlayerField

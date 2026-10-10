@@ -111,6 +111,7 @@
     <string name="permission_denied_camera">Se necesitan permisos para abrir la cámara</string>
     <string name="permission_denied_gallery">Se necesitan permisos para abrir la galería</string>
     <string name="player_name">Nombre del jugador</string>
+    <string name="player_nickname">Nickname del jugador</string>
     <string name="position">Posición</string>
     <string name="punctuation_values">Valores de puntuación</string>
     <string name="red_cards">Tarjetas rojas</string>

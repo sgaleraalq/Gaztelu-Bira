@@ -28,6 +28,7 @@ android {
 dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.playservices)
+    implementation(libs.androidx.exifinterface)
     implementation(libs.androidx.googleid)
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.kotlinx.serialization)

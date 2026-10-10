@@ -18,23 +18,35 @@ package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import android.net.Uri
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.Unknown
 import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Inserted.Image
 import com.sgale.gaztelubira.core.domain.model.team.TeamId
 import com.sgale.gaztelubira.core.domain.repository.StorageRemote
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.TEAMS
+import com.sgale.gaztelubira.core.network.firebase.image.JpegCompressor
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
+private const val JPG = "jpg"
+private const val JPEG_MIME_TYPE = "image/jpeg"
+private const val TEAM_LOGO_MAX_SIZE = 256
+
 internal class FirebaseStorage @Inject constructor(
-    private val fireStorage: FirebaseStorage
+    private val fireStorage: FirebaseStorage,
+    private val jpegCompressor: JpegCompressor
 ) : StorageRemote {
     override suspend fun insertTeamLogo(id: TeamId, uri: Uri): FirebaseInsertResult =
         try {
-            val ref = fireStorage.reference.child("$TEAMS/$id")
-            ref.putFile(uri).await()
+            val logo = jpegCompressor.compress(uri, TEAM_LOGO_MAX_SIZE)
+            val metadata = StorageMetadata.Builder()
+                .setContentType(JPEG_MIME_TYPE)
+                .build()
+
+            val ref = fireStorage.reference.child("$TEAMS/$id.$JPG")
+            ref.putBytes(logo, metadata).await()
             val downloadUri = ref.downloadUrl.await()
             Image(downloadUri)
         } catch (e: CancellationException) {

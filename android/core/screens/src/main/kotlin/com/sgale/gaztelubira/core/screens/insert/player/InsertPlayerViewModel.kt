@@ -34,6 +34,7 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerFi
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Dorsal
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Image
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Name
+import com.sgale.gaztelubira.multiplatform.ui.insert.player.state.InsertPlayerField.Nickname
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -70,6 +71,7 @@ internal class InsertPlayerViewModel @Inject constructor(
         updateDialogState(None)
         when (field) {
             is Name -> _state.update { it.copy(playerName = field.name) }
+            is Nickname -> _state.update { it.copy(playerNickname = field.nickname) }
             is Dorsal -> _state.update { it.copy(playerDorsal = field.dorsal) }
             is PositionField -> _state.update { it.copy(playerPosition = field.position) }
             is Image -> onImageChanged(newImage = field.image)
