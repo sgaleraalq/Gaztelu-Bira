@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTitle
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.auth_welcome_gaztelu_bira_text
 import com.sgale.gaztelubira.multiplatform.ui.resources.auth_welcome_join_gaztelu_bira
@@ -56,7 +56,7 @@ fun WelcomeScreenTitle() {
 
 @Composable
 fun WelcomeScreenSubtitle() {
-    val bodyMedium = gBTypography().bodyMedium
+    val bodyMedium = GBTheme.typography.bodyMedium
     val welcomeText = stringResource(Res.string.auth_welcome_gaztelu_bira_text)
 
     GBText(

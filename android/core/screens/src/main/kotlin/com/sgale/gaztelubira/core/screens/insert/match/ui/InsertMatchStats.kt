@@ -79,8 +79,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_stats
@@ -155,7 +155,7 @@ internal fun InsertMatchStatBox(
         GBText(
             modifier = Modifier.fillMaxWidth(),
             text = "stat", // stringResource(stat.statName),
-            style = gBTypography().bodySmall.copy(fontSize = 10.sp),
+            style = GBTheme.typography.bodySmall.copy(fontSize = 10.sp),
             overflow = Visible,
             alignment = Center
         )
@@ -234,7 +234,7 @@ internal fun NumberOfStatsInsideContainer(
             .padding(4.dp),
         text = stats.toString(),
         textColor = Black,
-        style = gBTypography().bodySmall.copy(
+        style = GBTheme.typography.bodySmall.copy(
             fontSize = 10.sp
         )
     )
@@ -303,7 +303,7 @@ internal fun StatsTitle(stat: Stat){
             GBText(
                 modifier = Modifier.fillMaxWidth(),
                 text = "statName", // TODO stringResource(stat.statName),
-                style = gBTypography().titleLarge,
+                style = GBTheme.typography.titleLarge,
                 textColor = elevated_button_text_color
             )
         }
@@ -334,7 +334,7 @@ internal fun InsertMatchPlayerStat(
         GBText(
             modifier = Modifier.weight(1f),
             text = player.name,
-            style = gBTypography().copy().bodyMedium
+            style = GBTheme.typography.copy().bodyMedium
         )
         GBIcon(
             modifier = Modifier.clickable{ changePlayerState(); removeStat() },

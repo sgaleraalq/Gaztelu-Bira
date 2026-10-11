@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -28,6 +27,7 @@ import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 
 @Composable
 internal fun MatchInformation(
@@ -41,7 +41,7 @@ internal fun MatchInformation(
         GBText(
             text = date,
             alignment = Start,
-            style = MaterialTheme.typography.bodySmall.copy(fontStyle = Italic)
+            style = GBTheme.typography.bodySmall.copy(fontStyle = Italic)
         )
     }
 }

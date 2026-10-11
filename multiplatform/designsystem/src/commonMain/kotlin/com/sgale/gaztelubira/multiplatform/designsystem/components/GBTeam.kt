@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -68,7 +68,7 @@ fun GBTeam(
 fun GBTeamName(
     modifier: Modifier = Modifier,
     name: String?,
-    style: TextStyle = gBTypography().bodyMedium,
+    style: TextStyle = GBTheme.typography.bodyMedium,
     maxLines: Int = 1
 ) {
     GBText(

@@ -59,9 +59,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedBut
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeamName
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.common_cup
@@ -205,7 +205,7 @@ internal fun InsertMatchButton(
         modifier = modifier.height(40.dp),
         text = text,
         onClick = onButtonPressed,
-        textStyle = gBTypography().bodySmall,
+        textStyle = GBTheme.typography.bodySmall,
         backgroundColor = backgroundColor,
         textColor = textColor,
         padding = PaddingValues(12.dp)
@@ -220,7 +220,7 @@ internal fun InsertMatchDate(
     GBText(
         modifier = modifier,
         text = getDateFromLong(DATE_FORMAT, date),
-        style = gBTypography().bodySmall.copy(
+        style = GBTheme.typography.bodySmall.copy(
             fontSize = 10.sp
         )
     )
@@ -230,7 +230,7 @@ internal fun InsertMatchDate(
 internal fun InsertMatchName(name: String) {
     GBText(
         text = name,
-        style = gBTypography().bodyLarge
+        style = GBTheme.typography.bodyLarge
     )
 }
 
@@ -325,7 +325,7 @@ internal fun InsertMatchResult(
                 onResultChanged(new.toIntOrNull())
             },
             isNumeric = true,
-            style = gBTypography().bodyLarge.copy(
+            style = GBTheme.typography.bodyLarge.copy(
                 color = Black,
                 textAlign = Center
             ),

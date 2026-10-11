@@ -36,7 +36,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImageBoxReq
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBInsertButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTextField
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companion.isLoading
@@ -71,7 +71,7 @@ internal fun InsertPlayerMainInformation(
     GBText(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(Res.string.insert_information),
-        style = gBTypography().titleMedium,
+        style = GBTheme.typography.titleMedium,
         alignment = Start
     )
     GBTextField(
@@ -168,7 +168,7 @@ internal fun InsertPlayerImages(
     GBText(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(Res.string.insert_player_images),
-        style = gBTypography().titleMedium,
+        style = GBTheme.typography.titleMedium,
         alignment = Start
     )
     PlayerImageRow(

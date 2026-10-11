@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBMediaOrCamera
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.player.InsertPlayerUiState
@@ -148,7 +148,7 @@ private fun InsertPlayerDialogTitle(
             )
             .padding(12.dp),
         text = text,
-        style = gBTypography().bodyLarge,
+        style = GBTheme.typography.bodyLarge,
         alignment = Start,
         textColor = Black
     )

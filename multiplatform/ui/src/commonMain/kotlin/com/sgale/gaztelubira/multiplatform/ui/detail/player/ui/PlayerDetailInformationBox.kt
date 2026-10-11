@@ -51,7 +51,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryBlue
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.multiplatform.ui.detail.player.PlayerDetailActions
@@ -132,7 +132,7 @@ private fun PlayerName(playerName: String?) {
         text = playerName?.uppercase() ?: "",
         alignment = Center,
         textColor = primaryRed,
-        style = gBTypography().titleLarge.copy(
+        style = GBTheme.typography.titleLarge.copy(
             fontWeight = Bold
         )
     )
@@ -185,14 +185,14 @@ private fun PlayerStatItem(
         GBText(
             text = statValue,
             alignment = Center,
-            style = gBTypography().headlineLarge.copy(fontWeight = Bold),
+            style = GBTheme.typography.headlineLarge.copy(fontWeight = Bold),
             textColor = primaryBlue
         )
         Spacer(Modifier.height(4.dp))
         GBText(
             modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
             text = playerStat,
-            style = gBTypography().bodySmall,
+            style = GBTheme.typography.bodySmall,
             alignment = Center,
             textColor = Black
         )

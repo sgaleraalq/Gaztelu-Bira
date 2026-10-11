@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
 import com.sgale.gaztelubira.multiplatform.model.GBStatValue
@@ -141,13 +141,13 @@ private fun PlayerStat(
             modifier = Modifier.weight(1f),
             text = stringResource(statValue.stat.label),
             alignment = TextAlign.Start,
-            style = gBTypography().bodySmall,
+            style = GBTheme.typography.bodySmall,
             textColor = Black
         )
         GBText(
             text = statValue.value,
             alignment = TextAlign.Start,
-            style = gBTypography().bodySmall,
+            style = GBTheme.typography.bodySmall,
             textColor = Black
         )
     }

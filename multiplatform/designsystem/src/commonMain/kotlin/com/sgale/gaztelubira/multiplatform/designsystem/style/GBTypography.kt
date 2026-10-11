@@ -26,13 +26,13 @@ import com.sgale.gaztelubira.multiplatform.ui.resources.test_font
 import org.jetbrains.compose.resources.Font
 
 @Composable
-fun gBTextFontFamily() = FontFamily(
+private fun gBTextFontFamily() = FontFamily(
     Font(Res.font.roboto_medium, weight = Normal),
     Font(Res.font.test_font, weight = Normal)
 )
 
 @Composable
-fun gBTypography() = Typography().run {
+internal fun gBTypography() = Typography().run {
     val fontFamily = gBTextFontFamily()
     copy(
         displayLarge = displayLarge.copy(fontFamily = fontFamily),

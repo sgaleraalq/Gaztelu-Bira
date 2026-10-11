@@ -52,7 +52,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.common_bench
@@ -205,7 +205,7 @@ internal fun BenchTitle() {
     GBText(
         modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
         text = stringResource(Res.string.common_bench),
-        style = gBTypography().bodyLarge
+        style = GBTheme.typography.bodyLarge
     )
 }
 
@@ -295,7 +295,7 @@ private fun ManagersTitle() {
     GBText(
         modifier = Modifier.padding(top = 12.dp),
         text = stringResource(Res.string.insert_match_managers),
-        style = gBTypography().bodyLarge
+        style = GBTheme.typography.bodyLarge
     )
 }
 

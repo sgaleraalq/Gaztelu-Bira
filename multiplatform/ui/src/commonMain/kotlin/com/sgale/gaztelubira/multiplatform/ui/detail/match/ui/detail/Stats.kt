@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.model.GBStat
@@ -157,7 +157,7 @@ private fun StatHeader(
         GBText(
             modifier = Modifier.weight(1f),
             text = stringResource(stat.label),
-            style = gBTypography().bodyLarge.copy(fontWeight = Bold),
+            style = GBTheme.typography.bodyLarge.copy(fontWeight = Bold),
             textColor = white_in_gray_box
         )
         GBIcon(
@@ -191,7 +191,7 @@ private fun RowPlayer(
         GBText(
             text = player.name,
             textColor = white_in_gray_box,
-            style = gBTypography().bodyMedium
+            style = GBTheme.typography.bodyMedium
         )
     }
 }

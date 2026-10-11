@@ -23,14 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 
 @Composable
 fun AuthTitle(title: String){
     GBText(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         text = title,
-        style = gBTypography().titleLarge.copy(
+        style = GBTheme.typography.titleLarge.copy(
             fontWeight = Bold
         )
     )

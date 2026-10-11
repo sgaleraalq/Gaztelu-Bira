@@ -35,7 +35,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeamName
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_select_a_team
 import org.jetbrains.compose.resources.stringResource
@@ -60,7 +60,7 @@ internal fun InsertMatchTeamsDialog(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(Res.string.insert_match_select_a_team),
                     alignment = Center,
-                    style = gBTypography().headlineSmall
+                    style = GBTheme.typography.headlineSmall
                 )
             }
             items(teams.size) { index ->
@@ -88,6 +88,6 @@ internal fun TeamItem(
         verticalArrangement = spacedBy(8.dp)
     ) {
         GBTeam(Modifier.size(50.dp), team.logo)
-        GBTeamName(name = team.name, style = gBTypography().bodySmall, maxLines = 2)
+        GBTeamName(name = team.name, style = GBTheme.typography.bodySmall, maxLines = 2)
     }
 }

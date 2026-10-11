@@ -25,7 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.sign_up_color
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.auth_login_dont_have_account
@@ -39,13 +39,13 @@ internal fun DontHaveAccount(
     Row(Modifier.fillMaxWidth()) {
         GBText(
             text = stringResource(Res.string.auth_login_dont_have_account),
-            style = gBTypography().bodyMedium
+            style = GBTheme.typography.bodyMedium
         )
         Spacer(Modifier.width(8.dp))
         GBText(
             modifier = Modifier.clickable{ navigateToSignUp() },
             text = stringResource(Res.string.auth_sign_up_exclamation),
-            style = gBTypography().bodyMedium,
+            style = GBTheme.typography.bodyMedium,
             textColor = sign_up_color
         )
     }

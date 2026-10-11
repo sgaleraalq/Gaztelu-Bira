@@ -32,8 +32,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBContainer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPulsingDot
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.home_stats_leaderboard
@@ -56,7 +56,7 @@ internal fun StatsHeader(
         GBText(
             modifier = Modifier.weight(1f),
             text = stringResource(Res.string.home_stats_leaderboard),
-            style = gBTypography().headlineSmall
+            style = GBTheme.typography.headlineSmall
         )
         SeasonsDropdown(
             selectedSeason = selectedSeason,
@@ -93,7 +93,7 @@ private fun SeasonsDropdown(
             GBPulsingDot()
             GBText(
                 text = selectedSeason.name,
-                style = gBTypography().bodyMedium
+                style = GBTheme.typography.bodyMedium
             )
             GBIcon(
                 modifier = Modifier.size(20.dp).padding(4.dp),

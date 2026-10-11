@@ -32,7 +32,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_camera
@@ -54,7 +54,7 @@ fun GBMediaOrCamera(
             GBText(
                 modifier = Modifier.fillMaxWidth(),
                 text = title,
-                style = gBTypography().bodySmall,
+                style = GBTheme.typography.bodySmall,
                 alignment = TextAlign.Center
             )
             Spacer(Modifier.height(8.dp))

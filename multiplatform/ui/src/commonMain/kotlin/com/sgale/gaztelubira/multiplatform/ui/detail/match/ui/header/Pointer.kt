@@ -41,7 +41,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.font.FontWeight.Companion.Thin
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_name_text_color
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Details
@@ -60,7 +60,7 @@ internal fun MatchDetailBox(
     clickEnabled: Boolean,
     onClick: () -> Unit
 ) {
-    val textStyle = gBTypography().bodyMedium.copy(
+    val textStyle = GBTheme.typography.bodyMedium.copy(
         fontWeight = when (isHighlighted) {
             true -> Bold
             false -> Thin

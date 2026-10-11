@@ -30,7 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.common_logout
@@ -71,7 +71,7 @@ fun GBLogoutDialog(
                 GBText(
                     modifier = Modifier.weight(1f),
                     text = stringResource(Res.string.common_logout),
-                    style = gBTypography().titleLarge.copy(
+                    style = GBTheme.typography.titleLarge.copy(
                         fontWeight = Bold
                     )
                 )
@@ -80,7 +80,7 @@ fun GBLogoutDialog(
             GBText(
                 modifier = Modifier.padding(12.dp),
                 text =  stringResource(Res.string.common_sure_want_to_logout),
-                style = gBTypography().titleMedium,
+                style = GBTheme.typography.titleMedium,
                 textColor = white_in_gray_box
             )
             Row(

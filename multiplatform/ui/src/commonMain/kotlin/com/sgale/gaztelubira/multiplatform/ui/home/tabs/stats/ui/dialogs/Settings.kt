@@ -43,8 +43,8 @@ import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBDialog
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.multiplatform.designsystem.style.login_container_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
@@ -171,7 +171,7 @@ private fun SettingsTitle(
         GBText(
             modifier = Modifier.weight(1f),
             text = title,
-            style = gBTypography().titleMedium,
+            style = GBTheme.typography.titleMedium,
             textColor = Black
         )
     }
@@ -291,13 +291,13 @@ private fun SettingsButton(
         ) {
             GBText(
                 text = title,
-                style = gBTypography().bodyMedium,
+                style = GBTheme.typography.bodyMedium,
                 textColor = if (enabled) Black else elevated_button_bg_not_selected
             )
             subtitle?.let {
                 GBText(
                     text = subtitleText,
-                    style = gBTypography().bodySmall.copy(fontSize = 8.sp, fontStyle = Italic),
+                    style = GBTheme.typography.bodySmall.copy(fontSize = 8.sp, fontStyle = Italic),
                     textColor = subtitleColor
                 )
             }

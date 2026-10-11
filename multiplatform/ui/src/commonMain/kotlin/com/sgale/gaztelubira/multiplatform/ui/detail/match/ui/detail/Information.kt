@@ -39,7 +39,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion.End
 import androidx.compose.ui.text.style.TextAlign.Companion.Justify
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.state.MatchDetailState.Details
@@ -92,7 +92,7 @@ fun DetailsDate(
         Spacer(Modifier.width(8.dp))
         GBText(
             text = date,
-            style = gBTypography().bodySmall.copy(
+            style = GBTheme.typography.bodySmall.copy(
                 fontStyle = Italic
             )
         )
@@ -111,21 +111,21 @@ fun DetailsTitle(
         GBText(
             modifier = Modifier.weight(1f),
             text = local.name,
-            style = gBTypography().titleMedium.copy(
+            style = GBTheme.typography.titleMedium.copy(
                 fontWeight = Bold
             ),
             alignment = Center
         )
         GBText(
             text = "-",
-            style = gBTypography().titleLarge.copy(
+            style = GBTheme.typography.titleLarge.copy(
                 fontWeight = Bold
             )
         )
         GBText(
             modifier = Modifier.weight(1f),
             text = visitor.name,
-            style = gBTypography().titleMedium.copy(
+            style = GBTheme.typography.titleMedium.copy(
                 fontWeight = Bold
             ),
             alignment = Center
@@ -141,7 +141,7 @@ fun DetailsDescription(
     GBText(
         modifier = modifier.fillMaxWidth().padding(12.dp),
         text = description ?: stringResource(Res.string.detail_match_no_description_provided),
-        style = gBTypography().bodyMedium,
+        style = GBTheme.typography.bodyMedium,
         alignment = Justify,
         maxLines = MAX_VALUE
     )
@@ -160,7 +160,7 @@ fun DetailsLocation(
         DetailsIcon(Res.drawable.ic_location)
         GBText(
             text = location ?: stringResource(Res.string.detail_match_no_location_available),
-            style = gBTypography().bodyMedium,
+            style = GBTheme.typography.bodyMedium,
             alignment = End
         )
     }

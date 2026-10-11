@@ -42,7 +42,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.model.GBMatchResult
 import com.sgale.gaztelubira.multiplatform.model.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
@@ -109,7 +109,7 @@ private fun SeasonData(
         GBText(
             modifier = Modifier.weight(1f).fillMaxWidth().padding(end = 60.dp),
             text = stringResource(Res.string.common_app_name),
-            style = gBTypography().titleLarge.copy(fontWeight = Bold)
+            style = GBTheme.typography.titleLarge.copy(fontWeight = Bold)
         )
         SeasonStreak(
             modifier = Modifier.weight(1f),
@@ -131,12 +131,12 @@ private fun SeasonStreak(
         ) {
             GBText(
                 text = stringResource(Res.string.home_season_last_streak) + ":",
-                style = gBTypography().bodySmall
+                style = GBTheme.typography.bodySmall
             )
             Spacer(modifier = Modifier.width(8.dp))
             GBText(
                 text = summary?.currentStreak?.toString() ?: NO_VALUE,
-                style = gBTypography().bodySmall
+                style = GBTheme.typography.bodySmall
             )
         }
         SeasonStreakDots(
@@ -190,11 +190,11 @@ private fun SeasonMatchStats(summary: GBSeason?) {
             ) {
                 GBText(
                     text = label,
-                    style = gBTypography().bodySmall
+                    style = GBTheme.typography.bodySmall
                 )
                 GBText(
                     text = value?.toString() ?: NO_VALUE,
-                    style = gBTypography().bodySmall
+                    style = GBTheme.typography.bodySmall
                 )
             }
         }

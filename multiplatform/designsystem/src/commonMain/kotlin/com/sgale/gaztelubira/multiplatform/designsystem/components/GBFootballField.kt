@@ -47,7 +47,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
@@ -160,7 +160,7 @@ fun GBPlayerPosition(
                 )
                 GBText(
                     text = player?.name,
-                    style = gBTypography().bodySmall.copy(
+                    style = GBTheme.typography.bodySmall.copy(
                         fontWeight = Bold
                     )
                 )

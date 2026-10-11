@@ -32,15 +32,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 
 @Composable
@@ -51,7 +51,7 @@ fun GBElevatedButton(
     enabled: Boolean = true,
     backgroundColor: Color = White,
     textColor: Color = Black,
-    textStyle: TextStyle = gBTypography().bodyMedium,
+    textStyle: TextStyle = GBTheme.typography.bodyMedium,
     roundness: Int = 8,
     padding: PaddingValues = ContentPadding
 ) {
@@ -110,7 +110,7 @@ fun GBElevatedButton(
             Spacer(Modifier.width(24.dp))
             GBText(
                 text = text,
-                style = gBTypography().bodyMedium.copy(
+                style = GBTheme.typography.bodyMedium.copy(
                     fontWeight = Bold
                 ),
                 textColor = Black

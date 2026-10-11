@@ -36,8 +36,8 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat.BLUE_CARDS
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
@@ -91,7 +91,7 @@ private fun StatIndicator(
         GBText(
             modifier = Modifier.weight(1f),
             text = stringResource(stat.label),
-            style = gBTypography().bodyMedium,
+            style = GBTheme.typography.bodyMedium,
             textColor = if (isSelected) White else Black
         )
     }

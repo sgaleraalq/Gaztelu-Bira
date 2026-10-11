@@ -32,7 +32,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,13 +43,13 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.TopEnd
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
@@ -58,7 +57,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.lightGray
 import com.sgale.gaztelubira.multiplatform.designsystem.style.overlayColor
@@ -69,8 +68,8 @@ import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_stat_t
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_delete
-import kotlin.Float.Companion.POSITIVE_INFINITY
 import org.jetbrains.compose.resources.painterResource
+import kotlin.Float.Companion.POSITIVE_INFINITY
 
 @Composable
 fun GBPlayerCard(
@@ -116,13 +115,13 @@ fun GBPlayerCard(
                 text = name,
                 textColor = player_card_name_text_color,
                 alignment = Start,
-                style = MaterialTheme.typography.bodyMedium
+                style = GBTheme.typography.bodyMedium
             )
             GBText(
                 text = stat,
                 textColor = player_card_stat_text_color,
                 alignment = Center,
-                style = MaterialTheme.typography.bodyMedium
+                style = GBTheme.typography.bodyMedium
             )
         }
     }
@@ -193,7 +192,7 @@ fun GBPlayerCard(
                         text = player.name,
                         textColor = lightGray,
                         alignment = Center,
-                        style = gBTypography().bodySmall
+                        style = GBTheme.typography.bodySmall
                     )
                 }
             }
@@ -222,7 +221,7 @@ fun GBPlayerCard(
                     GBText(
                         text = dorsal ?: player.dorsal.toString(),
                         textColor = gray_box_in_black_bg,
-                        style = gBTypography().bodySmall.copy(
+                        style = GBTheme.typography.bodySmall.copy(
                             fontSize = dorsalTextSize
                         )
                     )

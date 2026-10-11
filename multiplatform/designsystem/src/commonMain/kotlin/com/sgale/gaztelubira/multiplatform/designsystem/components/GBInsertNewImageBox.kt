@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 
 @Composable
@@ -55,7 +55,7 @@ fun GBImageBoxRequester(
                 .padding(16.dp)
                 .weight(1f),
             text = text,
-            style = gBTypography().bodyMedium
+            style = GBTheme.typography.bodyMedium
         )
 
         GBInsertImage(

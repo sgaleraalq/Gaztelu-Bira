@@ -42,7 +42,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.label
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_select_a_player
 import org.jetbrains.compose.resources.stringResource
@@ -82,7 +82,7 @@ internal fun InsertMatchDialogPlayers(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
                     text = stringResource(Res.string.insert_match_select_a_player) + ": " + playerPosition.label,
                     alignment = Center,
-                    style = gBTypography().titleMedium
+                    style = GBTheme.typography.titleMedium
                 )
             }
             items(
@@ -113,7 +113,7 @@ internal fun InsertMatchDialogPlayers(
                     GBText(
                         modifier = Modifier.fillMaxWidth(),
                         text = it.name,
-                        style = gBTypography().bodySmall,
+                        style = GBTheme.typography.bodySmall,
                         alignment = Center
                     )
                 }
@@ -161,7 +161,7 @@ fun InsertMatchDialogStatsPlayers(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
                     text = "statName", // TODO stringResource(statsState?.selectedStat?.statName ?: Res.string.common_goals),
                     alignment = Center,
-                    style = gBTypography().titleMedium
+                    style = GBTheme.typography.titleMedium
                 )
             }
             items(availablePlayers) {
@@ -182,7 +182,7 @@ fun InsertMatchDialogStatsPlayers(
                     GBText(
                         modifier = Modifier.fillMaxWidth(),
                         text = it.name,
-                        style = gBTypography().bodySmall,
+                        style = GBTheme.typography.bodySmall,
                         alignment = Center
                     )
                 }

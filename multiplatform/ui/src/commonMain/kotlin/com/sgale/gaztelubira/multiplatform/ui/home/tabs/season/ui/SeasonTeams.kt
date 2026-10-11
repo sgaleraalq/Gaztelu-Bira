@@ -42,8 +42,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
@@ -59,7 +59,7 @@ internal fun SeasonRivals(
         modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
         text = stringResource(Res.string.home_season_other_teams),
         alignment = TextAlign.Center,
-        style = gBTypography().titleLarge
+        style = GBTheme.typography.titleLarge
     )
 
     LazyVerticalGrid(
@@ -111,7 +111,7 @@ private fun SeasonRival(
             GBText(
                 modifier = Modifier.fillMaxWidth(),
                 text = team.name,
-                style = gBTypography().bodySmall,
+                style = GBTheme.typography.bodySmall,
                 maxLines = 2,
                 alignment = TextAlign.Center
             )

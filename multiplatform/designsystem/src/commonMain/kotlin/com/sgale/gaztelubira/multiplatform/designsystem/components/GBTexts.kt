@@ -27,13 +27,13 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.style.TextOverflow.Companion.Clip
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 
 @Composable
 fun GBTitle(
     modifier: Modifier = Modifier,
     title: String,
-    style: TextStyle = gBTypography().headlineLarge,
+    style: TextStyle = GBTheme.typography.headlineLarge,
     textColor: Color = White
 ) {
     Text(
@@ -51,7 +51,7 @@ fun GBText(
     modifier: Modifier = Modifier,
     alignment: TextAlign = Start,
     textColor: Color = White,
-    style: TextStyle = gBTypography().bodyLarge,
+    style: TextStyle = GBTheme.typography.bodyLarge,
     maxLines: Int = 1,
     minLines: Int = 1,
     overflow: TextOverflow = Clip,

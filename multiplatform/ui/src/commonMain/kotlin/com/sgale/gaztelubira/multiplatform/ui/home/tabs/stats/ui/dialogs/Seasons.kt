@@ -45,7 +45,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.DEFAULT_BORDE
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBContainer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
@@ -167,7 +167,7 @@ private fun SeasonsDialogTitle() {
         )
         GBText(
             text = stringResource(Res.string.home_stats_seasons_dialog_title),
-            style = gBTypography().titleLarge,
+            style = GBTheme.typography.titleLarge,
             textColor = White
         )
     }
@@ -177,7 +177,7 @@ private fun SeasonsDialogTitle() {
 private fun SeasonsDialogSubtitle() {
     GBText(
         text = stringResource(Res.string.home_stats_seasons_dialog_subtitle),
-        style = gBTypography().bodyMedium,
+        style = GBTheme.typography.bodyMedium,
         textColor = seasonsTextColor
     )
 }

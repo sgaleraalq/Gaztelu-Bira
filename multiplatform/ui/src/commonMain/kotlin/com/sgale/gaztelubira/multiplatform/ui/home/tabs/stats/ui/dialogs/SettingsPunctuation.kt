@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBElevatedButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.designsystem.style.player_card_name_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
@@ -171,7 +171,7 @@ private fun Sliders(
                 GBText(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(spec.label),
-                    style = gBTypography().bodySmall,
+                    style = GBTheme.typography.bodySmall,
                     textColor = Black
                 )
                 SliderRow(
@@ -203,7 +203,7 @@ private fun SliderRow(
         GBText(
             text = if (spec.isCard) "1/${spec.value} pts" else "${spec.value} pts",
             textColor = Black,
-            style = gBTypography().bodySmall
+            style = GBTheme.typography.bodySmall
         )
     }
 }

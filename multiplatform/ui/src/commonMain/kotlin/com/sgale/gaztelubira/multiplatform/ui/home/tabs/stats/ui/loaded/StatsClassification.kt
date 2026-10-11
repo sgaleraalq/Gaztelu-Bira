@@ -48,8 +48,8 @@ import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAsyncImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBStat
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
@@ -73,7 +73,7 @@ internal fun SelectedStatTitle(
         )
         GBText(
             text = stringResource(stat.label),
-            style = gBTypography().bodyLarge.copy(fontWeight = Normal)
+            style = GBTheme.typography.bodyLarge.copy(fontWeight = Normal)
         )
     }
 }
@@ -153,7 +153,7 @@ private fun ClassificationPosition(
     GBText(
         modifier = Modifier.width(24.dp),
         text = position?.toString() ?: "",
-        style = gBTypography().bodyMedium,
+        style = GBTheme.typography.bodyMedium,
         alignment = TextAlign.End
     )
 }
@@ -189,13 +189,13 @@ private fun ClassificationName(
     Column(modifier) {
         GBText(
             text = dorsal + player.name,
-            style = gBTypography().bodySmall
+            style = GBTheme.typography.bodySmall
         )
         player.position?.let { position ->
             GBText(
                 text = stringResource(position.label),
                 textColor = elevated_button_bg_not_selected,
-                style = gBTypography().bodySmall.copy(
+                style = GBTheme.typography.bodySmall.copy(
                     fontSize = 10.sp,
                     fontStyle = Italic
                 )

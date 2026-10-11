@@ -25,7 +25,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -37,6 +36,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.model.GBMatch
 import com.sgale.gaztelubira.multiplatform.model.GBMatchTeam
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
@@ -115,7 +115,7 @@ private fun MatchGoals(
             modifier = Modifier.fillMaxWidth(),
             text = goals,
             alignment = alignment,
-            style = MaterialTheme.typography.headlineLarge
+            style = GBTheme.typography.headlineLarge
         )
     }
 }
@@ -150,7 +150,7 @@ private fun MatchTeamBadge(
             modifier = Modifier.fillMaxWidth(),
             text = teamName,
             alignment = TextAlign.Center,
-            style = MaterialTheme.typography.bodySmall
+            style = GBTheme.typography.bodySmall
         )
     }
 }

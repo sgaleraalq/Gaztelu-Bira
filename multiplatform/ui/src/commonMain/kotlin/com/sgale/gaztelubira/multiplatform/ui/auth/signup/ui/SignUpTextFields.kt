@@ -23,7 +23,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.auth.common.AuthTextField
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpActions
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.SignUpUser
@@ -41,7 +41,7 @@ fun SignUpTextFields(
     user: SignUpUser,
     actions: SignUpActions
 ) {
-    val bodyLarge = gBTypography().bodyLarge
+    val bodyLarge = GBTheme.typography.bodyLarge
 
     Column(
         verticalArrangement = spacedBy(4.dp)

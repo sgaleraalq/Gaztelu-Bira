@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBackButton
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTeam
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
 import com.sgale.gaztelubira.multiplatform.ui.detail.match.MatchDetailUiState
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
@@ -101,7 +101,7 @@ private fun GBTeamDetailResult(
         if (!isLocal) {
             GBText(
                 text = goals.toString(),
-                style = gBTypography().headlineMedium
+                style = GBTheme.typography.headlineMedium
             )
         }
         Spacer(Modifier.weight(1f))
@@ -122,7 +122,7 @@ private fun GBTeamDetailResult(
         if (isLocal) {
             GBText(
                 text = goals.toString(),
-                style = gBTypography().headlineMedium
+                style = GBTheme.typography.headlineMedium
             )
         }
     }

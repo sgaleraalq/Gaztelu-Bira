@@ -39,7 +39,7 @@ import androidx.compose.ui.text.input.KeyboardType.Companion.Password
 import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation.Companion.None
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 
@@ -48,7 +48,7 @@ fun GBTextField(
     modifier: Modifier = Modifier,
     text: String,
     onTextChanged: (String) -> Unit,
-    style: TextStyle = gBTypography().bodyMedium,
+    style: TextStyle = GBTheme.typography.bodyMedium,
     label: String = "",
     enabled: Boolean = true,
     trailingIcon: @Composable () -> Unit = {},
@@ -83,7 +83,7 @@ fun GBTextField(
             GBText(
                 text = label,
                 textColor = white_in_gray_box.copy(alpha = 0.5f),
-                style = gBTypography().bodyMedium
+                style = GBTheme.typography.bodyMedium
             )
         },
         singleLine = true,

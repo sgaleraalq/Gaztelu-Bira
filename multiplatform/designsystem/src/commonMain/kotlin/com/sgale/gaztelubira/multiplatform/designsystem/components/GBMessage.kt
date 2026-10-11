@@ -37,7 +37,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -80,7 +80,7 @@ fun GBMessage(
         GBText(
             modifier = Modifier.fillMaxWidth().padding(24.dp),
             text = text,
-            style = gBTypography().bodyLarge.copy(
+            style = GBTheme.typography.bodyLarge.copy(
                 fontWeight = Bold,
                 color = White
             ),

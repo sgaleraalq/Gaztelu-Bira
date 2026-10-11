@@ -36,7 +36,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 
 @Composable
 internal fun DorsalDialog(
@@ -79,7 +79,7 @@ private fun DorsalCard(
     ) {
         GBText(
             text = dorsal.toString(),
-            style = gBTypography().bodyMedium,
+            style = GBTheme.typography.bodyMedium,
             textColor = Black,
             alignment = TextAlign.Center
         )

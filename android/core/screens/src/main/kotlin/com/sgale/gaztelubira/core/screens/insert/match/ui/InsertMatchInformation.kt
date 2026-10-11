@@ -34,7 +34,7 @@ import com.sgale.gaztelubira.core.domain.utils.getActualTimeAsLong
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchInformation
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBBasicTextField
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_description
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_location
@@ -67,7 +67,7 @@ internal fun InsertMatchLocationTitle() {
     GBText(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(Res.string.insert_match_location),
-        style = gBTypography().titleMedium
+        style = GBTheme.typography.titleMedium
     )
 }
 
@@ -76,7 +76,7 @@ internal fun InsertMatchDescriptionTitle() {
     GBText(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(Res.string.insert_match_description),
-        style = gBTypography().titleLarge
+        style = GBTheme.typography.titleLarge
     )
 }
 
@@ -85,7 +85,7 @@ internal fun InsertMatchLocation(
     insertMatchInformation: InsertMatchInformation,
     updateLocation: (String) -> Unit
 ) {
-    val textStyle = gBTypography().bodyMedium
+    val textStyle = GBTheme.typography.bodyMedium
 
     Box(
         modifier = Modifier
@@ -130,7 +130,7 @@ internal fun InsertMatchDescription(
             onValueChanged = {
                 updateDescription(it)
             },
-            style = gBTypography().bodyMedium.copy(
+            style = GBTheme.typography.bodyMedium.copy(
                 color = White
             ),
             showNextLine = true

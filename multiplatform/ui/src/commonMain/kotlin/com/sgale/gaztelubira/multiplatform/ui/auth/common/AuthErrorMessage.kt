@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.softRed
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -44,7 +44,7 @@ internal fun AuthErrorMessage(message: StringResource?) {
         text = stringResource(message),
         alignment = Center,
         textColor = softRed,
-        style = gBTypography().bodyMedium,
+        style = GBTheme.typography.bodyMedium,
         maxLines = 2
     )
 }

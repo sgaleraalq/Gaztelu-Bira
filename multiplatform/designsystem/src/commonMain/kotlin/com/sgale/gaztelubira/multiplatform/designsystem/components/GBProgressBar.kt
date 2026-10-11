@@ -42,7 +42,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.primaryRed
 import com.sgale.gaztelubira.multiplatform.designsystem.style.white_in_gray_box
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
@@ -85,7 +85,7 @@ private fun GBProgressBarText() {
     ) {
         GBText(
             text = stringResource(Res.string.common_loading_resources),
-            style = gBTypography().bodyMedium,
+            style = GBTheme.typography.bodyMedium,
             alignment = Center
         )
         Spacer(Modifier.width(8.dp))
@@ -123,7 +123,7 @@ private fun LoadingDots() {
                     .offset(y = anim.value.dp)
                     .padding(horizontal = 2.dp),
                 text = ".",
-                style = gBTypography().bodyMedium
+                style = GBTheme.typography.bodyMedium
             )
         }
     }

@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.common_good_news
 import com.sgale.gaztelubira.multiplatform.ui.resources.common_update_available
@@ -59,7 +59,7 @@ fun GBUpdateDialog(
 fun GBUpdateDialogTitle() {
     GBText(
         text = stringResource(Res.string.common_good_news),
-        style = gBTypography().headlineLarge.copy(
+        style = GBTheme.typography.headlineLarge.copy(
             color = White,
             fontWeight = FontWeight.Bold
         )
@@ -70,7 +70,7 @@ fun GBUpdateDialogTitle() {
 fun GBUpdateDialogText() {
     GBText(
         text = stringResource(Res.string.common_update_available),
-        style = gBTypography().bodyMedium.copy(
+        style = GBTheme.typography.bodyMedium.copy(
             color = White
         )
     )

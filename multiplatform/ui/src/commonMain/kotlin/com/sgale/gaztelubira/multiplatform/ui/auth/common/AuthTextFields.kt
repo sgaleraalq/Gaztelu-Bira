@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTextField
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_eye_close
 import com.sgale.gaztelubira.multiplatform.ui.resources.ic_eye_open
@@ -40,7 +40,7 @@ import org.jetbrains.compose.resources.painterResource
 internal fun AuthTextField(
     text: String,
     label: String,
-    style: TextStyle = gBTypography().bodyMedium,
+    style: TextStyle = GBTheme.typography.bodyMedium,
     icon: DrawableResource? = null,
     isPassword: Boolean = false,
     isPasswordVisible: Boolean = false,

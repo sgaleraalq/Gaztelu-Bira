@@ -54,7 +54,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.model.GBTeam
@@ -149,7 +149,7 @@ fun StartingElevenHeader(
         GBText(
             modifier = Modifier.weight(1f),
             text = team?.name ?: "",
-            style = gBTypography().bodySmall
+            style = GBTheme.typography.bodySmall
         )
         Managers(managers)
     }
@@ -205,7 +205,7 @@ private fun BenchTitle() {
         )
         GBText(
             text = stringResource(Res.string.common_bench),
-            style = gBTypography().bodyLarge
+            style = GBTheme.typography.bodyLarge
         )
     }
 }
@@ -230,7 +230,7 @@ private fun SubstituteCard(
         GBText(
             modifier = Modifier.weight(1f),
             text = player.name,
-            style = gBTypography().bodySmall
+            style = GBTheme.typography.bodySmall
         )
     }
 }

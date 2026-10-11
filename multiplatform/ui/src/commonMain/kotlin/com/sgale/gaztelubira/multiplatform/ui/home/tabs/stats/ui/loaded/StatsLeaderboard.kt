@@ -54,8 +54,8 @@ import androidx.compose.ui.unit.sp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAsyncImage
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_bg_not_selected
-import com.sgale.gaztelubira.multiplatform.designsystem.style.gBTypography
 import com.sgale.gaztelubira.multiplatform.designsystem.style.leaderboardFirst
 import com.sgale.gaztelubira.multiplatform.designsystem.style.leaderboardSecond
 import com.sgale.gaztelubira.multiplatform.designsystem.style.leaderboardThird
@@ -159,7 +159,7 @@ private fun LeaderboardPlayer(
         GBText(
             modifier = Modifier.fillMaxWidth(),
             text = player?.value.orEmpty(),
-            style = gBTypography().bodySmall,
+            style = GBTheme.typography.bodySmall,
             alignment = TextAlign.Center,
             textColor = elevated_button_bg_not_selected
         )
@@ -177,7 +177,7 @@ private fun LeaderName(
     ) {
         GBText(
             text = player?.name.orEmpty(),
-            style = gBTypography().bodySmall,
+            style = GBTheme.typography.bodySmall,
             alignment = TextAlign.Center
         )
         Spacer(
@@ -241,7 +241,7 @@ private fun LeaderCard(
                 text = position.number.toString(),
                 textColor = Black,
                 alignment = TextAlign.Center,
-                style = gBTypography().bodyMedium
+                style = GBTheme.typography.bodyMedium
             )
         }
     }
@@ -268,7 +268,7 @@ internal fun PositionArrow(
         GBText(
             text = classificationChanged.absoluteValue.toString(),
             textColor = color,
-            style = gBTypography().bodySmall.copy(fontSize = 10.sp)
+            style = GBTheme.typography.bodySmall.copy(fontSize = 10.sp)
         )
     }
 
