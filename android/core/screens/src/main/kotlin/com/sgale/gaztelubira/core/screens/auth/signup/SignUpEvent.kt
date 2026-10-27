@@ -14,16 +14,8 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.auth
+package com.sgale.gaztelubira.core.screens.auth.signup
 
-interface IAuthRepository {
-    companion object {
-        const val SIGN_UP_ERROR = "There was an error signing up"
-        const val LOGIN_ERROR = "There was an error logging in"
-    }
-    fun logout()
-    fun getUserSession(): String?
-    suspend fun signUpWithEmail(name: String, email: String, password: String): AuthResult
-    suspend fun loginWithEmail(email: String, password: String): AuthResult
-    suspend fun loginWithGoogle(): AuthResult
+internal sealed interface SignUpEvent {
+    data object SignedUp : SignUpEvent
 }

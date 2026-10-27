@@ -29,7 +29,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import com.sgale.gaztelubira.core.common.utils.TAG
-import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
+import com.sgale.gaztelubira.core.domain.auth.repository.GoogleAuth
 import com.sgale.gaztelubira.core.domain.model.user.User
 import com.sgale.gaztelubira.core.domain.model.user.UserId
 import com.sgale.gaztelubira.core.domain.model.user.UserRole.GUEST
@@ -38,14 +38,14 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 /**
- * Android's answer to [IGoogleSignIn]: Credential Manager asks the user for an
+ * Android's answer to [GoogleAuth]: Credential Manager asks the user for an
  * account and Firebase turns the resulting id token into a session.
  */
 internal class AndroidGoogleSignIn @Inject constructor(
     private val context: Context,
     private val credentialManager: CredentialManager,
     @param:GoogleClientId private val googleClientId: String
-) : IGoogleSignIn {
+) : GoogleAuth {
     private val firebaseAuth = Firebase.auth
 
     override suspend fun signIn(): User? {

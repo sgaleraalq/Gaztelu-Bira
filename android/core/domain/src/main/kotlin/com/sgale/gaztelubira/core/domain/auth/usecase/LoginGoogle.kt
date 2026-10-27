@@ -19,46 +19,25 @@ package com.sgale.gaztelubira.core.domain.auth.usecase
 import com.sgale.gaztelubira.core.domain.auth.AuthResult
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
-import com.sgale.gaztelubira.core.domain.auth.GoogleResult
-import com.sgale.gaztelubira.core.domain.auth.GoogleResult.GoogleLogin
-import com.sgale.gaztelubira.core.domain.auth.GoogleResult.GoogleSignUp
-import com.sgale.gaztelubira.core.domain.model.user.User
-import com.sgale.gaztelubira.core.domain.model.user.UserId
+import com.sgale.gaztelubira.core.domain.auth.repository.AuthRepository
 import com.sgale.gaztelubira.core.domain.usecase.users.InsertUser
 import com.sgale.gaztelubira.core.domain.usecase.users.IsUserInserted
 import javax.inject.Inject
 
+/**
+ * Google does not tell a login from a sign up, so a first-time account is stored on the way in.
+ */
 class LoginGoogle @Inject constructor(
+    private val repository: AuthRepository,
     private val isUserInserted: IsUserInserted,
     private val insertUser: InsertUser
 ) {
-    suspend operator fun invoke(user: User?): AuthResult {
-        return if (user != null) {
-            when (val googleResult = resolveGoogleUser(user.uid)) {
-                is GoogleLogin -> { loginGoogle(googleResult.user) }
-                is GoogleSignUp -> { signupGoogle(user) }
-            }
-        } else {
-            Error()
-        }
-    }
+    suspend operator fun invoke(): AuthResult {
+        val authResult = repository.loginWithGoogle()
+        if (authResult !is Success) return authResult
 
-    private suspend fun resolveGoogleUser(id: UserId): GoogleResult {
-        val user = isUserInserted(id)
-        return if (user != null) {
-            GoogleLogin(user)
-        } else {
-            GoogleSignUp
-        }
-    }
+        isUserInserted(authResult.user.uid)?.let { stored -> return Success(stored) }
 
-    private fun loginGoogle(user: User): AuthResult = Success(user)
-    private suspend fun signupGoogle(user: User): AuthResult {
-        val inserted = insertUser(user)
-        return if (inserted) {
-            Success(user)
-        } else {
-            Error()
-        }
+        return if (insertUser(authResult.user)) authResult else Error()
     }
 }

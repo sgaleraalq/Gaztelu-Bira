@@ -18,13 +18,13 @@ package com.sgale.gaztelubira.core.screens.home.tabs.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.auth.SessionManager
 import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
 import com.sgale.gaztelubira.core.domain.usecase.GetSquad
 import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.team.TeamUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -36,10 +36,11 @@ private const val KEEP_ALIVE_MILLIS = 5_000L
 
 @HiltViewModel
 internal class TeamViewModel @Inject constructor(
+    sessionManager: SessionManager,
     selectedSeason: SelectedSeason,
     getSquad: GetSquad
 ) : ViewModel() {
-    private val isAdmin = MutableStateFlow(false)
+    private val isAdmin = sessionManager.isAdmin
 
     private val squad = selectedSeason().map { season ->
         season?.let { getSquad(it) }.orEmpty()
@@ -60,8 +61,4 @@ internal class TeamViewModel @Inject constructor(
             started = WhileSubscribed(KEEP_ALIVE_MILLIS),
             initialValue = TeamUiState()
         )
-
-    internal fun onAdminChanged(isAdmin: Boolean) {
-        this.isAdmin.value = isAdmin
-    }
 }

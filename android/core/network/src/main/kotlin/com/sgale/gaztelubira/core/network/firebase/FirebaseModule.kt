@@ -24,8 +24,8 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
 import com.google.firebase.storage.storage
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
-import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
+import com.sgale.gaztelubira.core.domain.auth.repository.AuthRepository
+import com.sgale.gaztelubira.core.domain.auth.repository.GoogleAuth
 import com.sgale.gaztelubira.core.network.R
 import com.sgale.gaztelubira.core.network.auth.AndroidGoogleSignIn
 import com.sgale.gaztelubira.core.network.auth.AuthRepositoryImpl
@@ -48,7 +48,7 @@ internal object FirebaseModule {
     @Singleton
     internal fun provideAuthRepository(
         authRepositoryImpl: AuthRepositoryImpl
-    ): IAuthRepository = authRepositoryImpl
+    ): AuthRepository = authRepositoryImpl
 
     @Provides
     @Singleton
@@ -56,7 +56,7 @@ internal object FirebaseModule {
         @ApplicationContext context: Context,
         @GoogleClientId clientId: String,
         credentialManager: CredentialManager,
-    ): IGoogleSignIn = AndroidGoogleSignIn(context, credentialManager, clientId)
+    ): GoogleAuth = AndroidGoogleSignIn(context, credentialManager, clientId)
 
     @Provides
     @Singleton

@@ -19,7 +19,6 @@ package com.sgale.gaztelubira.core.screens
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.sgale.gaztelubira.core.navigation.MainNavigation
 import com.sgale.gaztelubira.core.navigation.rememberNavigationState
@@ -30,10 +29,6 @@ fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel<MainViewModel>()
 ) {
     val navigationState = rememberNavigationState()
-
-    LaunchedEffect(true) {
-        mainViewModel.init(navigationState)
-    }
 
     CompositionLocalProvider(LocalMainViewModel provides mainViewModel) {
         Scaffold { _ ->

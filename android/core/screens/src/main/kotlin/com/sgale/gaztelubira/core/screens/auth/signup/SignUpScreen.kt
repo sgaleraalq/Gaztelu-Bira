@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,12 +17,15 @@
 package com.sgale.gaztelubira.core.screens.auth.signup
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sgale.gaztelubira.core.navigation.Destination.Splash
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.LocalMainViewModel
+import com.sgale.gaztelubira.core.screens.auth.signup.SignUpEvent.SignedUp
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpActions
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpView
 
@@ -34,11 +37,18 @@ internal fun SignUpScreen(
     val mainViewModel = LocalMainViewModel.current
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    val actions = remember(
-        viewModel,
-        navState,
-        mainViewModel
-    ) {
+    LaunchedEffect(viewModel, navState, mainViewModel) {
+        viewModel.events.collect { event ->
+            when (event) {
+                SignedUp -> {
+                    mainViewModel.start()
+                    navState.navigateTo(Splash)
+                }
+            }
+        }
+    }
+
+    val actions = remember(viewModel) {
         SignUpActions(
             onNameChange = viewModel::onNameChange,
             onEmailChange = viewModel::onEmailChange,
@@ -46,7 +56,7 @@ internal fun SignUpScreen(
             onRepeatPasswordChange = viewModel::onRepeatPasswordChange,
             onTogglePasswordVisibility = viewModel::onTogglePasswordVisibility,
             onToggleRepeatPasswordVisibility = viewModel::onToggleRepeatPasswordVisibility,
-            onSignUp = { viewModel.signUp(navState, mainViewModel) }
+            onSignUp = viewModel::signUp
         )
     }
 

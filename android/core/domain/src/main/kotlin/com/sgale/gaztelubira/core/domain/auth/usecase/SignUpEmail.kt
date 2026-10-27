@@ -19,7 +19,7 @@ package com.sgale.gaztelubira.core.domain.auth.usecase
 import com.sgale.gaztelubira.core.domain.auth.AuthResult
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
+import com.sgale.gaztelubira.core.domain.auth.repository.AuthRepository
 import com.sgale.gaztelubira.core.domain.usecase.users.InsertUser
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ import javax.inject.Inject
  * Entry point of sign up with Firebase
  */
 class SignUpEmail @Inject constructor(
-    private val repository: IAuthRepository,
+    private val repository: AuthRepository,
     private val insertUser: InsertUser
 ) {
     suspend operator fun invoke(

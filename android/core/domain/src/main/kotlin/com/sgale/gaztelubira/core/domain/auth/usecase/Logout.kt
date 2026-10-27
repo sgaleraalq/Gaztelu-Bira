@@ -16,13 +16,13 @@
 
 package com.sgale.gaztelubira.core.domain.auth.usecase
 
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
+import com.sgale.gaztelubira.core.domain.auth.SessionManager
 import javax.inject.Inject
 
 class Logout @Inject constructor(
-    private val repository: IAuthRepository
+    private val sessionManager: SessionManager
 ) {
     operator fun invoke() {
-        repository.logout()
+        sessionManager.logout()
     }
 }

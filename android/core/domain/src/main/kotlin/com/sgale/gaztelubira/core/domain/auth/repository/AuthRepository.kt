@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.sgale.gaztelubira.core.domain.auth
+package com.sgale.gaztelubira.core.domain.auth.repository
 
-import com.sgale.gaztelubira.core.domain.model.user.User
+import com.sgale.gaztelubira.core.domain.auth.AuthResult
 
-/**
- * Opens the platform's Google sign-in flow. Each platform brings its own way of
- * asking the user for an account; what comes back is always a [User].
- */
-interface IGoogleSignIn {
-    /**
-     * @return the signed-in user, or null when the user backs out or the platform
-     * cannot complete the flow.
-     */
-    suspend fun signIn(): User?
+interface AuthRepository {
+    companion object {
+        const val SIGN_UP_ERROR = "There was an error signing up"
+        const val LOGIN_ERROR = "There was an error logging in"
+    }
+    fun logout()
+    fun getUserSession(): String?
+    suspend fun signUpWithEmail(name: String, email: String, password: String): AuthResult
+    suspend fun loginWithEmail(email: String, password: String): AuthResult
+    suspend fun loginWithGoogle(): AuthResult
 }

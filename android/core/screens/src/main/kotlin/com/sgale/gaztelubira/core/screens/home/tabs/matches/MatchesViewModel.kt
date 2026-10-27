@@ -18,6 +18,7 @@ package com.sgale.gaztelubira.core.screens.home.tabs.matches
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.auth.SessionManager
 import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
 import com.sgale.gaztelubira.core.domain.usecase.GetMatches
 import com.sgale.gaztelubira.core.domain.usecase.GetSquad
@@ -26,7 +27,6 @@ import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
 import com.sgale.gaztelubira.core.screens.mapper.MatchUiMapper.toGBMatch
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -39,12 +39,13 @@ private const val MINIMUM_SQUAD = 11
 
 @HiltViewModel
 internal class MatchesViewModel @Inject constructor(
+    sessionManager: SessionManager,
     selectedSeason: SelectedSeason,
     getMatches: GetMatches,
     getSquad: GetSquad,
     getTeam: GetTeam
 ) : ViewModel() {
-    private val isAdmin = MutableStateFlow(false)
+    private val isAdmin = sessionManager.isAdmin
     private val season = selectedSeason()
 
     private val matches = season.map { season ->
@@ -80,9 +81,4 @@ internal class MatchesViewModel @Inject constructor(
         )
 
     internal val state: StateFlow<MatchesUiState> = _state
-
-    internal fun onAdminChanged(isAdmin: Boolean) {
-        this.isAdmin.value = isAdmin
-    }
-
 }

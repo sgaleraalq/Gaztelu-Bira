@@ -19,7 +19,8 @@ package com.sgale.gaztelubira.core.screens.auth.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
+import com.sgale.gaztelubira.core.domain.auth.usecase.LoginEmail
+import com.sgale.gaztelubira.core.domain.auth.usecase.LoginGoogle
 import com.sgale.gaztelubira.core.screens.auth.login.LoginEvent.LoggedIn
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Default
@@ -44,7 +45,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class LoginViewModel @Inject constructor(
-    private val repository: IAuthRepository
+    private val loginWithEmail: LoginEmail,
+    private val loginWithGoogle: LoginGoogle
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginUiState())
@@ -87,8 +89,8 @@ internal class LoginViewModel @Inject constructor(
 
             val result = withContext(Dispatchers.IO) {
                 when (provider) {
-                    Email -> repository.loginWithEmail(user.email, user.password)
-                    Google -> repository.loginWithGoogle()
+                    Email -> loginWithEmail(user.email, user.password)
+                    Google -> loginWithGoogle()
                 }
             }
 

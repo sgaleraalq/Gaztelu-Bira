@@ -17,40 +17,50 @@
 package com.sgale.gaztelubira.core.screens.home
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.InitAppHandler
 import com.sgale.gaztelubira.core.domain.auth.usecase.Logout
 import com.sgale.gaztelubira.core.navigation.Destination.Login
 import com.sgale.gaztelubira.core.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.MainViewModel
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
+import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
+internal val DEFAULT_TAB = STATS
 
 @HiltViewModel
 internal class HomeViewModel @Inject constructor(
-    private val logout: Logout
+    private val logout: Logout,
+    initAppHandler: InitAppHandler
 ): ViewModel() {
 
-    private val _state = MutableStateFlow(HomeUiState())
+    private val _state = MutableStateFlow(HomeUiState(selectedTab = DEFAULT_TAB))
     internal val state: StateFlow<HomeUiState> = _state
+
+    init {
+        viewModelScope.launch {
+            val updateAvailable = withContext(Dispatchers.IO) { initAppHandler.updateAvailable() }
+            _state.update { it.copy(updateAvailable = updateAvailable) }
+        }
+    }
 
     internal fun onTabChanged(tab: HomeTab) {
         _state.update { it.copy(selectedTab = tab) }
-    }
-
-    internal fun updateAvailableUpdate(updateAvailable: Boolean) {
-        _state.update { it.copy(updateAvailable = updateAvailable) }
     }
 
     internal fun updateLogoutDialog(show: Boolean) {
         _state.update { it.copy(showLogoutDialog = show) }
     }
 
-    internal fun logout(state: NavigationState, mainViewModel: MainViewModel) {
-        mainViewModel.reset()
+    internal fun logout(state: NavigationState) {
         state.navigateTo(Login, true)
         logout()
     }

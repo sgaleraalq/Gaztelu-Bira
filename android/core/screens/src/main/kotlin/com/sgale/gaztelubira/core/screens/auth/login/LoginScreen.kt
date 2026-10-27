@@ -42,7 +42,7 @@ internal fun LoginScreen(
         viewModel.events.collect { event ->
             when (event) {
                 LoggedIn -> {
-                    mainViewModel.init(navState)
+                    mainViewModel.start()
                     navState.navigateTo(Splash)
                 }
             }

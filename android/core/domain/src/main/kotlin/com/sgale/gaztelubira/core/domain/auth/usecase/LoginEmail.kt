@@ -17,11 +17,11 @@
 package com.sgale.gaztelubira.core.domain.auth.usecase
 
 import com.sgale.gaztelubira.core.domain.auth.AuthResult
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
+import com.sgale.gaztelubira.core.domain.auth.repository.AuthRepository
 import javax.inject.Inject
 
 class LoginEmail @Inject constructor(
-    private val repository: IAuthRepository
+    private val repository: AuthRepository
 ) {
     suspend operator fun invoke(
         email: String, password: String

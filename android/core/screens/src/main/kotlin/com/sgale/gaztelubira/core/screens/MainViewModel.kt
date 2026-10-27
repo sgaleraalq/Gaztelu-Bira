@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,131 +16,70 @@
 
 package com.sgale.gaztelubira.core.screens
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.InitAppHandler
-import com.sgale.gaztelubira.core.domain.auth.UserSession
-import com.sgale.gaztelubira.core.domain.auth.usecase.IsUserAuthenticated
-import com.sgale.gaztelubira.core.domain.model.user.UserId
+import com.sgale.gaztelubira.core.domain.auth.SessionManager
 import com.sgale.gaztelubira.core.domain.repository.Preferences
-import com.sgale.gaztelubira.core.domain.usecase.users.GetUser
 import com.sgale.gaztelubira.core.navigation.Destination.Home
 import com.sgale.gaztelubira.core.navigation.Destination.Welcome
-import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.screens.splash.SplashController
-import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
-import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab.STATS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-private val DEFAULT_TAB = STATS
-
+/**
+ * Activity-scoped boot sequence: decides where the splash leads and warms up the session and the
+ * local data. It owns no UI state; screens that need the user read it from [SessionManager].
+ */
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getUserSession: GetUser,
-    private val isUserAuthenticated: IsUserAuthenticated,
+    private val sessionManager: SessionManager,
     private val splashController: SplashController,
     private val preferences: Preferences,
     private val initAppHandler: InitAppHandler,
 ) : ViewModel() {
-    private var defaultHomeTab = DEFAULT_TAB
 
-    private val _userSession = MutableStateFlow<UserSession?>(null)
-    val userSession: StateFlow<UserSession?> = _userSession
-
-    private val _updateAvailable = MutableStateFlow(false)
-    val updateAvailable = _updateAvailable
-
-    fun getDefaultTab() = defaultHomeTab
+    init {
+        start()
+    }
 
     /**
-     * Init Navigation
+     * Runs on launch (once, not on every recreation of the activity) and again after every login or sign-up, always with the splash on screen.
      */
-    fun init(navState: NavigationState) {
-        val userId = isUserAuthenticated()
-        println("User authenticated with uid: $userId")
-
-        if (userId != null) {
-            joinApp(userId)
-        } else {
-            initWelcomeScreen(navState)
-        }
-    }
-
-    fun reset() {
-        _userSession.value = null
+    fun start() {
         splashController.reset()
-        defaultHomeTab = DEFAULT_TAB
-    }
 
-    fun updateHomeTab(tab: HomeTab) {
-        defaultHomeTab = tab
-    }
+        if (!sessionManager.isAuthenticated()) {
+            splashController.skip(Welcome)
+            return
+        }
 
-    private fun initWelcomeScreen(navState: NavigationState) {
-        navState.navigateTo(Welcome, true)
-    }
-
-    private fun joinApp(userId: String) {
-        resolveUser(userId)
-        initApp()
-    }
-
-    private fun initApp() {
         viewModelScope.launch {
-            println("User session: $userSession")
-            val isFirstTime = preferences.isFirstTime
+            withContext(Dispatchers.IO) { sessionManager.load() }
+        }
 
-            if (isFirstTime) {
-                val result = initAppHandler.firstTimeInit()
+        viewModelScope.launch {
+            if (preferences.isFirstTime) firstTimeInit() else regularInit()
+        }
+    }
 
-                result.onSuccess {
-                    splashController.complete(Home)
-                }.onFailure {
-                    println("GBError: $it")
-                    preferences.setFirstTime(true)
-                    manageInitAppError()
-                }
-            } else {
-                handleInit()
+    private suspend fun firstTimeInit() {
+        initAppHandler.firstTimeInit()
+            .onSuccess { splashController.complete(Home) }
+            .onFailure {
+                Log.e(TAG, "First time init failed: ${it.message}")
+                preferences.setFirstTime(true)
+                splashController.complete(Welcome)
             }
-        }
     }
 
-    private suspend fun checkForUpdates() {
-        val update = withContext(Dispatchers.IO) {
-            initAppHandler.updateAvailable()
-        }
-        _updateAvailable.value = update
-    }
-
-    private suspend fun fetchInformation() {
-        withContext(Dispatchers.IO) {
-            initAppHandler.initApp()
-        }
-    }
-
-    private suspend fun handleInit() {
+    private suspend fun regularInit() {
         splashController.skip(Home)
-        checkForUpdates()
-        fetchInformation()
-    }
-
-    private fun manageInitAppError() {
-//        toastManager.showToast("There was a problem joining the app, try again.")
-        splashController.complete(Welcome)
-    }
-
-    private fun resolveUser(userId: String) {
-        viewModelScope.launch {
-            _userSession.value = withContext(Dispatchers.IO) {
-                getUserSession(UserId(userId))
-            }
-        }
+        withContext(Dispatchers.IO) { initAppHandler.initApp() }
     }
 }

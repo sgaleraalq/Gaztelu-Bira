@@ -19,7 +19,6 @@ package com.sgale.gaztelubira.core.screens.home
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.remember
@@ -28,7 +27,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.navigation.tab.TabNavigation
 import com.sgale.gaztelubira.core.navigation.tab.rememberTabNavigationState
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeActions
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeView
@@ -38,9 +36,7 @@ internal fun HomeScreen(
     navState: NavigationState,
     viewModel: HomeViewModel = hiltViewModel<HomeViewModel>()
 ) {
-    val mainViewModel = LocalMainViewModel.current
-    val updateAvailable by mainViewModel.updateAvailable.collectAsState()
-    val homeNavigation = rememberTabNavigationState(HomeTab.entries, mainViewModel.getDefaultTab())
+    val homeNavigation = rememberTabNavigationState(HomeTab.entries, DEFAULT_TAB)
     val selectedTab by homeNavigation.selectedTab
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -52,23 +48,17 @@ internal fun HomeScreen(
 
     val actions = remember(
         homeNavigation,
-        mainViewModel,
         viewModel,
         navState
     ) {
         HomeActions(
             onTabSelected = homeNavigation::navigate,
-            onLogout = { viewModel.logout(navState, mainViewModel) },
+            onLogout = { viewModel.logout(navState) },
             onDismissLogout = { viewModel.updateLogoutDialog(false) }
         )
     }
 
-    LaunchedEffect(updateAvailable) { viewModel.updateAvailableUpdate(updateAvailable) }
-
-    LaunchedEffect(selectedTab) {
-        viewModel.onTabChanged(selectedTab)
-        mainViewModel.updateHomeTab(selectedTab)
-    }
+    LaunchedEffect(selectedTab) { viewModel.onTabChanged(selectedTab) }
 
     BackHandler(true) { viewModel.updateLogoutDialog(true) }
 

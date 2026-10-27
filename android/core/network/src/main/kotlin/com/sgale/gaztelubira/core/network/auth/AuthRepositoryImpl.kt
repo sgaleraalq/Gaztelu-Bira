@@ -23,21 +23,18 @@ import com.google.firebase.auth.userProfileChangeRequest
 import com.sgale.gaztelubira.core.domain.auth.AuthResult
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Error
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.LOGIN_ERROR
-import com.sgale.gaztelubira.core.domain.auth.IAuthRepository.Companion.SIGN_UP_ERROR
-import com.sgale.gaztelubira.core.domain.auth.IGoogleSignIn
-import com.sgale.gaztelubira.core.domain.auth.usecase.LoginGoogle
+import com.sgale.gaztelubira.core.domain.auth.repository.AuthRepository
+import com.sgale.gaztelubira.core.domain.auth.repository.AuthRepository.Companion.LOGIN_ERROR
+import com.sgale.gaztelubira.core.domain.auth.repository.AuthRepository.Companion.SIGN_UP_ERROR
+import com.sgale.gaztelubira.core.domain.auth.repository.GoogleAuth
 import com.sgale.gaztelubira.core.domain.model.user.User
 import com.sgale.gaztelubira.core.domain.model.user.UserId
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 internal class AuthRepositoryImpl @Inject constructor(
-    private val googleSignIn: IGoogleSignIn,
-    private val loginGoogle: LoginGoogle
-) : IAuthRepository {
-
+    private val googleSignIn: GoogleAuth
+) : AuthRepository {
     private val auth = Firebase.auth
 
     override fun logout() { auth.signOut() }
@@ -78,10 +75,8 @@ internal class AuthRepositoryImpl @Inject constructor(
             )
         }.getOrElse { Error(it.message.orEmpty(), it) }
 
-    override suspend fun loginWithGoogle(): AuthResult {
-        val googleUser = googleSignIn.signIn()
-        return loginGoogle(googleUser)
-    }
+    override suspend fun loginWithGoogle(): AuthResult =
+        googleSignIn.signIn()?.let(::Success) ?: Error(LOGIN_ERROR)
 
     private suspend fun updateUserName(name: String, user: FirebaseUser) {
         user.updateProfile(userProfileChangeRequest {

@@ -17,14 +17,12 @@
 package com.sgale.gaztelubira.core.screens.home.tabs.matches
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.sgale.gaztelubira.core.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.navigation.navigateTo
 import com.sgale.gaztelubira.core.screens.showToast
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.MatchesActions
@@ -39,10 +37,8 @@ internal fun MatchesScreen(
     viewModel: MatchesViewModel = hiltViewModel<MatchesViewModel>()
 ) {
     val context = LocalContext.current
-    val mainViewModel = LocalMainViewModel.current
     val notEnoughPlayersMsg = stringResource(Res.string.home_matches_not_enough_players)
 
-    val userSession by mainViewModel.userSession.collectAsState()
     val state by viewModel.state.collectAsState()
 
     val actions = remember(navState, viewModel) {
@@ -53,12 +49,6 @@ internal fun MatchesScreen(
                     false -> showToast(context, notEnoughPlayersMsg)
                 }
             }
-        )
-    }
-
-    LaunchedEffect(userSession) {
-        viewModel.onAdminChanged(
-            isAdmin = userSession?.isAdmin() == true
         )
     }
 

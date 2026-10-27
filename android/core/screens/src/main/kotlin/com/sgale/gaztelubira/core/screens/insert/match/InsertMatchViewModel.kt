@@ -18,6 +18,7 @@ package com.sgale.gaztelubira.core.screens.insert.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sgale.gaztelubira.core.domain.auth.SessionManager
 import com.sgale.gaztelubira.core.domain.model.player.Player
 import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.domain.model.team.Team
@@ -43,19 +44,32 @@ import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+private const val KEEP_ALIVE_MILLIS = 5_000L
+
 @HiltViewModel
 class InsertMatchViewModel @Inject constructor(
+    sessionManager: SessionManager,
 //    private val getPlayers: GetPlayers,
 //    private val insertNewMatch: InsertNewMatch
 ) : ViewModel() {
     data class InsertMatchPosition(val position: Int = 0)
 
     private val position = MutableStateFlow(InsertMatchPosition())
+
+    /**
+     * The team the signed in user belongs to, which is the side the match is being inserted for.
+     */
+    val team: StateFlow<Team?> = sessionManager.session
+        .map { it?.team }
+        .stateIn(viewModelScope, WhileSubscribed(KEEP_ALIVE_MILLIS), sessionManager.session.value?.team)
 
     /**
      * Fixed values

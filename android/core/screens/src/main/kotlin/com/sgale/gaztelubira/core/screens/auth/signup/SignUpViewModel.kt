@@ -20,9 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.domain.auth.AuthResult.Success
 import com.sgale.gaztelubira.core.domain.auth.usecase.SignUpEmail
-import com.sgale.gaztelubira.core.navigation.Destination.Splash
-import com.sgale.gaztelubira.core.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.MainViewModel
+import com.sgale.gaztelubira.core.screens.auth.signup.SignUpEvent.SignedUp
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Default
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Error
 import com.sgale.gaztelubira.multiplatform.ui.auth.AuthState.Loading.SignUp
@@ -30,9 +28,13 @@ import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState
 import com.sgale.gaztelubira.multiplatform.ui.auth.signup.SignUpUiState.SignUpUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.Channel.Factory.BUFFERED
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,6 +47,9 @@ internal class SignUpViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(SignUpUiState())
     internal val state: StateFlow<SignUpUiState> = _state.asStateFlow()
+
+    private val _events = Channel<SignUpEvent>(BUFFERED)
+    internal val events: Flow<SignUpEvent> = _events.receiveAsFlow()
 
     /**
      * Editing clears the last failure — but never interrupts a sign-up already in flight.
@@ -80,10 +85,7 @@ internal class SignUpViewModel @Inject constructor(
         )
     }
 
-    internal fun signUp(
-        navState: NavigationState,
-        mainViewModel: MainViewModel
-    ) {
+    internal fun signUp() {
         val user = _state.value.user
 
         user.validate()?.let { validationError ->
@@ -100,8 +102,7 @@ internal class SignUpViewModel @Inject constructor(
 
             if (result is Success) {
                 _state.update { it.copy(auth = Default) }
-                mainViewModel.init(navState)
-                navState.navigateTo(Splash)
+                _events.send(SignedUp)
             } else {
                 _state.update { it.copy(auth = Error) }
             }

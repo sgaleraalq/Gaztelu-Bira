@@ -24,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.LocalMainViewModel
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Default
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Formation
 import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Information
@@ -51,11 +50,10 @@ internal fun InsertMatchScreen(
     state: NavigationState,
     viewModel: InsertMatchViewModel = hiltViewModel<InsertMatchViewModel>()
 ) {
-    val mainViewModel = LocalMainViewModel.current
     var showPlayers by rememberSaveable { mutableStateOf(false) }
     var showStatsPlayers by rememberSaveable { mutableStateOf(false) }
-    val user by mainViewModel.userSession.collectAsStateWithLifecycle()
 
+    val team by viewModel.team.collectAsStateWithLifecycle()
     val teams by viewModel.teams.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val players by viewModel.players.collectAsStateWithLifecycle()
@@ -75,7 +73,7 @@ internal fun InsertMatchScreen(
             Default, Loading -> {
                 InsertMatchScreenUI(
                     modifier = modifier,
-                    team = user?.team,
+                    team = team,
                     teams = teams,
                     loading = uiState is Loading,
                     changeState = { viewModel.updateState(it) },
