@@ -26,4 +26,6 @@ interface Preferences {
     suspend fun resolveSelectedSeason(): SeasonId?
     suspend fun selectSeason(season: SeasonId?)
     suspend fun setLastSync(time: Long)
+    suspend fun playersChangedAt(): Long?
+    suspend fun setPlayersChangedAt(changedAt: Long?)
 }

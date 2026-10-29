@@ -25,5 +25,6 @@ internal data class SeasonResponse(
     val current: Boolean = false,
     @ServerTimestamp val endsAt: Timestamp = Timestamp(Date()),
     @ServerTimestamp val startsAt: Timestamp = Timestamp(Date()),
-    @ServerTimestamp val updatedAt: Timestamp = Timestamp(Date())
+    @ServerTimestamp val updatedAt: Timestamp = Timestamp(Date()),
+    val changedAt: Timestamp? = null
 )

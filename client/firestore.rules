@@ -41,6 +41,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // meta/players: the changedAt devices compare before downloading the players again
+    match /meta/{document} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
     // Each user writes their own profile and nothing more. Being an admin is the token's claim,
     // which the app reads too, so a field written here cannot make anyone an admin.
     match /users/{uid} {

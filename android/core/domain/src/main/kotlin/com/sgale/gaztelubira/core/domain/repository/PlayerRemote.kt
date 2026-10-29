@@ -23,6 +23,11 @@ import com.sgale.gaztelubira.core.domain.model.season.squad.SeasonPlayer
 interface PlayerRemote {
     suspend fun fetchPlayer(id: PlayerId): Player?
     suspend fun fetchPlayers(): List<Player>
+
+    /**
+     * When the players last changed, in epoch millis; null if nothing ever stamped them.
+     */
+    suspend fun fetchPlayersChangedAt(): Long?
     suspend fun playerExists(id: PlayerId): Boolean
 
     /**

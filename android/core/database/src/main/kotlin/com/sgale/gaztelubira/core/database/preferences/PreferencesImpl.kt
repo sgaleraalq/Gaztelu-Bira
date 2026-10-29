@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 private const val SP_LAST_SYNC = "gbmultiplatform.lastSync"
+private const val SP_PLAYERS_CHANGED_AT = "gbmultiplatform.playersChangedAt"
 private const val SP_SELECTED_SEASON = "gbmultiplatform.selectedSeason"
 
 internal class PreferencesImpl @Inject constructor(
@@ -50,6 +51,15 @@ internal class PreferencesImpl @Inject constructor(
         settings.edit { putLong(SP_LAST_SYNC, time) }
     }
 
+    override suspend fun playersChangedAt(): Long? =
+        settings.readLong(SP_PLAYERS_CHANGED_AT)
+
+    override suspend fun setPlayersChangedAt(changedAt: Long?) {
+        settings.edit {
+            if (changedAt == null) remove(SP_PLAYERS_CHANGED_AT) else putLong(SP_PLAYERS_CHANGED_AT, changedAt)
+        }
+    }
+
     /**
      * What [read] gives now, and again every time [key] changes.
      */
@@ -65,8 +75,10 @@ internal class PreferencesImpl @Inject constructor(
             awaitClose { settings.unregisterOnSharedPreferenceChangeListener(listener) }
         }.distinctUntilChanged()
 
-    private fun SharedPreferences.readLastSync(): Long? =
-        if (contains(SP_LAST_SYNC)) getLong(SP_LAST_SYNC, 0L) else null
+    private fun SharedPreferences.readLastSync(): Long? = readLong(SP_LAST_SYNC)
+
+    private fun SharedPreferences.readLong(key: String): Long? =
+        if (contains(key)) getLong(key, 0L) else null
 
     private fun SharedPreferences.readSelectedSeason(): SeasonId? =
         getString(SP_SELECTED_SEASON, null)?.let(::SeasonId)

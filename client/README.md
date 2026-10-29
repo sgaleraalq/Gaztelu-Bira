@@ -184,14 +184,21 @@ llega a descargarse.
 **Nada se borra a lo bruto.** Se marca con `deletedAt` y el cliente lo elimina de
 su copia local. Así un error de red no se puede confundir con "esto ya no existe".
 
-**La sincronización es por diferencia.** El cliente guarda cuándo sincronizó por
-última vez y pide solo lo posterior:
+**Solo se descarga lo que cambió, por temporada.** Cada `seasons/{id}` lleva un
+`changedAt` (hora del servidor) que mueve cualquiera que escriba o borre algo debajo,
+y `meta/players.changedAt` hace lo mismo con los jugadores. Al arrancar, la app lee
+la lista de temporadas y esa marca (unas pocas lecturas), y vuelve a bajar solo las
+temporadas cuyo `changedAt` no coincide con el que guardó. Si no ha cambiado nada, no
+baja nada más.
 
-```js
-db.collection('seasons/2026_2027/matches').where('updatedAt', '>', ultimaVez)
-```
+Quien escribe tiene que marcar: la app lo hace en el mismo batch (`stampChange`) y los
+scripts con [stamp.js](firestore-seed/stamp.js) (`upload.js`, `import-doc.js`, `seed.js`).
+Un cambio hecho a mano en la consola no llega a los móviles hasta que algo vuelva a
+marcar esa temporada.
 
-No se descarga la temporada entera cada vez.
+Más adelante, si una temporada pesa mucho, se puede afinar a nivel de documento con
+`where('updatedAt', '>', ultimaVez)`, pero eso pide marcar los borrados con `deletedAt`
+en vez de borrar.
 
 ## Consultas típicas
 

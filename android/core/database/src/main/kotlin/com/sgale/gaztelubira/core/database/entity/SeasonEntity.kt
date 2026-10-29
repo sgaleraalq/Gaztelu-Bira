@@ -27,5 +27,6 @@ internal data class SeasonEntity(
     val name: String,
     val isCurrent: Boolean,
     val startsAt: Long,
-    val endsAt: Long
+    val endsAt: Long,
+    val changedAt: Long?
 )

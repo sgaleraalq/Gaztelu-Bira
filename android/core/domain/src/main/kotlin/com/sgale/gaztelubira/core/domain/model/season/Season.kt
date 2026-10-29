@@ -21,5 +21,11 @@ data class Season(
     val name: String,
     val isCurrent: Boolean,
     val startsAt: Long,
-    val endsAt: Long
+    val endsAt: Long,
+
+    /**
+     * When anything under the season last changed, in epoch millis, as stamped by whoever wrote it.
+     * Null until something does.
+     */
+    val changedAt: Long?
 )

@@ -20,7 +20,6 @@ import android.util.Log
 import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.InitAppHandler
 import com.sgale.gaztelubira.core.domain.model.match.MatchId
-import com.sgale.gaztelubira.core.domain.model.season.Season
 import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.repository.AppVersionRemote
 import com.sgale.gaztelubira.core.domain.repository.MatchLocal
@@ -42,10 +41,9 @@ import javax.inject.Inject
 /**
  * Keeps the local cache in step with Firestore.
  *
- * The first sync brings every season. After that, each launch only brings back what can still
- * change: the players, the season list, the current season and the one on screen. A season that is
- * over is not edited anymore, and syncing all of them on every launch costs about two thousand
- * reads per user.
+ * The first sync brings everything. After that, each launch reads the season list and the players'
+ * stamp (a handful of reads) and only downloads again a season, or the players, whose `changedAt`
+ * no longer matches the one stored with it. Whoever writes stamps what they touched.
  */
 internal class FirstTime @Inject constructor(
     private val appVersion: AppVersionRemote,
@@ -70,7 +68,7 @@ internal class FirstTime @Inject constructor(
 
     override suspend fun firstTimeInit(): Result<Boolean> =
         try {
-            sync { true }
+            sync(everything = true)
             Result.success(true)
         } catch (e: CancellationException) {
             throw e
@@ -80,8 +78,7 @@ internal class FirstTime @Inject constructor(
 
     override suspend fun initApp() {
         try {
-            val shown = preferences.resolveSelectedSeason()
-            sync { season -> season.isCurrent || season.id == shown }
+            sync(everything = false)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -90,19 +87,31 @@ internal class FirstTime @Inject constructor(
     }
 
     /**
-     * The players and the season list come every time: they are small, and every season points at
-     * them.
+     * A season is stored with its new `changedAt` only once its data is in, so a sync cut halfway
+     * leaves it marked as stale and the next launch tries again.
      *
-     * @param refresh Which seasons get their squad, teams and matches downloaded again.
+     * @param everything Downloads every season and the players, whatever their stamps say.
      */
-    private suspend fun sync(refresh: (Season) -> Boolean) {
-        playerLocal.insertPlayers(playerRemote.fetchPlayers())
+    private suspend fun sync(everything: Boolean) {
+        val playersChangedAt = playerRemote.fetchPlayersChangedAt()
+        val playersChanged = everything || playersChangedAt != preferences.playersChangedAt()
+        if (playersChanged) {
+            playerLocal.insertPlayers(playerRemote.fetchPlayers())
+            preferences.setPlayersChangedAt(playersChangedAt)
+        }
 
+        val stored = seasonLocal.getSeasons()
+        val storedChangedAt = stored.associate { it.id to it.changedAt }
         val seasons = seasonRemote.fetchSeasons()
-        seasonLocal.insertSeasons(seasons)
-        seasons.filter(refresh).forEach { season -> syncSeason(season.id) }
 
-        preferences.setLastSync(currentTimeMillis())
+        seasons
+            .filter { everything || it.id !in storedChangedAt || it.changedAt != storedChangedAt[it.id] }
+            .forEach { season -> syncSeason(season.id) }
+        seasonLocal.insertSeasons(seasons)
+
+        if (playersChanged || seasons.toSet() != stored.toSet()) {
+            preferences.setLastSync(currentTimeMillis())
+        }
     }
 
     /**

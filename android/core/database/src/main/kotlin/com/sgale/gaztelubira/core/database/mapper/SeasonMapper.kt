@@ -27,7 +27,8 @@ internal object SeasonMapper: DatabaseMapper<Season, SeasonEntity> {
             name = name,
             isCurrent = isCurrent,
             startsAt = startsAt,
-            endsAt = endsAt
+            endsAt = endsAt,
+            changedAt = changedAt
         )
 
     override fun SeasonEntity.asModel() =
@@ -36,6 +37,7 @@ internal object SeasonMapper: DatabaseMapper<Season, SeasonEntity> {
             name = name,
             isCurrent = isCurrent,
             startsAt = startsAt,
-            endsAt = endsAt
+            endsAt = endsAt,
+            changedAt = changedAt
         )
 }

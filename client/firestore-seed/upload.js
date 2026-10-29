@@ -23,6 +23,7 @@
 
 const fs = require('fs')
 const admin = require('firebase-admin')
+const { stampChanges } = require('./stamp')
 
 const BATCH_SIZE = 400
 const DEFAULT_INPUT = 'backup'
@@ -182,6 +183,8 @@ async function commit(firestore, writes, removed) {
 
     await batch.commit()
   }
+
+  await stampChanges(firestore, operations.map((operation) => operation.path))
 }
 
 function connect() {

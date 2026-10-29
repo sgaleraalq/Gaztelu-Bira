@@ -13,6 +13,7 @@
 
 const fs = require('fs')
 const admin = require('firebase-admin')
+const { stampChanges } = require('../../stamp')
 
 const BATCH_SIZE = 400
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/
@@ -135,6 +136,8 @@ async function commit(firestore, writes, removed) {
 
     await batch.commit()
   }
+
+  await stampChanges(firestore, operations.map((operation) => operation.path))
 }
 
 function connect() {

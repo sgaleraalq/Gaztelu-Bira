@@ -17,9 +17,11 @@
 package com.sgale.gaztelubira.core.network.firebase
 
 internal object FirebaseConstants {
+    internal const val CHANGED_AT = "changedAt"
     internal const val EVENTS = "events"
     internal const val LINEUP = "lineup"
     internal const val MATCHES = "matches"
+    internal const val META = "meta"
     internal const val PLAYERS = "players"
     internal const val SEASONS = "seasons"
     internal const val SQUAD = "squad"

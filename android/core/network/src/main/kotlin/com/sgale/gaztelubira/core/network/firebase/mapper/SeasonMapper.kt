@@ -39,6 +39,7 @@ internal object SeasonMapper: NetworkMapper<Season, SeasonResponse, SeasonId, No
         name = name,
         startsAt = startsAt.seconds,
         endsAt = endsAt.seconds,
-        isCurrent = current
+        isCurrent = current,
+        changedAt = changedAt?.toDate()?.time
     )
 }

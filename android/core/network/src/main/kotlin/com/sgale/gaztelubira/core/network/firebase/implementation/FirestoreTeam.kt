@@ -28,6 +28,8 @@ import com.sgale.gaztelubira.core.network.firebase.mapDocuments
 import com.sgale.gaztelubira.core.network.firebase.mapper.TeamMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.mapper.TeamMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.TeamResponse
+import com.sgale.gaztelubira.core.network.firebase.seasonStamp
+import com.sgale.gaztelubira.core.network.firebase.stampChange
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -51,9 +53,10 @@ internal class FirestoreTeam @Inject constructor(
             .exists()
 
     override suspend fun insertTeam(seasonId: SeasonId, team: Team) {
-        teams(seasonId)
-            .document(team.id.value)
-            .set(team.asResponse())
+        firestore.batch()
+            .set(teams(seasonId).document(team.id.value), team.asResponse())
+            .stampChange(firestore.seasonStamp(seasonId))
+            .commit()
             .await()
     }
 

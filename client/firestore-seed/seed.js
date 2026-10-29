@@ -8,6 +8,7 @@
 
 const admin = require('firebase-admin')
 const { SEASON_ID, buildDocuments, verify } = require('./data')
+const { stampChanges } = require('./stamp')
 
 const BATCH_SIZE = 400
 const DEFAULT_EMULATOR = '127.0.0.1:8080'
@@ -59,6 +60,7 @@ async function main() {
   }
 
   await commit(firestore, documents)
+  await stampChanges(firestore, documents.map((doc) => doc.path))
   console.log(documents.length + ' documents written under seasons/' + SEASON_ID)
 }
 

@@ -42,7 +42,7 @@ import com.sgale.gaztelubira.core.database.entity.TeamEntity
         SeasonPlayerEntity::class,
         TeamEntity::class
     ],
-    version = 12
+    version = 13
 )
 internal abstract class GazteluDatabase : RoomDatabase() {
     abstract fun getMatchDao(): MatchDao
