@@ -131,9 +131,20 @@
     <string name="insert_permission_denied_gallery">Permissions needed to open gallery</string>
 
     <!-- insert_match -->
+    <string name="insert_match_add_player">Add player</string>
     <string name="insert_match_bench_player">Insert bench player</string>
+    <string name="insert_match_cup_name">Cup name</string>
+    <string name="insert_match_cup_round">Round</string>
     <string name="insert_match_description">Description</string>
+    <string name="insert_match_error_already_exists">That match is already inserted</string>
+    <string name="insert_match_error_inserting">Error inserting match</string>
+    <string name="insert_match_error_inserting_reason">Error inserting match: %1$s</string>
     <string name="insert_match_formation">Formation</string>
+    <string name="insert_match_invalid_cup_name">Fill in the cup name</string>
+    <string name="insert_match_invalid_goals">The goals do not add up to the score</string>
+    <string name="insert_match_invalid_lineup">Complete the line up</string>
+    <string name="insert_match_invalid_rival">Select the rival team</string>
+    <string name="insert_match_invalid_score">Fill in the score</string>
     <string name="insert_match_journey">Journey</string>
     <string name="insert_match_local">Local</string>
     <string name="insert_match_location">Location</string>

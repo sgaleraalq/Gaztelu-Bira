@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,147 +16,61 @@
 
 package com.sgale.gaztelubira.core.screens.insert.match
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sgale.gaztelubira.core.navigation.Destination.Home
 import com.sgale.gaztelubira.core.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Default
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Formation
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Information
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Stats
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.STAT_PLAYER
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchDialogPlayers
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchDialogStatsPlayers
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchFormation
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchFormationButton
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchInformation
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchInformationButton
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchScaffold
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchStats
-import com.sgale.gaztelubira.core.screens.insert.match.ui.InsertMatchStatsButton
-import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition.Manager
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_title
-import org.jetbrains.compose.resources.stringResource
+import com.sgale.gaztelubira.core.screens.showToast
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Inserted
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.InsertMatchActions
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.InsertMatchView
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchSection.Main
 
 @Composable
 internal fun InsertMatchScreen(
-    state: NavigationState,
+    navState: NavigationState,
     viewModel: InsertMatchViewModel = hiltViewModel<InsertMatchViewModel>()
 ) {
-    var showPlayers by rememberSaveable { mutableStateOf(false) }
-    var showStatsPlayers by rememberSaveable { mutableStateOf(false) }
-
-    val team by viewModel.team.collectAsStateWithLifecycle()
-    val teams by viewModel.teams.collectAsStateWithLifecycle()
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val players by viewModel.players.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     /**
-     * States
+     * Back from a section returns to the main page instead of leaving the form half filled.
      */
-    val statsState by viewModel.statsState.collectAsStateWithLifecycle()
-    val formationState by viewModel.formationState.collectAsStateWithLifecycle()
-    val informationState by viewModel.informationState.collectAsStateWithLifecycle()
+    BackHandler(state.section != Main) {
+        viewModel.changeSection(Main)
+    }
 
-    GBScaffold(
-        showTopAppBar = true,
-        title = stringResource(Res.string.insert_match_title)
-    ) { modifier ->
-        when (uiState) {
-            Default, Loading -> {
-                InsertMatchScreenUI(
-                    modifier = modifier,
-                    team = team,
-                    teams = teams,
-                    loading = uiState is Loading,
-                    changeState = { viewModel.updateState(it) },
-                    insertMatch = { viewModel.insertMatch(it, state) }
-                )
+    LaunchedEffect(state.state) {
+        when (val inserting = state.state) {
+            Inserted -> navState.navigateTo(Home, true)
+            is InsertingDataState.Error -> {
+                showToast(context, inserting.error)
+                viewModel.dismissError()
             }
-
-            Formation -> {
-                InsertMatchScaffold(
-                    modifier = modifier,
-                    changeState = { viewModel.updateState(it) },
-                    button = { InsertMatchFormationButton { viewModel.updateState(Default) } },
-                    content = { contentModifier ->
-                        InsertMatchFormation(
-                            modifier = contentModifier,
-                            formationState = formationState,
-                            showPlayers = { showPlayers = true },
-                            changePlayerState = { viewModel.updatePlayerState(it) },
-                            removePlayer = { viewModel.removePlayer(it) },
-                            removeManager = { viewModel.removeManager() },
-                            onPlayerSelected = { showPlayers = true; viewModel.selectPlayer(it) },
-                            changeFormationSelected = { viewModel.changeFormation(it) },
-                            changeManagerSelected = { viewModel.changeSelectedManager(it) },
-                            changeSelectedPosition = { viewModel.changeSelectedPosition(it) }
-                        )
-                    }
-                )
-            }
-
-            Information -> {
-                InsertMatchScaffold(
-                    modifier = modifier,
-                    changeState = { viewModel.updateState(it) },
-                    button = { InsertMatchInformationButton { viewModel.updateState(Default) } },
-                    content = {
-                        InsertMatchInformation(
-                            modifier = it,
-                            insertMatchInformation = informationState,
-                            updateDescription = { description -> viewModel.updateDescription(description) },
-                            updateLocation = { location -> viewModel.updateLocation(location) }
-                        )
-                    }
-                )
-            }
-
-            Stats -> {
-                InsertMatchScaffold(
-                    modifier = modifier,
-                    changeState = { viewModel.updateState(it) },
-                    button = { InsertMatchStatsButton { viewModel.updateState(Default) } },
-                    content = {
-                        InsertMatchStats(
-                            modifier = it,
-                            statsState = statsState,
-                            changePlayerState = { viewModel.updatePlayerState(STAT_PLAYER) },
-                            showPlayers = { showStatsPlayers = true },
-                            selectStat = { stat -> viewModel.selectStat(stat) },
-                            removeStat = { idx, stat -> viewModel.removeStat(idx, stat) }
-                        )
-                    }
-                )
-            }
-        }
-
-        if (showPlayers) {
-            InsertMatchDialogPlayers(
-                playerPosition = formationState.selectedPosition,
-                isManager = formationState.selectedPosition == Manager,
-                players = players,
-                formation = formationState,
-                onPlayerSelected = { player -> viewModel.insertPlayer(player) },
-                dismiss = { showPlayers = false }
-            )
-        }
-
-        if (showStatsPlayers) {
-            InsertMatchDialogStatsPlayers(
-                statsState = statsState,
-                players = players,
-                formationState = formationState,
-                onPlayerSelected = { player -> viewModel.insertPlayer(player) },
-                dismiss = { showStatsPlayers = false }
-            )
+            else -> Unit
         }
     }
+
+    val actions = remember(viewModel, context) {
+        InsertMatchActions(
+            updateField = viewModel::updateField,
+            changeSection = viewModel::changeSection,
+            updateDialog = viewModel::updateDialog,
+            insertMatch = viewModel::insertMatch,
+            onMissingField = { message -> showToast(context, message) }
+        )
+    }
+
+    InsertMatchView(
+        state = state,
+        actions = actions
+    )
 }

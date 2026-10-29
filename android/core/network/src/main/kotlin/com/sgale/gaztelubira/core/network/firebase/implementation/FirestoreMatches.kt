@@ -31,7 +31,9 @@ import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.firebase.mapDocuments
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchEventMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.mapper.MatchMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchPlayerMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.mapper.MatchPlayerMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.MatchEventResponse
 import com.sgale.gaztelubira.core.network.firebase.response.MatchPlayerResponse
 import com.sgale.gaztelubira.core.network.firebase.response.MatchResponse
@@ -69,6 +71,24 @@ internal class FirestoreMatches @Inject constructor(
             .mapDocuments { player ->
                 player.toObject(MatchPlayerResponse::class.java)?.asModel(matchId, seasonId)
             }
+
+    override suspend fun matchExists(seasonId: SeasonId, matchId: MatchId): Boolean =
+        matches(seasonId)
+            .document(matchId.value)
+            .get()
+            .await()
+            .exists()
+
+    override suspend fun insertMatch(match: Match, players: List<MatchPlayer>) {
+        val document = matches(match.seasonId).document(match.id.value)
+        val batch = firestore.batch().set(document, match.asResponse())
+
+        players.forEach { player ->
+            batch.set(document.collection(LINEUP).document(player.lineup.playerId.value), player.asResponse())
+        }
+
+        batch.commit().await()
+    }
 
     private fun matches(season: SeasonId): CollectionReference =
         firestore

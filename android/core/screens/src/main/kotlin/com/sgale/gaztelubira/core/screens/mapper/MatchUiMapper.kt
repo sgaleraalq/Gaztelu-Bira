@@ -27,6 +27,7 @@ import com.sgale.gaztelubira.core.domain.model.team.Team
 import com.sgale.gaztelubira.core.domain.model.team.TeamFormation
 import com.sgale.gaztelubira.core.domain.model.team.TeamFormation.FIVE_THREE_TWO
 import com.sgale.gaztelubira.core.domain.model.team.TeamFormation.FOUR_FOUR_TWO
+import com.sgale.gaztelubira.core.domain.model.team.TeamFormation.FOUR_THREE_THREE
 import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA_ID
 import com.sgale.gaztelubira.core.domain.utils.toDate
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
@@ -64,8 +65,16 @@ internal object MatchUiMapper {
 
     fun TeamFormation.toLineUpFormation(): LineUpFormation =
         when (this) {
+            FOUR_THREE_THREE -> LineUpFormation.FOUR_THREE_THREE
             FOUR_FOUR_TWO -> LineUpFormation.FOUR_FOUR_TWO
             FIVE_THREE_TWO -> LineUpFormation.FIVE_THREE_TWO
+        }
+
+    fun LineUpFormation.toTeamFormation(): TeamFormation =
+        when (this) {
+            LineUpFormation.FOUR_THREE_THREE -> FOUR_THREE_THREE
+            LineUpFormation.FOUR_FOUR_TWO -> FOUR_FOUR_TWO
+            LineUpFormation.FIVE_THREE_TWO -> FIVE_THREE_TWO
         }
 
     private fun Team.toGBMatchTeam(goals: Int): GBMatchTeam =

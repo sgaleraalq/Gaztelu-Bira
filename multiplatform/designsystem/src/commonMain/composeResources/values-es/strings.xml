@@ -131,9 +131,20 @@
     <string name="insert_permission_denied_gallery">Se necesitan permisos para abrir la galería</string>
 
     <!-- insert_match -->
+    <string name="insert_match_add_player">Añadir jugador</string>
     <string name="insert_match_bench_player">Insertar jugador del banquillo</string>
+    <string name="insert_match_cup_name">Nombre de la copa</string>
+    <string name="insert_match_cup_round">Ronda</string>
     <string name="insert_match_description">Descripción</string>
+    <string name="insert_match_error_already_exists">Ese partido ya está insertado</string>
+    <string name="insert_match_error_inserting">Error al insertar el partido</string>
+    <string name="insert_match_error_inserting_reason">Error al insertar el partido: %1$s</string>
     <string name="insert_match_formation">Formación</string>
+    <string name="insert_match_invalid_cup_name">Rellena el nombre de la copa</string>
+    <string name="insert_match_invalid_goals">Los goles no cuadran con el resultado</string>
+    <string name="insert_match_invalid_lineup">Completa la alineación</string>
+    <string name="insert_match_invalid_rival">Elige el equipo rival</string>
+    <string name="insert_match_invalid_score">Rellena el resultado</string>
     <string name="insert_match_journey">Jornada</string>
     <string name="insert_match_local">Local</string>
     <string name="insert_match_location">Ubicación</string>

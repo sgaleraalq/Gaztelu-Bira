@@ -1,12 +1,12 @@
 /*
  * Designed and developed by 2026 sgale (Sergio Galera)
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,405 +18,152 @@ package com.sgale.gaztelubira.core.screens.insert.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgale.gaztelubira.core.domain.auth.SessionManager
-import com.sgale.gaztelubira.core.domain.model.player.Player
-import com.sgale.gaztelubira.core.domain.model.player.Stat
-import com.sgale.gaztelubira.core.domain.model.team.Team
-import com.sgale.gaztelubira.core.navigation.NavigationState
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.First
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchFormation.ManagerPosition.Second
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchInformation
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Default
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchState.Loading
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchStats
-import com.sgale.gaztelubira.core.screens.insert.match.data.InsertMatchTeamsInformation
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.BENCH
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.LINE_UP
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.MANAGER
-import com.sgale.gaztelubira.core.screens.insert.match.data.PlayerState.STAT_PLAYER
-import com.sgale.gaztelubira.core.screens.insert.match.data.isValid
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpFormation
-import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.AlreadyExists
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.NoSeasonSelected
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Error.Unknown
+import com.sgale.gaztelubira.core.domain.model.firebase.FirebaseInsertResult.Inserted.Document
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.Cup
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.League
+import com.sgale.gaztelubira.core.domain.model.player.Position.MANAGER
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.usecase.GetMatches
+import com.sgale.gaztelubira.core.domain.usecase.GetSquad
+import com.sgale.gaztelubira.core.domain.usecase.GetTeams
+import com.sgale.gaztelubira.core.domain.usecase.InsertMatch
+import com.sgale.gaztelubira.core.domain.usecase.SelectedSeason
+import com.sgale.gaztelubira.core.domain.utils.GazteluBiraUtils.GAZTELU_BIRA
+import com.sgale.gaztelubira.core.domain.utils.toDate
+import com.sgale.gaztelubira.core.screens.mapper.InsertMatchUiMapper.toMatch
+import com.sgale.gaztelubira.core.screens.mapper.InsertMatchUiMapper.toMatchPlayers
+import com.sgale.gaztelubira.core.screens.mapper.PlayerUiMapper.toGBPlayer
+import com.sgale.gaztelubira.core.screens.mapper.TeamUiMapper.toGBTeam
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Default
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Inserted
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Loading
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.InsertMatchUiState
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchDialog
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchDialog.None
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchField
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchSection
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.update
+import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_error_no_season_selected
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_error_already_exists
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_error_inserting
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_error_inserting_reason
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.getString
+import java.lang.System.currentTimeMillis
 import javax.inject.Inject
 
-private const val KEEP_ALIVE_MILLIS = 5_000L
+private const val DEFAULT_LOCATION = "Pamplona, España"
 
 @HiltViewModel
-class InsertMatchViewModel @Inject constructor(
-    sessionManager: SessionManager,
-//    private val getPlayers: GetPlayers,
-//    private val insertNewMatch: InsertNewMatch
+internal class InsertMatchViewModel @Inject constructor(
+    private val selectedSeason: SelectedSeason,
+    private val getMatches: GetMatches,
+    private val getSquad: GetSquad,
+    private val getTeams: GetTeams,
+    private val insertNewMatch: InsertMatch
 ) : ViewModel() {
-    data class InsertMatchPosition(val position: Int = 0)
+    private val date = currentTimeMillis()
+    private var season: SeasonId? = null
+    private var cupMatches = 0
 
-    private val position = MutableStateFlow(InsertMatchPosition())
-
-    /**
-     * The team the signed in user belongs to, which is the side the match is being inserted for.
-     */
-    val team: StateFlow<Team?> = sessionManager.session
-        .map { it?.team }
-        .stateIn(viewModelScope, WhileSubscribed(KEEP_ALIVE_MILLIS), sessionManager.session.value?.team)
-
-    /**
-     * Fixed values
-     */
-    private val _teams = MutableStateFlow<List<Team>>(emptyList())
-    val teams: StateFlow<List<Team>> = _teams
-    private val _players = MutableStateFlow<List<Player>>(emptyList())
-    val players: StateFlow<List<Player>> = _players
+    private val _state = MutableStateFlow(
+        InsertMatchUiState(
+            date = date.toDate(),
+            location = DEFAULT_LOCATION
+        )
+    )
+    internal val state: StateFlow<InsertMatchUiState> = _state.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            _teams.value = withContext(Dispatchers.IO) {
-//                getTeams().first()
-                emptyList()
-            }
-            _players.value = withContext(Dispatchers.IO) {
-//                getPlayers().first()
-//                    .sortedBy { it.dorsal }
-//                    .filter { it.dorsal != null }
-                emptyList()
-            }
-        }
+        viewModelScope.launch { loadSeason() }
     }
 
     /**
-     * UI State
+     * The next journey follows the last league one stored; cups are only counted, for their id.
      */
-    private val _uiState = MutableStateFlow<InsertMatchState>(Default)
-    val uiState: StateFlow<InsertMatchState> = _uiState
+    private suspend fun loadSeason() {
+        val seasonId = selectedSeason().first() ?: return
+        val teams = getTeams(seasonId)
+        val squad = getSquad(seasonId)
+        val matches = getMatches(seasonId)
 
-    fun updateState(newState: InsertMatchState) {
-        _uiState.value = newState
-    }
+        season = seasonId
+        cupMatches = matches.count { it.competition is Cup }
 
-    /**
-     * Insert Match Formation
-     */
-    private val _formationState = MutableStateFlow(InsertMatchFormation())
-    val formationState: StateFlow<InsertMatchFormation> = _formationState
-
-    fun changeFormation(newFormation: LineUpFormation) {
-        _formationState.value = _formationState.value.copy(
-            formation = newFormation
-        )
-    }
-
-    fun changeSelectedManager(position: ManagerPosition) {
-        _formationState.value = _formationState.value.copy(
-            selectedManager = position
-        )
-    }
-
-    fun changeSelectedPosition(position: LineUpPosition) {
-        _formationState.value = _formationState.value.copy(
-            selectedPosition = position
-        )
-    }
-
-    fun updatePlayerState(newState: PlayerState) {
-        _formationState.value = _formationState.value.copy(
-            state = newState
-        )
-    }
-
-    fun insertPlayer(player: Player) {
-        val state = _formationState.value.state
-        when (state) {
-            BENCH -> insertBenchPlayer(player)
-            LINE_UP -> insertLineUpPlayer(player, position.value.position)
-            MANAGER -> insertManager(player)
-            STAT_PLAYER -> addStat(player)
+        _state.update { state ->
+            state.copy(
+                journey = (matches.mapNotNull { (it.competition as? League)?.journey }.maxOrNull() ?: 0) + 1,
+                team = (teams.firstOrNull { it.isGaztelu() } ?: GAZTELU_BIRA).toGBTeam(),
+                rivals = teams.filterNot { it.isGaztelu() }.map { it.toGBTeam() },
+                squad = squad.filterNot { it.position == MANAGER }.map { it.toGBPlayer() },
+                staff = squad.filter { it.position == MANAGER }.map { it.toGBPlayer() }
+            )
         }
     }
 
-    fun removePlayer(player: Player) {
-        val state = _formationState.value.state
-        when (state) {
-            BENCH -> removeBenchPlayer(player)
-            LINE_UP -> removeLineUpPlayer(player)
-            MANAGER -> removeManager()
-            STAT_PLAYER -> Unit
-        }
+    internal fun updateField(field: InsertMatchField) {
+        _state.update { it.update(field) }
     }
 
-    fun selectPlayer(playerIdx: Int) {
-        position.value = position.value.copy(position = playerIdx)
+    internal fun changeSection(section: InsertMatchSection) {
+        _state.update { it.copy(section = section, dialog = None) }
     }
 
-    private fun insertBenchPlayer(player: Player) {
-        _formationState.value = _formationState.value.copy(
-            benchPlayers = _formationState.value.benchPlayers.toMutableList().apply {
-                add(player)
-            }
-        )
+    internal fun updateDialog(dialog: InsertMatchDialog) {
+        _state.update { it.copy(dialog = dialog) }
     }
 
-    private fun insertManager(manager: Player) {
-//        _formationState.value = _formationState.value.copy(
-//            managers = when (_formationState.value.selectedManager) {
-//                First -> Pair(manager, _formationState.value.managers.second)
-//                Second -> Pair(_formationState.value.managers.first, manager)
-//            }
-//        )
-    }
-
-    private fun insertLineUpPlayer(player: Player, position: Int) {
-        val lineUp = _formationState.value.lineUp.toMutableMap()
-        lineUp[position] = player
-        _formationState.value = _formationState.value.copy(
-            lineUp = lineUp.toMap()
-        )
-    }
-
-    private fun removeBenchPlayer(player: Player) {
-        _formationState.value = _formationState.value.copy(
-            benchPlayers = _formationState.value.benchPlayers.toMutableList().apply {
-                remove(player)
-            }
-        )
-    }
-
-    private fun removeLineUpPlayer(player: Player) {
-        val lineUp = _formationState.value.lineUp.toMutableMap()
-        lineUp.forEach {
-            if (it.value == player) {
-                lineUp.remove(it.key)
-            }
-        }
-        _formationState.value = _formationState.value.copy(
-            lineUp = lineUp.toMap()
-        )
-    }
-
-    fun removeManager() {
-        _formationState.value = _formationState.value.copy(
-            managers = when (_formationState.value.selectedManager) {
-                First -> Pair(null, _formationState.value.managers.second)
-                Second -> Pair(_formationState.value.managers.first, null)
-            }
-        )
-    }
-
-    /**
-     * Insert Match Information
-     */
-
-    private val _informationState = MutableStateFlow(InsertMatchInformation())
-    val informationState: StateFlow<InsertMatchInformation> = _informationState
-
-    fun updateDescription(newDescription: String) {
-        _informationState.value = _informationState.value.copy(
-            description = newDescription
-        )
-    }
-
-    fun updateLocation(newLocation: String) {
-        _informationState.value = _informationState.value.copy(
-            location = newLocation
-        )
-    }
-
-
-    /**
-     * Insert Match Stats
-     */
-    private val _statsState = MutableStateFlow(InsertMatchStats())
-    val statsState: StateFlow<InsertMatchStats> = _statsState
-
-    fun selectStat(stat: Stat) {
-        _statsState.value = _statsState.value.copy(
-            selectedStat = stat
-        )
-    }
-
-    fun addStat(value: Player) {
-        val stat = _statsState.value.selectedStat ?: return
-//        if (!stat.isInsertable) return
-//        _statsState.value = when (stat) {
-//            ASSIST -> _statsState.value.copy(
-//                assists = _statsState.value.assists + value
-//            )
-//
-//            CLEAN_SHEET -> _statsState.value.copy(
-//                cleanSheets = _statsState.value.cleanSheets + value
-//            )
-//
-//            FAILS -> _statsState.value.copy(
-//                fails = _statsState.value.fails + value
-//            )
-//
-//            GOALS -> _statsState.value.copy(
-//                goals = _statsState.value.goals + value
-//            )
-//
-//            GOALS_PROVOKED -> _statsState.value.copy(
-//                goalsProvoked = _statsState.value.goalsProvoked + value
-//            )
-//
-//            PENALTIES_PROVOKED -> _statsState.value.copy(
-//                penaltiesProvoked = _statsState.value.penaltiesProvoked + value
-//            )
-//
-//            RED_CARDS -> _statsState.value.copy(
-//                redCards = _statsState.value.redCards + value
-//            )
-//
-//            SAVES -> _statsState.value.copy(
-//                saves = _statsState.value.saves + value
-//            )
-//
-//            YELLOW_CARDS -> _statsState.value.copy(
-//                yellowCards = _statsState.value.yellowCards + value
-//            )
-//
-//            BLUE_CARDS -> Unit
-//             gamesPlayed, percentage-> _statsState.value
-//        }
-    }
-
-    fun removeStat(idx: Int, stat: Stat) {
-//        if (!stat.isInsertable) return
-
-//        _statsState.value = when (stat) {
-//            ASSIST -> _statsState.value.copy(
-//                assists = _statsState.value.assists.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            CLEAN_SHEET -> _statsState.value.copy(
-//                cleanSheets = _statsState.value.cleanSheets.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            FAILS -> _statsState.value.copy(
-//                fails = _statsState.value.fails.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            GOALS -> _statsState.value.copy(
-//                goals = _statsState.value.goals.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            GOALS_PROVOKED -> _statsState.value.copy(
-//                goalsProvoked = _statsState.value.goalsProvoked.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            PENALTIES_PROVOKED -> _statsState.value.copy(
-//                penaltiesProvoked = _statsState.value.penaltiesProvoked.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            RED_CARDS -> _statsState.value.copy(
-//                redCards = _statsState.value.redCards.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            SAVES -> _statsState.value.copy(
-//                saves = _statsState.value.saves.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            YELLOW_CARDS -> _statsState.value.copy(
-//                yellowCards = _statsState.value.yellowCards.toMutableList().apply {
-//                    if (idx in indices) removeAt(idx)
-//                }
-//            )
-//
-//            BLUE_CARDS -> Unit // TODO
-////            GamesPlayed, Percentage -> _statsState.value
-//        }
-    }
-
-    fun insertMatch(
-        matchInformation: InsertMatchTeamsInformation,
-        state: NavigationState
-    ) {
-//        val matchModel = matchInformation.toMatchModel()
-        val goalsScored = matchInformation.getGoalsScored()
-        val goalsAgainst = matchInformation.getGoalsReceived()
-        if (!isValid(goalsScored, goalsAgainst, matchInformation)) {
-            showToast()
-            return
-        }
+    internal fun insertMatch() {
+        val form = _state.value
+        if (!form.handler.isValid) return
 
         viewModelScope.launch {
-            _uiState.value = Loading
-            val matchInserted = withContext(Dispatchers.IO) {
-//                insertNewMatch(
-//                    match = matchModel,
-//                    matchStats = createMatchStatsModel(matchInformation)
-//                )
+            _state.update { it.copy(state = Loading) }
+
+            val seasonId = season
+            val result = if (seasonId == null) {
+                NoSeasonSelected
+            } else {
+                val match = form.toMatch(seasonId, date, cupNumber = cupMatches + 1)
+                insertNewMatch(match, form.toMatchPlayers(match))
             }
 
-//            if (matchInserted is StatsInserted) {
-//                state.navigateBack()
-//            } else {
-//                showErrorToast()
-//            }
-            _uiState.value = Default
+            _state.update {
+                it.copy(
+                    state = if (result is Document) Inserted else InsertingDataState.Error(result.errorMessage())
+                )
+            }
         }
     }
 
-//    private fun createMatchStatsModel(match: InsertMatchTeamsInformation) =
-//        MatchStatsModel(
-//            id = match.id,
-//            location = _informationState.value.location,
-//            description = _informationState.value.description,
-//            match = match.toMatchModel(),
-//            formation = _formationState.value.formation.name,
-//            lineUpPlayers = _formationState.value.getLineUpPlayers(),
-//            benchPlayers = _formationState.value.benchPlayers,
-//            managers = _formationState.value.managers.toList().filterNotNull(),
-//            stats = _statsState.value.toStatsMatchModel()
-//        )
-
-    private fun isValid(
-        goalsScored: Int,
-        goalsAgainst: Int,
-        matchInformation: InsertMatchTeamsInformation
-    ): Boolean {
-        val information = _informationState.value
-        val formation = _formationState.value
-        val stats = _statsState.value
-
-        val validMatch = matchInformation.validMatch()
-        val validInformation = information.isValid()
-        val validFormation = formation.isValid()
-        val validStats = stats.isValid(goalsScored, goalsAgainst)
-
-        return validMatch && validInformation && validFormation && validStats
+    /**
+     * Once the screen has shown the error, the form is back to editable with everything kept.
+     */
+    internal fun dismissError() {
+        _state.update { it.copy(state = Default) }
     }
 
-    private fun showErrorToast() {
-//        toastManager.showToast("Error inserting match")
-    }
-
-    private fun showToast() {
-//        toastManager.showToast("Please fill in all the fields")
-    }
+    private suspend fun FirebaseInsertResult.errorMessage(): String =
+        when (this) {
+            is AlreadyExists -> getString(Res.string.insert_match_error_already_exists)
+            is NoSeasonSelected -> getString(Res.string.insert_error_no_season_selected)
+            is Unknown -> if (message.isNotBlank()) {
+                getString(Res.string.insert_match_error_inserting_reason, message)
+            } else {
+                getString(Res.string.insert_match_error_inserting)
+            }
+            else -> getString(Res.string.insert_match_error_inserting)
+        }
 }

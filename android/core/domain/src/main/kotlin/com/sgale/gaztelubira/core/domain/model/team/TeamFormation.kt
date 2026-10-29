@@ -19,6 +19,7 @@ package com.sgale.gaztelubira.core.domain.model.team
 enum class TeamFormation(
     val shorten: String
 ) {
+    FOUR_THREE_THREE("4-3-3"),
     FOUR_FOUR_TWO("4-4-2"),
     FIVE_THREE_TWO("5-3-2");
 

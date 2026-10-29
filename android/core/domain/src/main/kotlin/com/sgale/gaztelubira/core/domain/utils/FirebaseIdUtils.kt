@@ -16,6 +16,11 @@
 
 package com.sgale.gaztelubira.core.domain.utils
 
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.Cup
+import com.sgale.gaztelubira.core.domain.model.match.MatchCompetition.League
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 import java.text.Normalizer
 
 private val DIACRITICS = Regex("\\p{Mn}+")
@@ -31,3 +36,19 @@ fun String.toFirebaseId(): String =
         .lowercase()
         .replace(NON_ALPHANUMERIC, "_")
         .trim('_')
+
+/**
+ * The same id the seed gives: `2026_2027_l05` for journey 5, `2026_2027_cup01` for the first cup
+ * match. Deterministic on purpose, so the same journey inserted twice lands on one document.
+ *
+ * @param cupNumber Which cup match of the season this is, from 1. Ignored for league matches.
+ */
+fun matchIdOf(season: SeasonId, competition: MatchCompetition, cupNumber: Int): MatchId =
+    MatchId(
+        when (competition) {
+            is League -> "${season.value}_l${competition.journey.twoDigits()}"
+            is Cup -> "${season.value}_cup${cupNumber.twoDigits()}"
+        }
+    )
+
+private fun Int.twoDigits(): String = toString().padStart(2, '0')
