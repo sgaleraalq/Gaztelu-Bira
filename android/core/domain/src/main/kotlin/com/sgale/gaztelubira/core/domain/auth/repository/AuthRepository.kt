@@ -17,6 +17,7 @@
 package com.sgale.gaztelubira.core.domain.auth.repository
 
 import com.sgale.gaztelubira.core.domain.auth.AuthResult
+import com.sgale.gaztelubira.core.domain.model.user.UserRole
 
 interface AuthRepository {
     companion object {
@@ -25,6 +26,8 @@ interface AuthRepository {
     }
     fun logout()
     fun getUserSession(): String?
+
+    suspend fun getUserRole(): UserRole
     suspend fun signUpWithEmail(name: String, email: String, password: String): AuthResult
     suspend fun loginWithEmail(email: String, password: String): AuthResult
     suspend fun loginWithGoogle(): AuthResult

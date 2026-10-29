@@ -32,6 +32,7 @@ fun HomeView(
     )
 
     GBUpdateDialog(
-        show = state.updateAvailable
+        show = state.updateAvailable,
+        onUpdate = actions.onUpdate
     )
 }

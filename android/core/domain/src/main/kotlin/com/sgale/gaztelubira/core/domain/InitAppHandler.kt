@@ -18,6 +18,21 @@ package com.sgale.gaztelubira.core.domain
 
 interface InitAppHandler {
     suspend fun updateAvailable(): Boolean
+
+    /**
+     * Whether the cache has anything to show yet. It is asked rather than remembered from the first
+     * launch, because a destructive migration empties the database without telling anyone.
+     */
+    suspend fun hasLocalData(): Boolean
+
+    /**
+     * Downloads every season, with the app waiting for it.
+     */
     suspend fun firstTimeInit(): Result<Boolean>
+
+    /**
+     * Refreshes what can still change while the app shows what it already has. A failure leaves the
+     * cache as it was.
+     */
     suspend fun initApp()
 }

@@ -22,11 +22,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sgale.gaztelubira.core.navigation.NavigationState
 import com.sgale.gaztelubira.core.navigation.tab.TabNavigation
 import com.sgale.gaztelubira.core.navigation.tab.rememberTabNavigationState
+import com.sgale.gaztelubira.core.screens.openStoreListing
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeActions
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeTab
 import com.sgale.gaztelubira.multiplatform.ui.home.HomeView
@@ -36,6 +38,7 @@ internal fun HomeScreen(
     navState: NavigationState,
     viewModel: HomeViewModel = hiltViewModel<HomeViewModel>()
 ) {
+    val context = LocalContext.current
     val homeNavigation = rememberTabNavigationState(HomeTab.entries, DEFAULT_TAB)
     val selectedTab by homeNavigation.selectedTab
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -47,6 +50,7 @@ internal fun HomeScreen(
     }
 
     val actions = remember(
+        context,
         homeNavigation,
         viewModel,
         navState
@@ -54,7 +58,8 @@ internal fun HomeScreen(
         HomeActions(
             onTabSelected = homeNavigation::navigate,
             onLogout = { viewModel.logout(navState) },
-            onDismissLogout = { viewModel.updateLogoutDialog(false) }
+            onDismissLogout = { viewModel.updateLogoutDialog(false) },
+            onUpdate = { context.openStoreListing() }
         )
     }
 

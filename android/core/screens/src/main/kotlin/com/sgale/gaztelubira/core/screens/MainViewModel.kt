@@ -22,12 +22,12 @@ import androidx.lifecycle.viewModelScope
 import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.InitAppHandler
 import com.sgale.gaztelubira.core.domain.auth.SessionManager
-import com.sgale.gaztelubira.core.domain.repository.Preferences
 import com.sgale.gaztelubira.core.navigation.Destination.Home
 import com.sgale.gaztelubira.core.navigation.Destination.Welcome
 import com.sgale.gaztelubira.core.screens.splash.SplashController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -40,9 +40,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val sessionManager: SessionManager,
     private val splashController: SplashController,
-    private val preferences: Preferences,
     private val initAppHandler: InitAppHandler,
 ) : ViewModel() {
+
+    private var boot: Job? = null
 
     init {
         start()
@@ -50,8 +51,10 @@ class MainViewModel @Inject constructor(
 
     /**
      * Runs on launch (once, not on every recreation of the activity) and again after every login or sign-up, always with the splash on screen.
+     * A boot still running is cancelled first, so two syncs never overlap.
      */
     fun start() {
+        boot?.cancel()
         splashController.reset()
 
         if (!sessionManager.isAuthenticated()) {
@@ -59,25 +62,28 @@ class MainViewModel @Inject constructor(
             return
         }
 
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) { sessionManager.load() }
-        }
+        boot = viewModelScope.launch {
+            launch(Dispatchers.IO) { sessionManager.load() }
 
-        viewModelScope.launch {
-            if (preferences.isFirstTime) firstTimeInit() else regularInit()
+            if (initAppHandler.hasLocalData()) regularInit() else firstTimeInit()
         }
     }
 
+    /**
+     * Nothing stored to open on, so the splash waits for the whole download.
+     */
     private suspend fun firstTimeInit() {
-        initAppHandler.firstTimeInit()
+        withContext(Dispatchers.IO) { initAppHandler.firstTimeInit() }
             .onSuccess { splashController.complete(Home) }
             .onFailure {
                 Log.e(TAG, "First time init failed: ${it.message}")
-                preferences.setFirstTime(true)
                 splashController.complete(Welcome)
             }
     }
 
+    /**
+     * The app opens on what is stored, and the refresh lands behind it.
+     */
     private suspend fun regularInit() {
         splashController.skip(Home)
         withContext(Dispatchers.IO) { initAppHandler.initApp() }

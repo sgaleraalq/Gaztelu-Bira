@@ -21,6 +21,15 @@ service cloud.firestore {
       return isSignedIn() && request.auth.token.admin == true;
     }
 
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // What the app writes to users/{uid}: UserResponse in :core:network.
+    function profileFields() {
+      return ['id', 'name', 'email', 'img'];
+    }
+
     // seasons/{season} and everything under it: matches, lineup, teams, squad
     match /seasons/{season}/{document=**} {
       allow read: if isSignedIn();
@@ -32,9 +41,16 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Each user writes their own profile and nothing more. Being an admin is the token's claim,
+    // which the app reads too, so a field written here cannot make anyone an admin.
     match /users/{uid} {
       allow read: if isSignedIn() && (request.auth.uid == uid || isAdmin());
-      allow create, update: if request.auth.uid == uid;
+      allow create: if isOwner(uid)
+        && request.resource.data.keys().hasOnly(profileFields())
+        && request.resource.data.id == uid;
+      allow update: if isOwner(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(profileFields())
+        && request.resource.data.id == uid;
       allow delete: if false;
     }
 

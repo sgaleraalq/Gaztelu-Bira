@@ -24,6 +24,7 @@ import com.sgale.gaztelubira.core.domain.model.team.TeamId
 import com.sgale.gaztelubira.core.domain.repository.TeamRemote
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.TEAMS
+import com.sgale.gaztelubira.core.network.firebase.mapDocuments
 import com.sgale.gaztelubira.core.network.firebase.mapper.TeamMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.mapper.TeamMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.TeamResponse
@@ -37,8 +38,7 @@ internal class FirestoreTeam @Inject constructor(
         teams(seasonId)
             .get()
             .await()
-            .documents
-            .mapNotNull { team ->
+            .mapDocuments { team ->
                 team.toObject(TeamResponse::class.java)
                     ?.asModel(TeamId(team.id), seasonId)
             }

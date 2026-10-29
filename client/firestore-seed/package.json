@@ -15,7 +15,8 @@
     "upload:new": "node upload.js --only-missing",
     "upload:new:check": "node upload.js --only-missing --dry-run",
     "images": "node backup/players/images.js",
-    "images:check": "node backup/players/images.js --dry-run"
+    "images:check": "node backup/players/images.js --dry-run",
+    "admin": "node set-admin.js"
   },
   "dependencies": {
     "firebase-admin": "^13.0.2"

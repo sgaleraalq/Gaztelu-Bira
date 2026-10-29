@@ -19,6 +19,10 @@ package com.sgale.gaztelubira.activity
 import android.util.Log
 import com.sgale.gaztelubira.core.common.utils.TAG
 import com.sgale.gaztelubira.core.domain.InitAppHandler
+import com.sgale.gaztelubira.core.domain.model.match.MatchId
+import com.sgale.gaztelubira.core.domain.model.season.Season
+import com.sgale.gaztelubira.core.domain.model.season.SeasonId
+import com.sgale.gaztelubira.core.domain.repository.AppVersionRemote
 import com.sgale.gaztelubira.core.domain.repository.MatchLocal
 import com.sgale.gaztelubira.core.domain.repository.MatchRemote
 import com.sgale.gaztelubira.core.domain.repository.PlayerLocal
@@ -28,9 +32,23 @@ import com.sgale.gaztelubira.core.domain.repository.SeasonLocal
 import com.sgale.gaztelubira.core.domain.repository.SeasonRemote
 import com.sgale.gaztelubira.core.domain.repository.TeamLocal
 import com.sgale.gaztelubira.core.domain.repository.TeamRemote
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import java.lang.System.currentTimeMillis
 import javax.inject.Inject
 
+/**
+ * Keeps the local cache in step with Firestore.
+ *
+ * The first sync brings every season. After that, each launch only brings back what can still
+ * change: the players, the season list, the current season and the one on screen. A season that is
+ * over is not edited anymore, and syncing all of them on every launch costs about two thousand
+ * reads per user.
+ */
 internal class FirstTime @Inject constructor(
+    private val appVersion: AppVersionRemote,
     private val matchLocal: MatchLocal,
     private val matchRemote: MatchRemote,
     private val preferences: Preferences,
@@ -42,40 +60,72 @@ internal class FirstTime @Inject constructor(
     private val teamRemote: TeamRemote
 ): InitAppHandler {
     override suspend fun updateAvailable(): Boolean =
-        false
+        !appVersion.isSupported()
 
-    override suspend fun firstTimeInit(): Result<Boolean> = runCatching {
-        val players = playerRemote.fetchPlayers()
-        playerLocal.insertPlayers(players)
+    /**
+     * Everything else hangs from a season, so without any stored there is nothing to show.
+     */
+    override suspend fun hasLocalData(): Boolean =
+        seasonLocal.getSeasons().isNotEmpty()
+
+    override suspend fun firstTimeInit(): Result<Boolean> =
+        try {
+            sync { true }
+            Result.success(true)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+
+    override suspend fun initApp() {
+        try {
+            val shown = preferences.resolveSelectedSeason()
+            sync { season -> season.isCurrent || season.id == shown }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(TAG, "Refresh failed, the cached data stays", e)
+        }
+    }
+
+    /**
+     * The players and the season list come every time: they are small, and every season points at
+     * them.
+     *
+     * @param refresh Which seasons get their squad, teams and matches downloaded again.
+     */
+    private suspend fun sync(refresh: (Season) -> Boolean) {
+        playerLocal.insertPlayers(playerRemote.fetchPlayers())
 
         val seasons = seasonRemote.fetchSeasons()
         seasonLocal.insertSeasons(seasons)
+        seasons.filter(refresh).forEach { season -> syncSeason(season.id) }
 
-        seasons.forEach { season ->
-            seasonLocal.insertSeasonPlayers(seasonRemote.fetchSquad(season.id))
-            teamLocal.insertTeams(teamRemote.fetchTeams(season.id))
-
-            val matches = matchRemote.fetchMatches(season.id)
-            matchLocal.insertMatches(matches)
-            matches.forEach { match ->
-                val events = matchRemote.fetchMatchEvents(season.id, match.id)
-                matchLocal.insertMatchEvents(match.id, events)
-
-                val lineup = matchRemote.fetchMatchLineup(season.id, match.id)
-                matchLocal.insertMatchPlayers(match.id, lineup.map { it.lineup })
-                playerLocal.insertMatchStats(match.id, lineup.map { it.stats })
-            }
-        }
-
-        seasons.firstOrNull { it.isCurrent }?.let { preferences.selectSeason(it.id) }
-        preferences.setFirstTime(false)
-
-        Log.i(TAG, "These are the players: $players")
-        Log.i(TAG, "These are the seasons: $seasons")
-        true
+        preferences.setLastSync(currentTimeMillis())
     }
 
-    override suspend fun initApp() {
+    /**
+     * The matches go in parallel: each one is two reads of its own, and one after another they made
+     * the wait as long as the season.
+     */
+    private suspend fun syncSeason(seasonId: SeasonId) {
+        seasonLocal.insertSeasonPlayers(seasonRemote.fetchSquad(seasonId))
+        teamLocal.insertTeams(teamRemote.fetchTeams(seasonId))
 
+        val matches = matchRemote.fetchMatches(seasonId)
+        matchLocal.insertMatches(matches)
+
+        coroutineScope {
+            matches.map { match -> async { syncMatch(seasonId, match.id) } }.awaitAll()
+        }
+    }
+
+    private suspend fun syncMatch(seasonId: SeasonId, matchId: MatchId) {
+        matchLocal.insertMatchEvents(matchId, matchRemote.fetchMatchEvents(seasonId, matchId))
+
+        val lineup = matchRemote.fetchMatchLineup(seasonId, matchId)
+        matchLocal.insertMatchPlayers(matchId, lineup.map { it.lineup })
+        playerLocal.insertMatchStats(matchId, lineup.map { it.stats })
     }
 }

@@ -29,8 +29,14 @@ import com.sgale.gaztelubira.core.domain.auth.repository.AuthRepository.Companio
 import com.sgale.gaztelubira.core.domain.auth.repository.GoogleAuth
 import com.sgale.gaztelubira.core.domain.model.user.User
 import com.sgale.gaztelubira.core.domain.model.user.UserId
+import com.sgale.gaztelubira.core.domain.model.user.UserRole
+import com.sgale.gaztelubira.core.domain.model.user.UserRole.ADMIN
+import com.sgale.gaztelubira.core.domain.model.user.UserRole.GUEST
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+
+private const val ADMIN_CLAIM = "admin"
 
 internal class AuthRepositoryImpl @Inject constructor(
     private val googleSignIn: GoogleAuth
@@ -40,6 +46,17 @@ internal class AuthRepositoryImpl @Inject constructor(
     override fun logout() { auth.signOut() }
 
     override fun getUserSession() = auth.currentUser?.uid
+
+    /**
+     * The token is refreshed first, so a claim granted since the last sign-in counts from the next
+     * launch. Offline, the cached token is the best there is; with no token at all, nobody is an
+     * admin.
+     */
+    override suspend fun getUserRole(): UserRole {
+        val user = auth.currentUser ?: return GUEST
+        val claims = user.claims(forceRefresh = true) ?: user.claims(forceRefresh = false)
+        return if (claims?.get(ADMIN_CLAIM) == true) ADMIN else GUEST
+    }
 
     override suspend fun signUpWithEmail(
         name: String,
@@ -83,4 +100,13 @@ internal class AuthRepositoryImpl @Inject constructor(
             displayName = name
         }).await()
     }
+
+    private suspend fun FirebaseUser.claims(forceRefresh: Boolean): Map<String, Any>? =
+        try {
+            getIdToken(forceRefresh).await().claims
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            null
+        }
 }

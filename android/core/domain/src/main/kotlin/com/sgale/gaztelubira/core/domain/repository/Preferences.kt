@@ -21,8 +21,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface Preferences {
     val selectedSeason: Flow<SeasonId?>
-    val isFirstTime: Boolean
+    val lastSync: Flow<Long?>
+
     suspend fun resolveSelectedSeason(): SeasonId?
     suspend fun selectSeason(season: SeasonId?)
-    suspend fun setFirstTime(enabled: Boolean)
+    suspend fun setLastSync(time: Long)
 }

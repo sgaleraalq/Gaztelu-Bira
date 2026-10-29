@@ -48,9 +48,13 @@ class SessionManager @Inject constructor(
 
     /**
      * Fetches the profile of whoever Firebase has signed in. Without one the session is cleared.
+     *
+     * The role does not come from the profile but from the token, which is what the Firestore rules
+     * check: what the app offers and what the rules allow can never disagree.
      */
     suspend fun load() {
-        _session.value = auth.getUserSession()?.let { uid -> users.getUser(UserId(uid)) }
+        val profile = auth.getUserSession()?.let { uid -> users.getUser(UserId(uid)) }
+        _session.value = profile?.let { it.copy(session = it.session.copy(role = auth.getUserRole())) }
     }
 
     fun logout() {

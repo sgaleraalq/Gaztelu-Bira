@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.core.network.di
 
+import com.sgale.gaztelubira.core.domain.repository.AppVersionRemote
 import com.sgale.gaztelubira.core.domain.repository.MatchRemote
 import com.sgale.gaztelubira.core.domain.repository.PlayerRemote
 import com.sgale.gaztelubira.core.domain.repository.SeasonRemote
@@ -28,6 +29,7 @@ import com.sgale.gaztelubira.core.network.firebase.implementation.FirestoreMatch
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirestorePlayers
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirestoreSeason
 import com.sgale.gaztelubira.core.network.firebase.implementation.FirestoreTeam
+import com.sgale.gaztelubira.core.network.firebase.remote_config.RemoteConfigAppVersion
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +39,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
+    @Provides
+    @Singleton
+    internal fun provideAppVersion(
+        remoteConfigAppVersion: RemoteConfigAppVersion
+    ): AppVersionRemote = remoteConfigAppVersion
+
     @Provides
     @Singleton
     internal fun provideMatchRemote(

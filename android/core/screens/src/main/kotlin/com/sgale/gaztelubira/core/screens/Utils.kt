@@ -16,13 +16,31 @@
 
 package com.sgale.gaztelubira.core.screens
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
+import androidx.core.net.toUri
+
+private const val PLAY_STORE_APP = "market://details?id="
+private const val PLAY_STORE_WEB = "https://play.google.com/store/apps/details?id="
 
 internal fun showToast(
     context: Context,
     msg: String
 ) {
     makeText(context, msg, LENGTH_SHORT).show()
+}
+
+/**
+ * The app's page in Google Play: in the Play Store app when there is one, in the browser otherwise.
+ */
+internal fun Context.openStoreListing() {
+    try {
+        startActivity(Intent(ACTION_VIEW, "$PLAY_STORE_APP$packageName".toUri()))
+    } catch (e: ActivityNotFoundException) {
+        startActivity(Intent(ACTION_VIEW, "$PLAY_STORE_WEB$packageName".toUri()))
+    }
 }

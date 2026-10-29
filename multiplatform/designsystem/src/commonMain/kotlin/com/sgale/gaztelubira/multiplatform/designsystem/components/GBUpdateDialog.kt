@@ -29,12 +29,18 @@ import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.common_good_news
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_update
 import com.sgale.gaztelubira.multiplatform.ui.resources.common_update_available
 import org.jetbrains.compose.resources.stringResource
 
+/**
+ * Shown when this build is below the minimum version, so it cannot be dismissed: the only way on is
+ * [onUpdate], which the host points at its store.
+ */
 @Composable
 fun GBUpdateDialog(
-    show: Boolean
+    show: Boolean,
+    onUpdate: () -> Unit
 ) {
     if (!show) return
 
@@ -50,7 +56,7 @@ fun GBUpdateDialog(
         ) {
             GBUpdateDialogTitle()
             GBUpdateDialogText()
-            GBUpdateDialogButton()
+            GBUpdateDialogButton(onUpdate)
         }
     }
 }
@@ -77,12 +83,11 @@ fun GBUpdateDialogText() {
 }
 
 @Composable
-fun GBUpdateDialogButton() {
-//    // TODO missing url
-//    val openUrl = rememberOpenUrl()
-//
-//    GBElevatedButton(
-//        text = stringResource(Res.string.common_update),
-//        onClick = { openUrl("url") }
-//    )
+fun GBUpdateDialogButton(
+    onUpdate: () -> Unit
+) {
+    GBElevatedButton(
+        text = stringResource(Res.string.common_update),
+        onClick = onUpdate
+    )
 }

@@ -28,6 +28,7 @@ import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.EVENTS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.LINEUP
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
+import com.sgale.gaztelubira.core.network.firebase.mapDocuments
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchEventMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchPlayerMapper.asModel
@@ -44,8 +45,7 @@ internal class FirestoreMatches @Inject constructor(
         matches(seasonId)
             .get()
             .await()
-            .documents
-            .mapNotNull { match ->
+            .mapDocuments { match ->
                 match.toObject(MatchResponse::class.java)
                     ?.asModel(MatchId(match.id), seasonId)
             }
@@ -56,8 +56,7 @@ internal class FirestoreMatches @Inject constructor(
             .collection(EVENTS)
             .get()
             .await()
-            .documents
-            .mapNotNull { event ->
+            .mapDocuments { event ->
                 event.toObject(MatchEventResponse::class.java)?.asModel(matchId, seasonId)
             }
 
@@ -67,8 +66,7 @@ internal class FirestoreMatches @Inject constructor(
             .collection(LINEUP)
             .get()
             .await()
-            .documents
-            .mapNotNull { player ->
+            .mapDocuments { player ->
                 player.toObject(MatchPlayerResponse::class.java)?.asModel(matchId, seasonId)
             }
 

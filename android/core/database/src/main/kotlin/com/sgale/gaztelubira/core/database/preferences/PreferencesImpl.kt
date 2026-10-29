@@ -28,25 +28,15 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
-private const val SP_FIRST_TIME = "gbmultiplatform.firstTime"
+private const val SP_LAST_SYNC = "gbmultiplatform.lastSync"
 private const val SP_SELECTED_SEASON = "gbmultiplatform.selectedSeason"
 
 internal class PreferencesImpl @Inject constructor(
     private val settings: SharedPreferences
 ) : Preferences {
-    override val selectedSeason: Flow<SeasonId?> = callbackFlow {
-        send(settings.readSelectedSeason())
+    override val selectedSeason: Flow<SeasonId?> = observe(SP_SELECTED_SEASON) { readSelectedSeason() }
 
-        val listener = OnSharedPreferenceChangeListener { preferences, key ->
-            if (key == SP_SELECTED_SEASON) trySend(preferences.readSelectedSeason())
-        }
-
-        settings.registerOnSharedPreferenceChangeListener(listener)
-        awaitClose { settings.unregisterOnSharedPreferenceChangeListener(listener) }
-    }.distinctUntilChanged()
-
-    override val isFirstTime: Boolean
-        get() = settings.readFirstTime()
+    override val lastSync: Flow<Long?> = observe(SP_LAST_SYNC) { readLastSync() }
 
     override suspend fun resolveSelectedSeason(): SeasonId? = selectedSeason.first()
 
@@ -56,12 +46,27 @@ internal class PreferencesImpl @Inject constructor(
         }
     }
 
-    override suspend fun setFirstTime(enabled: Boolean) {
-        settings.edit { putBoolean(SP_FIRST_TIME, enabled) }
+    override suspend fun setLastSync(time: Long) {
+        settings.edit { putLong(SP_LAST_SYNC, time) }
     }
 
-    private fun SharedPreferences.readFirstTime(): Boolean =
-        getBoolean(SP_FIRST_TIME, true)
+    /**
+     * What [read] gives now, and again every time [key] changes.
+     */
+    private fun <T> observe(key: String, read: SharedPreferences.() -> T): Flow<T> =
+        callbackFlow {
+            send(settings.read())
+
+            val listener = OnSharedPreferenceChangeListener { preferences, changed ->
+                if (changed == key) trySend(preferences.read())
+            }
+
+            settings.registerOnSharedPreferenceChangeListener(listener)
+            awaitClose { settings.unregisterOnSharedPreferenceChangeListener(listener) }
+        }.distinctUntilChanged()
+
+    private fun SharedPreferences.readLastSync(): Long? =
+        if (contains(SP_LAST_SYNC)) getLong(SP_LAST_SYNC, 0L) else null
 
     private fun SharedPreferences.readSelectedSeason(): SeasonId? =
         getString(SP_SELECTED_SEASON, null)?.let(::SeasonId)

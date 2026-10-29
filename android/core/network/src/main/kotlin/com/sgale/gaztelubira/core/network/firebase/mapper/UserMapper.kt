@@ -18,8 +18,6 @@ package com.sgale.gaztelubira.core.network.firebase.mapper
 
 import com.sgale.gaztelubira.core.domain.model.user.User
 import com.sgale.gaztelubira.core.domain.model.user.UserId
-import com.sgale.gaztelubira.core.domain.model.user.UserRole
-import com.sgale.gaztelubira.core.domain.model.user.UserRole.GUEST
 import com.sgale.gaztelubira.core.network.firebase.NetworkMapper
 import com.sgale.gaztelubira.core.network.firebase.response.UserResponse
 
@@ -29,8 +27,7 @@ internal object UserMapper : NetworkMapper<User, UserResponse, UserId, Nothing> 
             id = uid.value,
             name = name.orEmpty(),
             email = email.orEmpty(),
-            img = img,
-            role = role.name
+            img = img
         )
 
     override fun UserResponse.asModel(
@@ -40,7 +37,6 @@ internal object UserMapper : NetworkMapper<User, UserResponse, UserId, Nothing> 
         uid = id,
         name = name,
         email = email,
-        img = img,
-        role = UserRole.entries.find { it.name == role } ?: GUEST
+        img = img
     )
 }

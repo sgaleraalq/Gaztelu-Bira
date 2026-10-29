@@ -17,24 +17,40 @@
 package com.sgale.gaztelubira.core.network.firebase.remote_config
 
 import android.content.Context
+import com.sgale.gaztelubira.core.domain.repository.AppVersionRemote
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 internal class RemoteConfigAppVersion @Inject constructor(
     private val remoteConfigManager: RemoteConfigManager,
     @param:ApplicationContext private val context: Context
-) {
-    suspend fun isSupported(): Boolean {
+) : AppVersionRemote {
+    override suspend fun isSupported(): Boolean {
         remoteConfigManager.fetchAndActivate() ?: return true
 
-        return getLocalVersion().zip(remoteConfigManager.getMinAppVersion())
-            .all { (appVersion, minVersion) -> appVersion >= minVersion }
+        return isVersionAtLeast(getLocalVersion(), remoteConfigManager.getMinAppVersion())
     }
 
-    private fun getLocalVersion(): List<Int> {
-        val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-        val localVersion =
-            packageInfo.versionName?.split(".")?.map { it.toInt() } ?: listOf(0, 0, 0)
-        return localVersion
-    }
+    private fun getLocalVersion(): String =
+        context.packageManager.getPackageInfo(context.packageName, 0).versionName.orEmpty()
 }
+
+/**
+ * Compares "major.minor.patch" versions part by part from the left, and the first part that differs
+ * decides: 1.5.0 is above 1.4.9 even though its patch is lower. A missing part counts as 0, and a
+ * suffix after the number ("0-debug") is ignored.
+ */
+internal fun isVersionAtLeast(current: String, minimum: String): Boolean {
+    val currentParts = current.versionParts()
+    val minimumParts = minimum.versionParts()
+
+    for (index in 0 until maxOf(currentParts.size, minimumParts.size)) {
+        val part = currentParts.getOrElse(index) { 0 }
+        val minimumPart = minimumParts.getOrElse(index) { 0 }
+        if (part != minimumPart) return part > minimumPart
+    }
+    return true
+}
+
+private fun String.versionParts(): List<Int> =
+    split(".").map { part -> part.takeWhile(Char::isDigit).toIntOrNull() ?: 0 }

@@ -20,20 +20,29 @@ import com.sgale.gaztelubira.core.domain.model.season.SeasonId
 import com.sgale.gaztelubira.core.domain.repository.Preferences
 import com.sgale.gaztelubira.core.domain.repository.SeasonLocal
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ * The season on screen: the one the user picked, or the current one while they have not picked any
+ * (or picked one that is no longer stored).
+ *
+ * It emits again after every sync, even when the season stays the same, so whoever loads that
+ * season's data from here loads it again once fresh data has landed.
+ */
 class SelectedSeason @Inject constructor(
     private val seasons: SeasonLocal,
     private val preferences: Preferences
 ) {
     operator fun invoke(): Flow<SeasonId?> =
-        preferences.selectedSeason
+        combine(
+            preferences.selectedSeason,
+            preferences.lastSync
+        ) { chosen, _ -> chosen }
             .map { chosen ->
                 val stored = seasons.getSeasons()
                 stored.firstOrNull { it.id == chosen }?.id
                     ?: stored.firstOrNull { it.isCurrent }?.id
             }
-            .distinctUntilChanged()
 }

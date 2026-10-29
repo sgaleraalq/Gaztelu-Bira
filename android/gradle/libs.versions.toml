@@ -3,7 +3,7 @@
 # Internal/build settings
 compileSdk = "37"
 jdkLevel = "17"
-minSdk = "24"
+minSdk = "26"
 targetSdk = "37"
 
 # General dependencies

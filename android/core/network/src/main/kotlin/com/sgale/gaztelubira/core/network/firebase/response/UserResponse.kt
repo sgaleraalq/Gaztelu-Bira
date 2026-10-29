@@ -20,6 +20,5 @@ internal data class UserResponse(
     val id: String = "",
     val email: String = "",
     val img: String? = null,
-    val name: String = "",
-    val role: String = ""
+    val name: String = ""
 )

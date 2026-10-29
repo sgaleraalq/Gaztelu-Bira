@@ -17,6 +17,7 @@
 package com.sgale.gaztelubira.core.network.firebase.implementation
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.sgale.gaztelubira.core.domain.auth.UserSession
 import com.sgale.gaztelubira.core.domain.model.player.PlayerId
 import com.sgale.gaztelubira.core.domain.model.team.Team
@@ -28,9 +29,11 @@ import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.USERS
 import com.sgale.gaztelubira.core.network.firebase.mapper.UserMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.mapper.UserMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.response.UserResponse
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.Result.Companion.success
 import kotlin.coroutines.resume
@@ -51,18 +54,22 @@ class FirebaseUsers @Inject constructor(
             }
         }
 
-    override suspend fun insertUser(user: User): Boolean {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    /**
+     * Merged rather than replaced: only the profile is written and whatever else the document holds
+     * stays, so a sign-in that could not tell the user was already stored wipes nothing.
+     */
+    override suspend fun insertUser(user: User): Boolean =
+        try {
             firestore.collection(USERS)
                 .document(user.uid.value)
-                .set(user.asResponse())
-                .addOnSuccessListener {
-                    cancellableContinuation.resume(true)
-                }.addOnFailureListener {
-                    cancellableContinuation.resume(false)
-                }
+                .set(user.asResponse(), SetOptions.merge())
+                .await()
+            true
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            false
         }
-    }
 
     override suspend fun isUserInserted(uid: UserId): User? {
         return suspendCancellableCoroutine { cancellableContinuation ->

@@ -144,4 +144,14 @@ consistente, pero pide plan Blaze y un bucket.
 
 `users/{uid}`, porque el uid lo pone Firebase Auth: sembrar uno inventado no te enseña nada y
 encima estorba cuando entres de verdad. El rol de admin va como *custom claim* del token,
-no como documento.
+no como documento: las reglas y la app miran ese claim, y un campo `role` en `users/{uid}` no
+cuenta (las reglas ni siquiera dejan escribirlo). Para dártelo, o quitárselo a alguien:
+
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS=/ruta/service-account.json
+node set-admin.js tu@email.com --yes            # gaztelu-bira
+node set-admin.js tu@email.com --revoke --yes   # quitárselo
+```
+
+Va siempre contra el proyecto real (el emulador de aquí solo levanta Firestore). La app renueva
+el token al arrancar, así que se nota en el siguiente arranque.

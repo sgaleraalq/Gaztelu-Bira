@@ -19,5 +19,6 @@ package com.sgale.gaztelubira.multiplatform.ui.home
 data class HomeActions(
     val onTabSelected: (HomeTab) -> Unit,
     val onLogout: () -> Unit,
-    val onDismissLogout: () -> Unit
+    val onDismissLogout: () -> Unit,
+    val onUpdate: () -> Unit
 )

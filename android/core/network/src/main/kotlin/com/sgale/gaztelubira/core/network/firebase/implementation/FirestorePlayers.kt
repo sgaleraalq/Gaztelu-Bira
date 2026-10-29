@@ -25,6 +25,7 @@ import com.sgale.gaztelubira.core.domain.repository.PlayerRemote
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.PLAYERS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SQUAD
+import com.sgale.gaztelubira.core.network.firebase.mapDocuments
 import com.sgale.gaztelubira.core.network.firebase.mapper.PlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.mapper.PlayerMapper.asResponse
 import com.sgale.gaztelubira.core.network.firebase.mapper.SeasonPlayerMapper.asResponse
@@ -48,8 +49,7 @@ internal class FirestorePlayers @Inject constructor(
         players()
             .get()
             .await()
-            .documents
-            .mapNotNull { document ->
+            .mapDocuments { document ->
                 document.toObject(PlayerResponse::class.java)
                     ?.asModel(PlayerId(document.id))
             }

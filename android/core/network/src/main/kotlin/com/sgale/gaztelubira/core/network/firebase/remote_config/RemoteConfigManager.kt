@@ -19,6 +19,7 @@ package com.sgale.gaztelubira.core.network.firebase.remote_config
 import android.util.Log
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.sgale.gaztelubira.core.common.utils.TAG
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -30,19 +31,22 @@ internal class RemoteConfigManager @Inject constructor(
         private const val MIN_VERSION_RC = "min_version"
     }
 
+    /**
+     * Asks the server at most once every [MINIMUM_FETCH_INTERVAL_SECONDS]; in between, the values
+     * already fetched are the ones activated. Fetching on every launch would end up throttled.
+     *
+     * @return null when nothing could be fetched or activated.
+     */
     suspend fun fetchAndActivate(): Boolean? {
         return try {
-            remoteConfig.fetch(0).await()
-            remoteConfig.activate().await()
+            remoteConfig.fetchAndActivate().await()
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             Log.w(TAG, "Fetch failed or throttled", e)
             null
         }
     }
 
-    fun getMinAppVersion(): List<Int> {
-        val minVersion = remoteConfig.getString(MIN_VERSION_RC)
-        if (minVersion.isBlank()) return listOf(0, 0, 0)
-        return minVersion.split(".").mapNotNull { it.toIntOrNull() }
-    }
+    fun getMinAppVersion(): String = remoteConfig.getString(MIN_VERSION_RC)
 }
