@@ -8,3 +8,6 @@ xcuserdata/
 !default.pbxuser
 *.perspectivev3
 !default.perspectivev3
+
+## Firebase config never travels with the code
+GazteluBira/GoogleService-Info.plist

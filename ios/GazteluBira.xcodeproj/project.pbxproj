@@ -6,13 +6,37 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		GB0000000000000000000030 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = GB0000000000000000000020 /* FirebaseAnalytics */; };
+		GB0000000000000000000031 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = GB0000000000000000000021 /* FirebaseAuth */; };
+		GB0000000000000000000032 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = GB0000000000000000000022 /* FirebaseCore */; };
+		GB0000000000000000000033 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = GB0000000000000000000023 /* FirebaseCrashlytics */; };
+		GB0000000000000000000034 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = GB0000000000000000000024 /* FirebaseFirestore */; };
+		GB0000000000000000000035 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = GB0000000000000000000025 /* FirebaseRemoteConfig */; };
+		GB0000000000000000000036 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = GB0000000000000000000026 /* FirebaseStorage */; };
+		GB0000000000000000000037 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = GB0000000000000000000027 /* GoogleSignIn */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		GB0000000000000000000001 /* GazteluBira.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GazteluBira.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		GB0000000000000000000011 /* Exceptions for "GazteluBira" folder in "GazteluBira" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = GB0000000000000000000006 /* GazteluBira */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		GB0000000000000000000002 /* GazteluBira */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				GB0000000000000000000011 /* Exceptions for "GazteluBira" folder in "GazteluBira" target */,
+			);
 			path = GazteluBira;
 			sourceTree = "<group>";
 		};
@@ -23,6 +47,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				GB0000000000000000000030 /* FirebaseAnalytics in Frameworks */,
+				GB0000000000000000000031 /* FirebaseAuth in Frameworks */,
+				GB0000000000000000000032 /* FirebaseCore in Frameworks */,
+				GB0000000000000000000033 /* FirebaseCrashlytics in Frameworks */,
+				GB0000000000000000000034 /* FirebaseFirestore in Frameworks */,
+				GB0000000000000000000035 /* FirebaseRemoteConfig in Frameworks */,
+				GB0000000000000000000036 /* FirebaseStorage in Frameworks */,
+				GB0000000000000000000037 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +98,14 @@
 			);
 			name = GazteluBira;
 			packageProductDependencies = (
+				GB0000000000000000000020 /* FirebaseAnalytics */,
+				GB0000000000000000000021 /* FirebaseAuth */,
+				GB0000000000000000000022 /* FirebaseCore */,
+				GB0000000000000000000023 /* FirebaseCrashlytics */,
+				GB0000000000000000000024 /* FirebaseFirestore */,
+				GB0000000000000000000025 /* FirebaseRemoteConfig */,
+				GB0000000000000000000026 /* FirebaseStorage */,
+				GB0000000000000000000027 /* GoogleSignIn */,
 			);
 			productName = GazteluBira;
 			productReference = GB0000000000000000000001 /* GazteluBira.app */;
@@ -96,6 +136,10 @@
 			);
 			mainGroup = GB0000000000000000000004;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				GB0000000000000000000013 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = GB0000000000000000000005 /* Products */;
 			projectDirPath = "";
@@ -254,6 +298,8 @@
 					"$(SRCROOT)/../multiplatform/ui/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				GOOGLE_REVERSED_CLIENT_ID = "";
+				INFOPLIST_FILE = GazteluBira/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -264,6 +310,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sgale.gaztelubira;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -286,6 +336,8 @@
 					"$(SRCROOT)/../multiplatform/ui/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				GOOGLE_REVERSED_CLIENT_ID = "";
+				INFOPLIST_FILE = GazteluBira/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -296,6 +348,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sgale.gaztelubira;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -326,6 +382,68 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
+		GB0000000000000000000013 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		GB0000000000000000000020 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		GB0000000000000000000021 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		GB0000000000000000000022 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		GB0000000000000000000023 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		GB0000000000000000000024 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		GB0000000000000000000025 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		GB0000000000000000000026 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = GB0000000000000000000012 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		GB0000000000000000000027 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = GB0000000000000000000013 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = GB000000000000000000000B /* Project object */;
 }
