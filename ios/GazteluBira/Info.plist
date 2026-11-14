@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	Everything else in the Info.plist is generated from the build settings. Only what a build
+	setting cannot express lives here: the URL scheme Google Sign-In hands the user back through.
+	Its value is the REVERSED_CLIENT_ID of GoogleService-Info.plist, set in the target's
+	GOOGLE_REVERSED_CLIENT_ID build setting (see ios/README.md).
+	-->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(GOOGLE_REVERSED_CLIENT_ID)</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
