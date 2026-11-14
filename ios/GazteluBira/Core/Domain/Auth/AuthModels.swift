@@ -16,18 +16,22 @@
 
 import Foundation
 
-/// The auth flow as SwiftUI destinations. The Compose screens take navigation as a callback
-/// instead of owning it — the same contract the Android side uses — so the stack lives here.
-enum AuthRoute: Hashable {
-    case login
+enum AuthResult {
+    case success(user: User)
+    case error(message: String = "There was an error", cause: Error? = nil)
+
+    var isSuccess: Bool {
+        if case .success = self { return true }
+        return false
+    }
 }
 
-@MainActor
-final class AuthRouter: ObservableObject {
+struct UserSession: Equatable {
+    let session: User
+    let team: Team
+    var player: PlayerId? = nil
 
-    @Published var path: [AuthRoute] = []
-
-    func navigate(to route: AuthRoute) {
-        path.append(route)
+    func isAdmin() -> Bool {
+        session.role == .admin
     }
 }

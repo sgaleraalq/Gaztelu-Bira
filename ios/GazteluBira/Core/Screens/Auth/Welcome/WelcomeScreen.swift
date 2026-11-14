@@ -15,29 +15,19 @@
  */
 
 import SwiftUI
+import GazteluBiraUI
 
-struct RootView: View {
+/// The welcome screen has no state and no view model, on Android either: it only needs to be told
+/// what "go to login" means.
+struct WelcomeScreen: View {
 
-    /// A reference type rather than `@State`: the callback handed to Compose is captured once,
-    /// when the view controller is created, so it has to outlive the SwiftUI value re-renders.
-    @StateObject private var router = AuthRouter()
+    @EnvironmentObject private var navState: NavigationState
 
     var body: some View {
-        NavigationStack(path: $router.path) {
-            WelcomeScreen(
-                navigateToLogin: { router.navigate(to: .login) }
+        ComposeScreen { [navState] in
+            WelcomeViewControllerKt.welcomeViewController(
+                navigateToLogin: { navState.navigateTo(.login) }
             )
-            .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(for: AuthRoute.self) { route in
-                switch route {
-                case .login:
-                    LoginScreen()
-                }
-            }
         }
     }
-}
-
-#Preview {
-    RootView()
 }

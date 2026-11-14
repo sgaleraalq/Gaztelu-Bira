@@ -15,12 +15,28 @@
  */
 
 import SwiftUI
+import FirebaseCore
+import GoogleSignIn
 
 @main
 struct GazteluBiraApp: App {
+
+    private let container: AppContainer
+
+    init() {
+        /// Before anything else: every Firebase service the container builds asks for this app.
+        /// It reads `GoogleService-Info.plist`, which is not in the repository (see ios/README.md).
+        FirebaseApp.configure()
+        container = AppContainer()
+    }
+
     var body: some Scene {
         WindowGroup {
-            RootView()
+            MainScreen(container: container)
+                /// Google hands the user back to the app through a URL once they have signed in.
+                .onOpenURL { url in
+                    _ = GIDSignIn.sharedInstance.handle(url)
+                }
         }
     }
 }

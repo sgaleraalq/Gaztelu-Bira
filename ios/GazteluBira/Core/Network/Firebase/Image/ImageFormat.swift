@@ -14,15 +14,36 @@
  * limitations under the License.
  */
 
-import SwiftUI
+import Foundation
 
-/// Placeholder destination: `LoginView` already exists in `commonMain`, but it has no iOS entry
-/// point yet — it still depends on the auth repository, which is Android-only for now.
-struct LoginScreen: View {
-    var body: some View {
-        Text("Login")
-            .font(.title2)
-            .navigationTitle("Login")
-            .navigationBarTitleDisplayMode(.inline)
+/// Formats the app uploads to Storage.
+enum ImageFormat {
+    case jpeg
+    case png
+
+    var fileExtension: String {
+        switch self {
+        case .jpeg: return "jpg"
+        case .png: return "png"
+        }
+    }
+
+    var mimeType: String {
+        switch self {
+        case .jpeg: return "image/jpeg"
+        case .png: return "image/png"
+        }
+    }
+
+    /// Ignored by PNG, which is lossless.
+    var quality: CGFloat {
+        switch self {
+        case .jpeg: return 0.85
+        case .png: return 1
+        }
+    }
+
+    var supportsAlpha: Bool {
+        self == .png
     }
 }
