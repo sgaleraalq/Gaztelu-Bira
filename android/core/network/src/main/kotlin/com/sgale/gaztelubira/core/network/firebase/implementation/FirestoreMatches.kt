@@ -30,7 +30,9 @@ import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.MATCHES
 import com.sgale.gaztelubira.core.network.firebase.FirebaseConstants.SEASONS
 import com.sgale.gaztelubira.core.network.firebase.mapDocuments
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchEventMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.mapper.MatchMapper
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchMapper.asModel
+import com.sgale.gaztelubira.core.network.firebase.mapper.MatchPlayerMapper
 import com.sgale.gaztelubira.core.network.firebase.mapper.MatchPlayerMapper.asModel
 import com.sgale.gaztelubira.core.network.firebase.response.MatchEventResponse
 import com.sgale.gaztelubira.core.network.firebase.response.MatchPlayerResponse
@@ -69,6 +71,29 @@ internal class FirestoreMatches @Inject constructor(
             .mapDocuments { player ->
                 player.toObject(MatchPlayerResponse::class.java)?.asModel(matchId, seasonId)
             }
+
+    override suspend fun matchExists(seasonId: SeasonId, matchId: MatchId): Boolean =
+        matches(seasonId)
+            .document(matchId.value)
+            .get()
+            .await()
+            .exists()
+
+    /**
+     * The lineup documents are keyed by player, so nobody can be in the same match twice.
+     */
+    override suspend fun insertMatch(match: Match, players: List<MatchPlayer>) {
+        val document = matches(match.seasonId).document(match.id.value)
+        val batch = firestore.batch()
+        batch.set(document, MatchMapper.run { match.asResponse() })
+        players.forEach { player ->
+            batch.set(
+                document.collection(LINEUP).document(player.lineup.playerId.value),
+                MatchPlayerMapper.run { player.asResponse() }
+            )
+        }
+        batch.commit().await()
+    }
 
     private fun matches(season: SeasonId): CollectionReference =
         firestore

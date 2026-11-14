@@ -1,0 +1,42 @@
+/*
+ * Designed and developed by 2026 sgale (Sergio Galera)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sgale.gaztelubira.multiplatform.ui.insert.match
+
+import com.sgale.gaztelubira.multiplatform.model.GBPlayer
+import com.sgale.gaztelubira.multiplatform.ui.UiDestination
+import com.sgale.gaztelubira.multiplatform.ui.insert.InsertDataActions
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchDialog
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchField
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchPlayerTarget
+import com.sgale.gaztelubira.multiplatform.ui.insert.match.state.InsertMatchSection
+
+/**
+ * @param pickPlayer The player chosen in the picker; where they go is the target of the dialog
+ * that was open.
+ * @param removePlayer Takes a player out of a target. The index is their place in that target's
+ * list, and is ignored for the line-up, whose target already names the slot.
+ */
+data class InsertMatchActions(
+    val updateField: (InsertMatchField) -> Unit,
+    val updateDialogState: (InsertMatchDialog) -> Unit,
+    val toggleSection: (InsertMatchSection) -> Unit,
+    val pickPlayer: (GBPlayer) -> Unit,
+    val removePlayer: (InsertMatchPlayerTarget, Int) -> Unit,
+    val insertMatch: () -> Unit,
+    val navigateTo: (UiDestination) -> Unit,
+    override val onMissingField: (String) -> Unit
+) : InsertDataActions

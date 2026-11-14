@@ -26,4 +26,12 @@ interface MatchRemote {
     suspend fun fetchMatches(seasonId: SeasonId): List<Match>
     suspend fun fetchMatchEvents(seasonId: SeasonId, matchId: MatchId): List<MatchEvent>
     suspend fun fetchMatchLineup(seasonId: SeasonId, matchId: MatchId): List<MatchPlayer>
+
+    suspend fun matchExists(seasonId: SeasonId, matchId: MatchId): Boolean
+
+    /**
+     * Writes the match and its lineup atomically, so a match never ends up published without the
+     * players who played it.
+     */
+    suspend fun insertMatch(match: Match, players: List<MatchPlayer>)
 }

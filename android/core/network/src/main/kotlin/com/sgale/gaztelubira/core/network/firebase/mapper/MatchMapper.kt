@@ -83,7 +83,7 @@ internal object MatchMapper: NetworkMapper<Match, MatchResponse, MatchId, Season
             formation = formation.shorten,
             localTeam = localTeam.value,
             visitorTeam = visitorTeam.value,
-            score = MatchResponseScore.Score(score.local, score.visitor)
+            score = MatchResponseScore.Score(local = score.local, visitor = score.visitor)
         )
 
 
