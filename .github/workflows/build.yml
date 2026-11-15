@@ -47,13 +47,18 @@ jobs:
       # google-services.json is gitignored; the google-services plugin fails the build without it.
       - name: Restore google-services.json
         env:
-          GOOGLE_SERVICES_JSON_DEBUG: ${{ secrets.GOOGLE_SERVICES_JSON_DEBUG }}
+          GAZTELU_BIRA_FIREBASE: ${{ secrets.GAZTELU_BIRA_FIREBASE }}
         run: |
-          if [ -z "$GOOGLE_SERVICES_JSON_DEBUG" ]; then
-            echo "::error::Missing secret GOOGLE_SERVICES_JSON_DEBUG (base64 of android/gaztelu_bira/google-services.json)"
+          if [ -z "$GAZTELU_BIRA_FIREBASE" ]; then
+            echo "::error::Missing secret GAZTELU_BIRA_FIREBASE (android/gaztelu_bira/google-services.json, raw or base64)"
             exit 1
           fi
-          echo "$GOOGLE_SERVICES_JSON_DEBUG" | base64 --decode > gaztelu_bira/google-services.json
+          # Accept the secret either as the raw JSON or base64-encoded.
+          if printf '%s' "$GAZTELU_BIRA_FIREBASE" | grep -q '^[[:space:]]*{'; then
+            printf '%s' "$GAZTELU_BIRA_FIREBASE" > gaztelu_bira/google-services.json
+          else
+            printf '%s' "$GAZTELU_BIRA_FIREBASE" | base64 --decode > gaztelu_bira/google-services.json
+          fi
 
       - name: Assemble debug
         run: ./gradlew :gaztelu_bira:assembleDebug
