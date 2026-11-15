@@ -48,6 +48,7 @@ include(":core:common")
 include(":core:database")
 include(":core:domain")
 include(":core:navigation")
+include(":core:notifications")
 include(":core:screens")
 
 /**

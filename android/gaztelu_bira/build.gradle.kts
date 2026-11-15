@@ -81,6 +81,7 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:domain"))
     implementation(project(":core:network")) // ActivityBridge + GoogleClientId
+    implementation(project(":core:notifications"))
     implementation(project(":core:screens"))
 
     /**

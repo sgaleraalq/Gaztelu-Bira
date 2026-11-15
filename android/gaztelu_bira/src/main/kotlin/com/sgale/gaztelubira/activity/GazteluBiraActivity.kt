@@ -21,12 +21,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.sgale.gaztelubira.core.screens.MainScreen
 import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
+import com.sgale.gaztelubira.notifications.SessionNotifications
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class GazteluBiraActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var sessionNotifications: SessionNotifications
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sessionNotifications.follow(this)
         setContent {
             GBTheme {
                 MainScreen()

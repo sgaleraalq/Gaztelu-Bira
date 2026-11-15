@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notifications_matches_channel_name">Partidos</string>
+    <string name="notifications_matches_channel_description">Avisos cuando se sube un partido nuevo</string>
+</resources>
