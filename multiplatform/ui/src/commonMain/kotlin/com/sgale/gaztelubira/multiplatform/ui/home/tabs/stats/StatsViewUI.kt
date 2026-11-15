@@ -16,12 +16,7 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Black
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.DismissPlayer
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSettings.Hidden
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loaded
@@ -56,14 +51,6 @@ internal fun StatsViewUI(
         punctuation = state.punctuation,
         actions = actions
     )
-
-    if (state.state is Seasons) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Black)
-        )
-    }
 
     SeasonsDialog(
         show = state.state is Seasons,

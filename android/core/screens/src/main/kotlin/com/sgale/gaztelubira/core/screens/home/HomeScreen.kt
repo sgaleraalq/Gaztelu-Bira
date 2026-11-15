@@ -64,8 +64,6 @@ internal fun HomeScreen(
     }
 
     LaunchedEffect(selectedTab) { viewModel.onTabChanged(selectedTab) }
-
     BackHandler(true) { viewModel.updateLogoutDialog(true) }
-
     HomeView(state, actions, tabContent)
 }

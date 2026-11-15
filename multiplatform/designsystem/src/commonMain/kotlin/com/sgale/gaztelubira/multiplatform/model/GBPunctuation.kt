@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.multiplatform.model
 
+import androidx.compose.runtime.Immutable
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.ASSISTS
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.CLEAN_SHEETS
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.FAILS
@@ -25,6 +26,7 @@ import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.PENALTIES_PROVOKED
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation.PunctuationField.SAVES
 
+@Immutable
 data class GBPunctuation(
     val goals: Int = 1,
     val assists: Int = 1,

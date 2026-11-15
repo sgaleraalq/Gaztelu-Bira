@@ -16,6 +16,7 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats
 
+import androidx.compose.runtime.Immutable
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
@@ -28,6 +29,7 @@ import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsSetti
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsState.Loading
 
+@Immutable
 data class StatsUiState(
     val state: GBStatsState = Loading,
     val selectedStat: GBStat = PERCENTAGE,

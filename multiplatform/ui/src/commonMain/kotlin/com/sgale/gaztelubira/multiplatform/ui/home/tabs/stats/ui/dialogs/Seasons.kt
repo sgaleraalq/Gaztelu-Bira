@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.DEFAULT_BG_COLOR
@@ -68,6 +69,10 @@ internal fun SeasonsDialog(
     onChangeSeason: (String) -> Unit,
     onCloseSeasonsPicker: () -> Unit
 ) {
+    if (show) {
+        Box(modifier = Modifier.fillMaxSize().background(Transparent))
+    }
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = BottomCenter
