@@ -36,6 +36,11 @@ val localProperties = Properties().apply {
         ?.inputStream()
         ?.use { load(it) }
 }
+
+val releaseStoreFile: String? = localProperties.getProperty("keystore")
+val releaseStorePassword: String? = localProperties.getProperty("storePassword")
+val releaseKeyAlias: String? = localProperties.getProperty("keyAlias")
+val releaseKeyPassword: String? = localProperties.getProperty("keyPassword")
 val googleClientId: String = localProperties.getProperty("googleClientId").orEmpty()
 
 android {
@@ -49,21 +54,26 @@ android {
         buildConfigField("String", "GOOGLE_CLIENT_ID", "\"$googleClientId\"")
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = releaseStoreFile?.let { rootProject.file(it) }
+            storePassword = releaseStorePassword
+            keyAlias = releaseKeyAlias
+            keyPassword = releaseKeyPassword
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
             resValue("string", "app_name", "[DEBUG] Gaztelu")
         }
-//        release {
-//            signingConfig {
-//                getByName("release") {
-//                    storeFile = shared
-//                    storePassword = "android"
-//                    keyAlias = "androiddebugkey"
-//                    keyPassword = "android"
-//                }
-//            }
-//        }
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
+        }
     }
 
     buildFeatures {
