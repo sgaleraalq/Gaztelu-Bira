@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBPlayerCard
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 import com.sgale.gaztelubira.multiplatform.model.GBPlayer
 import com.sgale.gaztelubira.multiplatform.ui.AppImages
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromTeamTab
@@ -46,7 +47,7 @@ internal fun TeamViewUI(
     navigateTo: (FromTeamTab) -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(LocalScaffoldPadding.current)
     ) {
         GBTopAppBar(
             showAdminButton = isAdmin == true,

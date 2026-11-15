@@ -18,9 +18,11 @@ package com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromMatchesTab.InsertMatch
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromMatchesTab.MatchDetail
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.ui.Matches
@@ -31,7 +33,7 @@ internal fun MatchesViewUI(
     actions: MatchesActions
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(LocalScaffoldPadding.current)
     ) {
         GBTopAppBar(
             showAdminButton = state.isAdmin,

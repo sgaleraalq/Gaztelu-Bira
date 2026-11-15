@@ -22,6 +22,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,12 +34,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.DEFAULT_BG_COLOR
@@ -46,6 +48,7 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.DEFAULT_BORDE
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBContainer
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBIcon
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBSeason
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.StatsSeason
@@ -69,14 +72,27 @@ internal fun SeasonsDialog(
     onChangeSeason: (String) -> Unit,
     onCloseSeasonsPicker: () -> Unit
 ) {
-    if (show) {
-        Box(modifier = Modifier.fillMaxSize().background(Transparent))
-    }
+    val scaffoldPadding = LocalScaffoldPadding.current
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = scaffoldPadding.calculateBottomPadding()),
         contentAlignment = BottomCenter
     ) {
+        if (show) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Black.copy(alpha = 0.75f))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = onCloseSeasonsPicker
+                    )
+            )
+        }
+
         AnimatedVisibility(
             visible = show,
             enter = slideInVertically { it },

@@ -18,10 +18,8 @@ package com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsActions
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.StatsUiState
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.stats.state.GBStatsPlayerModal.ShowPlayer
@@ -38,7 +36,7 @@ internal fun StatsLoaded(
     actions: StatsActions
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(12.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
         StatsHeader(
             selectedSeason = state.seasons.selectedSeason,

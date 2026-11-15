@@ -27,17 +27,20 @@ import androidx.compose.ui.Alignment.Companion.TopEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBAddButton
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 import com.sgale.gaztelubira.multiplatform.ui.UiDestination.FromGazteluBiraTab.InsertTeam
-import com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.ui.SeasonRivals
 import com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.ui.SeasonInformationBox
+import com.sgale.gaztelubira.multiplatform.ui.home.tabs.season.ui.SeasonRivals
 
 @Composable
 internal fun SeasonViewUI(
     state: SeasonUiState,
     actions: SeasonActions
 ) {
+    val scaffoldPadding = LocalScaffoldPadding.current
+
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(scaffoldPadding)
     ) {
         SeasonInformationBox(
             summary = state.season
@@ -52,7 +55,10 @@ internal fun SeasonViewUI(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize().padding(top = 12.dp, end = 24.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(scaffoldPadding)
+            .padding(top = 12.dp, end = 24.dp)
     ) {
         GBAddButton(
             show = state.isAdmin,

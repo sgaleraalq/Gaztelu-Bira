@@ -16,17 +16,22 @@
 
 package com.sgale.gaztelubira.multiplatform.designsystem.components
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.common_app_name
 import org.jetbrains.compose.resources.stringResource
+
+val LocalScaffoldPadding = staticCompositionLocalOf { PaddingValues(0.dp) }
 
 @Composable
 fun GBScaffold(
@@ -49,8 +54,10 @@ fun GBScaffold(
         modifier = modifier,
         topBar = topAppBar,
         bottomBar = { bottomBar() }
-    ) {
+    ) { padding ->
         GBBackground()
-        content(Modifier.padding(it).fillMaxSize())
+        CompositionLocalProvider(LocalScaffoldPadding provides padding) {
+            content(Modifier.fillMaxSize())
+        }
     }
 }
