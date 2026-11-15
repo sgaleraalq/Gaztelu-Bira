@@ -19,6 +19,7 @@ package com.sgale.gaztelubira.multiplatform.ui.home.tabs.matches.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -33,14 +34,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.model.GBMatch
 
+private val MATCHES_SPACE = 12.dp
+
 @Composable
 internal fun Matches(
     matches: List<GBMatch>,
     onMatchClicked: (String) -> Unit
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(12.dp),
-        verticalArrangement = spacedBy(12.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = MATCHES_SPACE),
+        verticalArrangement = spacedBy(MATCHES_SPACE),
+        contentPadding = PaddingValues(bottom = MATCHES_SPACE)
     ) {
         items(
             items = matches,
