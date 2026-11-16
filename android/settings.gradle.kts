@@ -15,6 +15,7 @@
  */
 
 import org.gradle.api.initialization.resolve.RepositoriesMode.FAIL_ON_PROJECT_REPOS
+import java.util.Properties
 
 include(":core:network")
 
@@ -37,7 +38,12 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Gaztelu Bira"
+val localProps = Properties().apply {
+    val file = file("local.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+
+rootProject.name = localProps.getProperty("projectName") ?: "X"
 
 include(":gaztelu_bira")
 
