@@ -43,7 +43,7 @@ val localProps = Properties().apply {
     if (file.exists()) file.inputStream().use { load(it) }
 }
 
-rootProject.name = localProps.getProperty("projectName") ?: "X"
+rootProject.name = localProps.getProperty("projectName") ?: "Gaztelu Bira"
 
 include(":gaztelu_bira")
 
