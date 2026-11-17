@@ -16,8 +16,10 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 
+@Keep
 internal data class MatchResponseInformation(
     val date: Timestamp? = null,
     val description: String = "",

@@ -16,10 +16,12 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ServerTimestamp
 import java.util.Date
 
+@Keep
 internal data class SeasonResponse(
     val name: String = "",
     val current: Boolean = false,

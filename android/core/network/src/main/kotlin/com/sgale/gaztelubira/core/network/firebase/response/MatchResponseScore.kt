@@ -16,12 +16,16 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response
 
+import androidx.annotation.Keep
+
+@Keep
 internal data class MatchResponseScore(
     val formation: String = "",
     val localTeam: String = "",
     val visitorTeam: String = "",
     val score: Score = Score()
 ) {
+    @Keep
     data class Score(
         val visitor: Int = 0,
         val local: Int = 0

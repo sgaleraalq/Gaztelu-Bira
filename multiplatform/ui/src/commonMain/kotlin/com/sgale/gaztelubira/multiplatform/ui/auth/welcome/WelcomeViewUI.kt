@@ -19,10 +19,12 @@ package com.sgale.gaztelubira.multiplatform.ui.auth.welcome
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.ui.WelcomeScreenButton
 import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.ui.WelcomeScreenImage
 import com.sgale.gaztelubira.multiplatform.ui.auth.welcome.ui.WelcomeScreenSubtitle
@@ -33,7 +35,7 @@ fun WelcomeViewUI(
     navigateToLogin: () -> Unit
 ) {
     GBScaffold { modifier ->
-        Column(modifier) {
+        Column(modifier.padding(LocalScaffoldPadding.current)) {
             WelcomeScreenTitle()
             Spacer(Modifier.height(16.dp))
             WelcomeScreenSubtitle()

@@ -16,6 +16,9 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response
 
+import androidx.annotation.Keep
+
+@Keep
 internal data class UserResponse(
     val id: String = "",
     val email: String = "",

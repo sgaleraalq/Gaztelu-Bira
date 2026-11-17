@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBTopAppBar
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 
 @Composable
 fun AuthScaffold(
@@ -37,7 +38,7 @@ fun AuthScaffold(
     AuthBackgroundImage()
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().padding(LocalScaffoldPadding.current),
         horizontalAlignment = CenterHorizontally
     ) {
         GBTopAppBar()

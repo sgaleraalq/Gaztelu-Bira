@@ -16,6 +16,9 @@
 
 package com.sgale.gaztelubira.core.network.firebase.response
 
+import androidx.annotation.Keep
+
+@Keep
 internal data class MatchResponseCompetition(
     val journey: Int? = null,
     val name: String? = null,
