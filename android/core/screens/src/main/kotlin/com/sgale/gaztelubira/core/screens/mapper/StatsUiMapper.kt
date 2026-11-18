@@ -17,6 +17,7 @@
 package com.sgale.gaztelubira.core.screens.mapper
 
 import com.sgale.gaztelubira.core.domain.model.player.PlayerId
+import com.sgale.gaztelubira.core.domain.model.player.Stat
 import com.sgale.gaztelubira.core.domain.utils.formatDecimal
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.RankedPlayer
 import com.sgale.gaztelubira.core.screens.home.tabs.stats.SeasonStats
@@ -27,11 +28,33 @@ import com.sgale.gaztelubira.multiplatform.model.GBPlayerStat
 import com.sgale.gaztelubira.multiplatform.model.GBPlayerStatsDetail
 import com.sgale.gaztelubira.multiplatform.model.GBPunctuation
 import com.sgale.gaztelubira.multiplatform.model.GBStat
+import com.sgale.gaztelubira.multiplatform.model.GBStat.ASSISTS
 import com.sgale.gaztelubira.multiplatform.model.GBStat.BLUE_CARDS
+import com.sgale.gaztelubira.multiplatform.model.GBStat.CLEAN_SHEETS
+import com.sgale.gaztelubira.multiplatform.model.GBStat.FAILS
+import com.sgale.gaztelubira.multiplatform.model.GBStat.GOALS
+import com.sgale.gaztelubira.multiplatform.model.GBStat.GOALS_PROVOKED
+import com.sgale.gaztelubira.multiplatform.model.GBStat.PENALTIES_PROVOKED
 import com.sgale.gaztelubira.multiplatform.model.GBStat.PERCENTAGE
+import com.sgale.gaztelubira.multiplatform.model.GBStat.RED_CARDS
+import com.sgale.gaztelubira.multiplatform.model.GBStat.SAVES
+import com.sgale.gaztelubira.multiplatform.model.GBStat.YELLOW_CARDS
 import com.sgale.gaztelubira.multiplatform.model.GBStatValue
 
 internal object StatsUiMapper {
+    fun Stat.toGBStat(): GBStat = when (this) {
+        Stat.ASSIST -> ASSISTS
+        Stat.CLEAN_SHEET -> CLEAN_SHEETS
+        Stat.FAILS -> FAILS
+        Stat.GOALS -> GOALS
+        Stat.GOALS_PROVOKED -> GOALS_PROVOKED
+        Stat.PENALTIES_PROVOKED -> PENALTIES_PROVOKED
+        Stat.SAVES -> SAVES
+        Stat.BLUE_CARDS -> BLUE_CARDS
+        Stat.RED_CARDS -> RED_CARDS
+        Stat.YELLOW_CARDS -> YELLOW_CARDS
+    }
+
     fun RankedPlayer.toGBPlayerStat(): GBPlayerStat =
         GBPlayerStat(
             id = player.player.id.value,

@@ -12,6 +12,7 @@ kotlin-compiler*
 local.properties
 
 gaztelu_bira/build/
+gaztelu_bira/release/
 gaztelu_bira/google-services.json
 
 **/build/

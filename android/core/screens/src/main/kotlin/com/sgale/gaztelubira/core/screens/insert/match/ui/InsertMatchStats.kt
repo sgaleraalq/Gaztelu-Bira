@@ -82,8 +82,10 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
 import com.sgale.gaztelubira.multiplatform.designsystem.style.elevated_button_text_color
 import com.sgale.gaztelubira.multiplatform.designsystem.style.gray_box_in_black_bg
+import com.sgale.gaztelubira.core.screens.mapper.StatsUiMapper.toGBStat
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.ic_stats
+import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_select_a_player
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.painterResource
 
 private val STAT_BOX_SIZE = 75.dp
@@ -183,7 +185,7 @@ internal fun StatBox(
             if (values.isEmpty()) {
                 GBIcon(
                     modifier = Modifier.fillMaxSize().padding(12.dp),
-                    icon = painterResource(Res.drawable.ic_stats), //painterResource(stat.icon),
+                    icon = painterResource(stat.toGBStat().icon),
                     size = 50.dp,
                     tint = Unspecified
                 )
@@ -280,7 +282,7 @@ internal fun InsertMatchStatPlayersBigBox(
         item {
             GBElevatedButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = "statTitle", // TODO stringResource(stat.statTitle ?: Res.string.insert_player_button),
+                text = stringResource(Res.string.insert_match_select_a_player),
                 enabled = true,
                 onClick = { showPlayers() }
             )
@@ -297,12 +299,12 @@ internal fun StatsTitle(stat: Stat){
             horizontalArrangement = Arrangement.Center
         ) {
             GBIcon(
-                icon = painterResource(Res.drawable.ic_stats) // TODO painterResource(stat.icon)
+                icon = painterResource(stat.toGBStat().icon)
             )
             Spacer(Modifier.width(16.dp))
             GBText(
                 modifier = Modifier.fillMaxWidth(),
-                text = "statName", // TODO stringResource(stat.statName),
+                text = stringResource(stat.toGBStat().label),
                 style = GBTheme.typography.titleLarge,
                 textColor = elevated_button_text_color
             )

@@ -31,9 +31,6 @@ import com.sgale.gaztelubira.multiplatform.ui.insert.InsertingDataState.Companio
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamActions
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.InsertTeamView
 import com.sgale.gaztelubira.multiplatform.ui.insert.team.state.InsertTeamField.TeamImage
-import com.sgale.gaztelubira.multiplatform.ui.resources.Res
-import com.sgale.gaztelubira.multiplatform.ui.resources.insert_permission_denied_gallery
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InsertTeamScreen(
@@ -42,7 +39,6 @@ internal fun InsertTeamScreen(
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val permissionDeniedMsg = stringResource(Res.string.insert_permission_denied_gallery)
 
     val onSuccessfulInsertion= { navState.navigateTo(Home, true) }
 
@@ -50,9 +46,7 @@ internal fun InsertTeamScreen(
         navState.navigateBack()
     }
 
-    val galleryManager = rememberGalleryManager(
-        onPermissionDenied = { showToast(context, permissionDeniedMsg) }
-    ) { uri ->
+    val galleryManager = rememberGalleryManager { uri ->
         viewModel.updateField(TeamImage(uri.toString()))
     }
 

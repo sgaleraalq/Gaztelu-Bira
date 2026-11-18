@@ -43,7 +43,9 @@ import com.sgale.gaztelubira.multiplatform.designsystem.components.GBText
 import com.sgale.gaztelubira.multiplatform.designsystem.model.LineUpPosition
 import com.sgale.gaztelubira.multiplatform.designsystem.model.label
 import com.sgale.gaztelubira.multiplatform.designsystem.style.GBTheme
+import com.sgale.gaztelubira.core.screens.mapper.StatsUiMapper.toGBStat
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
+import com.sgale.gaztelubira.multiplatform.ui.resources.common_goals
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_match_select_a_player
 import org.jetbrains.compose.resources.stringResource
 
@@ -159,7 +161,7 @@ fun InsertMatchDialogStatsPlayers(
             item(span = { GridItemSpan(maxLineSpan) }) {
                 GBText(
                     modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    text = "statName", // TODO stringResource(statsState?.selectedStat?.statName ?: Res.string.common_goals),
+                    text = stringResource(statsState?.selectedStat?.toGBStat()?.label ?: Res.string.common_goals),
                     alignment = Center,
                     style = GBTheme.typography.titleMedium
                 )

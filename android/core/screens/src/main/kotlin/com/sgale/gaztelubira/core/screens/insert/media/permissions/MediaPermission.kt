@@ -17,27 +17,15 @@
 package com.sgale.gaztelubira.core.screens.insert.media.permissions
 
 import android.Manifest
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.READ_MEDIA_IMAGES
-import android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
 import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.TIRAMISU
-import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 import androidx.core.content.ContextCompat.checkSelfPermission
 
 internal enum class MediaPermission {
-    CAMERA,
-    GALLERY;
+    CAMERA;
 
     internal fun manifestPermissions(): List<String> = when (this) {
         CAMERA -> listOf(Manifest.permission.CAMERA)
-        GALLERY -> when {
-            SDK_INT >= UPSIDE_DOWN_CAKE -> listOf(READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED)
-            SDK_INT >= TIRAMISU -> listOf(READ_MEDIA_IMAGES)
-            else -> listOf(READ_EXTERNAL_STORAGE)
-        }
     }
 
     internal fun isGrantedIn(context: Context): Boolean =
