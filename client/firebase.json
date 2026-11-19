@@ -3,6 +3,10 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+  "hosting": {
+    "public": "hosting",
+    "cleanUrls": true
+  },
   "emulators": {
     "firestore": { "port": 8080 },
     "ui": { "enabled": true, "port": 4000 }
