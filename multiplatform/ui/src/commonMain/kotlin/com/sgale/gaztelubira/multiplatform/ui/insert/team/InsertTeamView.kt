@@ -16,8 +16,10 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.insert.team
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_team_title
 import org.jetbrains.compose.resources.stringResource
@@ -32,7 +34,8 @@ fun InsertTeamView(
         title = stringResource(Res.string.insert_team_title)
     ) { modifier ->
         InsertTeamViewUI(
-            modifier = modifier,
+            modifier = modifier
+                .padding(LocalScaffoldPadding.current),
             state = state,
             actions = actions
         )

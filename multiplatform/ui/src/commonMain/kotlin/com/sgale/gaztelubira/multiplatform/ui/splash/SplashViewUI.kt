@@ -18,12 +18,14 @@ package com.sgale.gaztelubira.multiplatform.ui.splash
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBProgressBar
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 import com.sgale.gaztelubira.multiplatform.ui.splash.state.SplashPhase.COMPLETING
 import com.sgale.gaztelubira.multiplatform.ui.splash.state.SplashPhase.SKIPPED
 import com.sgale.gaztelubira.multiplatform.ui.splash.ui.LottieAnimation
@@ -37,7 +39,9 @@ internal fun SplashViewUI(
         showTopAppBar = true,
         content = { modifier ->
             Box(
-                modifier = modifier.fillMaxSize()
+                modifier = modifier
+                    .padding(LocalScaffoldPadding.current)
+                    .fillMaxSize()
             ) {
                 LottieAnimation(
                     modifier = Modifier.align(Center)

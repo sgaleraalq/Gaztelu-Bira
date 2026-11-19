@@ -16,8 +16,10 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.detail.match
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 
 @Composable
 fun MatchDetailView(
@@ -28,7 +30,8 @@ fun MatchDetailView(
         title = ""
     ) { modifier ->
         MatchDetailViewUI(
-            modifier = modifier,
+            modifier = modifier
+                .padding(LocalScaffoldPadding.current),
             state = state,
             actions = actions
         )

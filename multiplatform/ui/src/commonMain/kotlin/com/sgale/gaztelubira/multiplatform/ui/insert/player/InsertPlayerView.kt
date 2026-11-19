@@ -16,8 +16,11 @@
 
 package com.sgale.gaztelubira.multiplatform.ui.insert.player
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.sgale.gaztelubira.multiplatform.designsystem.components.GBScaffold
+import com.sgale.gaztelubira.multiplatform.designsystem.components.LocalScaffoldPadding
 import com.sgale.gaztelubira.multiplatform.ui.resources.Res
 import com.sgale.gaztelubira.multiplatform.ui.resources.insert_player_title
 import org.jetbrains.compose.resources.stringResource
@@ -32,7 +35,8 @@ fun InsertPlayerView(
         title = stringResource(Res.string.insert_player_title)
     ) { modifier ->
         InsertPlayerViewUI(
-            modifier = modifier,
+            modifier = modifier
+                .padding(LocalScaffoldPadding.current),
             state = state,
             actions = actions
         )
