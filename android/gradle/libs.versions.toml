@@ -10,8 +10,8 @@ targetSdk = "37"
 agp = "9.5.2"
 kotlin = "2.4.21"
 
-composeActivity = "1.13.0"
-composeBom = "2026.11.01"
+composeActivity = "1.12.0"
+composeBom = "2026.09.00"
 composeMultiplatform = "1.12.2"
 composeMultiplatformMaterial3 = "1.9.0"
 compottie= "2.3.3"
@@ -52,8 +52,6 @@ kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "ko
 
 ## Networking
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-
-## Animation
 
 ## Image loading
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
