@@ -1,4 +1,7 @@
 **/build
 client/*
+!client/firestore-seed/
+client/firestore-seed/*
+!client/firestore-seed/backup/
 res/
 .idea/

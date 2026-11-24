@@ -1,0 +1,10 @@
+{
+  "path": "players/manu",
+  "data": {
+    "name": "Manu",
+    "nickname": "Manu",
+    "faceImage": null,
+    "bodyImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Fmanu%2Fbody.png?alt=media&token=d265050e-4b96-406b-9c42-9dc61e4db958",
+    "updatedAt": "2026-10-08T22:46:53.386Z"
+  }
+}

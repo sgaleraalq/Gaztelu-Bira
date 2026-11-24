@@ -1,0 +1,10 @@
+{
+  "path": "players/pedro_garces",
+  "data": {
+    "name": "Pedro Garces",
+    "nickname": "Pedro",
+    "faceImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Fpedro_garces%2Fface.jpg?alt=media&token=302fe425-23d7-42ed-b872-61b579240d38",
+    "bodyImage": "https://firebasestorage.googleapis.com/v0/b/gaztelu-bira.firebasestorage.app/o/players%2Fpedro_garces%2Fbody.png?alt=media&token=090cc791-0ba2-40d4-ac2e-bc477cd4a0fd",
+    "updatedAt": "2026-10-08T22:46:55.392Z"
+  }
+}
